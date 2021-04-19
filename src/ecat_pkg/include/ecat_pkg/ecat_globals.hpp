@@ -96,23 +96,6 @@ static struct timespec        g_sync_timer ;     // timer for DC sync .
  * @param time2 Timespec struct 2
  * @return Addition result
  */
-struct timespec timespec_add(struct timespec time1, struct timespec time2)
-{
-    struct timespec result;
-
-    if ((time1.tv_nsec + time2.tv_nsec) >= g_kNsPerSec)
-    {
-        result.tv_sec = time1.tv_sec + time2.tv_sec + 1;
-        result.tv_nsec = time1.tv_nsec + time2.tv_nsec - g_kNsPerSec;
-    }
-    else
-    {
-        result.tv_sec = time1.tv_sec + time2.tv_sec;
-        result.tv_nsec = time1.tv_nsec + time2.tv_nsec;
-    }
-
-    return result;
-}
 /* Using Monotonic system-wide clock.  */
 #define CLOCK_TO_USE        CLOCK_MONOTONIC  
 
