@@ -88,73 +88,108 @@ class EthercatNode : public LifecycleNode
  * @brief Passes your defined slave to EthercatNode class.
  * 
  * @param c_slave first create your own EthercatSlave instance and modify it then pass it to configuration.
- * @param index specify the physical connection index for your custom configured slave.
+ * @param position specify the physical connection position for your custom configured slave.
  */
-    void SetCustomSlave(EthercatSlave c_slave, int index);
+    void SetCustomSlave(EthercatSlave c_slave, int position);
 /**
- * @brief Obtains slave configuration w.r.t master.
+ * @brief Obtains slave configuration for all slaves w.r.t master.
  * @return 0 if succesfull, otherwise -1. 
  */
     int  ConfigureSlaves();
 /**
- * @brief Sets operation mode based on CIA402 
- * 
- * @param om operation mode
- * \see  OpMode structure 
- * @return 0 if succesfull otherwise -1
- */
-    int SetOperationMode(uint8_t om,int index);
-/**
- * @brief Set all motors on the bus to same mode.
- * 
- * @param om Operationa Mode 
- * @return 0 if succesfull, otherwise -1.
- */
-    int SetOperationModeAll(uint8_t om);
-/**
- * @brief Set the Profile Position Parameters for servo drive in specified index.
- * 
+ * @brief Set mode to ProfilePositionMode with specified parameters for servo drive on that position.
+ *       
  * @param P Profile position parameter structure specified by user.
- * @param index Slave index
+ * @param position Slave position
  * @return 0 if succesfull, otherwise -1.
  */
-    int  SetProfilePositionParameters(ProfilePosParam& P , int index);
+    int  SetProfilePositionParameters(ProfilePosParam& P , int position);
 /**
- * @brief Set the Profile Position Parameters for all servo drives on the bus.
+ * @brief Set the mode to ProfilePositionMode with specified Parameters for all servo drives on the bus.
  * 
  * @param P Profile position parameter structure specified by user.
  * @return 0 if succesful, otherwise -1.
  */
     int SetProfilePositionParametersAll(ProfilePosParam& P);
     /**
-     * @brief Set the Profile Velocity parameters for servo drive in specified index.
+     * @brief Set mode to ProfileVelocityMode with specified parameters for servo drive on that position.
      * 
      * @param P Profile velocity parameter structure specified by user.
-     * @param index Slave index
+     * @param position Slave position
      * @return 0 if succesful, -1 otherwise.
      */
-    int SetProfileVelocityParameters(ProfileVelocityParam& P,int index);
+    int SetProfileVelocityParameters(ProfileVelocityParam& P,int position);
     /**
-     * @brief Set the Profile Velocity Paramters for all servo drives on the bus
+     * @brief Set mode to ProfileVelocityMode with specified parameters for all servo drives on the bus
      * 
      * @param P Profile velocity parameter structure specified by user.
      * @return 0 if succesfull, -1 otherwise.
      * @todo Add error code to all functions.Instead of returning -1. 
      */
     int SetProfileVelocityParametersAll(ProfileVelocityParam& P);
-    
-    
-    void SetProfilePositionPdoRegs(uint16_t  pos);
+    /**
+     * @brief Maps default PDOs for our spine surgery robot implementation.
+     * @note This method is specific for our spinerobot implementation.
+     * If you have different topology or different servo drives use 
+     * \see MapCustomPdos() function.
+     * @return 0 if succesfull, otherwise -1.
+     */
+    int MapDefaultPdosForMotors();
+    /**
+     * @brief Map Custom PDO based on your PDO mappings
+     * @note  You have to specify slave syncs and slave pdo registers before using function
+     * @param S EthercatSlave instance
+     * @param position Physical position of your slave w.r.t master
+     * @return 0 if succesfull, -1 otherwise.
+     */
+    int MapCustomPdos(EthercatSlave S, int position);
+    /**
+     * @brief Configures DC synchronization for specified slave position
+     * 
+     * @param assign_activate Activating DC synchronization for slave.
+     * 0x300 for Elmo | 0x0006 for EasyCAT
+     * @note Assign activate parameters specified in slaves ESI file 
+     * 
+     * @param position
+     */
+    void ConfigDcSync(uint16_t assign_activate, int position);
 
-    int  MapPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_entry_reg);
-    void ConfigDcSync();
+#if SDO_COMM        
     int  ConfigSdoRequests(SdoRequest& e_sdo);
     int  ReadSdo(ec_sdo_request_t *req, uint32_t& target);
     void WriteSdo(ec_sdo_request_t *req, uint32_t data);
-    
+#endif
+    /**
+     * @brief This function will check slave's application layer states. (INIT/PREOP/SAFEOP/OP)
+     */
     void CheckSlaveConfigurationState();
+    /**
+     * @brief This function will check master's state, in terms of number of responding slaves and their application layer states
+     * 
+     * @return 0 if succesful, otherwise -1 
+     * \see ec_master_state_t structure.
+     **/
     int  CheckMasterState();
+    /**
+     * @brief  Reads the state of a domain.
+     * Stores the domain state in the given state structure.
+     * Using this method, the process data exchange can be monitored in realtime.
+     * */
     void CheckMasterDomainState();
+    /**
+     * @brief Activates master, after this function call realtime operation can start.
+     * \warning Before activating master all configuration should be done
+     * \warning After calling this function you have to register domain(s) and start realtime task.
+     * @return 0 if succesful, otherwise -1. 
+     */
+    int  ActivateMaster();
+    /**
+     * @brief Registers domain for each slave.
+     *  This method has to be called after ecrt_master_activate() to get the mapped domain process data memory. 
+     * @return 0 if succeful , otherwise -1 
+     */
+    int  RegisterDomain();
+
     int  WaitForOperationalMode();
     int  IsOperational();
     void EnableDevice();
@@ -170,8 +205,6 @@ class EthercatNode : public LifecycleNode
     void GetDefaultVelocityParameters();
     int  SetProfileVelocityParameters(ProfileVelocityParam& P);
     
-    int  ActivateMaster();
-    int  RegisterDomain();
     int  KeepInOPmode();
     void ResetMaster();
 
@@ -179,10 +212,10 @@ class EthercatNode : public LifecycleNode
     /// @todo Create publsiher and subscribers.
         rclcpp::TimerBase::SharedPtr timer_;
     /// @todo check interface and custom msg file usage.
-    /// e.g LifecyclePublisher<my_interface::msg::ReceivedData>::SharedPtr received_data_publisher_;
-        // LifecyclePublisher<ReceivedData>::SharedPtr received_data_publisher_;
-        // rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-        // rclcpp::Subscription<std_msgs::msg::String>::SharedPtr joystick_subscriber_;
-        
+       /* LifecyclePublisher<my_interface::msg::ReceivedData>::SharedPtr received_data_publisher_;
+        LifecyclePublisher<ReceivedData>::SharedPtr received_data_publisher_;
+        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+        rclcpp::Subscription<std_msgs::msg::String>::SharedPtr joystick_subscriber_;
+        */
 
 };

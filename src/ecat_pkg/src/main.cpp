@@ -1,3 +1,4 @@
+#include <iostream>
 #include <limits.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -13,11 +14,11 @@
 #include <sys/mman.h>
 #include <malloc.h>
 #include <sched.h> /* sched_setscheduler() */
-#include<iostream>
+
 /****************************************************************************/
-
 #include "ecrt.h"
-
+/****************************************************************************/
+#include "ecat_node.hpp"
 /****************************************************************************/
 
 // Application parameters
@@ -52,51 +53,17 @@ static ec_slave_config_state_t sc_ana_in_state = {};
 // process data
 static unsigned int counter = 1;
 static unsigned int blink = 0;
-// process data
-static uint8_t *domain1_pd2 = NULL;
-static uint64_t *domainInput_pd = NULL;
 static uint8_t *domain1_pd = NULL;
+#define LAB_2_SlavePos  0, 0
 
-#define LAB_1_SlavePos  0, 0
-
-#define LAB_1 0x0000079a, 0xababa001
-
+#define LAB_2 0x0000079a, 0xababa002
 
 // offsets for PDO entries
-static uint32_t alarmStatus;
-static uint32_t temperatureStatus;
+static uint32_t segments;
+static uint32_t potentiometer;
+static uint32_t switches;
 static unsigned int sync_ref_counter = 0;
 const struct timespec cycletime = {0, PERIOD_NS};
-
-static ec_pdo_entry_reg_t domain1_regs[] = {
-    {LAB_1_SlavePos,  LAB_1, 0X0005, 0X01, &alarmStatus},
-    {LAB_1_SlavePos,  LAB_1, 0X0006, 0X01, &temperatureStatus},
-    {}
-};
-
-/* Master 0, Slave 1, "LAB_1"
- * Vendor ID:       0x0000079a
- * Product code:    0xababa001
- * Revision number: 0x00000001
- */
-
-static ec_pdo_entry_info_t slave_1_pdo_entries[] = {
-    {0x0005, 0x01, 8}, /* Alarm */
-    {0x0006, 0x01, 32}, /* Temperature */
-};
-
-static ec_pdo_info_t slave_1_pdos[] = {
-    {0x1600, 1, slave_1_pdo_entries + 0}, /* Outputs */
-    {0x1a00, 1, slave_1_pdo_entries + 1}, /* Inputs */
-};
-
-static ec_sync_info_t slave_1_syncs[] = {
-    {0, EC_DIR_OUTPUT, 1, slave_1_pdos + 0, EC_WD_ENABLE},
-    {1, EC_DIR_INPUT, 1, slave_1_pdos + 1, EC_WD_DISABLE},
-    {0xff}
-};
-
-/*****************************************************************************/
 
 struct timespec timespec_add(struct timespec time1, struct timespec time2)
 {
@@ -113,6 +80,14 @@ struct timespec timespec_add(struct timespec time1, struct timespec time2)
     return result;
 }
 
+/*****************************************************************************/
+
+static volatile sig_atomic_t sig = 0;
+void signalHandler(int signum)
+{
+    std::cout << "Interrupt signal (" << signum << ") received" << std::endl;
+    sig = 1 ;
+}
 /*****************************************************************************/
 
 void check_domain1_state(void)
@@ -167,18 +142,18 @@ void check_slave_config_states(void)
     sc_ana_in_state = s;
 }
 /****************************************************************************/
-static volatile sig_atomic_t sig = 0;
-void signalHandler(int signum)
-{
-    std::cout << "Interrupt signal (" << signum << ") received" << std::endl;
-    sig = 1 ;
-}
 
 void *cyclic_task(void *arg)
 {
+    int lastVal=0;
+    bool seg_test = false;
     struct timespec wakeupTime, time;
-    int print_MaxMin = 18e5 + 100 ;
+    int print_MaxMin = 3e4 + 100 ;
+    uint32_t switchInfo=0;
+    unsigned short potVal=0;
+    uint32_t old_switchInfo=0;
     #if MEASURE_TIMING
+        int begin=100;
         struct timespec startTime={}, endTime={}, lastStartTime = {};
         uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
         latency_min_ns = 0, latency_max_ns = 0,
@@ -191,13 +166,11 @@ void *cyclic_task(void *arg)
     #endif
 
     // get current time
-clock_gettime(CLOCK_TO_USE, &wakeupTime);
-int begin=100;
-float tempData=0;
-unsigned short potVal=0;
-    while(1) 
+    clock_gettime(CLOCK_TO_USE, &wakeupTime);
+
+    while(1)
  {
-            
+
     wakeupTime = timespec_add(wakeupTime, cycletime);
     clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wakeupTime, NULL);
 
@@ -291,15 +264,23 @@ unsigned short potVal=0;
         latency_max_ns = 0;
         latency_min_ns = 0xffffffff;
         #endif
-
-                // calculate new process data
-                tempData = EC_READ_REAL(domain1_pd2 + temperatureStatus);
-    
+            // calculate new process data
+            switchInfo = EC_READ_U8(domain1_pd + switches);
+            potVal     = EC_READ_U16(domain1_pd + potentiometer);
 
             // write process data
-            //EC_WRITE_U8(domain1_pd + segments, blink ? 0x0c : 0x03);
-
-
+            if(switchInfo == 1){
+                EC_WRITE_U8(domain1_pd + segments,0x0c);
+            }
+            if(switchInfo == 2){
+                EC_WRITE_U8(domain1_pd + segments,0x03);
+            }
+            if(switchInfo == 4){
+                EC_WRITE_U8(domain1_pd + segments,0x0a);
+            }
+            if(switchInfo == 8){
+                EC_WRITE_U8(domain1_pd + segments,0x08);
+            }
             if (sync_ref_counter) {
                 sync_ref_counter--;
             } else {
@@ -314,7 +295,7 @@ unsigned short potVal=0;
             ecrt_domain_queue(domain1);
             ecrt_master_send(master);
             if(begin) begin--;
-    #ifdef MEASURE_TIMING
+    #if MEASURE_TIMING
             clock_gettime(CLOCK_TO_USE, &endTime);
     #endif
  }
@@ -331,10 +312,21 @@ void stack_prefault(void)
 }
 
 int main(int argc, char **argv)
-{  
-	signal(SIGINT,signalHandler);
-    ec_slave_config_t *slave_config2;
-
+{
+    setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+    signal(SIGINT,signalHandler);
+    rclcpp::init(argc, argv);
+    int	fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+    if(fd){
+        std::cout << "EtherCAT master is not active, activating...." << std::endl;
+        std::system("cd ~; sudo ethercatctl start");
+        usleep(1e6);
+        fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+        if(fd)
+            std::cout << "EtherCAT device not found...." << std::endl;
+    }
+    ec_slave_config_t *sc;
+    stack_prefault();
     if (mlockall(MCL_CURRENT | MCL_FUTURE) == -1) {
         perror("mlockall failed");
         return -1;
@@ -348,35 +340,37 @@ int main(int argc, char **argv)
      if (!domain1)
         return -1;
 
-    if (!(slave_config2 = ecrt_master_slave_config(master,
-                    LAB_1_SlavePos, LAB_1))) {  
+
+    if (!(sc = ecrt_master_slave_config(master,
+                    LAB_2_SlavePos, LAB_2))) {
         fprintf(stderr, "Failed to get slave configuration.\n");
         return -1;
     }
 
-    alarmStatus = ecrt_slave_config_reg_pdo_entry(slave_config2,
-            0x005, 0x01, domain1, NULL);
-    if (alarmStatus < 0)
-        return -1;
-    
-    temperatureStatus = ecrt_slave_config_reg_pdo_entry(slave_config2,
-            0x006, 0x01, domain1, NULL);
-    if (temperatureStatus < 0)
+    segments = ecrt_slave_config_reg_pdo_entry(sc,0x0005, 1, domain1, NULL);
+    if (segments < 0)
         return -1;
 
+    potentiometer = ecrt_slave_config_reg_pdo_entry(sc,0x0006, 0x01, domain1, NULL);
+    if ( potentiometer < 0)
+        return -1;
+
+    switches = ecrt_slave_config_reg_pdo_entry(sc,0x0006,0x02,domain1,NULL);
+    if(switches < 0)
+        return -1;
 
     // configure SYNC signals for this slave
-    ecrt_slave_config_dc(slave_config2, 0x0006, PERIOD_NS, 1000, 0, 0);
-    //ecrt_slave_config_dc(slave_config2, 0x0001, PERIOD_NS, 1000, 0, 0);
+    ecrt_slave_config_dc(sc, 0x0006, PERIOD_NS, 1000, 0, 0);
 
 
     printf("Activating master...\n");
     if (ecrt_master_activate(master))
         return -1;
 
-    if(!(domain1_pd2 = ecrt_domain_data(domain1))) 
-    return -1;
- 
+    if (!(domain1_pd = ecrt_domain_data(domain1))) {
+        return -1;
+    }
+
 
     struct sched_param param = {};
     pthread_t cyclicThread;
@@ -435,8 +429,7 @@ int main(int argc, char **argv)
         return -1 ;
     }
     printf("Main returned\n");
-        
+    rclcpp::shutdown();
     return 0;
 }
 
-/****************************************************************************/

@@ -124,7 +124,7 @@ class EthercatSlave
     /// PDO configuration information required for synchronization
     ec_pdo_info_t        * slave_pdo_indexes_ ;
     /// Sync manager configuration information for synchronization
-    ec_sync_info_t       * slav_syncs_ ; 
+    ec_sync_info_t       * slave_syncs_ ; 
 
 
 /**

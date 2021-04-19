@@ -77,7 +77,7 @@ static ec_master_t        * g_master = NULL ;  // EtherCAT master
 static ec_master_state_t    g_master_state = {}; // EtherCAT master state
 
 static ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
-static ec_domain_state_t   g_master_domainState = {};   // EtherCAT master domain state
+static ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
 
 static char                   g_slaves_up = 0 ;  // Number of slaves in op mode.
 static struct timespec        g_sync_timer ;     // timer for DC sync .
@@ -87,8 +87,32 @@ static struct timespec        g_sync_timer ;     // timer for DC sync .
 #define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  // Reset(0) specific bit in the data
 
 /* Convert timespec struct to nanoseconds */ 
-#define TIMESPEC2NS(T)      ((uint64_t) (T).tv_sec * kNsPerSec + (T).tv_nsec) 
+#define TIMESPEC2NS(T)      ((uint64_t) (T).tv_sec * g_kNsPerSec + (T).tv_nsec) 
 
+/**
+ * @brief Add two timespec struct
+ * 
+ * @param time1 Timespec struct 1
+ * @param time2 Timespec struct 2
+ * @return Addition result
+ */
+struct timespec timespec_add(struct timespec time1, struct timespec time2)
+{
+    struct timespec result;
+
+    if ((time1.tv_nsec + time2.tv_nsec) >= g_kNsPerSec)
+    {
+        result.tv_sec = time1.tv_sec + time2.tv_sec + 1;
+        result.tv_nsec = time1.tv_nsec + time2.tv_nsec - g_kNsPerSec;
+    }
+    else
+    {
+        result.tv_sec = time1.tv_sec + time2.tv_sec;
+        result.tv_nsec = time1.tv_nsec + time2.tv_nsec;
+    }
+
+    return result;
+}
 /* Using Monotonic system-wide clock.  */
 #define CLOCK_TO_USE        CLOCK_MONOTONIC  
 
