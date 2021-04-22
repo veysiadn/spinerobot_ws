@@ -1,1 +1,1 @@
-# ecat_node_csp
+# ROS2 EtherCAT package 
