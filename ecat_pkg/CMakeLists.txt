@@ -11,7 +11,7 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 ## Compile options for IgH libary and several Linux libraries (e.g lpthread)
-add_compile_options(-Wall -Wextra -Wpedantic -I/opt/etherlab/include -L/opt/etherlab/lib -lethercat -lpthread -lrt -Wl,--rpath -Wl,/opt/etherlab/lib)
+add_compile_options(-g -w -Wall -Wextra -Wpedantic -I/opt/etherlab/include -L/opt/etherlab/lib -lethercat -lpthread -lrt -Wl,--rpath -Wl,/opt/etherlab/lib)
 
 ## Defining paths and libraries to include in the next section.
 set(etherlab_include /opt/etherlab/include)
@@ -24,12 +24,15 @@ set(node_name "ecat_node")
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+## This is for custom msg files.
 find_package(ecat_msgs REQUIRED)
-
+## This is for joystick
+find_package(sensor_msgs REQUIRED)
 ## Output executable name and requied cpp files for executable
 add_executable(ecat_node src/main.cpp
-			 src/ecat_node.cpp
-			 src/ecat_slave.cpp)
+                         src/ecat_node.cpp
+                         src/ecat_slave.cpp
+                         src/ecat_lifecycle.cpp)
 
 ## Specifying include directories for ecat_node specifically by using definitions above.
 ## target include directories adds include directory for specific target executable.
@@ -52,7 +55,7 @@ include_directories(
 
 ## Don't forget to add dependencies to your build file, 
 ## Use find_package(x) then add dependecy for x. 
-ament_target_dependencies(${node_name}  rclcpp rclcpp_lifecycle ecat_msgs)
+ament_target_dependencies(${node_name}  rclcpp rclcpp_lifecycle ecat_msgs sensor_msgs)
 
 install(TARGETS ecat_node
   DESTINATION lib/${PROJECT_NAME})

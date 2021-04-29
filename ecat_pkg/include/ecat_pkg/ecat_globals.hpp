@@ -68,12 +68,12 @@
 #include "object_dictionary.hpp"  
 
 /*****************************************************************************/
-#define PERIOD_NS        1e6  // EtherCAT communication period.
-#define PERIOD_US    (PERIOD_NS / 1e3)
-#define PERIOD_MS    (PERIOD_NS / 1e6)
-#define NUM_OF_SLAVES     4   // Number of connected slave to the bus.
-const unsigned int g_kNumberOfServoDrivers = 3 ;
-const unsigned int g_kNsPerSec = 1e9;  // Nanoseconds per second.
+#define PERIOD_NS        1000000  // EtherCAT communication period.
+#define PERIOD_US    (PERIOD_NS / 1000)
+#define PERIOD_MS    (PERIOD_US / 1000)
+#define NUM_OF_SLAVES     1   // Number of connected slave to the bus.
+const unsigned int g_kNumberOfServoDrivers = 0 ;
+const unsigned int g_kNsPerSec = 1000000000;  // Nanoseconds per second.
 /****************************************************************************/
 static ec_master_t        * g_master = NULL ;  // EtherCAT master
 static ec_master_state_t    g_master_state = {}; // EtherCAT master state
@@ -83,23 +83,51 @@ static ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master doma
 
 static char                   g_slaves_up = 0 ;  // Number of slaves in op mode.
 static struct timespec        g_sync_timer ;     // timer for DC sync .
+const struct timespec       g_cycle_time = {0, PERIOD_NS};       // cycletime settings in ns. 
+static unsigned int         g_sync_ref_counter = 0;
+
 /****************************************************************************/
 #define TEST_BIT(NUM,N)     (NUM &  (1 << N))  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
 #define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  // Reset(0) specific bit in the data
-
 /* Convert timespec struct to nanoseconds */ 
 #define TIMESPEC2NS(T)      ((uint64_t) (T).tv_sec * g_kNsPerSec + (T).tv_nsec) 
+#define DIFF_NS(A, B) (((B).tv_sec - (A).tv_sec) * g_kNsPerSec + (B).tv_nsec - (A).tv_nsec)
+/* Using Monotonic system-wide clock.  */
+#define CLOCK_TO_USE        CLOCK_MONOTONIC  
+#define MEASURE_TIMING          1
+/**
+ *  We need this typecasting to pass member function to pthread_create().
+ *  For more information check page below.
+ * https://thispointer.com/c-how-to-pass-class-member-function-to-pthread_create/
+ * */
+typedef void * (*THREADFUNCPTR)(void *);
 
 /**
- * @brief Add two timespec struct
+ * @brief Add two timespec struct.Since it's global function it should be either static or inline
  * 
  * @param time1 Timespec struct 1
  * @param time2 Timespec struct 2
  * @return Addition result
  */
-/* Using Monotonic system-wide clock.  */
-#define CLOCK_TO_USE        CLOCK_MONOTONIC  
+
+inline struct timespec timespec_add(struct timespec time1, struct timespec time2)
+{
+    struct timespec result;
+
+    if ((time1.tv_nsec + time2.tv_nsec) >= g_kNsPerSec)
+    {
+        result.tv_sec = time1.tv_sec + time2.tv_sec + 1;
+        result.tv_nsec = time1.tv_nsec + time2.tv_nsec - g_kNsPerSec;
+    }
+    else
+    {
+        result.tv_sec = time1.tv_sec + time2.tv_sec;
+        result.tv_nsec = time1.tv_nsec + time2.tv_nsec;
+    }
+
+    return result;
+}
 
 #ifdef LOGGING
 #ifdef LOGGING_SAMPLING
@@ -186,6 +214,10 @@ typedef struct
     unsigned int op_mode_display ;
     unsigned int error_code ;
     unsigned int extra_status_reg ;
+
+    unsigned int r_limit_switch;
+    unsigned int l_limit_switch;
+
 } OffsetPDO ;
 
 

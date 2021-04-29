@@ -1,6 +1,7 @@
 #include "ecat_node.hpp"
+using namespace EthercatCommunication ; 
 
-EthercatNode::EthercatNode() : LifecycleNode("ecat_node")
+EthercatNode::EthercatNode()
 {
     /// @todo for fault injection probably you'll have to declare parameters here.
     /// this->declare_parameter("")
@@ -10,16 +11,6 @@ EthercatNode::~EthercatNode()
 {
 
 }
-
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_configure(const State &)
-{
-    /// @todo add configuration phase w.r.t lifecycle node requirements.
-}
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_activate(const State &){}
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_deactivate(const State &){}
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_cleanup(const State &){}
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_shutdown(const State &){}
-node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatNode::on_error(const State &){}
 
 int  EthercatNode::ConfigureMaster()
 {
@@ -40,7 +31,7 @@ int  EthercatNode::ConfigureMaster()
 
 void EthercatNode::DefineDefaultSlaves()
 {
-    for(int i = 0 ; i < g_kNumberOfServoDrivers-1 ; i++)
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
     {
         // In this way first servo connected to master pc will be slave[0], second will be slave[1] and so on.
         this->slaves_[i].position_      = i ; 
@@ -50,8 +41,8 @@ void EthercatNode::DefineDefaultSlaves()
         /// This means that this slave will be connected last.It will be at the end of topology.
         /// Connection will be ; master->slave[0]->slave[1]->slave[2]->slave[3]->.....->slave[NUM_OF_SLAVES-1]
         this->slaves_[NUM_OF_SLAVES-1].position_      = NUM_OF_SLAVES-1 ; 
-        this->slaves_[NUM_OF_SLAVES-1].vendor_id_     = 0x0000079a ; // EasyCAT vendor id;
-        this->slaves_[NUM_OF_SLAVES-1].product_code_  = 0xababa001 ; // EasyCAT product code.  
+        this->slaves_[NUM_OF_SLAVES-1].vendor_id_     = 0x00830518 ; // Custom EasyCAT vendor id;
+        this->slaves_[NUM_OF_SLAVES-1].product_code_  = 0x02021053 ; // Custom EasyCAT product code.  
 }
 
 void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
@@ -61,7 +52,7 @@ void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
 
 int  EthercatNode::ConfigureSlaves()
 {
-    for(int i = 0 ; i < NUM_OF_SLAVES-1 ; i++ ){
+    for(int i = 0 ; i < NUM_OF_SLAVES ; i++ ){
         this->slaves_[i].slave_config_ = ecrt_master_slave_config(g_master,this->slaves_[i].kAlias_,
                                         this->slaves_[i].position_,this->slaves_[i].vendor_id_,
                                         this->slaves_[i].product_code_); 
@@ -117,7 +108,7 @@ int EthercatNode::SetProfilePositionParameters(ProfilePosParam& P, int position)
 
 int EthercatNode::SetProfilePositionParametersAll(ProfilePosParam& P)
 {
-    for(int i = 0 ; i < g_kNumberOfServoDrivers - 1 ; i++)
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
     {
         // Set operation mode to ProfilePositionMode for all motors.
         if( ecrt_slave_config_sdo8(this->slaves_[i].slave_config_,OD_OPERATION_MODE, kProfilePosition) ){
@@ -196,7 +187,7 @@ int EthercatNode::SetProfileVelocityParameters(ProfileVelocityParam& P, int posi
 
 int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
 {
-    for(int i = 0; i < g_kNumberOfServoDrivers - 1 ; i++){
+    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
         // Set operation mode to ProfileVelocityMode for all motors.
         if( ecrt_slave_config_sdo8(this->slaves_[i].slave_config_,OD_OPERATION_MODE, kProfileVelocity) ){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
@@ -235,7 +226,7 @@ int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
 int EthercatNode::MapDefaultPdos()
 {
     int err ;
-    for(int i = 0 ; i < g_kNumberOfServoDrivers -1 ; i++){    
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){    
         err = ecrt_slave_config_pdos(this->slaves_[i].slave_config_,EC_END,this->slaves_[i].elmo_syncs);
         if ( err ) {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motor!");
@@ -278,17 +269,14 @@ int EthercatNode::MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_e
 
 void EthercatNode::ConfigDcSyncDefault()
 {
-    for(int i=0; i < NUM_OF_SLAVES-1 ; i++)
-        if (i==(NUM_OF_SLAVES-1)){
-            ecrt_slave_config_dc(this->slaves_[i].slave_config_, 0x0006, this->slaves_[i].cycle_time_, this->slaves_[i].kSync0_shift_, 0, 0);
-        }else {
-            ecrt_slave_config_dc(this->slaves_[i].slave_config_, 0x0300, this->slaves_[i].cycle_time_, this->slaves_[i].kSync0_shift_, 0, 0);
-        }
+    for(int i=0; i < NUM_OF_SLAVES ; i++){
+        ecrt_slave_config_dc(this->slaves_[i].slave_config_, 0X0300, PERIOD_NS, this->slaves_[i].kSync0_shift_, 0, 0);
+    }
 }
 
 void EthercatNode::ConfigDcSync(uint16_t assign_activate, int position)
 {
-    return ecrt_slave_config_dc(this->slaves_[position].slave_config_, assign_activate, this->slaves_[position].cycle_time_, this->slaves_[position].kSync0_shift_, 0, 0);
+    return ecrt_slave_config_dc(this->slaves_[position].slave_config_, assign_activate, PERIOD_NS, this->slaves_[position].kSync0_shift_, 0, 0);
 }
 
 void EthercatNode::CheckSlaveConfigurationState()
@@ -364,19 +352,19 @@ int EthercatNode::RegisterDomain()
 
 int EthercatNode::WaitForOperationalMode()
 {
-    int tryCount=0;
-    int printSpeedSet=0;
-    int timeOut = 1e4*PERIOD_MS;
+    int try_counter=0;
+    int check_state_count=0;
+    int time_out = 1e4*PERIOD_MS;
     while (g_slaves_up != NUM_OF_SLAVES ){
-        if(tryCount < timeOut){
+        if(try_counter < time_out){
             ecrt_master_receive(g_master);
             ecrt_domain_process(g_master_domain);
             usleep(PERIOD_US);
-            if(!printSpeedSet){
+            if(!check_state_count){
                 CheckMasterState();
                 CheckMasterDomainState();
                 this->CheckSlaveConfigurationState();
-                printSpeedSet = PERIOD_US ;
+                check_state_count = PERIOD_US ;
             }
             clock_gettime(CLOCK_MONOTONIC, &g_sync_timer);
             ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(g_sync_timer));
@@ -386,11 +374,279 @@ int EthercatNode::WaitForOperationalMode()
             ecrt_domain_queue(g_master_domain);                
             ecrt_master_send(g_master);
 
-            tryCount++;
-            printSpeedSet--;
+            try_counter++;
+            check_state_count--;
         }else {
-            std::cout << "Error : Timeout occurred while waiting for OP mode.! " << std::endl;
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Time out occurred while waiting for OP mode.!  ");
             return -1;
         }
     return 0;
+    }
 }
+
+int EthercatNode::SetComThreadPriorities()
+{
+    ethercat_sched_param_.sched_priority = 98;
+    printf("Using priority %i\n.", ethercat_sched_param_.sched_priority);
+
+    if (sched_setscheduler(0, SCHED_FIFO, &ethercat_sched_param_) == -1){
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set scheduler failed. ! ");
+        return -1 ; 
+    }    
+    err_ = pthread_attr_init(&ethercat_thread_attr_);
+    if (err_) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error initializing thread attribute  ! ");
+        return -1;
+    }
+    /* Set a specific stack size  */
+    err_ = pthread_attr_setstacksize(&ethercat_thread_attr_, PTHREAD_STACK_MIN);
+    if (err_) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error setting thread stack size  ! ");
+        return -1 ;
+    }
+
+    err_ = pthread_attr_setschedpolicy(&ethercat_thread_attr_, SCHED_FIFO);
+    if (err_) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setschedpolicy failed ! ");
+        return -1 ;
+    }
+    err_ = pthread_attr_setschedparam(&ethercat_thread_attr_, &ethercat_sched_param_);
+    if (err_) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setschedparam failed ! ");
+            return -1 ;
+    }
+    /* Use scheduling parameters of attr */
+    err_ = pthread_attr_setinheritsched(&ethercat_thread_attr_, PTHREAD_EXPLICIT_SCHED);
+    if (err_) 
+    {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setinheritsched failed ! ");
+        return -1 ;
+    }
+}
+
+void *EthercatNode::StartPdoExchange(void *arg)
+{
+int counter = 1000;
+struct timespec wake_up_time, time;
+        #if MEASURE_TIMING
+            struct timespec startTime, endTime, lastStartTime = {};
+            uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
+            latency_min_ns = 0, latency_max_ns = 0,
+            period_min_ns = 0, period_max_ns = 0,
+            exec_min_ns = 0, exec_max_ns = 0,
+            max_period=0, max_latency=0,max_exec=0;
+
+        #endif
+
+    // get current time
+clock_gettime(CLOCK_TO_USE, &wake_up_time);
+int begin=10;
+uint8_t r_limit_sw_val = 0 ;
+uint8_t l_limit_sw_val = 0 ;
+    while(1)
+ {
+
+    wake_up_time = timespec_add(wake_up_time, g_cycle_time);
+    clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
+
+    // Write application time to master
+    //
+    // It is a good idea to use the target time (not the measured time) as
+    // application time, because it is more stable.
+    //
+    ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
+
+        #if MEASURE_TIMING
+            clock_gettime(CLOCK_TO_USE, &startTime);
+            latency_ns = DIFF_NS(wake_up_time, startTime);
+            period_ns = DIFF_NS(lastStartTime, startTime);
+            exec_ns = DIFF_NS(lastStartTime, endTime);
+            lastStartTime = startTime;
+            if(!begin)
+            {
+            if(latency_ns > max_latency)        max_latency = latency_ns;
+            if(period_ns > max_period)          max_period  = period_ns;
+            if(exec_ns > max_exec)              max_exec    = exec_ns;
+            }
+
+            if (latency_ns > latency_max_ns)  {
+                latency_max_ns = latency_ns;
+            }
+            if (latency_ns < latency_min_ns) {
+                latency_min_ns = latency_ns;
+            }
+            if (period_ns > period_max_ns) {
+                period_max_ns = period_ns;
+            }
+            if (period_ns < period_min_ns) {
+                period_min_ns = period_ns;
+            }
+            if (exec_ns > exec_max_ns) {
+                exec_max_ns = exec_ns;
+            }
+            if (exec_ns < exec_min_ns) {
+                exec_min_ns = exec_ns;
+            }
+        #endif
+
+            // receive process data
+    ecrt_master_receive(g_master);
+    ecrt_domain_process(g_master_domain);
+
+    if (counter)
+    {
+        counter--;
+    }
+    else
+    {
+        // do this at 1 Hz
+        counter = 100;
+        #if MEASURE_TIMING
+                // output timing stats
+              /* printf("-----------------------------------------------\n");
+                printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
+                        period_min_ns, period_max_ns);
+                printf("Texec     min   : %10u ns  | max : %10u ns\n",
+                        exec_min_ns, exec_max_ns);
+                printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
+                        latency_min_ns, latency_max_ns);
+                printf("Tjitter max     : %10u ns  \n",
+                        latency_max_ns-latency_min_ns);*/
+                printf("Right switch val     = %d\n"
+                       "Left switch val      = %d\n",
+                        r_limit_sw_val,l_limit_sw_val);
+                printf("----------------------------------------");
+                printf( "Left X   : %f\n", left_x_axis_);
+                printf("Left Y    : %f\n", left_y_axis_);
+                printf( "Right X  : %f\n", right_x_axis_);
+                printf("Right Y   : %f\n", right_y_axis_);
+                printf("----------------------------------------");
+               /* printf("Tperiod min     : %10u ns  | max : %10u ns\n",
+                        period_min_ns, max_period);
+                 printf("Texec  min      : %10u ns  | max : %10u ns\n",
+                        exec_min_ns, max_exec);
+                 printf("Tjitter min     : %10u ns  | max : %10u ns\n",
+                        max_latency-latency_min_ns, max_latency);
+                printf("-----------------------------------------------\n");*/
+                period_max_ns = 0;
+                period_min_ns = 0xffffffff;
+                exec_max_ns = 0;
+                exec_min_ns = 0xffffffff;
+                latency_max_ns = 0;
+                latency_min_ns = 0xffffffff;
+        #endif
+
+                // calculate new process data
+                r_limit_sw_val = EC_READ_U8(slaves_[NUM_OF_SLAVES-1].slave_pdo_domain_ +slaves_[NUM_OF_SLAVES-1].offset_.r_limit_switch);
+                l_limit_sw_val = EC_READ_U8(slaves_[NUM_OF_SLAVES-1].slave_pdo_domain_ +slaves_[NUM_OF_SLAVES-1].offset_.r_limit_switch);
+    }
+
+
+            if (g_sync_ref_counter) {
+                g_sync_ref_counter--;
+            } else {
+                g_sync_ref_counter = 1; // sync every cycle
+
+                clock_gettime(CLOCK_TO_USE, &time);
+                ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
+            }
+            ecrt_master_sync_slave_clocks(g_master);
+
+            // send process data
+            ecrt_domain_queue(g_master_domain);
+            ecrt_master_send(g_master);
+            if(begin) begin--;
+    #if MEASURE_TIMING
+            clock_gettime(CLOCK_TO_USE, &endTime);
+    #endif
+ }
+    return NULL;
+}   
+
+int EthercatNode::OpenEthercatMaster()
+{
+    this->fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+    if(this->fd){
+        RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Opening EtherCAT master...");
+        std::system("cd ~; sudo ethercatctl start");
+        usleep(1e6);
+        this->fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+        if(this->fd){
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : EtherCAT device not found.");
+            return -1;
+            }else {
+                return 0 ;
+            }
+    }
+}
+
+int EthercatNode::InitEthercatCommunication()
+{
+    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Opening EtherCAT device...");
+    if (this->OpenEthercatMaster())
+    {
+        return -1 ;
+    }
+    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring EtherCAT master...");
+    if (this->ConfigureMaster())
+    {
+        return -1 ;
+    }
+    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Defining default slaves...");
+    this->DefineDefaultSlaves();
+
+    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring  slaves...");
+    if(this->ConfigureSlaves())
+    {
+        return -1 ;
+    }
+/*
+    ProfileVelocityParam P ;
+    
+    P.profile_acc=50000 ;
+    P.profile_dec=50000 ;
+    P.max_profile_vel = 90000 ;
+    P.quick_stop_dec = 50000 ;
+    P.motion_profile_type = 0 ;
+    SetProfileVelocityParametersAll(P);
+*/
+RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring DC synchronization...");
+
+    ConfigDcSyncDefault();
+
+RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Activating master...");
+
+    if(ActivateMaster())
+    {
+        return  -1 ;
+    }
+RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Registering master domain...");
+
+    if (RegisterDomain())
+    {
+        return  -1 ;
+    }
+    if (WaitForOperationalMode())
+    {
+        return -1 ;
+    }
+    if (SetComThreadPriorities())
+    {
+        return -1 ;
+    }
+
+    return 0 ; 
+}
+
+int  EthercatNode::StartEthercatCommunication()
+{
+
+    err_= pthread_create(&ethercat_thread_,&ethercat_thread_attr_, (THREADFUNCPTR)&EthercatNode::StartPdoExchange,NULL);
+    if(err_)
+    {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Couldn't start communication thread.!");
+        return -1 ; 
+    }
+    return 0 ;
+}
+

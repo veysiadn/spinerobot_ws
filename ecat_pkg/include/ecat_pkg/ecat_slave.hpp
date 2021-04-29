@@ -78,11 +78,7 @@ class EthercatSlave
     uint32_t   product_code_ ;
     /// Alias will be always zero since we have only one master, without redundancy.
     const static uint16_t   kAlias_ = 0 ;
-    /**
-     * @brief Cycle time for slave
-     * @todo  Cycle time should be parameterized and should be same for all slaves.
-     */
-    uint32_t   cycle_time_ ;
+
     /// DC sync shift setting, zero will give best synchronization.
     const static uint32_t   kSync0_shift_ = 0;
     /**
@@ -239,28 +235,48 @@ class EthercatSlave
     {0xff}
     };
     /*******************************************************************************/
-/* Master 0, Slave 0, "EasyCAT_Slave"
- * Vendor ID:       0x0000079a
- * Product code:    0xababa002
+
+
+/* Master 0, Slave 0, "CustomSlave"
+ * Vendor ID:       0x00830518
+ * Product code:    0x02021053
  * Revision number: 0x00000001
  */
-ec_pdo_entry_reg_t easycat_pdo_regs[]{{}};
-ec_pdo_entry_info_t easycat_slave_pdo_entries[] = {
-    {0x0005, 0x01, 8},  /* Segments */
-    {0x0006, 0x01, 16}, /* Potentiometer */
-    {0x0006, 0x02, 8},  /* Switches */
+
+ec_pdo_entry_reg_t easycat_pdo_regs[3] = {
+    {kAlias_, position_, vendor_id_,  product_code_, 0X0006, 0X06, &this->offset_.r_limit_switch},
+    {kAlias_, position_, vendor_id_,  product_code_, 0X0006, 0X07, &this->offset_.l_limit_switch},
+    {}
 };
 
-ec_pdo_info_t easycat_slave_pdos[] = {
-    {0x1600, 1, easycat_slave_pdo_entries + 0}, /* Outputs */
-    {0x1a00, 2, easycat_slave_pdo_entries + 1}, /* Inputs */
+
+ec_pdo_entry_info_t easycat_slave_pdo_entries[16] = {
+    {0x0005, 0x01, 16}, /* output_analog_01 */
+    {0x0005, 0x02, 16}, /* output_analog_02 */
+    {0x0005, 0x03, 16}, /* output_analog_03 */
+    {0x0005, 0x04, 8}, /* output_digital_04 */
+    {0x0005, 0x05, 8}, /* output_digital_05 */
+    {0x0005, 0x06, 8}, /* output_digital_01 */
+    {0x0005, 0x07, 8}, /* output_digital_02 */
+    {0x0005, 0x08, 8}, /* output_digital_03 */
+    {0x0006, 0x01, 16}, /* input_analog_01 */
+    {0x0006, 0x02, 16}, /* input_analog_02 */
+    {0x0006, 0x03, 16}, /* input_analog_03 */
+    {0x0006, 0x04, 8}, /* input_digital_04 */
+    {0x0006, 0x05, 8}, /* input_digital_05 */
+    {0x0006, 0x06, 8}, /* left_limit_switch */
+    {0x0006, 0x07, 8}, /* right_limit_switch */
+    {0x0006, 0x08, 8}, /* input_digital_03 */
 };
 
-ec_sync_info_t easycat_slave_syncs[] = {
+ec_pdo_info_t easycat_slave_pdos[2] = {
+    {0x1600, 8, easycat_slave_pdo_entries + 0}, /* Outputs */
+    {0x1a00, 8, easycat_slave_pdo_entries + 8}, /* Inputs */
+};
+
+ec_sync_info_t easycat_slave_syncs[3] = {
     {0, EC_DIR_OUTPUT, 1, easycat_slave_pdos + 0, EC_WD_ENABLE},
     {1, EC_DIR_INPUT, 1, easycat_slave_pdos + 1, EC_WD_DISABLE},
     {0xff}
 };
-
-
 };

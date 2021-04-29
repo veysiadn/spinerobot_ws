@@ -1,3 +1,5 @@
+number_of_slaves : 4
+
 ethercat_slaves :
     joint_left :
         vendor_id: 0x0000009a

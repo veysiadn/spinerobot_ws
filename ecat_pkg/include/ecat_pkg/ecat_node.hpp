@@ -38,22 +38,17 @@
  *******************************************************************************/
 #pragma once
 /******************************************************************************/
-#include <rclcpp_lifecycle/lifecycle_node.hpp>
-#include <rclcpp_lifecycle/lifecycle_publisher.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include "sensor_msgs/msg/joy.hpp"
-/******************************************************************************/
-/// Interface header files.Contains custom msg files.
-#include "ecat_msgs/msg/data_received.hpp"
-#include "ecat_msgs/msg/data_sent.hpp"
-/******************************************************************************/
 #include "ecat_globals.hpp"
 /******************************************************************************/
 class EthercatSlave ;
 #include "ecat_slave.hpp"
 /******************************************************************************/
-using namespace rclcpp_lifecycle;
-class EthercatNode : public LifecycleNode
+#include <rclcpp/rclcpp.hpp>
+#include "sensor_msgs/msg/joy.hpp"
+/*****************************************************************************/
+namespace EthercatCommunication
+{
+class EthercatNode
 {
     public:
         /**
@@ -62,20 +57,11 @@ class EthercatNode : public LifecycleNode
          **/
         EthercatNode();
         ~EthercatNode();
-    private:
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_configure(const State &);
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_activate(const State &);
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_deactivate(const State &);
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_cleanup(const State &);
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_shutdown(const State &);
-        node_interfaces::LifecycleNodeInterface::CallbackReturn on_error(const State &);
-        
     #ifdef LOGGING
     static void create_new_statistics_sample(StatisticsStruct *ss, unsigned int * sampling_counter);
     static void create_statistics(StatisticsStruct * ss, struct timespec * wakeup_time_p);
     static void log_statistics_to_file(StatisticsStruct *ss);
     #endif
-    public : 
     EthercatSlave slaves_[NUM_OF_SLAVES];
 /**
  * @brief Requests master instance and creates a domain for a master.
@@ -117,52 +103,52 @@ class EthercatNode : public LifecycleNode
  * @return 0 if succesful, otherwise -1.
  */
     int SetProfilePositionParametersAll(ProfilePosParam& P);
-    /**
-     * @brief Set mode to ProfileVelocityMode with specified parameters for servo drive on that position.
-     * 
-     * @param P Profile velocity parameter structure specified by user.
-     * @param position Slave position
-     * @return 0 if succesful, -1 otherwise.
-     */
+/**
+ * @brief Set mode to ProfileVelocityMode with specified parameters for servo drive on that position.
+ * 
+ * @param P Profile velocity parameter structure specified by user.
+ * @param position Slave position
+ * @return 0 if succesful, -1 otherwise.
+ */
     int SetProfileVelocityParameters(ProfileVelocityParam& P,int position);
-    /**
-     * @brief Set mode to ProfileVelocityMode with specified parameters for all servo drives on the bus
-     * 
-     * @param P Profile velocity parameter structure specified by user.
-     * @return 0 if succesfull, -1 otherwise.
-     * @todo Add error code to all functions.Instead of returning -1. 
-     */
+/**
+ * @brief Set mode to ProfileVelocityMode with specified parameters for all servo drives on the bus
+ * 
+ * @param P Profile velocity parameter structure specified by user.
+ * @return 0 if succesfull, -1 otherwise.
+ * @todo Add error code to all functions.Instead of returning -1. 
+ */
     int SetProfileVelocityParametersAll(ProfileVelocityParam& P);
-    /**
-     * @brief Maps default PDOs for our spine surgery robot implementation.
-     * @note This method is specific for our spinerobot implementation.
-     * If you have different topology or different servo drives use 
-     * \see MapCustomPdos() function.
-     * @return 0 if succesfull, otherwise -1.
-     */
+/**
+ * @brief Maps default PDOs for our spine surgery robot implementation.
+ * @note This method is specific for our spinerobot implementation.
+ * If you have different topology or different servo drives use 
+ * \see MapCustomPdos() function.
+ * @return 0 if succesfull, otherwise -1.
+ */
     int MapDefaultPdos();
-    /**
-     * @brief Map Custom PDO based on your PDO mappings
-     * @note  You have to specify slave syncs and slave pdo registers before using function
-     * @param S EthercatSlave instance
-     * @param position Physical position of your slave w.r.t master
-     * @return 0 if succesfull, -1 otherwise.
-     */
+/**
+ * @brief Map Custom PDO based on your PDO mappings
+ * @note  You have to specify slave syncs and slave pdo registers before using function
+ * @param S EthercatSlave instance
+ * @param position Physical position of your slave w.r.t master
+ * @return 0 if succesfull, -1 otherwise.
+ */
     int MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_entry_reg, int position);
-    /**
-     * @brief Configures DC sync for our default configuration
-     * 
-     */
+/**
+ * @brief Configures DC sync for our default configuration
+ * 
+ */
     void ConfigDcSyncDefault();
-    /**
-     * @brief Configures DC synchronization for specified slave position
-     * 
-     * @param assign_activate Activating DC synchronization for slave.
-     * 0x300 for Elmo | 0x0006 for EasyCAT
-     * @note Assign activate parameters specified in slaves ESI file 
-     * 
-     * @param position
-     */
+/**
+ * @brief Configures DC synchronization for specified slave position
+ * 
+ * @param assign_activate Activating DC synchronization for slave.
+ * 0x300 for Elmo | and same for EasyCAT
+ * @note Assign activate parameters specified in slaves ESI file 
+ * 
+ * @param position
+ */
     void ConfigDcSync(uint16_t assign_activate, int position);
 
 #if SDO_COMM        
@@ -170,35 +156,35 @@ class EthercatNode : public LifecycleNode
     int  ReadSdo(ec_sdo_request_t *req, uint32_t& target);
     void WriteSdo(ec_sdo_request_t *req, uint32_t data);
 #endif
-    /**
-     * @brief This function will check slave's application layer states. (INIT/PREOP/SAFEOP/OP)
-     */
+/**
+ * @brief This function will check slave's application layer states. (INIT/PREOP/SAFEOP/OP)
+ */
     void CheckSlaveConfigurationState();
-    /**
-     * @brief This function will check master's state, in terms of number of responding slaves and their application layer states
-     * 
-     * @return 0 if succesful, otherwise -1 
-     * \see ec_master_state_t structure.
-     **/
+/**
+ * @brief This function will check master's state, in terms of number of responding slaves and their application layer states
+ * 
+ * @return 0 if succesful, otherwise -1 
+ * \see ec_master_state_t structure.
+ **/
     int  CheckMasterState();
-    /**
-     * @brief  Reads the state of a domain.
-     * Stores the domain state in the given state structure.
-     * Using this method, the process data exchange can be monitored in realtime.
-     * */
+/**
+ * @brief  Reads the state of a domain.
+ * Stores the domain state in the given state structure.
+ * Using this method, the process data exchange can be monitored in realtime.
+ * */
     void CheckMasterDomainState();
-    /**
-     * @brief Activates master, after this function call realtime operation can start.
-     * \warning Before activating master all configuration should be done
-     * \warning After calling this function you have to register domain(s) and start realtime task.
-     * @return 0 if succesful, otherwise -1. 
-     */
+/**
+ * @brief Activates master, after this function call realtime operation can start.
+ * \warning Before activating master all configuration should be done
+ * \warning After calling this function you have to register domain(s) and start realtime task.
+ * @return 0 if succesful, otherwise -1. 
+ */
     int  ActivateMaster();
-    /**
-     * @brief Registers domain for each slave.
-     *  This method has to be called after ecrt_master_activate() to get the mapped domain process data memory. 
-     * @return 0 if succeful , otherwise -1 
-     */
+/**
+ * @brief Registers domain for each slave.
+ *  This method has to be called after ecrt_master_activate() to get the mapped domain process data memory. 
+ * @return 0 if succeful , otherwise -1 
+ */
     int  RegisterDomain();
 /**
  * @brief Puts all slave to operational mode.User must call this before entering real-time operation.
@@ -208,29 +194,58 @@ class EthercatNode : public LifecycleNode
  * @return 0 if succesfull, otherwise -1.
  */
     int  WaitForOperationalMode();
+/**
+ * @brief Sets Ethercat communication thread's properties 
+ *        After this function called user must call StartEthercatCommunication() function]
+ * @return 0 if succesfull, otherwise -1.
+ */
+    int SetComThreadPriorities();
+/**
+ * @brief Encapsulates all configuration steps for the EtherCAT communication with default slaves.
+ *        And waits for connected slaves to become operational.
+ * @return 0 if succesful otherwise -1. 
+ */
+    int InitEthercatCommunication() ;
+/**
+ * @brief Realtime cyclic Pdo exchange function which will constantly read/write values from/to slaves
+ * 
+ * @param arg Used during pthread_create function to pass variables to realtime task. 
+ * @return NULL
+ */
+    void *StartPdoExchange(void *arg);
+/**
+ * @brief Starts EtherCAT communcation
+ * 
+ * @return 0 if succesfull, otherwise -1.
+ */
+    int  StartEthercatCommunication();
+/**
+ * @brief Opens EtherCAT master via command line tool if it's not already on.
+ * 
+ * @return 0 if succesfull, otherwise -1.
+ */
+    int OpenEthercatMaster();
+
+
     int  IsOperational();
     void EnableDevice();
 
-    int  StartRealTimeTasks(EthercatNode c);
+
     void *MotorCyclicTask(void *arg);
-
-    int  PrepareForProfilePositionMode();
-    void GetDefaultPositionParameters();
-    int  GetProfilePositionParameters (ProfilePosParam& P, SdoRequest& sr);
-
-    int  ConfigureForProfileVelocityMode();
-    void GetDefaultVelocityParameters();
-    int  SetProfileVelocityParameters(ProfileVelocityParam& P);
     
     int  KeepInOPmode();
     void ResetMaster();
-
+    public :
+        float left_x_axis_;
+        float left_y_axis_;
+        float right_x_axis_;
+        float right_y_axis_;
     private:
-    /// @todo Create publisher and subscribers.
-        rclcpp::TimerBase::SharedPtr timer_;
-    /// @todo check interface and custom msg file usage.
-        LifecyclePublisher<ecat_msgs::msg::DataReceived>::SharedPtr received_data_publisher_;
-        LifecyclePublisher<ecat_msgs::msg::DataSent>::SharedPtr sent_data_publisher_;
-        rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joystick_subscriber_;
-
+        pthread_t ethercat_thread_;
+        struct sched_param ethercat_sched_param_ = {};
+        pthread_attr_t ethercat_thread_attr_;
+        int32_t err_;
+        //Variable for opening EtherCAT master from CLI via code.
+        int fd ; 
 };
+}
