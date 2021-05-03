@@ -13,11 +13,8 @@ void signalHandler(int /*signum*/)
 
 int main(int argc, char **argv)
 {
-    // set stdout to unbuffered as a workaround to https://github.com/ros2/rcutils/issues/168
-    setvbuf(stdout, NULL, _IONBF, BUFSIZ);  
-
-    // install signal handler to cleanly shutdown lifecycle node
-   // signal(SIGINT,signalHandler);
+   
+    signal(SIGINT,signalHandler);
 
     rclcpp::init(argc, argv);
 

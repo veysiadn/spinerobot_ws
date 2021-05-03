@@ -1,5 +1,12 @@
+
+## Header file directories : 
+## /home/spinerobot/ros2_dashing/src/ros2/launch_ros/launch_ros/launch_ros/actions/lifecycle_node.py
+
 from launch import LaunchDescription
+
+## For lifecycle state transitions.
 from launch_ros.actions import LifecycleNode
+## For custom node launchs
 from launch_ros.actions import Node
 
 import ament_index_python
@@ -7,6 +14,8 @@ import launch
 import launch_ros
 import lifecycle_msgs
 import os
+
+
 
 def generate_launch_description():
 
@@ -39,7 +48,7 @@ def generate_launch_description():
         launch_ros.event_handlers.OnStateTransition(
             target_lifecycle_node = pd_node,
             start_state = 'configuring',
-            goal_state = 'active',
+            goal_state = 'inactive',
             entities = [pd_activate_event]
         )
     )

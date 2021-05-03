@@ -3,13 +3,15 @@
 using namespace EthercatLifeCycleNode ; 
 EthercatLifeCycle::EthercatLifeCycle(): LifecycleNode("ecat_life_cycle_node")
 {
+    
+    ecat_node_= std::make_unique<EthercatNode>();
     /// @todo for fault injection probably you'll have to declare parameters here.
     /// this->declare_parameter("")
 }
 
 EthercatLifeCycle::~EthercatLifeCycle()
 {
-
+    ecat_node_.reset();
 }
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_configure(const State &)
@@ -33,7 +35,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_ac
 {
     if(ecat_node_->StartEthercatCommunication()){
 
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuration phase failed");
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Activation phase failed");
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::FAILURE;
     }else{
         RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Activation complete, real-time communication started.");
@@ -46,7 +48,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_de
 {
     received_data_publisher_->on_deactivate();
     sent_data_publisher_->on_deactivate();
-    /// @todo ADD Stop all communication.
+    ecat_node_->DeactivateCommunication();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cleanup(const State &)
@@ -59,11 +61,13 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cl
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_shutdown(const State &)
 {
-
+    ecat_node_->ReleaseMaster();
+    return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_error(const State &)
 {
-
+    ecat_node_.reset();
+    return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 
 void EthercatLifeCycle::HandleCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)

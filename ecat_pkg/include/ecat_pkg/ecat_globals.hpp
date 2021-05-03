@@ -42,6 +42,7 @@
 #pragma once
 
 #include <iostream>
+#include <cstring>
 #include <limits.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -67,13 +68,18 @@
 // Object dictionary paramaters PDO index and default values in here.
 #include "object_dictionary.hpp"  
 
-/*****************************************************************************/
+/****************************************************************************/
+                // USER SHOULD DEFINE THIS AREAS //
+
+#define NUM_OF_SLAVES     1   // Total number of connected slave to the bus.
+const unsigned int g_kNumberOfServoDrivers = 0 ;
 #define PERIOD_NS        1000000  // EtherCAT communication period.
+/*****************************************************************************/
+
 #define PERIOD_US    (PERIOD_NS / 1000)
 #define PERIOD_MS    (PERIOD_US / 1000)
-#define NUM_OF_SLAVES     1   // Number of connected slave to the bus.
-const unsigned int g_kNumberOfServoDrivers = 0 ;
-const unsigned int g_kNsPerSec = 1000000000;  // Nanoseconds per second.
+const unsigned int      g_kNsPerSec = 1000000000;  // Nanoseconds per second.
+#define FINAL_SLAVE     (NUM_OF_SLAVES-1)
 /****************************************************************************/
 static ec_master_t        * g_master = NULL ;  // EtherCAT master
 static ec_master_state_t    g_master_state = {}; // EtherCAT master state
@@ -81,8 +87,7 @@ static ec_master_state_t    g_master_state = {}; // EtherCAT master state
 static ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
 static ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
 
-static char                   g_slaves_up = 0 ;  // Number of slaves in op mode.
-static struct timespec        g_sync_timer ;     // timer for DC sync .
+static struct timespec      g_sync_timer ;     // timer for DC sync .
 const struct timespec       g_cycle_time = {0, PERIOD_NS};       // cycletime settings in ns. 
 static unsigned int         g_sync_ref_counter = 0;
 
@@ -96,12 +101,6 @@ static unsigned int         g_sync_ref_counter = 0;
 /* Using Monotonic system-wide clock.  */
 #define CLOCK_TO_USE        CLOCK_MONOTONIC  
 #define MEASURE_TIMING          1
-/**
- *  We need this typecasting to pass member function to pthread_create().
- *  For more information check page below.
- * https://thispointer.com/c-how-to-pass-class-member-function-to-pthread_create/
- * */
-typedef void * (*THREADFUNCPTR)(void *);
 
 /**
  * @brief Add two timespec struct.Since it's global function it should be either static or inline

@@ -29,22 +29,6 @@ int  EthercatNode::ConfigureMaster()
     return 0 ;
 }
 
-void EthercatNode::DefineDefaultSlaves()
-{
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
-    {
-        // In this way first servo connected to master pc will be slave[0], second will be slave[1] and so on.
-        this->slaves_[i].position_      = i ; 
-        this->slaves_[i].vendor_id_     = 0x0000009a ; // Elmo vendor id;
-        this->slaves_[i].product_code_  = 0x00030924 ; // Elmo product code.
-    }
-        /// This means that this slave will be connected last.It will be at the end of topology.
-        /// Connection will be ; master->slave[0]->slave[1]->slave[2]->slave[3]->.....->slave[NUM_OF_SLAVES-1]
-        this->slaves_[NUM_OF_SLAVES-1].position_      = NUM_OF_SLAVES-1 ; 
-        this->slaves_[NUM_OF_SLAVES-1].vendor_id_     = 0x00830518 ; // Custom EasyCAT vendor id;
-        this->slaves_[NUM_OF_SLAVES-1].product_code_  = 0x02021053 ; // Custom EasyCAT product code.  
-}
-
 void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
 {
     this->slaves_[position] = c_slave ; 
@@ -53,11 +37,11 @@ void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
 int  EthercatNode::ConfigureSlaves()
 {
     for(int i = 0 ; i < NUM_OF_SLAVES ; i++ ){
-        this->slaves_[i].slave_config_ = ecrt_master_slave_config(g_master,this->slaves_[i].kAlias_,
-                                        this->slaves_[i].position_,this->slaves_[i].vendor_id_,
-                                        this->slaves_[i].product_code_); 
-
-        if(!this->slaves_[i].slave_config_) {
+        slaves_[i].slave_config_ = ecrt_master_slave_config(g_master,slaves_[i].slave_info_.alias,
+                                                                     slaves_[i].slave_info_.position,
+                                                                     slaves_[i].slave_info_.vendor_id,
+                                                                     slaves_[i].slave_info_.product_code); 
+        if(!slaves_[i].slave_config_) {
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to  configure slave ! ");
             return -1;
         }
@@ -226,28 +210,39 @@ int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
 int EthercatNode::MapDefaultPdos()
 {
     int err ;
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){    
-        err = ecrt_slave_config_pdos(this->slaves_[i].slave_config_,EC_END,this->slaves_[i].elmo_syncs);
-        if ( err ) {
-            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motor!");
-            return -1;
-        } 
-        err = ecrt_domain_reg_pdo_entry_list(g_master_domain, this->slaves_[i].elmo_pdo_regs);
-        if ( err ){
-            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to register PDO entries for motor!");
-            return -1;
-        }
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        slaves_[i].offset_.actual_pos        = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_POSITION_ACTUAL_VAL,g_master_domain,NULL);
+        slaves_[i].offset_.status_word       = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_STATUS_WORD,g_master_domain,NULL);
+        slaves_[i].offset_.actual_vel        = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_VELOCITY_ACTUAL_VALUE,g_master_domain,NULL);
+
+
+        slaves_[i].offset_.target_pos       = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_TARGET_POSITION,g_master_domain,NULL);                                                                                                                                                                  
+        slaves_[i].offset_.target_vel       = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_TARGET_VELOCITY,g_master_domain,NULL);
+        slaves_[i].offset_.control_word     = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
+                                                                                  OD_CONTROL_WORD,g_master_domain,NULL);      
+        if((slaves_[i].offset_.actual_pos < 0)  || (slaves_[i].offset_.status_word  < 0) || (slaves_[i].offset_.actual_vel   < 0) || 
+            (slaves_[i].offset_.target_pos < 0) || (slaves_[i].offset_.target_vel   < 0) || (slaves_[i].offset_.control_word < 0) )
+            {
+                 RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motors.!");
+                 return -1;
+            }
+    
     }
-    err = ecrt_slave_config_pdos(this->slaves_[NUM_OF_SLAVES-1].slave_config_,EC_END,this->slaves_[NUM_OF_SLAVES-1].easycat_slave_syncs);
-    if ( err ) {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for EasyCAT!");
-        return -1;
+     
+    slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                  0x006,0x006,g_master_domain,NULL);
+
+    slaves_[FINAL_SLAVE].offset_.l_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                  0x006, 0x07, g_master_domain, NULL);
+    if ((slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0) || (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0)){
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for EASYCAT.!");
+        return -1;    
     }
-    err = ecrt_domain_reg_pdo_entry_list(g_master_domain, this->slaves_[NUM_OF_SLAVES-1].easycat_pdo_regs);
-    if ( err ){
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to register PDO entries for motor!");
-        return -1;
-        } 
     return 0;
 }
 
@@ -323,7 +318,6 @@ void EthercatNode::CheckMasterDomainState()
     if (ds.wc_state != g_master_domain_state.wc_state)
         printf("masterDomain: State %u.\n", ds.wc_state);
     if(g_master_domain_state.wc_state == EC_WC_COMPLETE){
-        printf("All slaves configured...\n");
         g_master_domain_state = ds;
     }
     g_master_domain_state = ds;
@@ -355,7 +349,7 @@ int EthercatNode::WaitForOperationalMode()
     int try_counter=0;
     int check_state_count=0;
     int time_out = 1e4*PERIOD_MS;
-    while (g_slaves_up != NUM_OF_SLAVES ){
+    while (g_master_state.al_states != EC_AL_STATE_OP ){
         if(try_counter < time_out){
             ecrt_master_receive(g_master);
             ecrt_domain_process(g_master_domain);
@@ -363,7 +357,7 @@ int EthercatNode::WaitForOperationalMode()
             if(!check_state_count){
                 CheckMasterState();
                 CheckMasterDomainState();
-                this->CheckSlaveConfigurationState();
+                CheckSlaveConfigurationState();
                 check_state_count = PERIOD_US ;
             }
             clock_gettime(CLOCK_MONOTONIC, &g_sync_timer);
@@ -424,37 +418,38 @@ int EthercatNode::SetComThreadPriorities()
     }
 }
 
-void *EthercatNode::StartPdoExchange(void *arg)
+void EthercatNode::StartPdoExchange(void *instance)
 {
-int counter = 1000;
-struct timespec wake_up_time, time;
-        #if MEASURE_TIMING
-            struct timespec startTime, endTime, lastStartTime = {};
-            uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
-            latency_min_ns = 0, latency_max_ns = 0,
-            period_min_ns = 0, period_max_ns = 0,
-            exec_min_ns = 0, exec_max_ns = 0,
-            max_period=0, max_latency=0,max_exec=0;
+    EthercatNode *my_node = reinterpret_cast<EthercatNode*>(instance);
 
-        #endif
+    int counter = 100;
+    struct timespec wake_up_time, time;
+    #if MEASURE_TIMING
+        struct timespec startTime, endTime, lastStartTime = {};
+        uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
+        latency_min_ns = 0, latency_max_ns = 0,
+        period_min_ns = 0, period_max_ns = 0,
+        exec_min_ns = 0, exec_max_ns = 0,
+        max_period=0, max_latency=0,max_exec=0;
+    #endif
 
     // get current time
-clock_gettime(CLOCK_TO_USE, &wake_up_time);
-int begin=10;
-uint8_t r_limit_sw_val = 0 ;
-uint8_t l_limit_sw_val = 0 ;
-    while(1)
- {
+    clock_gettime(CLOCK_TO_USE, &wake_up_time);
+    int begin=10;
+    int status_check_counter = 1000;
+    uint8_t r_limit_sw_val = 0 ;
+    uint8_t l_limit_sw_val = 0 ;
+    while(1){
 
-    wake_up_time = timespec_add(wake_up_time, g_cycle_time);
-    clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
+        wake_up_time = timespec_add(wake_up_time, g_cycle_time);
+        clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
 
-    // Write application time to master
-    //
-    // It is a good idea to use the target time (not the measured time) as
-    // application time, because it is more stable.
-    //
-    ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
+        // Write application time to master
+        //
+        // It is a good idea to use the target time (not the measured time) as
+        // application time, because it is more stable.
+        //
+        ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
 
         #if MEASURE_TIMING
             clock_gettime(CLOCK_TO_USE, &startTime);
@@ -489,138 +484,161 @@ uint8_t l_limit_sw_val = 0 ;
             }
         #endif
 
-            // receive process data
-    ecrt_master_receive(g_master);
-    ecrt_domain_process(g_master_domain);
+                // receive process data
+        ecrt_master_receive(g_master);
+        ecrt_domain_process(g_master_domain);
 
-    if (counter)
-    {
-        counter--;
-    }
-    else
-    {
-        // do this at 1 Hz
-        counter = 100;
+        if (status_check_counter){
+            status_check_counter--;
+        }else { 
+            CheckMasterState();
+            CheckMasterDomainState();
+            CheckSlaveConfigurationState();
+            this->al_state_ = g_master_state.al_states ; 
+            status_check_counter = 1000;
+        }
+
+        if (counter){
+            counter--;
+        }
+        else
+        {
+            // do this at 1 Hz
+            counter = 100;
+            #if MEASURE_TIMING
+                    // output timing stats
+                /* printf("-----------------------------------------------\n\n");
+                    printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
+                            period_min_ns, period_max_ns);
+                    printf("Texec     min   : %10u ns  | max : %10u ns\n",
+                            exec_min_ns, exec_max_ns);
+                    printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
+                            latency_min_ns, latency_max_ns);
+                    printf("Tjitter max     : %10u ns  \n",
+                            latency_max_ns-latency_min_ns);*/
+            std::cout <<    "Left Switch   : " << unsigned(r_limit_sw_val) << std::endl << 
+                            "Right Switch  : " << unsigned(l_limit_sw_val) << std::endl;
+                /* printf("Tperiod min     : %10u ns  | max : %10u ns\n",
+                            period_min_ns, max_period);
+                    printf("Texec  min      : %10u ns  | max : %10u ns\n",
+                            exec_min_ns, max_exec);
+                    printf("Tjitter min     : %10u ns  | max : %10u ns\n",
+                            max_latency-latency_min_ns, max_latency);
+                    printf("-----------------------------------------------\n\n");*/
+                    period_max_ns = 0;
+                    period_min_ns = 0xffffffff;
+                    exec_max_ns = 0;
+                    exec_min_ns = 0xffffffff;
+                    latency_max_ns = 0;
+                    latency_min_ns = 0xffffffff;
+            #endif
+
+                    // calculate new process data
+        }
+        r_limit_sw_val = EC_READ_U8(slaves_[FINAL_SLAVE].slave_pdo_domain_ +slaves_[FINAL_SLAVE].offset_.r_limit_switch);
+        l_limit_sw_val = EC_READ_U8(slaves_[FINAL_SLAVE].slave_pdo_domain_ +slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+        
+        if (g_sync_ref_counter) {
+            g_sync_ref_counter--;
+        } else {
+            g_sync_ref_counter = 1; // sync every cycle
+
+            clock_gettime(CLOCK_TO_USE, &time);
+            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
+        }
+        ecrt_master_sync_slave_clocks(g_master);
+
+        // send process data
+        ecrt_domain_queue(g_master_domain);
+        ecrt_master_send(g_master);
+        if(begin) begin--;
         #if MEASURE_TIMING
-                // output timing stats
-              /* printf("-----------------------------------------------\n");
-                printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
-                        period_min_ns, period_max_ns);
-                printf("Texec     min   : %10u ns  | max : %10u ns\n",
-                        exec_min_ns, exec_max_ns);
-                printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
-                        latency_min_ns, latency_max_ns);
-                printf("Tjitter max     : %10u ns  \n",
-                        latency_max_ns-latency_min_ns);*/
-                printf("Right switch val     = %d\n"
-                       "Left switch val      = %d\n",
-                        r_limit_sw_val,l_limit_sw_val);
-                printf("----------------------------------------");
-                printf( "Left X   : %f\n", left_x_axis_);
-                printf("Left Y    : %f\n", left_y_axis_);
-                printf( "Right X  : %f\n", right_x_axis_);
-                printf("Right Y   : %f\n", right_y_axis_);
-                printf("----------------------------------------");
-               /* printf("Tperiod min     : %10u ns  | max : %10u ns\n",
-                        period_min_ns, max_period);
-                 printf("Texec  min      : %10u ns  | max : %10u ns\n",
-                        exec_min_ns, max_exec);
-                 printf("Tjitter min     : %10u ns  | max : %10u ns\n",
-                        max_latency-latency_min_ns, max_latency);
-                printf("-----------------------------------------------\n");*/
-                period_max_ns = 0;
-                period_min_ns = 0xffffffff;
-                exec_max_ns = 0;
-                exec_min_ns = 0xffffffff;
-                latency_max_ns = 0;
-                latency_min_ns = 0xffffffff;
+                clock_gettime(CLOCK_TO_USE, &endTime);
         #endif
-
-                // calculate new process data
-                r_limit_sw_val = EC_READ_U8(slaves_[NUM_OF_SLAVES-1].slave_pdo_domain_ +slaves_[NUM_OF_SLAVES-1].offset_.r_limit_switch);
-                l_limit_sw_val = EC_READ_U8(slaves_[NUM_OF_SLAVES-1].slave_pdo_domain_ +slaves_[NUM_OF_SLAVES-1].offset_.r_limit_switch);
-    }
-
-
-            if (g_sync_ref_counter) {
-                g_sync_ref_counter--;
-            } else {
-                g_sync_ref_counter = 1; // sync every cycle
-
-                clock_gettime(CLOCK_TO_USE, &time);
-                ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
-            }
-            ecrt_master_sync_slave_clocks(g_master);
-
-            // send process data
-            ecrt_domain_queue(g_master_domain);
-            ecrt_master_send(g_master);
-            if(begin) begin--;
-    #if MEASURE_TIMING
-            clock_gettime(CLOCK_TO_USE, &endTime);
-    #endif
- }
-    return NULL;
-}   
+    }//while(1)
+    return;
+}// StartPdoExchange   
 
 int EthercatNode::OpenEthercatMaster()
 {
-    this->fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
-    if(this->fd){
-        RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Opening EtherCAT master...");
+    fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+    if(fd){
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT master...");
         std::system("cd ~; sudo ethercatctl start");
         usleep(1e6);
-        this->fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
-        if(this->fd){
+        fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
+        if(fd){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : EtherCAT device not found.");
             return -1;
             }else {
                 return 0 ;
             }
     }
+    return 0 ; 
 }
 
 int EthercatNode::InitEthercatCommunication()
 {
-    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Opening EtherCAT device...");
-    if (this->OpenEthercatMaster())
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT device...");
+    if (OpenEthercatMaster())
     {
         return -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring EtherCAT master...");
-    if (this->ConfigureMaster())
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT master...");
+    if (ConfigureMaster())
     {
         return -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Defining default slaves...");
-    this->DefineDefaultSlaves();
-
-    RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring  slaves...");
-    if(this->ConfigureSlaves())
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Getting connected slave informations...");
+    if(GetNumberOfConnectedSlaves()){
+        return -1 ;
+    }
+    GetAllSlaveInformation();
+    for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
+        printf("--------------------Slave Info -------------------------\n"
+               " Slave alias         = %d\n "
+               "Slave position      = %d\n "
+               "Slave vendor_id     = 0x%08x\n "
+               "Slave product_code  = 0x%08x\n "
+               "Slave name          = %s\n "
+               "--------------------EOF %d'th Slave Info ----------------\n ",
+                slaves_[FINAL_SLAVE].slave_info_.alias,
+                slaves_[FINAL_SLAVE].slave_info_.position,
+                slaves_[FINAL_SLAVE].slave_info_.vendor_id,
+                slaves_[FINAL_SLAVE].slave_info_.product_code,
+                slaves_[FINAL_SLAVE].slave_info_.name,i);
+    }
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring  slaves...");
+    if(ConfigureSlaves())
     {
         return -1 ;
     }
-/*
-    ProfileVelocityParam P ;
-    
-    P.profile_acc=50000 ;
-    P.profile_dec=50000 ;
-    P.max_profile_vel = 90000 ;
-    P.quick_stop_dec = 50000 ;
-    P.motion_profile_type = 0 ;
-    SetProfileVelocityParametersAll(P);
-*/
-RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuring DC synchronization...");
+    /*
+        ProfileVelocityParam P ;
+        
+        P.profile_acc=50000 ;
+        P.profile_dec=50000 ;
+        P.max_profile_vel = 90000 ;
+        P.quick_stop_dec = 50000 ;
+        P.motion_profile_type = 0 ;
+        SetProfileVelocityParametersAll(P);
+    */
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Mapping default PDOs...");
+    if(MapDefaultPdos())
+    {
+        return  -1 ;
+    }
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring DC synchronization...");
 
     ConfigDcSyncDefault();
 
-RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Activating master...");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Activating master...");
 
     if(ActivateMaster())
     {
         return  -1 ;
     }
-RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Registering master domain...");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Registering master domain...");
 
     if (RegisterDomain())
     {
@@ -634,14 +652,14 @@ RCLCPP_INFO(rclcpp::get_logger(__PRETTY_FUNCTION__), "Registering master domain.
     {
         return -1 ;
     }
-
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Initialization succesfull...");
     return 0 ; 
 }
 
 int  EthercatNode::StartEthercatCommunication()
 {
 
-    err_= pthread_create(&ethercat_thread_,&ethercat_thread_attr_, (THREADFUNCPTR)&EthercatNode::StartPdoExchange,NULL);
+    err_= pthread_create(&ethercat_thread_,&ethercat_thread_attr_, &EthercatNode::PassCycylicExchange,this);
     if(err_)
     {
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Couldn't start communication thread.!");
@@ -650,3 +668,42 @@ int  EthercatNode::StartEthercatCommunication()
     return 0 ;
 }
 
+void *EthercatNode::PassCycylicExchange(void *arg)
+{
+    static_cast<EthercatNode*>(arg)->StartPdoExchange(arg);
+    
+}
+void EthercatNode::GetAllSlaveInformation()
+{
+    for(int i=0;i < NUM_OF_SLAVES ; i++){
+        ecrt_master_get_slave(g_master, i , &slaves_[i].slave_info_);
+    }
+}
+
+int EthercatNode::GetNumberOfConnectedSlaves()
+{
+    unsigned int number_of_slaves;
+    ecrt_master_state(g_master,&g_master_state);
+    number_of_slaves = g_master_state.slaves_responding ;
+    if(NUM_OF_SLAVES != number_of_slaves){
+        std::cout << "Please enter correct number of slaves... " << std::endl;
+        std::cout << "Entered number of slave : " << NUM_OF_SLAVES << std::endl 
+                  << "Connected slaves        : " << number_of_slaves << std::endl;
+        return -1; 
+    }
+    return 0 ;
+}
+void EthercatNode::DeactivateCommunication()
+{
+    ecrt_master_deactivate_slaves(g_master);
+}
+
+void EthercatNode::ReleaseMaster()
+{
+    ecrt_release_master(g_master);
+}
+
+int EthercatNode::GetComState()
+{
+    return al_state_ ; 
+}

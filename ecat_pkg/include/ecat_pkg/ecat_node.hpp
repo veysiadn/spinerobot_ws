@@ -40,6 +40,7 @@
 /******************************************************************************/
 #include "ecat_globals.hpp"
 /******************************************************************************/
+/// Forward declaration of EthercatSlave class.
 class EthercatSlave ;
 #include "ecat_slave.hpp"
 /******************************************************************************/
@@ -51,17 +52,8 @@ namespace EthercatCommunication
 class EthercatNode
 {
     public:
-        /**
-         *  EtherCAT node constructor.
-         *  @todo extend constructors functionality.
-         **/
         EthercatNode();
         ~EthercatNode();
-    #ifdef LOGGING
-    static void create_new_statistics_sample(StatisticsStruct *ss, unsigned int * sampling_counter);
-    static void create_statistics(StatisticsStruct * ss, struct timespec * wakeup_time_p);
-    static void log_statistics_to_file(StatisticsStruct *ss);
-    #endif
     EthercatSlave slaves_[NUM_OF_SLAVES];
 /**
  * @brief Requests master instance and creates a domain for a master.
@@ -150,12 +142,6 @@ class EthercatNode
  * @param position
  */
     void ConfigDcSync(uint16_t assign_activate, int position);
-
-#if SDO_COMM        
-    int  ConfigSdoRequests(SdoRequest& e_sdo);
-    int  ReadSdo(ec_sdo_request_t *req, uint32_t& target);
-    void WriteSdo(ec_sdo_request_t *req, uint32_t data);
-#endif
 /**
  * @brief This function will check slave's application layer states. (INIT/PREOP/SAFEOP/OP)
  */
@@ -212,7 +198,7 @@ class EthercatNode
  * @param arg Used during pthread_create function to pass variables to realtime task. 
  * @return NULL
  */
-    void *StartPdoExchange(void *arg);
+    void StartPdoExchange(void *instance);
 /**
  * @brief Starts EtherCAT communcation
  * 
@@ -223,29 +209,58 @@ class EthercatNode
  * @brief Opens EtherCAT master via command line tool if it's not already on.
  * 
  * @return 0 if succesfull, otherwise -1.
- */
+ */ 
     int OpenEthercatMaster();
-
-
-    int  IsOperational();
-    void EnableDevice();
-
-
-    void *MotorCyclicTask(void *arg);
-    
-    int  KeepInOPmode();
-    void ResetMaster();
-    public :
-        float left_x_axis_;
-        float left_y_axis_;
-        float right_x_axis_;
-        float right_y_axis_;
-    private:
+/**
+ * @brief Get the Number Of physically Connected Slaves to the bus.And checks if specified NUM_OF_SLAVES
+ *        is correct.
+ * @return 0 if NUM_OF_SLAVES setting is correct, otherwise -1.
+ */
+    int GetNumberOfConnectedSlaves();
+/**
+ * @brief Get the information of physically connected slaves to the master.
+ *        This function will return connected slave's vendor id, product code.
+ * 
+ */
+    void GetAllSlaveInformation();
+/**
+ * @brief Helper function to enter pthread_create, since pthread's are C function it doesn't
+ *        accept class member function, to pass class member function this helper function is 
+ *        created.
+ * 
+ * @param arg Pointer to current class instance.
+ * @return void* 
+ */
+    static void *PassCycylicExchange(void *arg);
+/**
+ * @brief Deactivates slaves and can be called in real-time.
+ */
+    void DeactivateCommunication();
+/**
+ * @brief Deactivates and releases master shouldn't be called in real-time.
+ */
+    void ReleaseMaster();
+/**
+ * @brief Gets  master's communication state.
+ *  \see ec_al_state_t
+ * 
+ * @return Application layer state for master.
+ */
+    int GetComState();
+        
+    private : 
         pthread_t ethercat_thread_;
         struct sched_param ethercat_sched_param_ = {};
         pthread_attr_t ethercat_thread_attr_;
         int32_t err_;
         //Variable for opening EtherCAT master from CLI via code.
-        int fd ; 
+        int fd ;
+        uint8_t al_state_ = 0; 
+    public:
+        float left_x_axis_;
+        float left_y_axis_;
+        float right_x_axis_;
+        float right_y_axis_;
+    
 };
 }
