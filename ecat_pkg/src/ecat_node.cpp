@@ -1,6 +1,15 @@
 #include "ecat_node.hpp"
-using namespace EthercatCommunication ; 
 
+using namespace EthercatCommunication ; 
+/*****************************************************************************************/
+/// Extern global variable declaration.
+ec_master_t        * g_master = NULL ;
+ec_master_state_t    g_master_state = {}; // EtherCAT master state
+ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
+ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
+struct timespec        g_sync_timer ;
+unsigned int         g_sync_ref_counter = 0;
+/*****************************************************************************************/
 EthercatNode::EthercatNode()
 {
     /// @todo for fault injection probably you'll have to declare parameters here.
@@ -233,7 +242,12 @@ int EthercatNode::MapDefaultPdos()
             }
     
     }
-     
+    /************************************************************************************************************/
+   /**
+    *  This part is specific for our Custom EASYCAT slave configuration
+    *  To create your custom slave and variables you can add variables to \see OffsetPDO struct.
+    *  Also you have add your variables to received data structure, you may have to create your custom msg files as well.
+    **/
     slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
                                                                                   0x006,0x006,g_master_domain,NULL);
 
@@ -243,6 +257,7 @@ int EthercatNode::MapDefaultPdos()
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for EASYCAT.!");
         return -1;    
     }
+    /************************************************************************************************************/
     return 0;
 }
 
@@ -260,7 +275,6 @@ int EthercatNode::MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_e
         }
         return 0;
 }
-
 
 void EthercatNode::ConfigDcSyncDefault()
 {
@@ -378,187 +392,6 @@ int EthercatNode::WaitForOperationalMode()
     }
 }
 
-int EthercatNode::SetComThreadPriorities()
-{
-    ethercat_sched_param_.sched_priority = 98;
-    printf("Using priority %i\n.", ethercat_sched_param_.sched_priority);
-
-    if (sched_setscheduler(0, SCHED_FIFO, &ethercat_sched_param_) == -1){
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set scheduler failed. ! ");
-        return -1 ; 
-    }    
-    err_ = pthread_attr_init(&ethercat_thread_attr_);
-    if (err_) {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error initializing thread attribute  ! ");
-        return -1;
-    }
-    /* Set a specific stack size  */
-    err_ = pthread_attr_setstacksize(&ethercat_thread_attr_, PTHREAD_STACK_MIN);
-    if (err_) {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error setting thread stack size  ! ");
-        return -1 ;
-    }
-
-    err_ = pthread_attr_setschedpolicy(&ethercat_thread_attr_, SCHED_FIFO);
-    if (err_) {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setschedpolicy failed ! ");
-        return -1 ;
-    }
-    err_ = pthread_attr_setschedparam(&ethercat_thread_attr_, &ethercat_sched_param_);
-    if (err_) {
-            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setschedparam failed ! ");
-            return -1 ;
-    }
-    /* Use scheduling parameters of attr */
-    err_ = pthread_attr_setinheritsched(&ethercat_thread_attr_, PTHREAD_EXPLICIT_SCHED);
-    if (err_) 
-    {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Pthread setinheritsched failed ! ");
-        return -1 ;
-    }
-}
-
-void EthercatNode::StartPdoExchange(void *instance)
-{
-    EthercatNode *my_node = reinterpret_cast<EthercatNode*>(instance);
-
-    int counter = 100;
-    struct timespec wake_up_time, time;
-    #if MEASURE_TIMING
-        struct timespec startTime, endTime, lastStartTime = {};
-        uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
-        latency_min_ns = 0, latency_max_ns = 0,
-        period_min_ns = 0, period_max_ns = 0,
-        exec_min_ns = 0, exec_max_ns = 0,
-        max_period=0, max_latency=0,max_exec=0;
-    #endif
-
-    // get current time
-    clock_gettime(CLOCK_TO_USE, &wake_up_time);
-    int begin=10;
-    int status_check_counter = 1000;
-    uint8_t r_limit_sw_val = 0 ;
-    uint8_t l_limit_sw_val = 0 ;
-    while(1){
-
-        wake_up_time = timespec_add(wake_up_time, g_cycle_time);
-        clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
-
-        // Write application time to master
-        //
-        // It is a good idea to use the target time (not the measured time) as
-        // application time, because it is more stable.
-        //
-        ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
-
-        #if MEASURE_TIMING
-            clock_gettime(CLOCK_TO_USE, &startTime);
-            latency_ns = DIFF_NS(wake_up_time, startTime);
-            period_ns = DIFF_NS(lastStartTime, startTime);
-            exec_ns = DIFF_NS(lastStartTime, endTime);
-            lastStartTime = startTime;
-            if(!begin)
-            {
-            if(latency_ns > max_latency)        max_latency = latency_ns;
-            if(period_ns > max_period)          max_period  = period_ns;
-            if(exec_ns > max_exec)              max_exec    = exec_ns;
-            }
-
-            if (latency_ns > latency_max_ns)  {
-                latency_max_ns = latency_ns;
-            }
-            if (latency_ns < latency_min_ns) {
-                latency_min_ns = latency_ns;
-            }
-            if (period_ns > period_max_ns) {
-                period_max_ns = period_ns;
-            }
-            if (period_ns < period_min_ns) {
-                period_min_ns = period_ns;
-            }
-            if (exec_ns > exec_max_ns) {
-                exec_max_ns = exec_ns;
-            }
-            if (exec_ns < exec_min_ns) {
-                exec_min_ns = exec_ns;
-            }
-        #endif
-
-                // receive process data
-        ecrt_master_receive(g_master);
-        ecrt_domain_process(g_master_domain);
-
-        if (status_check_counter){
-            status_check_counter--;
-        }else { 
-            CheckMasterState();
-            CheckMasterDomainState();
-            CheckSlaveConfigurationState();
-            this->al_state_ = g_master_state.al_states ; 
-            status_check_counter = 1000;
-        }
-
-        if (counter){
-            counter--;
-        }
-        else
-        {
-            // do this at 1 Hz
-            counter = 100;
-            #if MEASURE_TIMING
-                    // output timing stats
-                /* printf("-----------------------------------------------\n\n");
-                    printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
-                            period_min_ns, period_max_ns);
-                    printf("Texec     min   : %10u ns  | max : %10u ns\n",
-                            exec_min_ns, exec_max_ns);
-                    printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
-                            latency_min_ns, latency_max_ns);
-                    printf("Tjitter max     : %10u ns  \n",
-                            latency_max_ns-latency_min_ns);*/
-            std::cout <<    "Left Switch   : " << unsigned(r_limit_sw_val) << std::endl << 
-                            "Right Switch  : " << unsigned(l_limit_sw_val) << std::endl;
-                /* printf("Tperiod min     : %10u ns  | max : %10u ns\n",
-                            period_min_ns, max_period);
-                    printf("Texec  min      : %10u ns  | max : %10u ns\n",
-                            exec_min_ns, max_exec);
-                    printf("Tjitter min     : %10u ns  | max : %10u ns\n",
-                            max_latency-latency_min_ns, max_latency);
-                    printf("-----------------------------------------------\n\n");*/
-                    period_max_ns = 0;
-                    period_min_ns = 0xffffffff;
-                    exec_max_ns = 0;
-                    exec_min_ns = 0xffffffff;
-                    latency_max_ns = 0;
-                    latency_min_ns = 0xffffffff;
-            #endif
-
-                    // calculate new process data
-        }
-        r_limit_sw_val = EC_READ_U8(slaves_[FINAL_SLAVE].slave_pdo_domain_ +slaves_[FINAL_SLAVE].offset_.r_limit_switch);
-        l_limit_sw_val = EC_READ_U8(slaves_[FINAL_SLAVE].slave_pdo_domain_ +slaves_[FINAL_SLAVE].offset_.l_limit_switch);
-        
-        if (g_sync_ref_counter) {
-            g_sync_ref_counter--;
-        } else {
-            g_sync_ref_counter = 1; // sync every cycle
-
-            clock_gettime(CLOCK_TO_USE, &time);
-            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
-        }
-        ecrt_master_sync_slave_clocks(g_master);
-
-        // send process data
-        ecrt_domain_queue(g_master_domain);
-        ecrt_master_send(g_master);
-        if(begin) begin--;
-        #if MEASURE_TIMING
-                clock_gettime(CLOCK_TO_USE, &endTime);
-        #endif
-    }//while(1)
-    return;
-}// StartPdoExchange   
-
 int EthercatNode::OpenEthercatMaster()
 {
     fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
@@ -577,102 +410,7 @@ int EthercatNode::OpenEthercatMaster()
     return 0 ; 
 }
 
-int EthercatNode::InitEthercatCommunication()
-{
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT device...");
-    if (OpenEthercatMaster())
-    {
-        return -1 ;
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT master...");
-    if (ConfigureMaster())
-    {
-        return -1 ;
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Getting connected slave informations...");
-    if(GetNumberOfConnectedSlaves()){
-        return -1 ;
-    }
-    GetAllSlaveInformation();
-    for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
-        printf("--------------------Slave Info -------------------------\n"
-               " Slave alias         = %d\n "
-               "Slave position      = %d\n "
-               "Slave vendor_id     = 0x%08x\n "
-               "Slave product_code  = 0x%08x\n "
-               "Slave name          = %s\n "
-               "--------------------EOF %d'th Slave Info ----------------\n ",
-                slaves_[FINAL_SLAVE].slave_info_.alias,
-                slaves_[FINAL_SLAVE].slave_info_.position,
-                slaves_[FINAL_SLAVE].slave_info_.vendor_id,
-                slaves_[FINAL_SLAVE].slave_info_.product_code,
-                slaves_[FINAL_SLAVE].slave_info_.name,i);
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring  slaves...");
-    if(ConfigureSlaves())
-    {
-        return -1 ;
-    }
-    /*
-        ProfileVelocityParam P ;
-        
-        P.profile_acc=50000 ;
-        P.profile_dec=50000 ;
-        P.max_profile_vel = 90000 ;
-        P.quick_stop_dec = 50000 ;
-        P.motion_profile_type = 0 ;
-        SetProfileVelocityParametersAll(P);
-    */
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Mapping default PDOs...");
-    if(MapDefaultPdos())
-    {
-        return  -1 ;
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring DC synchronization...");
 
-    ConfigDcSyncDefault();
-
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Activating master...");
-
-    if(ActivateMaster())
-    {
-        return  -1 ;
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Registering master domain...");
-
-    if (RegisterDomain())
-    {
-        return  -1 ;
-    }
-    if (WaitForOperationalMode())
-    {
-        return -1 ;
-    }
-    if (SetComThreadPriorities())
-    {
-        return -1 ;
-    }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Initialization succesfull...");
-    return 0 ; 
-}
-
-int  EthercatNode::StartEthercatCommunication()
-{
-
-    err_= pthread_create(&ethercat_thread_,&ethercat_thread_attr_, &EthercatNode::PassCycylicExchange,this);
-    if(err_)
-    {
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Couldn't start communication thread.!");
-        return -1 ; 
-    }
-    return 0 ;
-}
-
-void *EthercatNode::PassCycylicExchange(void *arg)
-{
-    static_cast<EthercatNode*>(arg)->StartPdoExchange(arg);
-    
-}
 void EthercatNode::GetAllSlaveInformation()
 {
     for(int i=0;i < NUM_OF_SLAVES ; i++){
@@ -693,6 +431,7 @@ int EthercatNode::GetNumberOfConnectedSlaves()
     }
     return 0 ;
 }
+
 void EthercatNode::DeactivateCommunication()
 {
     ecrt_master_deactivate_slaves(g_master);
@@ -703,7 +442,9 @@ void EthercatNode::ReleaseMaster()
     ecrt_release_master(g_master);
 }
 
-int EthercatNode::GetComState()
-{
-    return al_state_ ; 
-}
+
+
+
+
+
+

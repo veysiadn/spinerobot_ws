@@ -81,15 +81,16 @@ const unsigned int g_kNumberOfServoDrivers = 0 ;
 const unsigned int      g_kNsPerSec = 1000000000;  // Nanoseconds per second.
 #define FINAL_SLAVE     (NUM_OF_SLAVES-1)
 /****************************************************************************/
-static ec_master_t        * g_master = NULL ;  // EtherCAT master
-static ec_master_state_t    g_master_state = {}; // EtherCAT master state
+//// Global variable declarations, definitions are in @file ethercat_node.cpp
+extern ec_master_t        * g_master ;  // EtherCAT master
+extern ec_master_state_t    g_master_state ; // EtherCAT master state
 
-static ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
-static ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
+extern ec_domain_t       * g_master_domain ; // Ethercat data passing master domain
+extern ec_domain_state_t   g_master_domain_state ;   // EtherCAT master domain state
 
-static struct timespec      g_sync_timer ;     // timer for DC sync .
-const struct timespec       g_cycle_time = {0, PERIOD_NS};       // cycletime settings in ns. 
-static unsigned int         g_sync_ref_counter = 0;
+extern struct timespec        g_sync_timer ;        // timer for DC sync .
+const struct timespec       g_cycle_time = {0, PERIOD_NS} ;       // cycletime settings in ns. 
+extern unsigned int         g_sync_ref_counter;
 
 /****************************************************************************/
 #define TEST_BIT(NUM,N)     (NUM &  (1 << N))  // Check specific bit in the data. 0 or 1.

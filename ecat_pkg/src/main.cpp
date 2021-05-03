@@ -8,7 +8,7 @@ std::unique_ptr<EthercatLifeCycleNode::EthercatLifeCycle> ecat_lifecycle_node;
 
 void signalHandler(int /*signum*/)
 {
-    /// @todo Add shutdown command here.
+    ecat_lifecycle_node->shutdown();
 }
 
 int main(int argc, char **argv)

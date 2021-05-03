@@ -180,31 +180,7 @@ class EthercatNode
  * @return 0 if succesfull, otherwise -1.
  */
     int  WaitForOperationalMode();
-/**
- * @brief Sets Ethercat communication thread's properties 
- *        After this function called user must call StartEthercatCommunication() function]
- * @return 0 if succesfull, otherwise -1.
- */
-    int SetComThreadPriorities();
-/**
- * @brief Encapsulates all configuration steps for the EtherCAT communication with default slaves.
- *        And waits for connected slaves to become operational.
- * @return 0 if succesful otherwise -1. 
- */
-    int InitEthercatCommunication() ;
-/**
- * @brief Realtime cyclic Pdo exchange function which will constantly read/write values from/to slaves
- * 
- * @param arg Used during pthread_create function to pass variables to realtime task. 
- * @return NULL
- */
-    void StartPdoExchange(void *instance);
-/**
- * @brief Starts EtherCAT communcation
- * 
- * @return 0 if succesfull, otherwise -1.
- */
-    int  StartEthercatCommunication();
+
 /**
  * @brief Opens EtherCAT master via command line tool if it's not already on.
  * 
@@ -223,15 +199,7 @@ class EthercatNode
  * 
  */
     void GetAllSlaveInformation();
-/**
- * @brief Helper function to enter pthread_create, since pthread's are C function it doesn't
- *        accept class member function, to pass class member function this helper function is 
- *        created.
- * 
- * @param arg Pointer to current class instance.
- * @return void* 
- */
-    static void *PassCycylicExchange(void *arg);
+
 /**
  * @brief Deactivates slaves and can be called in real-time.
  */
@@ -240,27 +208,9 @@ class EthercatNode
  * @brief Deactivates and releases master shouldn't be called in real-time.
  */
     void ReleaseMaster();
-/**
- * @brief Gets  master's communication state.
- *  \see ec_al_state_t
- * 
- * @return Application layer state for master.
- */
-    int GetComState();
-        
-    private : 
-        pthread_t ethercat_thread_;
-        struct sched_param ethercat_sched_param_ = {};
-        pthread_attr_t ethercat_thread_attr_;
-        int32_t err_;
-        //Variable for opening EtherCAT master from CLI via code.
-        int fd ;
-        uint8_t al_state_ = 0; 
-    public:
-        float left_x_axis_;
-        float left_y_axis_;
-        float right_x_axis_;
-        float right_y_axis_;
+    private:
+    /// File descriptor to open and wake  master from CLI.
+    int  fd;
     
 };
 }
