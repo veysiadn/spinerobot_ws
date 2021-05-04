@@ -54,9 +54,6 @@ def generate_launch_description():
     )
 
     return launch.LaunchDescription([
-        # Set env var to print messages colored. The ANSI color codes will appear in a log.
-        #launch.actions.SetEnvironmentVariable('RCUTILS_COLORIZED_OUTPUT', '1'),
-
         pd_inactive_state_handler,
         pd_node,
         pd_configure_event,

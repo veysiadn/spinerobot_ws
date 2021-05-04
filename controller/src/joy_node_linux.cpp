@@ -65,7 +65,7 @@ private:
     while ((entry = readdir(dev_dir)) != NULL)
     {
       // filter entries
-      if (strncmp(entry->d_name, "js", 2) != 0) // skip device if it's not a joystick
+      if (strncmp(entry->d_name, "js1", 3) != 0) // skip device if it's not a joystick
         continue;
       std::string current_path = std::string(path) + "/" + entry->d_name;
       if (stat(current_path.c_str(), &stat_buf) == -1)
@@ -112,9 +112,9 @@ public:
     auto node = std::make_shared<rclcpp::Node>("joy_node");
 
     // Parameters
-    pub_ = node->create_publisher<sensor_msgs::msg::Joy>("joy", 10);
+    pub_ = node->create_publisher<sensor_msgs::msg::Joy>("Controller", 10);
 
-    joy_dev_ = node->declare_parameter("dev", std::string("/dev/input/js0"));
+    joy_dev_ = node->declare_parameter("dev", std::string("/dev/input/js1"));
     joy_dev_name_ = node->declare_parameter("dev_name", std::string(""));
     deadzone_ = node->declare_parameter("deadzone", 0.05);
     autorepeat_rate_ = node->declare_parameter("autorepeat_rate", 20.0);

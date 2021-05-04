@@ -32,7 +32,7 @@
  *  \file   ecat_slave.hpp
  *  \brief  Ethercat slave class implementation header file.
  * 
- *   This header file contains blueprint of EtherCAT slave class which will be 
+ *   This header file contains blueprint of EtherCAT slave's which will be 
  *   used to  communicate with EtherCAT master.
  *    @todo After implementation explain functionality of this class and methods.
  *******************************************************************************/
@@ -44,10 +44,7 @@
 /******************************************************************************
  *  \class   EthercatSlave
  *  \brief   Contains EtherCAT slave parameters for configuration.
- * 
- *       This class is slave class for EtherCAT communication.User should specify all 
- *       variables in this section to be able to use specific slave.
- *    @todo After implementation explain functionality of this class and methods.
+ * .
  *******************************************************************************/
 class EthercatSlave
 {
@@ -69,7 +66,8 @@ class EthercatSlave
 
     /// Slave configuration parameters, assinged to each slave.
     ec_slave_config_t       * slave_config_ ;
-    /// Slave state handle to check if slave is online and it's state machine(INIT/PREOP/SAFEOP/0P)
+
+    /// Slave state handle to check if slave is online and slaves state machine status(INIT/PREOP/SAFEOP/0P)
     ec_slave_config_state_t  slave_config_state_ ;
 
     /// PDO domain for data exchange
@@ -77,7 +75,11 @@ class EthercatSlave
 
     /// Variable for checking motor state 
     int32_t                  motor_state_ ;
-    /// Holds alias,position,vendor_id,product_code,al_state information for the slave.
+    /**
+     * @brief Slave information data structure.
+     *      This structure contains all information related to slave.
+     *      It will be used to get slave's information from master.
+     */
     ec_slave_info_t         slave_info_;
     /// Offset for PDO entries to assign pdo registers.
     OffsetPDO                 offset_ ;

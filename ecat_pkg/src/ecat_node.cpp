@@ -397,7 +397,7 @@ int EthercatNode::OpenEthercatMaster()
     fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
     if(fd){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT master...");
-        std::system("cd ~; sudo ethercatctl start");
+        std::system("cd ~; sudo ethercatctl restart");
         usleep(1e6);
         fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
         if(fd){

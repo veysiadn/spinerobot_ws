@@ -229,24 +229,25 @@ int  EthercatLifeCycle::StartEthercatCommunication()
 void EthercatLifeCycle::StartPdoExchange(void *instance)
 {
     EthercatNode *my_node = reinterpret_cast<EthercatNode*>(instance);
-
+    uint32_t print_max_min = 1 ; 
     int counter = 100;
     struct timespec wake_up_time, time;
     #if MEASURE_TIMING
-        struct timespec startTime, endTime, lastStartTime = {};
+        struct timespec start_time, end_time, last_start_time = {};
         uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
-        latency_min_ns = 0, latency_max_ns = 0,
-        period_min_ns = 0, period_max_ns = 0,
-        exec_min_ns = 0, exec_max_ns = 0,
-        max_period=0, max_latency=0,max_exec=0;
+        latency_min_ns = 0xffffffff, latency_max_ns = 0,
+        period_min_ns = 0xffffffff, period_max_ns = 0,
+        exec_min_ns = 0xffffffff, exec_max_ns = 0,
+        max_period=0, max_latency=0,max_exec=0,min_period = 0xffffffff,
+        exec_min = 0xffffffff , latency_min = 0xffffffff;
+        int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
+
     #endif
 
     // get current time
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
     int begin=10;
     int status_check_counter = 1000;
-    uint8_t r_limit_sw_val = 0 ;
-    uint8_t l_limit_sw_val = 0 ;
     while(1){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
@@ -259,16 +260,24 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
 
         #if MEASURE_TIMING
-            clock_gettime(CLOCK_TO_USE, &startTime);
-            latency_ns = DIFF_NS(wake_up_time, startTime);
-            period_ns = DIFF_NS(lastStartTime, startTime);
-            exec_ns = DIFF_NS(lastStartTime, endTime);
-            lastStartTime = startTime;
+            clock_gettime(CLOCK_TO_USE, &start_time);
+            old_latency = latency_ns;
+            latency_ns = DIFF_NS(wake_up_time, start_time);
+            period_ns = DIFF_NS(last_start_time, start_time);
+            exec_ns = DIFF_NS(last_start_time, end_time);
+            last_start_time = start_time;
             if(!begin)
             {
-            if(latency_ns > max_latency)        max_latency = latency_ns;
-            if(period_ns > max_period)          max_period  = period_ns;
-            if(exec_ns > max_exec)              max_exec    = exec_ns;
+                jitter = latency_ns - old_latency ;
+                if(jitter < 0 ) jitter *=-1; 
+                if(jitter > jitter_max)             jitter_max  = jitter ; 
+                if(latency_ns > max_latency)        max_latency = latency_ns;
+                if(period_ns > max_period)          max_period  = period_ns;
+                if(exec_ns > max_exec)              max_exec    = exec_ns;
+                if(period_ns < min_period)          min_period  = period_ns;
+                if(exec_ns < exec_min)              exec_min    = exec_ns;
+                if(latency_ns < latency_min)        latency_min = latency_ns;
+                if(jitter < jitter_min)             jitter_min  = jitter;
             }
 
             if (latency_ns > latency_max_ns)  {
@@ -314,7 +323,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             counter = 100;
             #if MEASURE_TIMING
                     // output timing stats
-                 printf("-----------------------------------------------\n\n");
+            if(!print_max_min){
+                    printf("-----------------------------------------------\n\n");
                     printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
                             period_min_ns, period_max_ns);
                     printf("Texec     min   : %10u ns  | max : %10u ns\n",
@@ -323,19 +333,27 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                             latency_min_ns, latency_max_ns);
                     printf("Tjitter max     : %10u ns  \n",
                             latency_max_ns-latency_min_ns);
-            std::cout <<    "Left Switch   : " << unsigned(received_data_[FINAL_SLAVE].left_limit_switch_val) << std::endl << 
-                            "Right Switch  : " << unsigned(received_data_[FINAL_SLAVE].right_limit_switch_val) << std::endl;
-                     printf("Tperiod min     : %10u ns  | max : %10u ns\n",
-                            period_min_ns, max_period);
+                    printf("-----------------------------------------------\n\n");       
+                    printf("Tperiod min     : %10u ns  | max : %10u ns\n",
+                            min_period, max_period);
                     printf("Texec  min      : %10u ns  | max : %10u ns\n",
-                            exec_min_ns, max_exec);
+                            exec_min, max_exec);
                     printf("Tjitter min     : %10u ns  | max : %10u ns\n",
-                            max_latency-latency_min_ns, max_latency);
+                            jitter_min, jitter_max);
                     printf("-----------------------------------------------\n\n");
+            std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
+                            "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
+            std::cout << "Left X Axis  : " << left_x_axis_ << std::endl;
+            std::cout << "Left Y Axis  : " << left_y_axis_ << std::endl;
+            }else {
+                print_max_min--;
+            }
                     period_max_ns = 0;
                     period_min_ns = 0xffffffff;
+
                     exec_max_ns = 0;
                     exec_min_ns = 0xffffffff;
+
                     latency_max_ns = 0;
                     latency_min_ns = 0xffffffff;
             #endif
@@ -343,7 +361,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     // calculate new process data
         }
         UpdateReceivedData();
-        
+        PublishAllData();
         if (g_sync_ref_counter) {
             g_sync_ref_counter--;
         } else {
@@ -359,7 +377,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         ecrt_master_send(g_master);
         if(begin) begin--;
         #if MEASURE_TIMING
-                clock_gettime(CLOCK_TO_USE, &endTime);
+                clock_gettime(CLOCK_TO_USE, &end_time);
         #endif
     }//while(1)
     return;
@@ -368,19 +386,22 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 void EthercatLifeCycle::UpdateReceivedData()
 {
     for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
-        received_data_[i].actual_pos  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
-        received_data_[i].actual_vel  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
-        received_data_[i].status_word = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
+        received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
+        received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
+        received_data_.status_word[i] = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
     }
-    received_data_[FINAL_SLAVE].right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
-    received_data_[FINAL_SLAVE].left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+    received_data_.com_status = al_state_ ; 
+    received_data_.right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
+    received_data_.left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
 }
 
 int EthercatLifeCycle::PublishAllData()
 {   
     for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
-        received_data_publisher_->publish(received_data_[i]);
-        sent_data_publisher_->publish(sent_data_[i]);
+        received_data_.header.stamp = this->now();
+        received_data_publisher_->publish(received_data_);
+        sent_data_.header.stamp  = this->now();
+        sent_data_publisher_->publish(sent_data_);
     }
 }
 

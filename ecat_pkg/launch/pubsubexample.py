@@ -59,6 +59,7 @@ def main(argv=sys.argv[1:]):
     )
 
     # When the talker node reaches the 'active' state, log a message and start the listener node.
+    # Change Line 69 with launch_ros.actions.Node(  
     register_event_handler_for_talker_reaches_active_state = launch.actions.RegisterEventHandler(
         launch_ros.event_handlers.OnStateTransition(
             target_lifecycle_node=talker_node, goal_state='active',

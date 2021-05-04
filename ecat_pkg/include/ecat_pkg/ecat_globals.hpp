@@ -37,8 +37,7 @@
  * global variables (e.g. ethercat master,master_state, domain,domain_state), 
  * structs for PDO offset and recieved data from slaves,
  * Communication period and number of slaves can be specified in here.
- *  @todo Converting period and number of slaves variable as a ros parameter.
- *  ******************************************************************************/
+ *******************************************************************************/
 #pragma once
 
 #include <iostream>
@@ -74,6 +73,7 @@
 #define NUM_OF_SLAVES     1   // Total number of connected slave to the bus.
 const unsigned int g_kNumberOfServoDrivers = 0 ; // Number of connected servo drives.
 #define FREQUENCY       1000  // Ethercat PDO exchange loop frequency
+#define MEASURE_TIMING       1 // If you want to measure timings leave it as one, otherwise make it 0.
 /*****************************************************************************/
 const unsigned int      g_kNsPerSec = 1000000000;  // Nanoseconds per second.
 #define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  // EtherCAT communication period in nanoseconds.
@@ -101,10 +101,9 @@ extern unsigned int         g_sync_ref_counter;
 #define DIFF_NS(A, B) (((B).tv_sec - (A).tv_sec) * g_kNsPerSec + (B).tv_nsec - (A).tv_nsec)
 /* Using Monotonic system-wide clock.  */
 #define CLOCK_TO_USE        CLOCK_MONOTONIC  
-#define MEASURE_TIMING          1
 
 /**
- * @brief Add two timespec struct.Since it's global function it should be either static or inline
+ * @brief Add two timespec struct.
  * 
  * @param time1 Timespec struct 1
  * @param time2 Timespec struct 2
@@ -129,40 +128,6 @@ inline struct timespec timespec_add(struct timespec time1, struct timespec time2
     return result;
 }
 
-#ifdef LOGGING
-#ifdef LOGGING_SAMPLING
-// Statistics struct for analyzing performance.
-typedef struct StatisticsStruct
-{
-  int       statistics_id;
-  uint32_t  period_ns;
-  uint32_t  exec_ns;
-  uint32_t  latency_ns;
-  uint32_t * latency_min_ns;
-  uint32_t * latency_max_ns;
-  uint32_t * period_min_ns;
-  uint32_t * period_max_ns;
-  uint32_t * exec_min_ns;
-  uint32_t * exec_max_ns;
-  struct timespec start_time;
-  struct timespec end_time;
-  struct timespec last_start_time;
-} StatisticsStruct;
-#endif
-#ifdef LOGGING_NO_SAMPLING
-
-typedef struct StatisticsStruct
-{
-  int statistics_id;
-  uint32_t * period_ns;
-  uint32_t * exec_ns;
-  uint32_t * latency_ns;
-  struct timespec start_time;
-  struct timespec end_time;
-  struct timespec last_start_time;
-} StatisticsStruct;
-#endif
-#endif
  // Motor operation modes
 typedef enum
 {

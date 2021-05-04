@@ -30,11 +30,10 @@
  *****************************************************************************/
 /******************************************************************************
  *  \file   ecat_node.hpp
- *  \brief  ROS2 EtherCAT lifecycle node implementatiton header file 
+ *  \brief  IgH EtherCAT library functionality wrapper class header file.
  * 
  *   This header file contains blueprint of EthercatNode class which will be 
- *   responsible for EtherCAT communication.
- *    @todo After implementation explain functionality of this class and methods.
+ *   responsible for encapsulating IgH EtherCAT library's functionality.
  *******************************************************************************/
 #pragma once
 /******************************************************************************/
@@ -44,6 +43,7 @@
 class EthercatSlave ;
 #include "ecat_slave.hpp"
 /******************************************************************************/
+/// ROS2 Headers
 #include <rclcpp/rclcpp.hpp>
 #include "sensor_msgs/msg/joy.hpp"
 /*****************************************************************************/
@@ -115,7 +115,7 @@ class EthercatNode
  * @brief Maps default PDOs for our spine surgery robot implementation.
  * @note This method is specific for our spinerobot implementation.
  * If you have different topology or different servo drives use 
- * \see MapCustomPdos() function.
+ * \see MapCustomPdos() function of modify this function based on your needs.
  * @return 0 if succesfull, otherwise -1.
  */
     int MapDefaultPdos();
@@ -196,7 +196,6 @@ class EthercatNode
 /**
  * @brief Get the information of physically connected slaves to the master.
  *        This function will return connected slave's vendor id, product code.
- * 
  */
     void GetAllSlaveInformation();
 
@@ -208,6 +207,7 @@ class EthercatNode
  * @brief Deactivates and releases master shouldn't be called in real-time.
  */
     void ReleaseMaster();
+    
     private:
     /// File descriptor to open and wake  master from CLI.
     int  fd;

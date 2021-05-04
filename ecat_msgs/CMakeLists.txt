@@ -17,7 +17,8 @@ endif()
 
 
 find_package(ament_cmake REQUIRED)
-
+find_package(std_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 ## Add this part of custom interfaces 
 find_package(rosidl_default_generators REQUIRED)
 ## Define directories
@@ -28,9 +29,10 @@ set(msg_files
 ## generate interface from your msg files.
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
+  DEPENDENCIES std_msgs builtin_interfaces
 )
 
-ament_export_dependencies(rosidl_default_runtime)
+ament_export_dependencies(rosidl_default_runtime std_msgs builtin_interfaces)
 
 #*************************************************************
 

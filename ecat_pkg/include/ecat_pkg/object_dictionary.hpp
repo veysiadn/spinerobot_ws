@@ -30,9 +30,9 @@
  *******************************************************************************/
 /*******************************************************************************
  * \file  object_dictionary.hpp
- * \brief Contains object dictionary and state machine definitions based on CIA402 for Elmo Gold Solo Twitter.
- * 
- *  @todo Seperete state machine from object dictionary as state machine header file.
+ * \brief Contains object dictionary and state machine definitions based on CIA402
+ * 		  Some index and subindexes may be specific to Elmo Gold Solo Twitter.
+ * 		  Check indexes if you're using different slave.
  *******************************************************************************/
 
 #pragma once
