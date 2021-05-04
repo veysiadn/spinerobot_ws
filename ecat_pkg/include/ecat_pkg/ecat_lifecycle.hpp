@@ -29,6 +29,10 @@ class EthercatLifeCycle : public LifecycleNode
         LifecyclePublisher<ecat_msgs::msg::DataReceived>::SharedPtr received_data_publisher_;
         LifecyclePublisher<ecat_msgs::msg::DataSent>::SharedPtr     sent_data_publisher_;
         rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr      joystick_subscriber_;
+
+        ecat_msgs::msg::DataReceived received_data_[NUM_OF_SLAVES];
+        ecat_msgs::msg::DataSent    sent_data_[NUM_OF_SLAVES];
+
         std::unique_ptr<EthercatNode>                               ecat_node_;
         
         
@@ -82,7 +86,16 @@ class EthercatLifeCycle : public LifecycleNode
          * @return Application layer state for master.
          */
         int GetComState();
-        
+        /**
+         * @brief Reads data from slaves and updates received data structure to be published
+         */
+        void UpdateReceivedData();
+        /**
+         * @brief Publishes all data that master received and will be sent
+         * 
+         * @return 0 if succesfull otherwise -1. 
+         */
+        int PublishAllData();
     private : 
         pthread_t ethercat_thread_;
         struct sched_param ethercat_sched_param_ = {};

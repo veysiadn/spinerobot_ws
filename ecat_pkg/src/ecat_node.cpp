@@ -7,7 +7,7 @@ ec_master_t        * g_master = NULL ;
 ec_master_state_t    g_master_state = {}; // EtherCAT master state
 ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
 ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
-struct timespec        g_sync_timer ;
+struct timespec       g_sync_timer ;
 unsigned int         g_sync_ref_counter = 0;
 /*****************************************************************************************/
 EthercatNode::EthercatNode()

@@ -248,7 +248,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     uint8_t r_limit_sw_val = 0 ;
     uint8_t l_limit_sw_val = 0 ;
     while(1){
-
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
 
@@ -315,7 +314,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             counter = 100;
             #if MEASURE_TIMING
                     // output timing stats
-                /* printf("-----------------------------------------------\n\n");
+                 printf("-----------------------------------------------\n\n");
                     printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
                             period_min_ns, period_max_ns);
                     printf("Texec     min   : %10u ns  | max : %10u ns\n",
@@ -323,16 +322,16 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
                             latency_min_ns, latency_max_ns);
                     printf("Tjitter max     : %10u ns  \n",
-                            latency_max_ns-latency_min_ns);*/
-            std::cout <<    "Left Switch   : " << unsigned(r_limit_sw_val) << std::endl << 
-                            "Right Switch  : " << unsigned(l_limit_sw_val) << std::endl;
-                /* printf("Tperiod min     : %10u ns  | max : %10u ns\n",
+                            latency_max_ns-latency_min_ns);
+            std::cout <<    "Left Switch   : " << unsigned(received_data_[FINAL_SLAVE].left_limit_switch_val) << std::endl << 
+                            "Right Switch  : " << unsigned(received_data_[FINAL_SLAVE].right_limit_switch_val) << std::endl;
+                     printf("Tperiod min     : %10u ns  | max : %10u ns\n",
                             period_min_ns, max_period);
                     printf("Texec  min      : %10u ns  | max : %10u ns\n",
                             exec_min_ns, max_exec);
                     printf("Tjitter min     : %10u ns  | max : %10u ns\n",
                             max_latency-latency_min_ns, max_latency);
-                    printf("-----------------------------------------------\n\n");*/
+                    printf("-----------------------------------------------\n\n");
                     period_max_ns = 0;
                     period_min_ns = 0xffffffff;
                     exec_max_ns = 0;
@@ -343,8 +342,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
                     // calculate new process data
         }
-        r_limit_sw_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
-        l_limit_sw_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+        UpdateReceivedData();
         
         if (g_sync_ref_counter) {
             g_sync_ref_counter--;
@@ -366,6 +364,25 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     }//while(1)
     return;
 }// StartPdoExchange   
+
+void EthercatLifeCycle::UpdateReceivedData()
+{
+    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
+        received_data_[i].actual_pos  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
+        received_data_[i].actual_vel  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
+        received_data_[i].status_word = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
+    }
+    received_data_[FINAL_SLAVE].right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
+    received_data_[FINAL_SLAVE].left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+}
+
+int EthercatLifeCycle::PublishAllData()
+{   
+    for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
+        received_data_publisher_->publish(received_data_[i]);
+        sent_data_publisher_->publish(sent_data_[i]);
+    }
+}
 
 void *EthercatLifeCycle::PassCycylicExchange(void *arg)
 {

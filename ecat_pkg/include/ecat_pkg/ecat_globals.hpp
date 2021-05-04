@@ -72,13 +72,13 @@
                 // USER SHOULD DEFINE THIS AREAS //
 
 #define NUM_OF_SLAVES     1   // Total number of connected slave to the bus.
-const unsigned int g_kNumberOfServoDrivers = 0 ;
-#define PERIOD_NS        1000000  // EtherCAT communication period.
+const unsigned int g_kNumberOfServoDrivers = 0 ; // Number of connected servo drives.
+#define FREQUENCY       1000  // Ethercat PDO exchange loop frequency
 /*****************************************************************************/
-
-#define PERIOD_US    (PERIOD_NS / 1000)
-#define PERIOD_MS    (PERIOD_US / 1000)
 const unsigned int      g_kNsPerSec = 1000000000;  // Nanoseconds per second.
+#define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  // EtherCAT communication period in nanoseconds.
+#define PERIOD_US       (PERIOD_NS / 1000)
+#define PERIOD_MS       (PERIOD_US / 1000)
 #define FINAL_SLAVE     (NUM_OF_SLAVES-1)
 /****************************************************************************/
 //// Global variable declarations, definitions are in @file ethercat_node.cpp
