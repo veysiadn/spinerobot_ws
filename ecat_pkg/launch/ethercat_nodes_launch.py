@@ -1,4 +1,3 @@
-
 ## Header file directories : 
 ## /home/spinerobot/ros2_dashing/src/ros2/launch_ros/launch_ros/launch_ros/actions/lifecycle_node.py
 
@@ -14,7 +13,6 @@ import launch
 import launch_ros
 import lifecycle_msgs
 import os
-
 
 
 def generate_launch_description():

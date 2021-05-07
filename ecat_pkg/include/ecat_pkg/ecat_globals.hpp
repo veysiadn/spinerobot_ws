@@ -69,13 +69,12 @@
 
 /****************************************************************************/
                 // USER SHOULD DEFINE THIS AREAS //
-
-#define NUM_OF_SLAVES     1   // Total number of connected slave to the bus.
-const unsigned int g_kNumberOfServoDrivers = 0 ; // Number of connected servo drives.
-#define FREQUENCY       1000  // Ethercat PDO exchange loop frequency
-#define MEASURE_TIMING       1 // If you want to measure timings leave it as one, otherwise make it 0.
+#define NUM_OF_SLAVES     3  // Total number of connected slave to the bus.
+const uint32_t  g_kNumberOfServoDrivers = 2 ; // Number of connected servo drives.
+#define FREQUENCY       1000  // Ethercat PDO exchange loop frequency in Hz
+#define MEASURE_TIMING   1    // If you want to measure timings leave it as one, otherwise make it 0.
 /*****************************************************************************/
-const unsigned int      g_kNsPerSec = 1000000000;  // Nanoseconds per second.
+const uint32_t           g_kNsPerSec = 1000000000;     // Nanoseconds per second.
 #define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  // EtherCAT communication period in nanoseconds.
 #define PERIOD_US       (PERIOD_NS / 1000)
 #define PERIOD_MS       (PERIOD_US / 1000)
@@ -88,9 +87,9 @@ extern ec_master_state_t    g_master_state ; // EtherCAT master state
 extern ec_domain_t       * g_master_domain ; // Ethercat data passing master domain
 extern ec_domain_state_t   g_master_domain_state ;   // EtherCAT master domain state
 
-extern struct timespec        g_sync_timer ;        // timer for DC sync .
+extern struct timespec      g_sync_timer ;                       // timer for DC sync .
 const struct timespec       g_cycle_time = {0, PERIOD_NS} ;       // cycletime settings in ns. 
-extern unsigned int         g_sync_ref_counter;
+extern uint32_t             g_sync_ref_counter;                  // To sync every cycle.
 
 /****************************************************************************/
 #define TEST_BIT(NUM,N)     (NUM &  (1 << N))  // Check specific bit in the data. 0 or 1.
@@ -159,29 +158,29 @@ enum MotorStates{
 //offset for PDO entries to register PDOs.
 typedef struct
 {
-    unsigned int target_pos ;
-    unsigned int target_vel ;
-    unsigned int target_tor ;
-    unsigned int max_tor  ;
-    unsigned int control_word ;
-    unsigned int op_mode ;
-    unsigned int profile_acc ;
-    unsigned int profile_dec ;
-    unsigned int quick_stop_dec ;
-    unsigned int profile_vel ;
+    uint32_t target_pos ;
+    uint32_t target_vel ;
+    uint32_t target_tor ;
+    uint32_t max_tor  ;
+    uint32_t control_word ;
+    uint32_t op_mode ;
+    uint32_t profile_acc ;
+    uint32_t profile_dec ;
+    uint32_t quick_stop_dec ;
+    uint32_t profile_vel ;
 
-    unsigned int actual_pos ;
-    unsigned int pos_fol_err ;
-    unsigned int actual_vel ;
-    unsigned int actual_cur ;
-    unsigned int actual_tor ;
-    unsigned int status_word ;
-    unsigned int op_mode_display ;
-    unsigned int error_code ;
-    unsigned int extra_status_reg ;
+    uint32_t actual_pos ;
+    uint32_t pos_fol_err ;
+    uint32_t actual_vel ;
+    uint32_t actual_cur ;
+    uint32_t actual_tor ;
+    uint32_t status_word ;
+    uint32_t op_mode_display ;
+    uint32_t error_code ;
+    uint32_t extra_status_reg ;
 
-    unsigned int r_limit_switch;
-    unsigned int l_limit_switch;
+    uint32_t r_limit_switch;
+    uint32_t l_limit_switch;
 
 } OffsetPDO ;
 
@@ -204,7 +203,6 @@ typedef struct
     int16_t  actual_tor ;
     uint16_t status_word ;
     int8_t   op_mode_display ;
-    /// @todo find better name for limit swithces.
     uint8_t  left_limit_switch_val ;
     uint8_t  right_limit_switch_val ;
 }ReceivedData;

@@ -207,7 +207,18 @@ class EthercatNode
  * @brief Deactivates and releases master shouldn't be called in real-time.
  */
     void ReleaseMaster();
-    
+/**
+ * @brief Brings motors to enabled state.
+ * 
+ * @return 0 if succesfull, otherwise -1.
+ */
+    int EnableMotors();
+/**
+ * @brief Shutdowns EtherCAT master via command line tool if it's not already off.
+ * 
+ * @return 0 if succesfull, otherwise -1.
+ */ 
+    int ShutDownEthercatMaster();
     private:
     /// File descriptor to open and wake  master from CLI.
     int  fd;

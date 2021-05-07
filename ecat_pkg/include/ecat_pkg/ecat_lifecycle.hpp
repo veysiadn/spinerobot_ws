@@ -49,7 +49,6 @@ namespace EthercatLifeCycleNode
 {
 class EthercatLifeCycle : public LifecycleNode
 {
-
     public:
         EthercatLifeCycle();
         ~EthercatLifeCycle();
@@ -162,13 +161,30 @@ class EthercatLifeCycle : public LifecycleNode
         /**
          * @brief Reads data from slaves and updates received data structure to be published
          */
-        void UpdateReceivedData();
+        void ReadFromSlaves();
         /**
          * @brief Publishes all data that master received and will be sent
          * 
          * @return 0 if succesfull otherwise -1. 
          */
         int PublishAllData();
+        /**
+         * @brief Enables connected motor drives based on CIA402
+         * 
+         */
+        void EnableMotors();
+        /**
+         * @brief Updates data that will be sent to slaves.
+         *        This updated data will be published as well.
+         */
+        void WriteToSlaves();
+        /**
+         * @brief Acquired data from subscribed controller topic will be assigned as 
+         *        motor speed parameter.
+         */
+        void UpdateControlParameters();
+
+        int CheckMotorState();
     private : 
         /// pthread create required parameters.
         pthread_t ethercat_thread_;
@@ -177,6 +193,8 @@ class EthercatLifeCycle : public LifecycleNode
         int32_t err_;
         /// Application layer of slaves seen by master.(INIT/PREOP/SAFEOP/OP)
         uint8_t al_state_ = 0; 
+        uint32_t motor_state_[NUM_OF_SLAVES];
+        uint32_t command = 0x004F;
         /// Values will be sent by controller node and will ne assigned to variables below.
         float left_x_axis_;
         float left_y_axis_;

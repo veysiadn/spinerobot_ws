@@ -2,7 +2,7 @@
 
 using namespace EthercatLifeCycleNode ; 
 
-EthercatLifeCycle::EthercatLifeCycle(): LifecycleNode("ecat_life_cycle_node")
+EthercatLifeCycle::EthercatLifeCycle(): LifecycleNode("ecat_node")
 {
     
     ecat_node_= std::make_unique<EthercatNode>();
@@ -24,11 +24,12 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_co
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuration phase failed");
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::FAILURE;
     }else{
-
+        printf("Configure succes now you can activate node...\n");   
         received_data_publisher_ = this->create_publisher<ecat_msgs::msg::DataReceived>("Slave_Feedback", 10);
         sent_data_publisher_     = this->create_publisher<ecat_msgs::msg::DataSent>("Master_Commands", 10);
         joystick_subscriber_     = this->create_subscription<sensor_msgs::msg::Joy>("Controller", 10, 
                                     std::bind(&EthercatLifeCycle::HandleCallbacks, this, std::placeholders::_1));
+        printf("Configure succes now you can activate node...\n");
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
     }
 }
@@ -65,7 +66,9 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cl
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_shutdown(const State &)
 {
+    ecat_node_->DeactivateCommunication();
     ecat_node_->ReleaseMaster();
+    ecat_node_->ShutDownEthercatMaster();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 
@@ -110,7 +113,7 @@ int EthercatLifeCycle::SetComThreadPriorities()
         return -1;
     }
     /* Set a specific stack size  */
-    err_ = pthread_attr_setstacksize(&ethercat_thread_attr_, PTHREAD_STACK_MIN);
+    err_ = pthread_attr_setstacksize(&ethercat_thread_attr_, 4096*64);
     if (err_) {
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error setting thread stack size  ! ");
         return -1 ;
@@ -137,80 +140,81 @@ int EthercatLifeCycle::SetComThreadPriorities()
 
 int EthercatLifeCycle::InitEthercatCommunication()
 {
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT device...");
+    printf("Opening EtherCAT device...\n");
     if (ecat_node_->OpenEthercatMaster())
     {
         return -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT master...");
+
+    printf("Configuring EtherCAT master...\n");
     if (ecat_node_->ConfigureMaster())
     {
         return -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Getting connected slave informations...");
+
+    printf("Getting connected slave informations...\n");
     if(ecat_node_->GetNumberOfConnectedSlaves()){
         return -1 ;
     }
+
     ecat_node_->GetAllSlaveInformation();
     for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
         printf("--------------------Slave Info -------------------------\n"
-               " Slave alias         = %d\n "
+               "Slave alias         = %d\n "
                "Slave position      = %d\n "
                "Slave vendor_id     = 0x%08x\n "
                "Slave product_code  = 0x%08x\n "
                "Slave name          = %s\n "
                "--------------------EOF %d'th Slave Info ----------------\n ",
-                ecat_node_->slaves_[FINAL_SLAVE].slave_info_.alias,
-                ecat_node_->slaves_[FINAL_SLAVE].slave_info_.position,
-                ecat_node_->slaves_[FINAL_SLAVE].slave_info_.vendor_id,
-                ecat_node_->slaves_[FINAL_SLAVE].slave_info_.product_code,
-                ecat_node_->slaves_[FINAL_SLAVE].slave_info_.name,i);
+                ecat_node_->slaves_[i].slave_info_.alias,
+                ecat_node_->slaves_[i].slave_info_.position,
+                ecat_node_->slaves_[i].slave_info_.vendor_id,
+                ecat_node_->slaves_[i].slave_info_.product_code,
+                ecat_node_->slaves_[i].slave_info_.name,i);
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring  slaves...");
-    if(ecat_node_->ConfigureSlaves())
-    {
+
+
+    printf("Configuring  slaves...\n");
+    if(ecat_node_->ConfigureSlaves()){
         return -1 ;
     }
-    /*
-        ProfileVelocityParam P ;
-        
-        P.profile_acc=50000 ;
-        P.profile_dec=50000 ;
-        P.max_profile_vel = 90000 ;
-        P.quick_stop_dec = 50000 ;
-        P.motion_profile_type = 0 ;
-        SetProfileVelocityParametersAll(P);
-    */
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Mapping default PDOs...");
-    if(ecat_node_->MapDefaultPdos())
-    {
+    
+    ProfileVelocityParam P ;
+    
+    P.profile_acc=50000 ;
+    P.profile_dec=50000 ;
+    P.max_profile_vel = 90000 ;
+    P.quick_stop_dec = 50000 ;
+    P.motion_profile_type = 0 ;
+    ecat_node_->SetProfileVelocityParametersAll(P);
+
+    printf("Mapping default PDOs...\n");
+    if(ecat_node_->MapDefaultPdos()){
         return  -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring DC synchronization...");
 
+    printf("Configuring DC synchronization...\n");
     ecat_node_->ConfigDcSyncDefault();
 
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Activating master...");
-
-    if(ecat_node_->ActivateMaster())
-    {
+    printf("Activating master...\n");
+    if(ecat_node_->ActivateMaster()){
         return  -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Registering master domain...");
 
-    if (ecat_node_->RegisterDomain())
-    {
+    printf("Registering master domain...\n");
+    if (ecat_node_->RegisterDomain()){
         return  -1 ;
     }
-    if (ecat_node_->WaitForOperationalMode())
-    {
+
+    if (ecat_node_->WaitForOperationalMode()){
         return -1 ;
     }
-    if (SetComThreadPriorities())
-    {
+
+    if (SetComThreadPriorities()){
         return -1 ;
     }
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Initialization succesfull...");
+    printf("Initialization succesfull...\n");
+    
     return 0 ; 
 }
 
@@ -251,12 +255,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     while(1){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
-
-        // Write application time to master
-        //
-        // It is a good idea to use the target time (not the measured time) as
-        // application time, because it is more stable.
-        //
         ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
 
         #if MEASURE_TIMING
@@ -300,13 +298,14 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             }
         #endif
 
-                // receive process data
+        // receive process data
         ecrt_master_receive(g_master);
         ecrt_domain_process(g_master_domain);
 
         if (status_check_counter){
             status_check_counter--;
         }else { 
+            // Checking master/domain/slaves state every 1sec.
             ecat_node_->CheckMasterState();
             ecat_node_->CheckMasterDomainState();
             ecat_node_->CheckSlaveConfigurationState();
@@ -319,10 +318,9 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         }
         else
         {
-            // do this at 1 Hz
             counter = 100;
             #if MEASURE_TIMING
-                    // output timing stats
+            // output timing stats
             if(!print_max_min){
                     printf("-----------------------------------------------\n\n");
                     printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
@@ -357,11 +355,16 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     latency_max_ns = 0;
                     latency_min_ns = 0xffffffff;
             #endif
-
-                    // calculate new process data
         }
-        UpdateReceivedData();
+
+        ReadFromSlaves();
+        CheckMotorState();
+        UpdateControlParameters();
+
+
+        WriteToSlaves();
         PublishAllData();
+
         if (g_sync_ref_counter) {
             g_sync_ref_counter--;
         } else {
@@ -381,11 +384,11 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         #endif
     }//while(1)
     return;
-}// StartPdoExchange   
+}// StartPdoExchange end
 
-void EthercatLifeCycle::UpdateReceivedData()
+void EthercatLifeCycle::ReadFromSlaves()
 {
-    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
         received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
         received_data_.status_word[i] = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
@@ -393,16 +396,23 @@ void EthercatLifeCycle::UpdateReceivedData()
     received_data_.com_status = al_state_ ; 
     received_data_.right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
     received_data_.left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+}// ReadFromSlaves end
+
+void EthercatLifeCycle::WriteToSlaves()
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+        if(motor_state_[i] == kSwitchedOn)
+            EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_vel,sent_data_.target_vel[i]);
+    }
 }
 
 int EthercatLifeCycle::PublishAllData()
 {   
-    for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
-        received_data_.header.stamp = this->now();
-        received_data_publisher_->publish(received_data_);
-        sent_data_.header.stamp  = this->now();
-        sent_data_publisher_->publish(sent_data_);
-    }
+    received_data_.header.stamp = this->now();
+    received_data_publisher_->publish(received_data_);
+    sent_data_.header.stamp  = this->now();
+    sent_data_publisher_->publish(sent_data_);
 }
 
 void *EthercatLifeCycle::PassCycylicExchange(void *arg)
@@ -417,3 +427,80 @@ int EthercatLifeCycle::GetComState()
 }
 
 
+
+void EthercatLifeCycle::EnableMotors()
+{
+    //DS402 CANOpen over EtherCAT state machine
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+        if ( (received_data_.status_word[i] & command) == 0x0040){  
+            // If status is "Switch on disabled", \
+            change state to "Ready to switch on"
+            sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
+            command = 0x006f;
+            motor_state_[i] = kSwitchOnDisabled;
+            printf("Transiting to -Ready to switch on state...- \n");
+
+        } else if ( (received_data_.status_word[i] & command) == 0x0021){ // If status is "Ready to switch on", \
+                                                        change state to "Switched on"
+            sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+            command = 0x006f;
+            motor_state_[i] = kReadyToSwitchOn;
+            printf("Transiting to -Switched on state...- \n");        
+
+        } else if ( (received_data_.status_word[i] & command) == 0x0023){         
+            // If status is "Switched on", change state to "Operation enabled"
+
+            // printf("Operation enabled...\n");
+            sent_data_.control_word[i]  = SM_GO_ENABLE;
+            command = 0x006f;
+            motor_state_[i] = kSwitchedOn;
+
+        }else if ((received_data_.status_word[i] & command) == 0X08){             
+            //if status is fault, reset fault state.
+            command = 0X04F;
+
+            sent_data_.control_word[i] = 0x0080;
+            motor_state_[i] = kFault;
+
+        }
+    }
+}
+
+void EthercatLifeCycle::UpdateControlParameters() 
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if(left_y_axis_ > 500 || left_y_axis_ < -500 || right_x_axis_ < -500 || right_x_axis_ > 500)
+            sent_data_.target_vel[0] = left_x_axis_  * 3 ;
+            sent_data_.target_vel[1] = right_x_axis_  * 3 ;
+            sent_data_.control_word[i] = SM_RUN ; 
+    }
+    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.control_word, sent_data_.control_word[i]);
+    }
+    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
+        if(motor_state_[i] == kSwitchedOn){
+            EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.target_vel, sent_data_.target_vel[i]);
+        }
+    }
+}
+
+int EthercatLifeCycle::CheckMotorState()
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if ((received_data_.status_word[i] & command) == 0X08){             
+        //if status is fault, reset fault state.
+            command = 0X04F;
+
+            sent_data_.control_word[i] = 0x0080;
+            motor_state_[i] = kFault;
+
+    }
+        if(motor_state_[i]!=kSwitchedOn){
+            EnableMotors();
+        }else
+            sent_data_.control_word[i] = SM_RUN ; 
+    }
+
+    return 0;
+}

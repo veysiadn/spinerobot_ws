@@ -7,8 +7,8 @@ ec_master_t        * g_master = NULL ;
 ec_master_state_t    g_master_state = {}; // EtherCAT master state
 ec_domain_t       * g_master_domain = NULL; // Ethercat data passing master domain
 ec_domain_state_t   g_master_domain_state = {};   // EtherCAT master domain state
-struct timespec       g_sync_timer ;
-unsigned int         g_sync_ref_counter = 0;
+struct timespec      g_sync_timer ;
+uint32_t             g_sync_ref_counter = 0;
 /*****************************************************************************************/
 EthercatNode::EthercatNode()
 {
@@ -41,6 +41,13 @@ int  EthercatNode::ConfigureMaster()
 void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
 {
     this->slaves_[position] = c_slave ; 
+}
+
+void EthercatNode::GetAllSlaveInformation()
+{
+    for(int i=0;i < NUM_OF_SLAVES ; i++){
+        ecrt_master_get_slave(g_master, i , &slaves_[i].slave_info_);
+    }
 }
 
 int  EthercatNode::ConfigureSlaves()
@@ -180,7 +187,7 @@ int EthercatNode::SetProfileVelocityParameters(ProfileVelocityParam& P, int posi
 
 int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
 {
-    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         // Set operation mode to ProfileVelocityMode for all motors.
         if( ecrt_slave_config_sdo8(this->slaves_[i].slave_config_,OD_OPERATION_MODE, kProfileVelocity) ){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
@@ -218,8 +225,84 @@ int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
 
 int EthercatNode::MapDefaultPdos()
 {
-    int err ;
+    int err ; 
+    static ec_pdo_entry_info_t elmo_pdo_entries[8] = {
+        {OD_TARGET_POSITION, 32},
+        {OD_DIGITAL_OUTPUTS, 32},
+        {OD_CONTROL_WORD, 16},
+        {OD_TARGET_VELOCITY,32},
+        {OD_POSITION_ACTUAL_VAL, 32},
+        {OD_DIGITAL_INPUTS, 32},
+        {OD_STATUS_WORD, 16},
+        {OD_VELOCITY_ACTUAL_VALUE,32}
+
+    };
+
+    static ec_pdo_info_t elmo_pdos[4] = {
+        {0x1600, 3, elmo_pdo_entries + 0},
+        {0x1607, 1, elmo_pdo_entries + 3},
+        
+        {0x1a00, 3, elmo_pdo_entries + 4},
+        {0x1a07, 1, elmo_pdo_entries + 7}
+    };
+
+    static ec_sync_info_t elmo_syncs[5] = {
+        {0, EC_DIR_OUTPUT, 0, NULL, EC_WD_DISABLE},
+        {1, EC_DIR_INPUT, 0, NULL, EC_WD_DISABLE},
+        {2, EC_DIR_OUTPUT, 2, elmo_pdos + 0, EC_WD_ENABLE},
+        {3, EC_DIR_INPUT, 2, elmo_pdos + 2, EC_WD_DISABLE},
+        {0xff}
+    };
+/*********************************************************/
+    static ec_pdo_entry_info_t easycat_pdo_entries[16] = {
+    {0x0005, 0x01, 16}, /* output_analog_01 */
+    {0x0005, 0x02, 16}, /* output_analog_02 */
+    {0x0005, 0x03, 16}, /* output_analog_03 */
+    {0x0005, 0x04, 8}, /* output_digital_04 */
+    {0x0005, 0x05, 8}, /* output_digital_05 */
+    {0x0005, 0x06, 8}, /* output_digital_01 */
+    {0x0005, 0x07, 8}, /* output_digital_02 */
+    {0x0005, 0x08, 8}, /* output_digital_03 */
+    {0x0006, 0x01, 16}, /* input_analog_01 */
+    {0x0006, 0x02, 16}, /* input_analog_02 */
+    {0x0006, 0x03, 16}, /* input_analog_03 */
+    {0x0006, 0x04, 8}, /* input_digital_04 */
+    {0x0006, 0x05, 8}, /* input_digital_05 */
+    {0x0006, 0x06, 8}, /* left_limit_switch */
+    {0x0006, 0x07, 8}, /* right_limit_switch */
+    {0x0006, 0x08, 8}, /* input_digital_03 */
+};
+
+    static ec_pdo_info_t easycat_pdos[2] = {
+    {0x1600, 8, easycat_pdo_entries + 0}, /* Outputs */
+    {0x1a00, 8, easycat_pdo_entries + 8}, /* Inputs */
+};
+
+    static ec_sync_info_t easycat_syncs[3] = {
+    {0, EC_DIR_OUTPUT, 1, easycat_pdos + 0, EC_WD_ENABLE},
+    {1, EC_DIR_INPUT, 1, easycat_pdos + 1, EC_WD_DISABLE},
+    {0xff}
+};
+
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if(ecrt_slave_config_pdos(slaves_[i].slave_config_,EC_END,elmo_syncs)){
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Slave PDO configuration failed... ");
+            return -1;
+        }
+    }
+    
+    if(ecrt_slave_config_pdos(slaves_[FINAL_SLAVE].slave_config_,EC_END,easycat_syncs)){
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "EasyCAT slave PDO configuration failed... ");
+        return -1;
+    }
+    /************************************************************************************************************/
+   /**
+    *  This part is specific for our Custom EASYCAT slave configuration
+    *  To create your custom slave and variables you can add variables to \see OffsetPDO struct.
+    *  Also you have add your variables to received data structure, you may have to create your custom msg files as well.
+    **/
+/************************************************************************************************************/
+    for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
         slaves_[i].offset_.actual_pos        = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
                                                                                   OD_POSITION_ACTUAL_VAL,g_master_domain,NULL);
         slaves_[i].offset_.status_word       = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
@@ -233,31 +316,27 @@ int EthercatNode::MapDefaultPdos()
         slaves_[i].offset_.target_vel       = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
                                                                                   OD_TARGET_VELOCITY,g_master_domain,NULL);
         slaves_[i].offset_.control_word     = ecrt_slave_config_reg_pdo_entry(slaves_[i].slave_config_,
-                                                                                  OD_CONTROL_WORD,g_master_domain,NULL);      
-        if((slaves_[i].offset_.actual_pos < 0)  || (slaves_[i].offset_.status_word  < 0) || (slaves_[i].offset_.actual_vel   < 0) || 
-            (slaves_[i].offset_.target_pos < 0) || (slaves_[i].offset_.target_vel   < 0) || (slaves_[i].offset_.control_word < 0) )
-            {
-                 RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motors.!");
-                 return -1;
-            }
-    
+                                                                                  OD_CONTROL_WORD,g_master_domain,NULL);
+        if((slaves_[i].offset_.actual_pos < 0)  || (slaves_[i].offset_.status_word  < 0) || (slaves_[i].offset_.actual_vel < 0)
+        || (slaves_[i].offset_.target_vel < 0) ||(slaves_[i].offset_.target_pos < 0) || (slaves_[i].offset_.control_word < 0) )
+        {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motors.!");
+            return -1;
+        }
     }
-    /************************************************************************************************************/
-   /**
-    *  This part is specific for our Custom EASYCAT slave configuration
-    *  To create your custom slave and variables you can add variables to \see OffsetPDO struct.
-    *  Also you have add your variables to received data structure, you may have to create your custom msg files as well.
-    **/
+
     slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
                                                                                   0x006,0x006,g_master_domain,NULL);
-
+    if (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0){
+        printf("EasyCAT right limit switch PDO configuration failed...\n");
+        return -1;
+    }
     slaves_[FINAL_SLAVE].offset_.l_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
                                                                                   0x006, 0x07, g_master_domain, NULL);
-    if ((slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0) || (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0)){
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for EASYCAT.!");
-        return -1;    
+    if (slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0){
+        printf("EasyCAT left limit switch PDO configuration failed...\n");
+        return -1;
     }
-    /************************************************************************************************************/
     return 0;
 }
 
@@ -279,7 +358,7 @@ int EthercatNode::MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_e
 void EthercatNode::ConfigDcSyncDefault()
 {
     for(int i=0; i < NUM_OF_SLAVES ; i++){
-        ecrt_slave_config_dc(this->slaves_[i].slave_config_, 0X0300, PERIOD_NS, this->slaves_[i].kSync0_shift_, 0, 0);
+        ecrt_slave_config_dc(this->slaves_[i].slave_config_, 0X0300, PERIOD_NS, slaves_[i].kSync0_shift_, 0, 0);
     }
 }
 
@@ -290,14 +369,16 @@ void EthercatNode::ConfigDcSync(uint16_t assign_activate, int position)
 
 void EthercatNode::CheckSlaveConfigurationState()
 {
-    for(int i = 0 ; i < NUM_OF_SLAVES -1 ;i++)
+    std::cout << "Checking slave configuration state..." << std::endl;
+    for(int i = 0 ; i < NUM_OF_SLAVES ;i++)
     {
-        this->slaves_[i].CheckSlaveConfigState();
+        slaves_[i].CheckSlaveConfigState();
     }
 }
 
 int EthercatNode::CheckMasterState()
 {
+    std::cout << "Checking master state..." << std::endl;
     ec_master_state_t ms;
     ecrt_master_state(g_master, &ms);
 
@@ -324,6 +405,7 @@ int EthercatNode::CheckMasterState()
 
 void EthercatNode::CheckMasterDomainState()
 {
+    std::cout << "Checking master domain state..." << std::endl;
     ec_domain_state_t ds;                     //Domain instance
     ecrt_domain_state(g_master_domain, &ds);
 
@@ -362,7 +444,7 @@ int EthercatNode::WaitForOperationalMode()
 {
     int try_counter=0;
     int check_state_count=0;
-    int time_out = 1e4*PERIOD_MS;
+    int time_out = 2e4*PERIOD_US;
     while (g_master_state.al_states != EC_AL_STATE_OP ){
         if(try_counter < time_out){
             ecrt_master_receive(g_master);
@@ -370,8 +452,12 @@ int EthercatNode::WaitForOperationalMode()
             usleep(PERIOD_US);
             if(!check_state_count){
                 CheckMasterState();
+                if(g_master_state.al_states==EC_AL_STATE_OP){
+                    printf("Slaves are in OP mode, success...\n");
+                    return  0;
+                }
                 CheckMasterDomainState();
-                CheckSlaveConfigurationState();
+
                 check_state_count = PERIOD_US ;
             }
             clock_gettime(CLOCK_MONOTONIC, &g_sync_timer);
@@ -388,8 +474,9 @@ int EthercatNode::WaitForOperationalMode()
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Time out occurred while waiting for OP mode.!  ");
             return -1;
         }
-    return 0;
     }
+    printf("Slaves are in OP mode, success...\n");
+    return 0;
 }
 
 int EthercatNode::OpenEthercatMaster()
@@ -397,8 +484,8 @@ int EthercatNode::OpenEthercatMaster()
     fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
     if(fd){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Opening EtherCAT master...");
-        std::system("cd ~; sudo ethercatctl restart");
-        usleep(1e6);
+        std::system("cd ~; sudo ethercatctl start");
+        usleep(2e6);
         fd = std::system("ls /dev | grep EtherCAT* > /dev/null");
         if(fd){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : EtherCAT device not found.");
@@ -411,16 +498,10 @@ int EthercatNode::OpenEthercatMaster()
 }
 
 
-void EthercatNode::GetAllSlaveInformation()
-{
-    for(int i=0;i < NUM_OF_SLAVES ; i++){
-        ecrt_master_get_slave(g_master, i , &slaves_[i].slave_info_);
-    }
-}
-
 int EthercatNode::GetNumberOfConnectedSlaves()
 {
     unsigned int number_of_slaves;
+    usleep(1e6);
     ecrt_master_state(g_master,&g_master_state);
     number_of_slaves = g_master_state.slaves_responding ;
     if(NUM_OF_SLAVES != number_of_slaves){
@@ -442,9 +523,55 @@ void EthercatNode::ReleaseMaster()
     ecrt_release_master(g_master);
 }
 
+int EthercatNode::EnableMotors()
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if(ecrt_slave_config_sdo16(this->slaves_[i].slave_config_,OD_CONTROL_WORD,SM_FULL_RESET) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed ! ");
+            return -1;
+        }
+        usleep(1000);
+        if(ecrt_slave_config_sdo16(this->slaves_[i].slave_config_,OD_CONTROL_WORD,SM_START) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed ! ");
+            return -1;
+        }
+        usleep(1000);
+        if(ecrt_slave_config_sdo16(this->slaves_[i].slave_config_,OD_CONTROL_WORD,SM_GO_READY_TO_SWITCH_ON) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed ! ");
+            return -1;
+        }
+        usleep(1000);
+        if(ecrt_slave_config_sdo16(this->slaves_[i].slave_config_,OD_CONTROL_WORD,SM_GO_SWITCH_ON) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed ! ");
+            return -1;
+        }
+        usleep(1000);
+        if(ecrt_slave_config_sdo16(this->slaves_[i].slave_config_,OD_CONTROL_WORD,SM_GO_ENABLE) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed ! ");
+            return -1;
+        }
+        usleep(1000);
+    }
+    return 0 ; 
+}
 
-
-
-
+int EthercatNode::ShutDownEthercatMaster()
+{
+    fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
+    if(!fd){
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), " Shutting down EtherCAT master...");
+        std::system("cd ~; sudo ethercatctl stop\n");
+        usleep(1e6);
+        fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
+        if(fd){
+            std::cout<<"Error : EtherCAT shut down succesfull." << std::endl;
+            return 0;
+        }else {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : EtherCAT shutdown error.");
+            return -1 ;
+        }
+    }
+    return 0;
+}
 
 

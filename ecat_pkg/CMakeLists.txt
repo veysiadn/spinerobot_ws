@@ -42,7 +42,7 @@ target_include_directories(ecat_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${etherlab_include})
-## Add used libraries here as well.
+
 ## Specifying libraries by using definitions above.
 target_link_libraries(ecat_node
 ${etherlab_lib}
