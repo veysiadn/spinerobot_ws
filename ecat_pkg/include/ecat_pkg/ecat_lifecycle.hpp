@@ -193,7 +193,7 @@ class EthercatLifeCycle : public LifecycleNode
         int32_t err_;
         /// Application layer of slaves seen by master.(INIT/PREOP/SAFEOP/OP)
         uint8_t al_state_ = 0; 
-        uint32_t motor_state_[NUM_OF_SLAVES];
+        uint32_t motor_state_[g_kNumberOfServoDrivers];
         uint32_t command = 0x004F;
         /// Values will be sent by controller node and will ne assigned to variables below.
         float left_x_axis_;

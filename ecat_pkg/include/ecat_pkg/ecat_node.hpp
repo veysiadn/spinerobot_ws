@@ -208,12 +208,6 @@ class EthercatNode
  */
     void ReleaseMaster();
 /**
- * @brief Brings motors to enabled state.
- * 
- * @return 0 if succesfull, otherwise -1.
- */
-    int EnableMotors();
-/**
  * @brief Shutdowns EtherCAT master via command line tool if it's not already off.
  * 
  * @return 0 if succesfull, otherwise -1.

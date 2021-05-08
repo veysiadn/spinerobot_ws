@@ -13,7 +13,8 @@ void signalHandler(int /*signum*/)
 
 int main(int argc, char **argv)
 {
-   
+    setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+    
     signal(SIGINT,signalHandler);
 
     rclcpp::init(argc, argv);
