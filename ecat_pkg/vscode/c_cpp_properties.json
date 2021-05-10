@@ -12,6 +12,7 @@
             ],
             "configurationProvider": "go2sh.cmake-integration"
         }
+        
     ],
     "version": 4
 }
