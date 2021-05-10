@@ -400,8 +400,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
 void EthercatLifeCycle::ReadFromSlaves()
 {
-
- //   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Reading from slaves...\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
         received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
@@ -486,11 +484,15 @@ void EthercatLifeCycle::UpdateControlParameters()
    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
-            if(left_x_axis_ > 1000 || left_x_axis_ < -1000 || right_x_axis_ < -1000 || right_x_axis_ > 1000){
+            if(left_x_axis_ > 1000 || left_x_axis_ < -1000 ){
                 sent_data_.target_vel[0] = left_x_axis_  * 3 ;
+            }else{
+                sent_data_.target_vel[0] = 0;
+            }
+            if(right_x_axis_ < -1000 || right_x_axis_ > 1000){
                 sent_data_.target_vel[1] = right_x_axis_  * 3 ;
             }else{
-                sent_data_.target_vel[i] = 0;
+                sent_data_.target_vel[1] = 0 ;
             }
         }else{
             sent_data_.target_vel[i]=0;
@@ -502,42 +504,42 @@ void EthercatLifeCycle::UpdateControlParameters()
 void EthercatLifeCycle::UpdateMotorState()
 {
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
-        if ( (received_data_.status_word[i] & command_) == 0x0040){  
-            // If status is "Switch on disabled", \
-            change state to "Ready to switch on"
-            sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
-            command_ = 0x006f;
-            motor_state_[i] = kSwitchOnDisabled;
-        } else if ( (received_data_.status_word[i] & command_) == 0x0021){
-                // If status is "Ready to switch on", \
-                    change state to "Switched on"
-            sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
-            command_ = 0x006f;
-            motor_state_[i] = kReadyToSwitchOn;
+        
+        if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04F;
+                sent_data_.control_word[i] = SM_FULL_RESET;
+                motor_state_[i] = kFault;
+        }
+        if(motor_state_[i]!=kSwitchedOn){
+            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+            if ( (received_data_.status_word[i] & command_) == 0x0040){  
+                // If status is "Switch on disabled", \
+                change state to "Ready to switch on"
+                sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchOnDisabled;
+            } else if ( (received_data_.status_word[i] & command_) == 0x0021){
+                    // If status is "Ready to switch on", \
+                        change state to "Switched on"
+                sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+                command_ = 0x006f;
+                motor_state_[i] = kReadyToSwitchOn;
 
-        } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
-            // If status is "Switched on", change state to "Operation enabled"
-            sent_data_.control_word[i]  = SM_GO_ENABLE;
-            command_ = 0x006f;
-            motor_state_[i] = kSwitchedOn;
+            } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
+                // If status is "Switched on", change state to "Operation enabled"
+                sent_data_.control_word[i]  = SM_GO_ENABLE;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchedOn;
 
-        }else if ( (received_data_.status_word[i] & command_) == 0x0027){       
-            // Operation position mode ; set new-position/new-velocity;
-            sent_data_.control_word[i]=SM_RUN;
-            motor_state_[i] = SM_OPERATION_ENABLED;
-            if(TEST_BIT(received_data_.status_word[i],10)){
-                command_=0x0023;
-                motor_state_[i] = kTargetReached;
+            }else if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04F;
+
+                sent_data_.control_word[i]  = 0x0080;
+                motor_state_[i] = kFault;
             }
         }
-        else if ((received_data_.status_word[i] & command_) == 0X08){             
-            //if status is fault, reset fault state.
-            command_ = 0X04F;
-            sent_data_.control_word[i] = SM_FULL_RESET;
-            motor_state_[i] = kFault;
-        }
-
     }
     return ;
 }
