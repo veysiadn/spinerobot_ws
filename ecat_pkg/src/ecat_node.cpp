@@ -162,7 +162,6 @@ int EthercatNode::SetProfileVelocityParameters(ProfileVelocityParam& P, int posi
     }
     //max profile velocity
     if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_MAX_PROFILE_VELOCITY,P.max_profile_vel) < 0) {
-        std::cout << "Set max profile  velocity config error ! " << std::endl;
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max profile  velocity config error ! ");
         return -1;
     }
@@ -199,7 +198,6 @@ int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
         }
         //max profile velocity
         if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_MAX_PROFILE_VELOCITY,P.max_profile_vel) < 0) {
-            std::cout << "Set max profile  velocity config error ! " << std::endl;
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max profile  velocity config error ! ");
             return -1;
         }
@@ -325,27 +323,15 @@ int EthercatNode::MapDefaultPdos()
     slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
                                                                                   0x006,0x006,g_master_domain,NULL);
     if (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0){
-        printf("EasyCAT right limit switch PDO configuration failed...\n");
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT right limit switch PDO configuration failed...\n");
         return -1;
     }
     slaves_[FINAL_SLAVE].offset_.l_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
                                                                                   0x006, 0x07, g_master_domain, NULL);
     if (slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0){
-        printf("EasyCAT left limit switch PDO configuration failed...\n");
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
         return -1;
     }
-/*
-    std::cout << std::hex << slaves_[0].offset_.actual_pos << std::endl;
-    std::cout <<std::hex <<  slaves_[1].offset_.actual_pos << std::endl;
-
-    std::cout << std::hex << slaves_[0].offset_.actual_vel << std::endl;
-    std::cout << std::hex << slaves_[1].offset_.actual_vel << std::endl;
-
-    std::cout << std::hex << slaves_[0].offset_.status_word << std::endl;
-    std::cout << std::hex << slaves_[1].offset_.status_word << std::endl;
-
-    std::cout <<std::hex <<  slaves_[FINAL_SLAVE].offset_.r_limit_switch << std::endl;
-    std::cout << std::hex << slaves_[FINAL_SLAVE].offset_.l_limit_switch << std::endl;*/
     return 0;
 }
 
@@ -378,7 +364,6 @@ void EthercatNode::ConfigDcSync(uint16_t assign_activate, int position)
 
 void EthercatNode::CheckSlaveConfigurationState()
 {
-    std::cout << "Checking slave configuration state..." << std::endl;
     for(int i = 0 ; i < NUM_OF_SLAVES ;i++)
     {
         slaves_[i].CheckSlaveConfigState();
@@ -388,22 +373,21 @@ void EthercatNode::CheckSlaveConfigurationState()
 
 int EthercatNode::CheckMasterState()
 {
-    std::cout << "Checking master state..." << std::endl;
     ec_master_state_t ms;
     ecrt_master_state(g_master, &ms);
     usleep(10);
     if (ms.slaves_responding != g_master_state.slaves_responding){
-        printf("%u slave(s).\n", ms.slaves_responding);
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"%u slave(s).\n", ms.slaves_responding);
         if (ms.slaves_responding < 1) {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Connection error,no response from slaves.");
             return -1;
         }
     }
     if (ms.al_states != g_master_state.al_states){
-        printf("AL states: 0x%02X.\n", ms.al_states);
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"AL states: 0x%02X.\n", ms.al_states);
     }
     if (ms.link_up != g_master_state.link_up){
-        printf("Link is %s.\n", ms.link_up ? "up" : "down");
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Link is %s.\n", ms.link_up ? "up" : "down");
         if(!ms.link_up){ 
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Master state link down");
             return -1;
@@ -415,14 +399,13 @@ int EthercatNode::CheckMasterState()
 
 void EthercatNode::CheckMasterDomainState()
 {
-    std::cout << "Checking master domain state..." << std::endl;
     ec_domain_state_t ds;                     //Domain instance
     ecrt_domain_state(g_master_domain, &ds);
     usleep(10);
     if (ds.working_counter != g_master_domain_state.working_counter)
-        printf("masterDomain: WC %u.\n", ds.working_counter);
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"masterDomain: WC %u.\n", ds.working_counter);
     if (ds.wc_state != g_master_domain_state.wc_state)
-        printf("masterDomain: State %u.\n", ds.wc_state);
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"masterDomain: State %u.\n", ds.wc_state);
     if(g_master_domain_state.wc_state == EC_WC_COMPLETE){
         g_master_domain_state = ds;
     }
@@ -534,11 +517,11 @@ int EthercatNode::ShutDownEthercatMaster()
     fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
     if(!fd){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), " Shutting down EtherCAT master...");
-        std::system("cd ~; sudo ethercatctl stop\n");
+        std::system("cd ~; sudo ethercatctl restart\n");
         usleep(1e6);
         fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
         if(fd){
-            std::cout<<"Error : EtherCAT shut down succesfull." << std::endl;
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EtherCAT shut down succesfull.");
             return 0;
         }else {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : EtherCAT shutdown error.");

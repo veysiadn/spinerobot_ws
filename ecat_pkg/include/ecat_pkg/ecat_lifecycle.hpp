@@ -183,8 +183,11 @@ class EthercatLifeCycle : public LifecycleNode
          *        motor speed parameter.
          */
         void UpdateControlParameters();
-
-        int CheckMotorState();
+        /**
+         * @brief Updates motor control word and motor state based on CIA402 state machine,
+         */
+        void UpdateMotorState();
+    
     private : 
         /// pthread create required parameters.
         pthread_t ethercat_thread_;
@@ -194,7 +197,7 @@ class EthercatLifeCycle : public LifecycleNode
         /// Application layer of slaves seen by master.(INIT/PREOP/SAFEOP/OP)
         uint8_t al_state_ = 0; 
         uint32_t motor_state_[g_kNumberOfServoDrivers];
-        uint32_t command = 0x004F;
+        uint32_t command_ = 0x004F;
         /// Values will be sent by controller node and will ne assigned to variables below.
         float left_x_axis_;
         float left_y_axis_;

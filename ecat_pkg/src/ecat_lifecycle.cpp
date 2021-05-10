@@ -108,7 +108,7 @@ void EthercatLifeCycle::HandleCallbacks(const sensor_msgs::msg::Joy::SharedPtr m
 int EthercatLifeCycle::SetComThreadPriorities()
 {
     ethercat_sched_param_.sched_priority = 98;
-    printf("Using priority %i\n.", ethercat_sched_param_.sched_priority);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Using priority %i\n.", ethercat_sched_param_.sched_priority);
 
     if (sched_setscheduler(0, SCHED_FIFO, &ethercat_sched_param_) == -1){
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set scheduler failed. ! ");
@@ -147,26 +147,26 @@ int EthercatLifeCycle::SetComThreadPriorities()
 
 int EthercatLifeCycle::InitEthercatCommunication()
 {
-    printf("Opening EtherCAT device...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Opening EtherCAT device...\n");
     if (ecat_node_->OpenEthercatMaster())
     {
         return -1 ;
     }
 
-    printf("Configuring EtherCAT master...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Configuring EtherCAT master...\n");
     if (ecat_node_->ConfigureMaster())
     {
         return -1 ;
     }
 
-    printf("Getting connected slave informations...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Getting connected slave informations...\n");
     if(ecat_node_->GetNumberOfConnectedSlaves()){
         return -1 ;
     }
 
     ecat_node_->GetAllSlaveInformation();
     for(int i = 0 ; i < NUM_OF_SLAVES ; i++){
-        printf("--------------------Slave Info -------------------------\n"
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"--------------------Slave Info -------------------------\n"
                "Slave alias         = %d\n "
                "Slave position      = %d\n "
                "Slave vendor_id     = 0x%08x\n "
@@ -181,34 +181,34 @@ int EthercatLifeCycle::InitEthercatCommunication()
     }
 
 
-    printf("Configuring  slaves...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Configuring  slaves...\n");
     if(ecat_node_->ConfigureSlaves()){
         return -1 ;
     }
     
     ProfileVelocityParam P ;
     
-    P.profile_acc=50000 ;
-    P.profile_dec=50000 ;
-    P.max_profile_vel = 90000 ;
-    P.quick_stop_dec = 50000 ;
+    P.profile_acc=1e6 ;
+    P.profile_dec=1e6 ;
+    P.max_profile_vel = 1e5 ;
+    P.quick_stop_dec = 1e6 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfileVelocityParametersAll(P);
 
-    printf("Mapping default PDOs...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Mapping default PDOs...\n");
     if(ecat_node_->MapDefaultPdos()){
         return  -1 ;
     }
 
-    printf("Configuring DC synchronization...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Configuring DC synchronization...\n");
     ecat_node_->ConfigDcSyncDefault();
 
-    printf("Activating master...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Activating master...\n");
     if(ecat_node_->ActivateMaster()){
         return  -1 ;
     }
 
-    printf("Registering master domain...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Registering master domain...\n");
     if (ecat_node_->RegisterDomain()){
         return  -1 ;
     }
@@ -220,7 +220,7 @@ int EthercatLifeCycle::InitEthercatCommunication()
     if (SetComThreadPriorities()){
         return -1 ;
     }
-    printf("Initialization succesfull...\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Initialization succesfull...\n");
     
     return 0 ; 
 }
@@ -258,7 +258,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 //    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 2  PDO exchange....\n");
     // get current time
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
-    int begin=10;
+    int begin=100;
     int status_check_counter = 1000;
     while(1){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
@@ -315,9 +315,9 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             status_check_counter--;
         }else { 
             // Checking master/domain/slaves state every 1sec.
-            ecat_node_->CheckMasterState();
-            ecat_node_->CheckMasterDomainState();
-            ecat_node_->CheckSlaveConfigurationState();
+            //  ecat_node_->CheckMasterState();
+            //  ecat_node_->CheckMasterDomainState();
+           // ecat_node_->CheckSlaveConfigurationState();
             al_state_ = g_master_state.al_states ; 
             status_check_counter = 1000;
         }
@@ -332,23 +332,23 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             #if MEASURE_TIMING
             // output timing stats
             if(!print_max_min){
-                    printf("-----------------------------------------------\n\n");
-                    printf("Tperiod   min   : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod   min   : %10u ns  | max : %10u ns\n",
                             period_min_ns, period_max_ns);
-                    printf("Texec     min   : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec     min   : %10u ns  | max : %10u ns\n",
                             exec_min_ns, exec_max_ns);
-                    printf("Tlatency  min   : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tlatency  min   : %10u ns  | max : %10u ns\n",
                             latency_min_ns, latency_max_ns);
-                    printf("Tjitter max     : %10u ns  \n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter max     : %10u ns  \n",
                             latency_max_ns-latency_min_ns);
-                    printf("-----------------------------------------------\n\n");       
-                    printf("Tperiod min     : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
                             min_period, max_period);
-                    printf("Texec  min      : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
                             exec_min, max_exec);
-                    printf("Tjitter min     : %10u ns  | max : %10u ns\n",
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
                             jitter_min, jitter_max);
-                    printf("-----------------------------------------------\n\n");
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
             std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                             "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
             std::cout << "Left X Axis    : " << left_x_axis_ << std::endl;
@@ -368,7 +368,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         }
 
         ReadFromSlaves();
-        CheckMotorState();
+        UpdateMotorState();
         UpdateControlParameters();
    //     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 4  PDO exchange....\n");
 
@@ -417,8 +417,7 @@ void EthercatLifeCycle::WriteToSlaves()
   //  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing to slaves....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
-        if(motor_state_[i] == kSwitchedOn)
-            EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_vel,sent_data_.target_vel[i]);
+        EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_vel,sent_data_.target_vel[i]);
     }
 }
 
@@ -448,32 +447,32 @@ void EthercatLifeCycle::EnableMotors()
     //DS402 CANOpen over EtherCAT state machine
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
-        if ( (received_data_.status_word[i] & command) == 0x0040){  
+        if ( (received_data_.status_word[i] & command_) == 0x0040){  
             // If status is "Switch on disabled", \
             change state to "Ready to switch on"
             sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
-            command = 0x006f;
+            command_ = 0x006f;
             motor_state_[i] = kSwitchOnDisabled;
-           // printf("Transiting to -Ready to switch on state...- \n");
+           // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Transiting to -Ready to switch on state...- \n");
 
-        } else if ( (received_data_.status_word[i] & command) == 0x0021){ // If status is "Ready to switch on", \
+        } else if ( (received_data_.status_word[i] & command_) == 0x0021){ // If status is "Ready to switch on", \
                                                         change state to "Switched on"
             sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
-            command = 0x006f;
+            command_ = 0x006f;
             motor_state_[i] = kReadyToSwitchOn;
-         //   printf("Transiting to -Switched on state...- \n");        
+         //   RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Transiting to -Switched on state...- \n");        
 
-        } else if ( (received_data_.status_word[i] & command) == 0x0023){         
+        } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
             // If status is "Switched on", change state to "Operation enabled"
 
-            // printf("Operation enabled...\n");
+            // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Operation enabled...\n");
             sent_data_.control_word[i]  = SM_GO_ENABLE;
-            command = 0x006f;
+            command_ = 0x006f;
             motor_state_[i] = kSwitchedOn;
 
-        }else if ((received_data_.status_word[i] & command) == 0X08){             
+        }else if ((received_data_.status_word[i] & command_) == 0X08){             
             //if status is fault, reset fault state.
-            command = 0X04F;
+            command_ = 0X04F;
 
             sent_data_.control_word[i] = SM_FULL_RESET;
             motor_state_[i] = kFault;
@@ -486,66 +485,59 @@ void EthercatLifeCycle::UpdateControlParameters()
 {
    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kSwitchedOn){
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
             if(left_x_axis_ > 1000 || left_x_axis_ < -1000 || right_x_axis_ < -1000 || right_x_axis_ > 1000){
                 sent_data_.target_vel[0] = left_x_axis_  * 3 ;
                 sent_data_.target_vel[1] = right_x_axis_  * 3 ;
             }else{
                 sent_data_.target_vel[i] = 0;
             }
-
-            sent_data_.control_word[i] = SM_RUN ;
-        } 
+        }else{
+            sent_data_.target_vel[i]=0;
+        }
     }
 
 }
 
-int EthercatLifeCycle::CheckMotorState()
+void EthercatLifeCycle::UpdateMotorState()
 {
-   // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Checking motor states....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-           if ((received_data_.status_word[i] & command) == 0X08){             
+        sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+        if ( (received_data_.status_word[i] & command_) == 0x0040){  
+            // If status is "Switch on disabled", \
+            change state to "Ready to switch on"
+            sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
+            command_ = 0x006f;
+            motor_state_[i] = kSwitchOnDisabled;
+        } else if ( (received_data_.status_word[i] & command_) == 0x0021){
+                // If status is "Ready to switch on", \
+                    change state to "Switched on"
+            sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+            command_ = 0x006f;
+            motor_state_[i] = kReadyToSwitchOn;
+
+        } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
+            // If status is "Switched on", change state to "Operation enabled"
+            sent_data_.control_word[i]  = SM_GO_ENABLE;
+            command_ = 0x006f;
+            motor_state_[i] = kSwitchedOn;
+
+        }else if ( (received_data_.status_word[i] & command_) == 0x0027){       
+            // Operation position mode ; set new-position/new-velocity;
+            sent_data_.control_word[i]=SM_RUN;
+            motor_state_[i] = SM_OPERATION_ENABLED;
+            if(TEST_BIT(received_data_.status_word[i],10)){
+                command_=0x0023;
+                motor_state_[i] = kTargetReached;
+            }
+        }
+        else if ((received_data_.status_word[i] & command_) == 0X08){             
             //if status is fault, reset fault state.
-            command = 0X04F;
-            sent_data_.control_word[i] = 0x0080;
+            command_ = 0X04F;
+            sent_data_.control_word[i] = SM_FULL_RESET;
             motor_state_[i] = kFault;
         }
-            if(motor_state_[i]!=kSwitchedOn){
-                sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
-                if ( (received_data_.status_word[i] & command) == 0x0040){  
-                    // If status is "Switch on disabled", \
-                    change state to "Ready to switch on"
-                    sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
-                    command = 0x006f;
-                    motor_state_[i] = kSwitchOnDisabled;
-                // printf("Transiting to -Ready to switch on state...- \n");
 
-                } else if ( (received_data_.status_word[i] & command) == 0x0021){ // If status is "Ready to switch on", \
-                                                                change state to "Switched on"
-                    sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
-                    command = 0x006f;
-                    motor_state_[i] = kReadyToSwitchOn;
-                //   printf("Transiting to -Switched on state...- \n");        
-
-                } else if ( (received_data_.status_word[i] & command) == 0x0023){         
-                    // If status is "Switched on", change state to "Operation enabled"
-
-                    // printf("Operation enabled...\n");
-                    sent_data_.control_word[i]  = SM_GO_ENABLE;
-                    command = 0x006f;
-                    motor_state_[i] = kSwitchedOn;
-
-                }else if ((received_data_.status_word[i] & command) == 0X08){             
-                    //if status is fault, reset fault state.
-                    command = 0X04F;
-
-                    sent_data_.control_word[i] = SM_FULL_RESET;
-                    motor_state_[i] = kFault;
-
-                }
-            }else
-            sent_data_.control_word[i] = SM_RUN ; 
-        }
-
-    return 0;
+    }
+    return ;
 }
