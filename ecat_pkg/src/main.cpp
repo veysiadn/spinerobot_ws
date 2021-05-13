@@ -8,6 +8,8 @@ std::unique_ptr<EthercatLifeCycleNode::EthercatLifeCycle> ecat_lifecycle_node;
 
 void signalHandler(int /*signum*/)
 {
+    sig = 0;
+    usleep(1e3);
     ecat_lifecycle_node->shutdown();
 }
 

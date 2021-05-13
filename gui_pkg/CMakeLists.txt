@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5)
 project(gui_pkg)
 
 ##############################################################################
-# CMAKE | As found in ROS2 eloquent distribution
+# CMAKE | As found in ROS2 dashing distribution
 ##############################################################################
 
 # Default to C99
@@ -64,7 +64,7 @@ QT5_WRAP_CPP(QT_HEADERS ${MOC_HEADERS})
   
 
 ##############################################################################
-# COMPILE | Add ament_target dependencies here | Add target link ligraries
+# COMPILE | Add ament_target dependencies here | Add target link libraries
 ##############################################################################
 set(node_name "gui_node")
 

@@ -1,6 +1,7 @@
 #include "ecat_node.hpp"
 
 using namespace EthercatCommunication ; 
+
 /*****************************************************************************************/
 /// Extern global variable declaration.
 ec_master_t        * g_master = NULL ;           // EtherCAT master instance
@@ -10,6 +11,7 @@ ec_domain_state_t    g_master_domain_state = {}; // EtherCAT master domain state
 struct timespec      g_sync_timer ;
 uint32_t             g_sync_ref_counter = 0;
 /*****************************************************************************************/
+
 EthercatNode::EthercatNode()
 {
 
@@ -462,6 +464,9 @@ int EthercatNode::WaitForOperationalMode()
             check_state_count--;
         }else {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Time out occurred while waiting for OP mode.!  ");
+            ecrt_master_deactivate_slaves(g_master);
+            ecrt_master_deactivate(g_master);
+            ecrt_release_master(g_master);
             return -1;
         }
     }
@@ -508,6 +513,7 @@ void EthercatNode::DeactivateCommunication()
 
 void EthercatNode::ReleaseMaster()
 {
+    ecrt_master_deactivate(g_master);
     ecrt_release_master(g_master);
 }
 

@@ -81,6 +81,7 @@ const uint32_t           g_kNsPerSec = 1000000000;     // Nanoseconds per second
 #define FINAL_SLAVE     (NUM_OF_SLAVES-1)
 /****************************************************************************/
 //// Global variable declarations, definitions are in @file ethercat_node.cpp
+static volatile sig_atomic_t sig = 1;
 extern ec_master_t        * g_master ;  // EtherCAT master
 extern ec_master_state_t    g_master_state ; // EtherCAT master state
 

@@ -73,7 +73,6 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cl
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_shutdown(const State &)
 {
-    ecat_node_->DeactivateCommunication();
     ecat_node_->ReleaseMaster();
     ecat_node_->ShutDownEthercatMaster();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
@@ -241,7 +240,7 @@ int  EthercatLifeCycle::StartEthercatCommunication()
 void EthercatLifeCycle::StartPdoExchange(void *instance)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting PDO exchange....\n");
-    uint32_t print_max_min = 1 ; 
+    uint32_t print_max_min = 3000 ; 
     int counter = 100;
     struct timespec wake_up_time, time;
     #if MEASURE_TIMING
@@ -260,7 +259,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
     int begin=100;
     int status_check_counter = 1000;
-    while(1){
+    while(sig){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
         ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
@@ -349,10 +348,11 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
                             jitter_min, jitter_max);
                     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
-            std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
+          /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                             "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
             std::cout << "Left X Axis    : " << left_x_axis_ << std::endl;
-            std::cout << "Right X XAxis  : " << right_x_axis_ << std::endl;
+            std::cout << "Right X XAxis  : " << right_x_axis_ << std::endl;*/
+                    break;
             }else {
                 print_max_min--;
             }
@@ -370,7 +370,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         ReadFromSlaves();
         UpdateMotorState();
         UpdateControlParameters();
-   //     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 4  PDO exchange....\n");
 
 
         WriteToSlaves();
@@ -389,12 +388,12 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         // send process data
         ecrt_domain_queue(g_master_domain);
         ecrt_master_send(g_master);
-       // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 5  PDO exchange....\n");
         if(begin) begin--;
         #if MEASURE_TIMING
                 clock_gettime(CLOCK_TO_USE, &end_time);
         #endif
-    }//while(1)
+    }//while(1/sig) //Ctrl+C signal
+    ecat_node_->DeactivateCommunication();
     return;
 }// StartPdoExchange end
 
