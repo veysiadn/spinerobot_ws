@@ -8,8 +8,8 @@
       argv_(argv)
   {
     ui->setupUi(this);
-    ros_spin_thread_ = std::thread{std::bind(&MainWindow::rosSpinThread, this)};
-    this->my_timer.setInterval(10);
+    ros_spin_thread_ = std::thread{std::bind(&MainWindow::rosSpinThread, this)}; // Activating ROS2 spinning functionality for subscribtion callbacks.
+    this->my_timer.setInterval(25);  // Update rate 25 ms for GUI.
     this->my_timer.start();
     connect(&my_timer, SIGNAL(timeout()), this, SLOT(UpdateGUI()));
   }
