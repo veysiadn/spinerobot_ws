@@ -30,45 +30,49 @@
 
 void MainWindow::UpdateGUI()
 {
-    QString qstr1,qstr2,qstr3,qstr4,qstr5,qstr6,qstr7,qstr8,qstr9,qstr0;
+    QString qstr1,qstr5;
 
     QTextStream(&qstr1) << gui_node_->received_data_[0].right_x_axis;
         ui->table_controller_node->setItem(0,0,new QTableWidgetItem(qstr1));
-    QTextStream(&qstr2) << gui_node_->received_data_[0].left_x_axis;
-        ui->table_controller_node->setItem(1,0,new QTableWidgetItem(qstr2));
+        qstr1.clear();
 
-    QTextStream(&qstr3) << gui_node_->received_data_[0].right_limit_switch_val;
-       ui->table_easycat->setItem(0,0,new QTableWidgetItem(qstr3));
-    QTextStream(&qstr4) << gui_node_->received_data_[0].left_limit_switch_val;
-       ui->table_easycat->setItem(1,0,new QTableWidgetItem(qstr4));
+    QTextStream(&qstr1) << gui_node_->received_data_[0].left_x_axis;
+        ui->table_controller_node->setItem(1,0,new QTableWidgetItem(qstr1));
+        qstr1.clear();
 
+    QTextStream(&qstr1) << gui_node_->received_data_[0].right_limit_switch_val;
+       ui->table_easycat->setItem(0,0,new QTableWidgetItem(qstr1));
+       qstr1.clear();
+
+    QTextStream(&qstr1) << gui_node_->received_data_[0].left_limit_switch_val;
+       ui->table_easycat->setItem(1,0,new QTableWidgetItem(qstr1));
+       qstr1.clear();
+
+    int j=0;
     for(int i = 0; i < NUM_OF_SLAVES ;i++){
-        for (int j = 0 ; j < NUM_OF_SLAVES ; j++){
             QTextStream(&qstr5) << gui_node_->received_data_[i].target_vel;
-            ui->table_master_commands->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_master_commands->setItem(j,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
             QTextStream(&qstr5) << gui_node_->received_data_[i].target_pos;
-            ui->table_master_commands->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_master_commands->setItem(j+1,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
             QTextStream(&qstr5) << gui_node_->received_data_[i].control_word;
-            ui->table_master_commands->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_master_commands->setItem(j+2,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
             QTextStream(&qstr5) << gui_node_->received_data_[i].actual_vel;
-            ui->table_motor_feedback->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_motor_feedback->setItem(j,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
             QTextStream(&qstr5) << gui_node_->received_data_[i].actual_pos;
-            ui->table_motor_feedback->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_motor_feedback->setItem(j+1,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
             QTextStream(&qstr5) << gui_node_->received_data_[i].status_word;
-            ui->table_motor_feedback->setItem(i,j,new QTableWidgetItem(qstr5));
+            ui->table_motor_feedback->setItem(j+2,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
-
-        }
     }
 
 }

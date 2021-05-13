@@ -13,7 +13,7 @@
 #include <string>
 #include <cstdint>
 
-#define NUM_OF_SLAVES 3
+#define NUM_OF_SLAVES 2
 // QT
 //#include <QMainWindow>
 //#include <QApplication>
