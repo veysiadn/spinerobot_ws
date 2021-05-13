@@ -486,7 +486,6 @@ int EthercatNode::OpenEthercatMaster()
     return 0 ; 
 }
 
-
 int EthercatNode::GetNumberOfConnectedSlaves()
 {
     unsigned int number_of_slaves;

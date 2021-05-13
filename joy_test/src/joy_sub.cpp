@@ -32,7 +32,7 @@ class JoySubscriber : public rclcpp::Node
 
     {
       subscription_ = this->create_subscription<sensor_msgs::msg::Joy>(
-      "joy", 10, std::bind(&JoySubscriber::topic_callback, this, _1));
+      "Controller", 10, std::bind(&JoySubscriber::topic_callback, this, _1));
     }
 
   private:

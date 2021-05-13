@@ -438,8 +438,6 @@ int EthercatLifeCycle::GetComState()
     return al_state_ ; 
 }
 
-
-
 void EthercatLifeCycle::EnableMotors()
 {
     //DS402 CANOpen over EtherCAT state machine

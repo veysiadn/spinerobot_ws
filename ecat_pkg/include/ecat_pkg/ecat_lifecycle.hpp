@@ -198,7 +198,7 @@ class EthercatLifeCycle : public LifecycleNode
         uint8_t al_state_ = 0; 
         uint32_t motor_state_[g_kNumberOfServoDrivers];
         uint32_t command_ = 0x004F;
-        /// Values will be sent by controller node and will ne assigned to variables below.
+        /// Values will be sent by controller node and will be assigned to variables below.
         float left_x_axis_;
         float left_y_axis_;
         float right_x_axis_;

@@ -56,5 +56,6 @@ def generate_launch_description():
         pd_inactive_state_handler,
         pd_node,
         pd_configure_event,
-        Node(package='controller', node_executable='joy_node', output='screen'),  
+        Node(package='controller', node_executable='joy_node', output='screen'), 
+        Node(package='gui_pkg', node_executable='gui_node', output='screen') 
         ])
