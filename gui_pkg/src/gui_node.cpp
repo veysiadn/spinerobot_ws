@@ -10,6 +10,10 @@
                                            std::bind(&GuiNode::HandleSlaveFeedbackCallbacks, this, std::placeholders::_1));
       master_commands_ = this->create_subscription<ecat_msgs::msg::DataSent>("Master_Commands", 10,
                                            std::bind(&GuiNode::HandleMasterCommandCallbacks, this, std::placeholders::_1));
+
+     gui_publisher_ = create_publisher<std_msgs::msg::UInt8>("gui_buttons", 10);
+     timer_ = this->create_wall_timer(1ms,std::bind(&GuiNode::timer_callback,this));
+
   }
 
   GuiNode::~GuiNode()
@@ -17,6 +21,12 @@
     rclcpp::shutdown();
   }
 
+  void GuiNode::timer_callback()
+  {
+      auto button_info = std_msgs::msg::UInt8();
+      button_info.data = emergency_button_val_;
+      gui_publisher_->publish(button_info);
+  }
   void GuiNode::HandleControllerCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
   {
      for(int i=0; i < NUM_OF_SLAVES ; i++){
@@ -44,6 +54,8 @@
         received_data_[i].status_word            =  msg->status_word[i];
         received_data_[i].left_limit_switch_val  =  msg->left_limit_switch_val;
         received_data_[i].right_limit_switch_val =  msg->right_limit_switch_val;
+        received_data_[i].p_emergency_switch_val =  msg->emergency_switch_val;
+        received_data_[i].com_status             =  msg->com_status;
     }
      // emit UpdateParameters(0);
   }

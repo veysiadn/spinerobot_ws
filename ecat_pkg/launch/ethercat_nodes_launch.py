@@ -22,7 +22,8 @@ def generate_launch_description():
         package = 'ecat_pkg',
         node_executable = 'ecat_node',
         node_name = 'ecat_node',
-        output = 'screen'
+        output = 'screen',
+        prefix = 'taskset -c 3'
     )
 
     # Make the pd node take the 'configure' transition
@@ -56,6 +57,6 @@ def generate_launch_description():
         pd_inactive_state_handler,
         pd_node,
         pd_configure_event,
-        Node(package='controller', node_executable='joy_node', output='screen'), 
-        Node(package='gui_pkg', node_executable='gui_node', output='screen') 
+        Node(package='controller', node_executable='joy_node', output='screen',prefix = 'taskset -c 2'), 
+        Node(package='gui_pkg', node_executable='gui_node', output='screen',prefix = 'taskset -c 2') 
         ])

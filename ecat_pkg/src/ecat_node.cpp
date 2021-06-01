@@ -334,6 +334,12 @@ int EthercatNode::MapDefaultPdos()
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
         return -1;
     }
+    slaves_[FINAL_SLAVE].offset_.emergency_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                  0x006, 0x05, g_master_domain, NULL);
+    if (slaves_[FINAL_SLAVE].offset_.emergency_switch < 0){
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
+        return -1;
+    }
     return 0;
 }
 
@@ -522,7 +528,7 @@ int EthercatNode::ShutDownEthercatMaster()
     fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
     if(!fd){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), " Shutting down EtherCAT master...");
-        std::system("cd ~; sudo ethercatctl restart\n");
+        std::system("cd ~; sudo ethercatctl stop\n");
         usleep(1e6);
         fd = std::system("ls /dev | grep EtherCAT* > /dev/null\n");
         if(fd){

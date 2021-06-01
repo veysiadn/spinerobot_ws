@@ -38,7 +38,10 @@
 #pragma once
 //ROS2
 #include "rclcpp/rclcpp.hpp"
+
 #include "sensor_msgs/msg/joy.hpp"
+
+#include "std_msgs/msg/u_int8.hpp"
 
 #include "ecat_msgs/msg/data_received.hpp"
 #include "ecat_msgs/msg/data_sent.hpp"
@@ -50,6 +53,7 @@
 #include <string>
 #include <cstdint>
 
+using namespace std::chrono_literals;
 // Actually this should be number of servo drives
 #define NUM_OF_SLAVES 2
 // QT
@@ -81,6 +85,8 @@ typedef struct
     uint8_t  right_limit_switch_val ;
     int32_t  right_x_axis;
     int32_t  left_x_axis;
+    uint8_t  p_emergency_switch_val;
+    uint8_t  com_status;
 }ReceivedData;
 
  class GuiNode : public rclcpp::Node
@@ -111,15 +117,24 @@ typedef struct
        * @param msg Slave feedback structure published by EthercatLifecycle node
        */
       void HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg);
+      // Received data structure from EtherCAT node and controller node.
       ReceivedData received_data_[NUM_OF_SLAVES];
+      /**
+       * @brief Callback function for GUI publisher to publish button values each 10 ms.
+       */
+      void timer_callback();
+
+      uint8_t emergency_button_val_ = 1;
+
   //signals:
  //    void UpdateParameters(int s);
   private:
-      // ROS2 subscribtions.
+      // ROS2 subscriptions.
       rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr slave_feedback_;
       rclcpp::Subscription<ecat_msgs::msg::DataSent>::SharedPtr master_commands_;
       rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  controller_commands_;
-
+      rclcpp::TimerBase::SharedPtr timer_;
+      rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr gui_publisher_;
   };// class GuiNode
 
  } // namespace GUI

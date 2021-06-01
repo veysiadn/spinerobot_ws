@@ -78,7 +78,18 @@ class MainWindow;
      * 
      */
     void UpdateGUI();
-
+    /**
+     * @brief Stops motor movement while maintining EtherCAT communication in case of emergency.
+     */
+    void on_emergency_button__clicked();
+    /**
+     * @brief Sets GUI appearance for disabled emergency button.
+     */
+    void setDisabledStyleSheet();
+    /**
+     * @brief Sets GUI appearance for enabled emergency button.
+     */
+    void setEnabledStyleSheet();
   private:
     Ui::MainWindow *ui;
     int argc_;
@@ -98,5 +109,6 @@ class MainWindow;
      * 
      */
     void rosSpinThread();
+    
 
   };

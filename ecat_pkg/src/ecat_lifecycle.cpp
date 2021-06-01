@@ -36,7 +36,10 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_co
         received_data_publisher_ = this->create_publisher<ecat_msgs::msg::DataReceived>("Slave_Feedback", 10);
         sent_data_publisher_     = this->create_publisher<ecat_msgs::msg::DataSent>("Master_Commands", 10);
         joystick_subscriber_     = this->create_subscription<sensor_msgs::msg::Joy>("Controller", 10, 
-                                    std::bind(&EthercatLifeCycle::HandleCallbacks, this, std::placeholders::_1));
+                                    std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this, std::placeholders::_1));
+        gui_subscriber_          = this->create_subscription<std_msgs::msg::UInt8>("gui_buttons", 10, 
+                                    std::bind(&EthercatLifeCycle::HandleGuiNodeCallbacks, this, std::placeholders::_1));
+
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
     }
 }
@@ -84,7 +87,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_er
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 
-void EthercatLifeCycle::HandleCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
+void EthercatLifeCycle::HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     left_x_axis_  = msg->axes[0];
     left_y_axis_  = msg->axes[1];
@@ -104,6 +107,11 @@ void EthercatLifeCycle::HandleCallbacks(const sensor_msgs::msg::Joy::SharedPtr m
 
 }
 
+void EthercatLifeCycle::HandleGuiNodeCallbacks(const std_msgs::msg::UInt8::SharedPtr gui_sub)
+{
+    gui_node_data_ = gui_sub->data;
+}
+
 int EthercatLifeCycle::SetComThreadPriorities()
 {
     ethercat_sched_param_.sched_priority = 98;
@@ -118,6 +126,18 @@ int EthercatLifeCycle::SetComThreadPriorities()
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error initializing thread attribute  ! ");
         return -1;
     }
+    /**********************************************************************************************/
+    // This part is for CPU isolation to dedicate one core for EtherCAT communication.
+    // for this feature to be active fist you have to modify GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub 
+    // add isolcpus=3 so after editing it will be ; GRUB_CMDLINE_LINUX_DEFAULT = "quiet splash isolcpus=3" 
+    // save and exit, and type sudo update-grub and reboot.
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(3,&mask);
+
+    int result = sched_setaffinity(0,sizeof(mask),&mask);
+    /**********************************************************************************************/
+    
     /* Set a specific stack size  */
     err_ = pthread_attr_setstacksize(&ethercat_thread_attr_, 4096*64);
     if (err_) {
@@ -240,8 +260,10 @@ int  EthercatLifeCycle::StartEthercatCommunication()
 void EthercatLifeCycle::StartPdoExchange(void *instance)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting PDO exchange....\n");
-    uint32_t print_max_min = 3000 ; 
-    int counter = 100;
+    // Measurement time in minutes, e.g.
+    uint32_t measurement_time = 0;
+    uint32_t print_max_min = measurement_time * 6000 + 500 ; 
+    int counter = 10;
     struct timespec wake_up_time, time;
     #if MEASURE_TIMING
         struct timespec start_time, end_time, last_start_time = {};
@@ -257,7 +279,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 //    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 2  PDO exchange....\n");
     // get current time
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
-    int begin=100;
+    int begin=5e4;
     int status_check_counter = 1000;
     while(sig){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
@@ -327,7 +349,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         }
         else
         {
-            counter = 100;
+            counter = 10;
+            PublishAllData();
             #if MEASURE_TIMING
             // output timing stats
             if(!print_max_min){
@@ -352,7 +375,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                             "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
             std::cout << "Left X Axis    : " << left_x_axis_ << std::endl;
             std::cout << "Right X XAxis  : " << right_x_axis_ << std::endl;*/
-                    break;
+            std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
+                    print_max_min=200;
             }else {
                 print_max_min--;
             }
@@ -373,8 +397,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
 
         WriteToSlaves();
-        PublishAllData();
-
         if (g_sync_ref_counter) {
             g_sync_ref_counter--;
         } else {
@@ -407,15 +429,24 @@ void EthercatLifeCycle::ReadFromSlaves()
     received_data_.com_status = al_state_ ; 
     received_data_.right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
     received_data_.left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+    received_data_.emergency_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.emergency_switch);
+    emergency_status_  = received_data_.emergency_switch_val;
 }// ReadFromSlaves end
 
 void EthercatLifeCycle::WriteToSlaves()
 {
   //  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing to slaves....\n");
+  if(!emergency_status_ || !gui_node_data_){
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+        EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_vel,0);
+    }
+  }else{
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
         EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_vel,sent_data_.target_vel[i]);
     }
+  }
 }
 
 int EthercatLifeCycle::PublishAllData()

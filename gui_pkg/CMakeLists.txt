@@ -39,6 +39,8 @@ find_package(rclcpp REQUIRED)
 find_package(ecat_msgs REQUIRED)
 ## This is for joystick/Controller_node
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+
 ##############################################################################
 # QT5 - FILES PATH | AUTO SET  
 ##############################################################################
@@ -81,6 +83,7 @@ ament_target_dependencies(${node_name}
   rclcpp
   sensor_msgs
   ecat_msgs
+  std_msgs
   )
 
 #In case of QML, replace Widgets with Quick

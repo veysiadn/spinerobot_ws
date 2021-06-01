@@ -39,6 +39,8 @@
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <rclcpp_lifecycle/lifecycle_publisher.hpp>
 /******************************************************************************/
+/// Interface header files
+#include "std_msgs/msg/u_int8.hpp"
 /// Interface header files.Contains custom msg files.
 #include "ecat_msgs/msg/data_received.hpp"
 #include "ecat_msgs/msg/data_sent.hpp"
@@ -101,18 +103,19 @@ class EthercatLifeCycle : public LifecycleNode
         LifecyclePublisher<ecat_msgs::msg::DataSent>::SharedPtr     sent_data_publisher_;
         /// This subscriber  will be used to receive data from controller node.
         rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr      joystick_subscriber_;
+        rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr       gui_subscriber_;
 
+        
         ecat_msgs::msg::DataReceived    received_data_;
         ecat_msgs::msg::DataSent        sent_data_;
-
         std::unique_ptr<EthercatNode>    ecat_node_;
         
         
         /**
-        * @brief This function handles callbacks from subscribtions.
+        * @brief This function handles callbacks from control node.
         *        It will update received values from controller node.
         */
-        void HandleCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
+        void HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
 
         /**
          * @brief Sets Ethercat communication thread's properties 
@@ -187,7 +190,12 @@ class EthercatLifeCycle : public LifecycleNode
          * @brief Updates motor control word and motor state based on CIA402 state machine,
          */
         void UpdateMotorState();
-    
+        /**
+         * @brief This function will handle values from GUI node.
+         *        Updates parameters based on GUI node inputs.
+         * 
+         */
+        void HandleGuiNodeCallbacks(const std_msgs::msg::UInt8::SharedPtr gui_sub);
     private : 
         /// pthread create required parameters.
         pthread_t ethercat_thread_;
@@ -202,6 +210,9 @@ class EthercatLifeCycle : public LifecycleNode
         float left_x_axis_;
         float left_y_axis_;
         float right_x_axis_;
-        float right_y_axis_;     
+        float right_y_axis_;
+        uint8_t  gui_node_data_ = 1;
+        uint8_t emergency_status_ = 1 ;
+
 };
 }

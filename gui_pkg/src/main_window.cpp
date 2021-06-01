@@ -31,6 +31,11 @@
 void MainWindow::UpdateGUI()
 {
     QString qstr1,qstr5;
+    if(!gui_node_->received_data_[0].p_emergency_switch_val)
+        {
+          setDisabledStyleSheet();
+          gui_node_->emergency_button_val_ = 0;
+        }
 
     QTextStream(&qstr1) << gui_node_->received_data_[0].right_x_axis;
         ui->table_controller_node->setItem(0,0,new QTableWidgetItem(qstr1));
@@ -47,6 +52,19 @@ void MainWindow::UpdateGUI()
     QTextStream(&qstr1) << gui_node_->received_data_[0].left_limit_switch_val;
        ui->table_easycat->setItem(1,0,new QTableWidgetItem(qstr1));
        qstr1.clear();
+
+    QTextStream(&qstr1) << gui_node_->received_data_[0].p_emergency_switch_val;
+      ui->table_easycat->setItem(2,0,new QTableWidgetItem(qstr1));
+      qstr1.clear();
+
+
+     if(gui_node_->received_data_[0].com_status == 0x08)
+     {
+         QTextStream(&qstr1) << "OPERATIONAL";
+         ui->table_easycat->setItem(3,0,new QTableWidgetItem(qstr1));
+         ui->table_easycat->item(3,0)->setBackground(Qt::green);
+         qstr1.clear();
+     }
 
     int j=0;
     for(int i = 0; i < NUM_OF_SLAVES ;i++){
@@ -70,12 +88,27 @@ void MainWindow::UpdateGUI()
             ui->table_motor_feedback->setItem(j+1,i,new QTableWidgetItem(qstr5));
             qstr5.clear();
 
-            QTextStream(&qstr5) << gui_node_->received_data_[i].status_word;
-            ui->table_motor_feedback->setItem(j+2,i,new QTableWidgetItem(qstr5));
-            qstr5.clear();
+            if (gui_node_->received_data_[i].status_word==567){
+                QTextStream(&qstr5) << "RUNNING";
+                ui->table_motor_feedback->setItem(j+2,i,new QTableWidgetItem(qstr5));
+                ui->table_motor_feedback->item(j+2,i)->setBackground(Qt::green);
+                qstr5.clear();
+            } else if(gui_node_->received_data_[i].status_word==5687){
+                QTextStream(&qstr5) << "READY";
+                ui->table_motor_feedback->setItem(j+2,i,new QTableWidgetItem(qstr5));
+                ui->table_motor_feedback->item(j+2,i)->setBackground(Qt::yellow);
+                qstr5.clear();
+            }else{
+                QTextStream(&qstr5) << "NOT READY";
+                ui->table_motor_feedback->setItem(j+2,i,new QTableWidgetItem(qstr5));
+                ui->table_motor_feedback->item(j+2,i)->setBackground(Qt::red);
+                qstr5.clear();
+            }
+
     }
 
 }
+
 void MainWindow::on_button_reset__clicked()
 {
    for (int i = 0 ; i < NUM_OF_SLAVES ; i++ ){
@@ -91,4 +124,30 @@ void MainWindow::on_button_reset__clicked()
         gui_node_->received_data_[0].right_x_axis = 0 ;
         gui_node_->received_data_[0].left_x_axis = 0 ;
    }
+   if (gui_node_->received_data_[0].p_emergency_switch_val){
+       gui_node_->emergency_button_val_ = 1;
+       setEnabledStyleSheet();
+   }
+}
+
+void MainWindow::setDisabledStyleSheet()
+{
+    ui->emergency_button_->setEnabled(false);
+    ui->emergency_button_->setStyleSheet("color: rgb(255, 255, 255);"
+                                         "background-color: rgb(0, 0,0);"
+                                         "font: bold 75 15pt;");
+}
+
+void MainWindow::setEnabledStyleSheet()
+{
+    ui->emergency_button_->setEnabled(true);
+    ui->emergency_button_->setStyleSheet("color: rgb(255, 255, 255);"
+                                         "background-color: rgb(255, 0,0);"
+                                         "font: bold 75 15pt;");
+}
+
+void MainWindow::on_emergency_button__clicked()
+{
+  gui_node_->emergency_button_val_ = 0;
+  setDisabledStyleSheet();
 }

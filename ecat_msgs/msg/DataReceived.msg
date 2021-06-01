@@ -10,3 +10,4 @@ uint16[] status_word
 uint8[]  op_mode_display
 uint8  left_limit_switch_val
 uint8  right_limit_switch_val
+uint8  emergency_switch_val

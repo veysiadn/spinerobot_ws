@@ -182,7 +182,7 @@ typedef struct
 
     uint32_t r_limit_switch;
     uint32_t l_limit_switch;
-
+    uint32_t emergency_switch;
 } OffsetPDO ;
 
 
@@ -206,6 +206,7 @@ typedef struct
     int8_t   op_mode_display ;
     uint8_t  left_limit_switch_val ;
     uint8_t  right_limit_switch_val ;
+    uint8_t  s_emergency_switch_val;
 }ReceivedData;
 
 // EtherCAT SDO request structure for configuration phase.
