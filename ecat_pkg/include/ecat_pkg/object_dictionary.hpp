@@ -57,7 +57,7 @@
 #define	OD_VELOCITY_OFFSET		   0x60B1,0x00
 
 #define OD_PROFILE_VELOCITY                     0x6081,0x00
-#define OD_MAX_PROFILE_VELOCITY                 0x6082,0x00
+#define OD_MAX_PROFILE_VELOCITY                 0x6080,0x00
 #define OD_PROFILE_ACCELERATION                 0x6083,0x00
 #define OD_PROFILE_DECELERATION                 0x6084,0x00
 #define OD_QUICK_STOP_DECELERATION              0x6085,0x00

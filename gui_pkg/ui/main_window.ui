@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>905</width>
-    <height>644</height>
+    <width>927</width>
+    <height>559</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,12 +26,6 @@
    <string notr="true">background-color: rgb(89, 93, 105);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="maximumSize">
-    <size>
-     <width>16777215</width>
-     <height>800</height>
-    </size>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout">

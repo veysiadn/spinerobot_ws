@@ -256,6 +256,35 @@ int EthercatNode::MapDefaultPdos()
         {3, EC_DIR_INPUT, 2, elmo_pdos + 2, EC_WD_DISABLE},
         {0xff}
     };
+
+    /* Master 0, Slave 0, "EPOS4"
+     * Vendor ID:       0x000000fb
+     * Product code:    0x61500000
+     * Revision number: 0x01600000
+     */
+
+    ec_pdo_entry_info_t maxon_epos_pdo_entries[6] = {
+        {OD_CONTROL_WORD, 16},
+        {OD_TARGET_VELOCITY,32},
+        {OD_TARGET_POSITION, 32},
+        
+        {OD_STATUS_WORD, 16},
+        {OD_POSITION_ACTUAL_VAL, 32},
+        {OD_VELOCITY_ACTUAL_VALUE,32}
+    };
+
+    ec_pdo_info_t maxon_pdos[2] = {
+        {0x1600, 3, maxon_epos_pdo_entries + 0},
+        {0x1a00, 3, maxon_epos_pdo_entries + 3}
+    };
+
+    ec_sync_info_t maxon_syncs[5] = {
+        {0, EC_DIR_OUTPUT, 0, NULL, EC_WD_DISABLE},
+        {1, EC_DIR_INPUT, 0, NULL, EC_WD_DISABLE},
+        {2, EC_DIR_OUTPUT, 1, maxon_pdos + 0, EC_WD_ENABLE},
+        {3, EC_DIR_INPUT, 1, maxon_pdos + 1, EC_WD_DISABLE},
+        {0xff}
+    };
 /*********************************************************/
     ec_pdo_entry_info_t easycat_pdo_entries[16] = {
     {0x0005, 0x01, 16}, /* output_analog_01 */
@@ -288,7 +317,7 @@ int EthercatNode::MapDefaultPdos()
 };
 
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(ecrt_slave_config_pdos(slaves_[i].slave_config_,EC_END,elmo_syncs)){
+        if(ecrt_slave_config_pdos(slaves_[i].slave_config_,EC_END,maxon_syncs)){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Slave PDO configuration failed... ");
             return -1;
         }

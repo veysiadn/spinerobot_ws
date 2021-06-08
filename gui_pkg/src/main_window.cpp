@@ -52,11 +52,18 @@ void MainWindow::UpdateGUI()
     QTextStream(&qstr1) << gui_node_->received_data_[0].left_limit_switch_val;
        ui->table_easycat->setItem(1,0,new QTableWidgetItem(qstr1));
        qstr1.clear();
-
-    QTextStream(&qstr1) << gui_node_->received_data_[0].p_emergency_switch_val;
-      ui->table_easycat->setItem(2,0,new QTableWidgetItem(qstr1));
-      qstr1.clear();
-
+    if(gui_node_->received_data_[0].p_emergency_switch_val && gui_node_->emergency_button_val_ ){
+        QTextStream(&qstr1) << "IDLE";
+          ui->table_easycat->setItem(2,0,new QTableWidgetItem(qstr1));
+          ui->table_easycat->item(2,0)->setBackground(Qt::green);
+          qstr1.clear();
+    }else{
+          QTextStream(&qstr1) << "EMERGENCY";
+          ui->table_easycat->setItem(2,0,new QTableWidgetItem(qstr1));
+          ui->table_easycat->item(2,0)->setBackground(Qt::red);
+          ui->table_easycat->item(2,0)->setForeground(Qt::white);
+          qstr1.clear();
+    }
 
      if(gui_node_->received_data_[0].com_status == 0x08)
      {

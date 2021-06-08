@@ -13,7 +13,7 @@
 
      gui_publisher_ = create_publisher<std_msgs::msg::UInt8>("gui_buttons", 10);
      timer_ = this->create_wall_timer(1ms,std::bind(&GuiNode::timer_callback,this));
-
+     received_data_[0].p_emergency_switch_val=1;
   }
 
   GuiNode::~GuiNode()
