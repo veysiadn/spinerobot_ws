@@ -22,6 +22,10 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+find_package(ament_cmake REQUIRED)
+find_package(ecat_msgs REQUIRED)
+## This is for joystick/Controller_node
+find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(qt_gui_cpp REQUIRED)
 find_package(rqt_gui_cpp REQUIRED)
@@ -71,6 +75,18 @@ add_library(${PROJECT_NAME} SHARED
   ${custom_image_view_MOCS}
   ${custom_image_view_UIS_H}
 )
+
+ament_target_dependencies(${PROJECT_NAME}
+  rclcpp
+  sensor_msgs
+  ecat_msgs
+  std_msgs
+  image_transport
+  rqt_gui_cpp
+  geometry_msgs
+  cv_bridge
+  )
+
 
 target_link_libraries(
   ${PROJECT_NAME}

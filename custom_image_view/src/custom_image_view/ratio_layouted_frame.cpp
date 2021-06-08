@@ -41,7 +41,7 @@ RatioLayoutedFrame::RatioLayoutedFrame(QWidget* parent, Qt::WindowFlags flags)
   : QFrame()
   , outer_layout_(NULL)
   , aspect_ratio_(4, 3)
-  , smoothImage_(true)
+  , smoothImage_(false)
 {
   (void)parent;
   (void)flags;

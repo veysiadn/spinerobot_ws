@@ -37,6 +37,15 @@
 
 #include <ui_image_view.h>
 
+#include "rclcpp/rclcpp.hpp"
+
+#include "sensor_msgs/msg/joy.hpp"
+
+#include "std_msgs/msg/u_int8.hpp"
+
+#include "ecat_msgs/msg/data_received.hpp"
+#include "ecat_msgs/msg/data_sent.hpp"
+
 #include <image_transport/image_transport.h>
 #include <image_transport/subscriber.h>
 
@@ -54,6 +63,31 @@
 #include <QWidget>
 
 #include <vector>
+
+#define NUM_OF_SERVO_DRIVES 1
+typedef struct
+{
+    int32_t   target_pos ;
+    int32_t   target_vel ;
+    int16_t   target_tor ;
+    int16_t   max_tor ;
+    uint16_t  control_word ;
+    int32_t   vel_offset ;
+    int16_t   tor_offset ;
+
+    int32_t  actual_pos ;
+    int32_t  actual_vel ;
+    int16_t  actual_cur ;
+    int16_t  actual_tor ;
+    uint16_t status_word ;
+    int8_t   op_mode_display ;
+    uint8_t  left_limit_switch_val ;
+    uint8_t  right_limit_switch_val ;
+    int32_t  right_x_axis;
+    int32_t  left_x_axis;
+    uint8_t  p_emergency_switch_val;
+    uint8_t  com_status;
+}ReceivedData;
 
 namespace custom_image_view {
 
@@ -126,6 +160,9 @@ protected:
 
   cv::Mat conversion_mat_;
 
+private slots:
+  void on_button_emergency_clicked();
+
 private:
 
   enum RotateState {
@@ -139,9 +176,40 @@ private:
 
   void syncRotateLabel();
 
+  /**
+   * @brief Function will be used for subscribtion callbacks from controller node
+   *        for Controller topic.
+   *
+   * @param msg controller command structure published by controller node.
+   */
+    void HandleControllerCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
+    /**
+     * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node
+     *        for Master_Commands topic.
+     *
+     * @param msg Master commands structure published by EthercatLifecycle node
+     */
+    void HandleMasterCommandCallbacks(const ecat_msgs::msg::DataSent::SharedPtr msg);
+    /**
+     * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node
+     *        for Master_Commands topic.
+     *
+     * @param msg Slave feedback structure published by EthercatLifecycle node
+     */
+    void HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg);
+    /**
+     * @brief Callback function for GUI publisher to publish button values each 10 ms.
+     */
+    void timer_callback();
+
   QString arg_topic_name;
 
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_mouse_left_;
+  rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr slave_feedback_;
+  rclcpp::Subscription<ecat_msgs::msg::DataSent>::SharedPtr master_commands_;
+  rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  controller_commands_;
+  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr gui_publisher_;
 
   bool pub_topic_custom_;
 
@@ -150,6 +218,10 @@ private:
   int num_gridlines_;
 
   RotateState rotate_state_;
+
+  // Received data structure from EtherCAT node and controller node.
+  ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
+  unsigned int emergency_button_val_ = 1;
 };
 
 }

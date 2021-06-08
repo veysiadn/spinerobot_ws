@@ -633,5 +633,10 @@ void ImageView::callbackImage(const sensor_msgs::msg::Image::ConstSharedPtr& msg
   onZoom1(ui_.zoom_1_push_button->isChecked());
 }
 }
+void custom_image_view::ImageView::on_button_emergency_clicked()
+{
+
+}
 
 PLUGINLIB_EXPORT_CLASS(custom_image_view::ImageView, rqt_gui_cpp::Plugin)
+
