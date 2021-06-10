@@ -522,6 +522,11 @@ void EthercatLifeCycle::UpdateControlParameters()
             }else{
                 sent_data_.target_vel[1] = 0 ;
             }
+            if(left_y_axis_ < -1000 || left_y_axis_ > 1000){
+                sent_data_.target_vel[2] = left_y_axis_  ;
+            }else{
+                sent_data_.target_vel[2] = 0 ;
+            }
         }else{
             sent_data_.target_vel[i]=0;
         }

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>693</height>
+    <width>1153</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -225,8 +225,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>549</width>
-          <height>586</height>
+          <width>600</width>
+          <height>613</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -268,24 +268,24 @@
      <item>
       <layout class="QVBoxLayout" name="overlay_layout">
        <property name="spacing">
-        <number>0</number>
+        <number>3</number>
        </property>
        <property name="leftMargin">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="bottomMargin">
-        <number>0</number>
+        <number>2</number>
        </property>
        <item>
         <widget class="QLabel" name="label_motor1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -299,7 +299,7 @@ alternate-background-color: rgb(0, 0, 0);
 font: bold 75 16pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
-          <string>                                     MOTOR 1</string>
+          <string>                                        MOTOR 1</string>
          </property>
         </widget>
        </item>
@@ -307,6 +307,12 @@ font: bold 75 16pt &quot;Noto Sans&quot;;</string>
         <layout class="QGridLayout" name="motor1_grid_layout">
          <item row="1" column="0">
           <widget class="QLabel" name="label_control_word_m1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -325,10 +331,22 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_target_velocity_m1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -344,6 +362,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
          </item>
          <item row="0" column="2">
           <widget class="QLabel" name="label_actual_velocity_m1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -359,6 +383,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
          </item>
          <item row="1" column="2">
           <widget class="QLabel" name="label_status_word_m1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -377,12 +407,24 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="1" column="3">
           <widget class="QLineEdit" name="line_status_word_m1">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
           </widget>
          </item>
@@ -391,6 +433,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
         </layout>
@@ -398,7 +446,7 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
        <item>
         <widget class="QLabel" name="label_motor2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -412,7 +460,7 @@ alternate-background-color: rgb(0, 0, 0);
 font: bold 75 16pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
-          <string>                                     MOTOR 2</string>
+          <string>                                        MOTOR 2</string>
          </property>
         </widget>
        </item>
@@ -420,6 +468,12 @@ font: bold 75 16pt &quot;Noto Sans&quot;;</string>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="2" column="0">
           <widget class="QLabel" name="label_target_velocity_m2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -438,10 +492,22 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_control_word_m2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -457,6 +523,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
          </item>
          <item row="2" column="2">
           <widget class="QLabel" name="label_actual_velocity_m2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -475,6 +547,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="3" column="1">
@@ -482,10 +560,22 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="3" column="2">
           <widget class="QLabel" name="label_status_word_m2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -504,6 +594,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
         </layout>
@@ -511,7 +607,7 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
        <item>
         <widget class="QLabel" name="label_motor3">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -525,7 +621,7 @@ alternate-background-color: rgb(0, 0, 0);
 font: bold 75 16pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
-          <string>                                     MOTOR 3</string>
+          <string>                                        MOTOR 3</string>
          </property>
         </widget>
        </item>
@@ -533,6 +629,12 @@ font: bold 75 16pt &quot;Noto Sans&quot;;</string>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="1" column="3">
           <widget class="QLabel" name="label_target_velocity_m3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -551,10 +653,22 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="2" column="3">
           <widget class="QLabel" name="label_control_word_m3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -570,6 +684,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
          </item>
          <item row="1" column="5">
           <widget class="QLabel" name="label_actual_velocity_m3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -588,6 +708,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="2" column="6">
@@ -595,10 +721,22 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="2" column="5">
           <widget class="QLabel" name="label_status_word_m3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -617,6 +755,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
         </layout>
@@ -624,7 +768,7 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
        <item>
         <widget class="QLabel" name="label_status">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -638,7 +782,7 @@ alternate-background-color: rgb(0, 0, 0);
 font: bold 75 16pt &quot;Noto Sans&quot;;</string>
          </property>
          <property name="text">
-          <string>                                    STATUS</string>
+          <string>                                        STATUS</string>
          </property>
         </widget>
        </item>
@@ -649,10 +793,22 @@ font: bold 75 16pt &quot;Noto Sans&quot;;</string>
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
           </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_emergency_switch">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -668,6 +824,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_com_status">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 selection-background-color: rgb(238, 238, 236);
@@ -685,6 +847,12 @@ font: bold 75 12pt &quot;Noto Sans&quot;;</string>
           <widget class="QLineEdit" name="line_com_status">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
           </widget>
          </item>

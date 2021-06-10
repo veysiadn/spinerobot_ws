@@ -64,6 +64,12 @@
 
 #include <vector>
 
+#include <chrono>
+#include <memory>
+#include <functional>
+#include <string>
+#include <cstdint>
+
 #define NUM_OF_SERVO_DRIVES 1
 typedef struct
 {
@@ -162,7 +168,7 @@ protected:
 
 private slots:
   void on_button_emergency_clicked();
-
+  void on_button_reset_clicked();
 private:
 
   enum RotateState {
@@ -202,9 +208,16 @@ private:
      */
     void timer_callback();
 
+    void setEnabledStyleSheet();
+
+    void setDisabledStyleSheet();
+
+    void UpdateGUI();
+
   QString arg_topic_name;
 
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_mouse_left_;
+
   rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr slave_feedback_;
   rclcpp::Subscription<ecat_msgs::msg::DataSent>::SharedPtr master_commands_;
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  controller_commands_;
@@ -217,7 +230,7 @@ private:
 
   int num_gridlines_;
 
-  RotateState rotate_state_;
+  RotateState rotate_state_ = ROTATE_0 ;
 
   // Received data structure from EtherCAT node and controller node.
   ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
