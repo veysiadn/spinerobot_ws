@@ -69,8 +69,8 @@
 
 /****************************************************************************/
                 // USER SHOULD DEFINE THIS AREAS //
-#define NUM_OF_SLAVES     4  // Total number of connected slave to the bus.
-const uint32_t  g_kNumberOfServoDrivers = 3 ; // Number of connected servo drives.
+#define NUM_OF_SLAVES     2  // Total number of connected slave to the bus.
+const uint32_t  g_kNumberOfServoDrivers = 1 ; // Number of connected servo drives.
 #define FREQUENCY       1000  // Ethercat PDO exchange loop frequency in Hz
 #define MEASURE_TIMING   1    // If you want to measure timings leave it as one, otherwise make it 0.
 /*****************************************************************************/

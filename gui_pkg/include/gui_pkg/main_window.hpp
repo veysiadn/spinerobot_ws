@@ -45,6 +45,7 @@
 
 //GUI_Node Headers
 #include "gui_node.hpp"
+#include "video_capture.hpp"
 
 // QT
 #include "ui_main_window.h"
@@ -72,16 +73,12 @@ class MainWindow;
    * @brief Resets all received values to 0.
    * 
    */
-    void on_button_reset__clicked();
+    void on_button_reset_clicked();
     /**
      * @brief Updates GUI based on timer callback in this case 25ms.
      * 
      */
     void UpdateGUI();
-    /**
-     * @brief Stops motor movement while maintining EtherCAT communication in case of emergency.
-     */
-    void on_emergency_button__clicked();
     /**
      * @brief Sets GUI appearance for disabled emergency button.
      */
@@ -90,7 +87,18 @@ class MainWindow;
      * @brief Sets GUI appearance for enabled emergency button.
      */
     void setEnabledStyleSheet();
+    /**
+     * @brief Stops motor movement while maintining EtherCAT communication in case of emergency.
+     */
+    void on_button_emergency_clicked();
+
   private:
+    /**
+     * @brief To use ROS2 spinining functionality in our specific thread.
+     *
+     */
+    void rosSpinThread();
+
     Ui::MainWindow *ui;
     int argc_;
     char** argv_;
@@ -101,14 +109,7 @@ class MainWindow;
     QTimer my_timer;
     // To get data from gui_node_ .
     std::shared_ptr<GuiNode> gui_node_;
-    
+    VideoCapture* opencv_video_cap;
     // Thread for ROS2 spinning.
     std::thread ros_spin_thread_;
-    /**
-     * @brief To use ROS2 spinining functionality in our specific thread.
-     * 
-     */
-    void rosSpinThread();
-    
-
   };

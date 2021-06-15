@@ -40,6 +40,7 @@ find_package(ecat_msgs REQUIRED)
 ## This is for joystick/Controller_node
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 ##############################################################################
 # QT5 - FILES PATH | AUTO SET  
@@ -77,13 +78,16 @@ add_executable(${node_name}
   ${QT_UIS}
   ${QT_HEADERS} 
   )
-
+include_directories(
+    ${cv_bridge_INCLUDE_DIRS}
+)
 
 ament_target_dependencies(${node_name}
   rclcpp
   sensor_msgs
   ecat_msgs
   std_msgs
+  cv_bridge
   )
 
 #In case of QML, replace Widgets with Quick
@@ -91,6 +95,7 @@ target_link_libraries(${node_name}
   Qt5::Widgets
   Qt5::Core
   Qt5::Gui
+  ${cv_bridge_LIBRARIES}
   )
 
 ## Install executable

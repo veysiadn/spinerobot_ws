@@ -39,14 +39,14 @@
 //ROS2
 #include "rclcpp/rclcpp.hpp"
 
+// Message file headers, -custom and built-in-
 #include "sensor_msgs/msg/joy.hpp"
-
 #include "std_msgs/msg/u_int8.hpp"
-
 #include "ecat_msgs/msg/data_received.hpp"
 #include "ecat_msgs/msg/data_sent.hpp"
 
 //CPP
+#include <vector>
 #include <chrono>
 #include <memory>
 #include <functional>
@@ -55,7 +55,7 @@
 
 using namespace std::chrono_literals;
 // Actually this should be number of servo drives
-#define NUM_OF_SLAVES 2
+#define NUM_OF_SERVO_DRIVES 1
 // QT
 //#include <QMainWindow>
 //#include <QApplication>
@@ -118,11 +118,8 @@ typedef struct
        */
       void HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg);
       // Received data structure from EtherCAT node and controller node.
-      ReceivedData received_data_[NUM_OF_SLAVES];
-      /**
-       * @brief Callback function for GUI publisher to publish button values each 10 ms.
-       */
-      void timer_callback();
+
+      ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
 
       uint8_t emergency_button_val_ = 1;
 
@@ -135,6 +132,7 @@ typedef struct
       rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  controller_commands_;
       rclcpp::TimerBase::SharedPtr timer_;
       rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr gui_publisher_;
+      void timer_callback();
   };// class GuiNode
 
  } // namespace GUI

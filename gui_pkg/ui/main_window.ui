@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>927</width>
-    <height>559</height>
+    <width>1109</width>
+    <height>656</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,19 +23,73 @@
    <string>QRosApp</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(89, 93, 105);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
+   <layout class="QGridLayout" name="gridLayout" columnstretch="1,0">
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="overlay_layout" stretch="1,0,0,0,0,0,0,0,0,0">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
       </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QTableWidget" name="table_motor_feedback">
+       <widget class="QLabel" name="label_motor1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(19, 61, 128);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 16pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>                                        MOTOR 1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="motor1_grid_layout">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_control_word_m1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Control Word  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="line_target_velocity_m1">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -45,460 +99,619 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(0, 0, 0);
-selection-background-color: rgb(255, 255, 255);
-selection-color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);
-alternate-background-color: rgb(255, 255, 255);</string>
-          </property>
-          <row>
-           <property name="text">
-            <string>VELOCITY</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>POSITION</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>STATUS</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>MOTOR 1</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>MOTOR 2</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>MOTOR 3</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
          </widget>
         </item>
-        <item>
-         <widget class="QTableWidget" name="table_easycat">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_target_velocity_m1">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(46, 52, 54);
-selection-background-color: rgb(238, 238, 236);
-selection-color: rgb(238, 238, 236);
-background-color: rgb(238, 238, 236);
-alternate-background-color: rgb(238, 238, 236);</string>
-          </property>
-          <row>
-           <property name="text">
-            <string>RIGHT LIMIT SWITCH</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>LEFT LIMIT SWITCH</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>EMERGENCY  SWITCH</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>COM STATUS</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>EasyCAT</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QTableWidget" name="table_master_commands">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(46, 52, 54);
-selection-background-color: rgb(238, 238, 236);
-selection-color: rgb(238, 238, 236);
-background-color: rgb(238, 238, 236);
-alternate-background-color: rgb(238, 238, 236);</string>
-          </property>
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
-          </property>
-          <row>
-           <property name="text">
-            <string>TARGET VELOCITY</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>TARGET POSITION</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>CONTROL WORD</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>MOTOR 1</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>MOTOR 2</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>MOTOR 3</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-          </column>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="table_controller_node">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(46, 52, 54);
-selection-background-color: rgb(238, 238, 236);
-selection-color: rgb(238, 238, 236);
-background-color: rgb(238, 238, 236);
-alternate-background-color: rgb(238, 238, 236);</string>
-          </property>
-          <row>
-           <property name="text">
-            <string>MOTOR 1 Velocity COMMAND</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>MOTOR 2 Velocity COMMAND</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>MOTOR 3 Velocity COMMAND</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>CONTROL</string>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="textAlignment">
-            <set>AlignCenter</set>
-           </property>
-          </column>
-          <item row="0" column="0">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="background">
-            <brush brushstyle="NoBrush">
-             <color alpha="255">
-              <red>238</red>
-              <green>238</green>
-              <blue>236</blue>
-             </color>
-            </brush>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0" colspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QPushButton" name="emergency_button_">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>100</height>
-           </size>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 0,0);
-font: bold 75 15pt &quot;Noto Sans&quot;;</string>
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
           </property>
           <property name="text">
-           <string>EMERGENCY BUTTON</string>
+           <string>  Target Velocity  </string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="button_reset_">
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_actual_velocity_m1">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>100</height>
-           </size>
-          </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(0, 0, 0);
-background-color:rgb(255,123,0);
-font: bold 75 15pt &quot;Noto Sans&quot;;</string>
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
           </property>
           <property name="text">
-           <string>RESET</string>
+           <string>  Actual Velocity  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_status_word_m1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Status Word  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="line_control_word_m1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLineEdit" name="line_status_word_m1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLineEdit" name="line_actual_velocity_m1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_motor2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(19, 61, 128);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 16pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>                                        MOTOR 2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_target_velocity_m2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Target Velocity  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="line_target_velocity_m2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_control_word_m2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Control Word  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_actual_velocity_m2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Actual Velocity  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLineEdit" name="line_actual_velocity_m2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="line_control_word_m2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_status_word_m2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Status Word  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QLineEdit" name="line_status_word_m2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_motor3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(19, 61, 128);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 16pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>                                        MOTOR 3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="4">
+         <widget class="QLineEdit" name="line_control_word_m3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_target_velocity_m3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Target Velocity  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLineEdit" name="line_target_velocity_m3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_control_word_m3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Control Word  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QLabel" name="label_actual_velocity_m3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Actual Velocity  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="QLineEdit" name="line_actual_velocity_m3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="6">
+         <widget class="QLineEdit" name="line_status_word_m3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QLabel" name="label_status_word_m3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  Status Word  </string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_status">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(28, 128, 20);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 16pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>                                        STATUS</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="status_grid_layout">
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="line_emergency_switch">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_emergency_switch">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  EMERGENCY SWITCH</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_com_status">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(238, 238, 236);
+selection-color: rgb(238, 238, 236);
+background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(0, 0, 0);
+font: bold 75 12pt &quot;Noto Sans&quot;;</string>
+          </property>
+          <property name="text">
+           <string>  COMMUNICATION STATUS   </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="line_com_status">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_emergency">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(255, 0,0);
+font: bold 75 15pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>EMERGENCY BUTTON</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_reset">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);
+background-color:rgb(255,123,0);
+font: bold 75 15pt &quot;Noto Sans&quot;;</string>
+        </property>
+        <property name="text">
+         <string>RESET</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
     <item row="0" column="0">
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="enabled">
-       <bool>false</bool>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(52, 101, 164);
-font: 75 12pt &quot;Noto Sans&quot;;</string>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-      <property name="text">
-       <string>                                Slave Feedbacks</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_2">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(239, 41, 41);
-font: 75 12pt &quot;Noto Sans&quot;;</string>
-      </property>
-      <property name="text">
-       <string>                                        Master Commands</string>
-      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>558</width>
+         <height>638</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="image_frame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -530,9 +743,7 @@ font: 75 12pt &quot;Noto Sans&quot;;</string>
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../resources/resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>action_Quit</sender>

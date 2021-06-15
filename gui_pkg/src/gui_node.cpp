@@ -29,7 +29,7 @@
   }
   void GuiNode::HandleControllerCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
   {
-     for(int i=0; i < NUM_OF_SLAVES ; i++){
+     for(int i=0; i < NUM_OF_SERVO_DRIVES ; i++){
         received_data_[i].right_x_axis = msg->axes[3];
         received_data_[i].left_x_axis =  msg->axes[0];
      }
@@ -38,7 +38,7 @@
 
   void GuiNode::HandleMasterCommandCallbacks(const ecat_msgs::msg::DataSent::SharedPtr msg)
   {
-      for(int i=0; i < NUM_OF_SLAVES ; i++){
+      for(int i=0; i < NUM_OF_SERVO_DRIVES ; i++){
          received_data_[i].target_pos   =  msg->target_pos[i];
          received_data_[i].target_vel   =  msg->target_vel[i];
          received_data_[i].control_word =  msg->control_word[i];
@@ -48,7 +48,7 @@
 
   void GuiNode::HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg)
   {
-      for(int i=0; i < NUM_OF_SLAVES ; i++){
+      for(int i=0; i < NUM_OF_SERVO_DRIVES ; i++){
         received_data_[i].actual_pos             =  msg->actual_pos[i];
         received_data_[i].actual_vel             =  msg->actual_vel[i];
         received_data_[i].status_word            =  msg->status_word[i];
@@ -59,4 +59,3 @@
     }
      // emit UpdateParameters(0);
   }
-

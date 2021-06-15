@@ -207,10 +207,10 @@ int EthercatLifeCycle::InitEthercatCommunication()
     
     ProfileVelocityParam P ;
     
-    P.profile_acc=5e4 ;
-    P.profile_dec=5e4 ;
-    P.max_profile_vel = 1e5 ;
-    P.quick_stop_dec = 5e4 ;
+    P.profile_acc=3e4 ;
+    P.profile_dec=3e4 ;
+    P.max_profile_vel = 7000 ;
+    P.quick_stop_dec = 3e4 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfileVelocityParametersAll(P);
 
@@ -513,17 +513,17 @@ void EthercatLifeCycle::UpdateControlParameters()
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
             if(left_x_axis_ > 1000 || left_x_axis_ < -1000 ){
-                sent_data_.target_vel[0] = left_x_axis_  ;
+                sent_data_.target_vel[0] = left_x_axis_ /6 ;
             }else{
                 sent_data_.target_vel[0] = 0;
             }
             if(right_x_axis_ < -1000 || right_x_axis_ > 1000){
-                sent_data_.target_vel[1] = right_x_axis_  ;
+                sent_data_.target_vel[1] = right_x_axis_ /6 ;
             }else{
                 sent_data_.target_vel[1] = 0 ;
             }
             if(left_y_axis_ < -1000 || left_y_axis_ > 1000){
-                sent_data_.target_vel[2] = left_y_axis_  ;
+                sent_data_.target_vel[2] = left_y_axis_ /6 ;
             }else{
                 sent_data_.target_vel[2] = 0 ;
             }
