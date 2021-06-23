@@ -69,11 +69,18 @@
 
 /****************************************************************************/
                 // USER SHOULD DEFINE THIS AREAS //
-#define NUM_OF_SLAVES     2  // Total number of connected slave to the bus.
-const uint32_t  g_kNumberOfServoDrivers = 1 ; // Number of connected servo drives.
+#define NUM_OF_SLAVES     4  // Total number of connected slave to the bus.
+const uint32_t  g_kNumberOfServoDrivers = 3 ; // Number of connected servo drives.
 #define FREQUENCY       1000  // Ethercat PDO exchange loop frequency in Hz
-#define MEASURE_TIMING   1    // If you want to measure timings leave it as one, otherwise make it 0.
+#define MEASURE_TIMING   0    // If you want to measure timings leave it as one, otherwise make it 0.
+#define VELOCITY_MODE    0    // set this to 1 if you want to use it in velocity mode (and set position mode 0)
+#define POSITION_MODE    1    // set this to 1 if you want to use it in position mode (and set velocity mode 0)
 /*****************************************************************************/
+#define GEAR_RATIO          103
+#define ENCODER_RESOLUTION  1024
+#define INC_PER_ROTATION      GEAR_RATIO*ENCODER_RESOLUTION*4
+#define FIVE_DEGREE_CCW      int(INC_PER_ROTATION/72)
+#define THIRTY_DEGREE_CCW    int(INC_PER_ROTATION/12)
 const uint32_t           g_kNsPerSec = 1000000000;     // Nanoseconds per second.
 #define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  // EtherCAT communication period in nanoseconds.
 #define PERIOD_US       (PERIOD_NS / 1000)
@@ -93,7 +100,7 @@ const struct timespec       g_cycle_time = {0, PERIOD_NS} ;       // cycletime s
 extern uint32_t             g_sync_ref_counter;                  // To sync every cycle.
 
 /****************************************************************************/
-#define TEST_BIT(NUM,N)     (NUM &  (1 << N))  // Check specific bit in the data. 0 or 1.
+#define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
 #define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  // Reset(0) specific bit in the data
 /* Convert timespec struct to nanoseconds */ 
@@ -128,6 +135,26 @@ inline struct timespec timespec_add(struct timespec time1, struct timespec time2
     return result;
 }
 
+typedef struct
+{
+    float left_x_axis_;
+    float left_y_axis_;
+    float right_x_axis_;
+    float right_y_axis_;
+    uint8_t blue_button_;
+    uint8_t green_button_;
+    uint8_t red_button_;
+    uint8_t yellow_button_;
+    uint8_t left_r_button_;
+    uint8_t left_l_button_;
+    uint8_t left_u_button_;
+    uint8_t left_d_button_ ;
+    uint8_t left_rb_button_ ;
+    uint8_t right_rb_button_ ;
+    uint8_t left_start_button_ ;
+    uint8_t right_start_button_ ; 
+    uint8_t xbox_button_;
+} Controller;
  // Motor operation modes
 typedef enum
 {

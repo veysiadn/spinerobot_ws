@@ -180,16 +180,31 @@ class EthercatLifeCycle : public LifecycleNode
          * @brief Updates data that will be sent to slaves.
          *        This updated data will be published as well.
          */
-        void WriteToSlaves();
+        void WriteToSlavesVelocityMode();
+        /**
+         * @brief Writes target position and control word to motor in profile 
+         *        position mode.
+         */
+        void WriteToSlavesInPositionMode();
         /**
          * @brief Acquired data from subscribed controller topic will be assigned as 
          *        motor speed parameter.
          */
-        void UpdateControlParameters();
+        void UpdateVelocityModeParameters();
         /**
-         * @brief Updates motor control word and motor state based on CIA402 state machine,
+         * @brief Acquired data from subscribed controller topic will be assigned as 
+         *        motor target position parameter.
          */
-        void UpdateMotorState();
+        void UpdatePositionModeParameters();
+        /**
+         * @brief Updates motor control world and motor state in velocity mode based on CIA402.
+         * 
+         */
+        void UpdateMotorStateVelocityMode();
+        /**
+         * @brief Updates motor control word and motor state in position mode based on CIA402 state machine,
+         */
+        void UpdateMotorStatePositionMode();
         /**
          * @brief This function will handle values from GUI node.
          *        Updates parameters based on GUI node inputs.
@@ -206,12 +221,9 @@ class EthercatLifeCycle : public LifecycleNode
         uint8_t al_state_ = 0; 
         uint32_t motor_state_[g_kNumberOfServoDrivers];
         uint32_t command_ = 0x004F;
+        Controller controller_;
         /// Values will be sent by controller node and will be assigned to variables below.
-        float left_x_axis_;
-        float left_y_axis_;
-        float right_x_axis_;
-        float right_y_axis_;
-        uint8_t  gui_node_data_ = 1;
+        uint8_t gui_node_data_ = 1;
         uint8_t emergency_status_ = 1 ;
 
 };

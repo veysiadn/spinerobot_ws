@@ -5,6 +5,7 @@ VideoCapture::VideoCapture(QObject *parent)
     :QThread { parent }
     ,video_cap { ID_CAMERA }
 {
+
 }
 
 void VideoCapture::run()

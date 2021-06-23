@@ -141,11 +141,10 @@ int EthercatNode::SetProfilePositionParametersAll(ProfilePosParam& P)
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
             return -1;
         }
-        // max following error 
-        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_MAX_FOLLOWING_ERROR,P.max_fol_err) < 0) {
-            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max foloowing error failed ! ");
+        if(ecrt_slave_config_sdo16(slaves_[i].slave_config_,OD_MOTION_PROFILE_TYPE,P.motion_profile_type) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
             return -1;
-        }   
+        }
     }
     return 0; 
 }

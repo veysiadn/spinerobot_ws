@@ -40,6 +40,7 @@ find_package(ecat_msgs REQUIRED)
 ## This is for joystick/Controller_node
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+## This package required for opencv library
 find_package(cv_bridge REQUIRED)
 
 ##############################################################################

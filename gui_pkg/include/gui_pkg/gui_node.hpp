@@ -54,11 +54,13 @@
 #include <cstdint>
 
 using namespace std::chrono_literals;
-// Actually this should be number of servo drives
-#define NUM_OF_SERVO_DRIVES 1
-// QT
-//#include <QMainWindow>
-//#include <QApplication>
+
+#define NUM_OF_SERVO_DRIVES 3
+
+#define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
+#define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
+#define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  // Reset(0) specific bit in the data
+
 namespace GUI {
 
 /**
@@ -96,35 +98,11 @@ typedef struct
       GuiNode();
       virtual ~GuiNode();
   public:
-    /**
-     * @brief Function will be used for subscribtion callbacks from controller node
-     *        for Controller topic.
-     * 
-     * @param msg controller command structure published by controller node.
-     */
-      void HandleControllerCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
-      /**
-       * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node 
-       *        for Master_Commands topic.
-       * 
-       * @param msg Master commands structure published by EthercatLifecycle node
-       */
-      void HandleMasterCommandCallbacks(const ecat_msgs::msg::DataSent::SharedPtr msg);
-      /**
-       * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node 
-       *        for Master_Commands topic.
-       * 
-       * @param msg Slave feedback structure published by EthercatLifecycle node
-       */
-      void HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg);
-      // Received data structure from EtherCAT node and controller node.
-
+      // Received data structure to store all subscribed data.
       ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
-
+      // GUI button value to publish emergency button state.
       uint8_t emergency_button_val_ = 1;
 
-  //signals:
- //    void UpdateParameters(int s);
   private:
       // ROS2 subscriptions.
       rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr slave_feedback_;
@@ -132,7 +110,31 @@ typedef struct
       rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr  controller_commands_;
       rclcpp::TimerBase::SharedPtr timer_;
       rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr gui_publisher_;
+      /**
+       * @brief Publishes gui button value in specified interval.
+       */
       void timer_callback();
+      /**
+       * @brief Function will be used for subscribtion callbacks from controller node
+       *        for Controller topic.
+       *
+       * @param msg controller command structure published by controller node.
+       */
+        void HandleControllerCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
+        /**
+         * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node
+         *        for Master_Commands topic.
+         *
+         * @param msg Master commands structure published by EthercatLifecycle node
+         */
+        void HandleMasterCommandCallbacks(const ecat_msgs::msg::DataSent::SharedPtr msg);
+        /**
+         * @brief Function will be used for subscribtion callbacks from EthercatLifecycle node
+         *        for Master_Commands topic.
+         *
+         * @param msg Slave feedback structure published by EthercatLifecycle node
+         */
+        void HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg);
   };// class GuiNode
 
  } // namespace GUI

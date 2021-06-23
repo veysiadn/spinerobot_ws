@@ -58,6 +58,7 @@
 
 #define OD_PROFILE_VELOCITY                     0x6081,0x00
 #define OD_MAX_PROFILE_VELOCITY                 0x6080,0x00
+#define OD_MAX_MOTOR_SPEED						0X607F,0X00
 #define OD_PROFILE_ACCELERATION                 0x6083,0x00
 #define OD_PROFILE_DECELERATION                 0x6084,0x00
 #define OD_QUICK_STOP_DECELERATION              0x6085,0x00
@@ -98,7 +99,7 @@
 #define SM_RUN                    	0x1F
 #define SM_EXPEDITE               	0x3F       //like run, but dont finish actual position profile
 #define SM_QUICKSTOP              	0x02 
-
+#define SM_RELATIVE_POS				0X7F
 
 /* From CiA402,  - State coding
 	Statusword      |      PDS FSA state

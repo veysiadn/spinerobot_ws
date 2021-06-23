@@ -89,21 +89,41 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_er
 
 void EthercatLifeCycle::HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
-    left_x_axis_  = msg->axes[0];
-    left_y_axis_  = msg->axes[1];
-    right_x_axis_ = msg->axes[3];
-    right_y_axis_ = msg->axes[4];
- /* 
-      RCLCPP_INFO(this->get_logger(), "Left B   : %f\n", msg->axes[2]);
-      RCLCPP_INFO(this->get_logger(), "Right B  : %f\n", msg->axes[5]);
-      RCLCPP_INFO(this->get_logger(), "GButton  : %d\n", msg->buttons[0]);
-      RCLCPP_INFO(this->get_logger(), "RButton  : %d\n", msg->buttons[1]);
-      RCLCPP_INFO(this->get_logger(), "BButton  : %d\n", msg->buttons[2]);
-      RCLCPP_INFO(this->get_logger(), "YButton  : %d\n", msg->buttons[3]);
-      RCLCPP_INFO(this->get_logger(), "LfButton : %d\n", msg->buttons[4]);
-      RCLCPP_INFO(this->get_logger(), "RgButton : %d\n", msg->buttons[5]);
-      RCLCPP_INFO(this->get_logger(), "GButton  : %d\n", msg->buttons[6]);
-*/
+    controller_.left_x_axis_  = msg->axes[0];
+    controller_.left_y_axis_  = msg->axes[1];
+    controller_.right_x_axis_ = msg->axes[3];
+    controller_.right_y_axis_ = msg->axes[4];
+
+    controller_.green_button_       = msg->buttons[0];
+    controller_.red_button_         = msg->buttons[1];
+    controller_.blue_button_        = msg->buttons[2];
+    controller_.yellow_button_      = msg->buttons[3];
+    controller_.left_rb_button_     = msg->buttons[4];
+    controller_.right_rb_button_    = msg->buttons[5];
+    controller_.left_start_button_  = msg->buttons[6];
+    controller_.right_start_button_ = msg->buttons[7];
+    controller_.xbox_button_        = msg->buttons[8];
+    if(msg->axes[7] > 0 ){
+        controller_.left_d_button_ = 1;
+        controller_.left_u_button_ = 0;
+    }else if (msg->axes[7] < 0){
+        controller_.left_d_button_ = 0;
+        controller_.left_u_button_ = 1;
+    }else{
+        controller_.left_d_button_ = 0;
+        controller_.left_u_button_ = 0; 
+    }
+
+    if(msg->axes[6] > 0 ){
+        controller_.left_r_button_ = 1;
+        controller_.left_l_button_ = 0;
+    }else if (msg->axes[6] < 0){
+        controller_.left_r_button_ = 0;
+        controller_.left_l_button_ = 1;
+    }else{
+        controller_.left_r_button_ = 0;
+        controller_.left_l_button_ = 0; 
+    }
 
 }
 
@@ -204,7 +224,7 @@ int EthercatLifeCycle::InitEthercatCommunication()
     if(ecat_node_->ConfigureSlaves()){
         return -1 ;
     }
-    
+#if VELOCITY_MODE
     ProfileVelocityParam P ;
     
     P.profile_acc=3e4 ;
@@ -213,7 +233,18 @@ int EthercatLifeCycle::InitEthercatCommunication()
     P.quick_stop_dec = 3e4 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfileVelocityParametersAll(P);
-
+#endif
+#if POSITION_MODE
+    ProfilePosParam P ;
+    uint32_t max_fol_err ;
+    P.profile_vel = 50 ;
+    P.profile_acc = 3e4 ;
+    P.profile_dec = 3e4 ;
+    P.max_profile_vel = 1000 ;
+    P.quick_stop_dec = 3e4 ;
+    P.motion_profile_type = 0 ;
+    ecat_node_->SetProfilePositionParametersAll(P);
+#endif
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Mapping default PDOs...\n");
     if(ecat_node_->MapDefaultPdos()){
         return  -1 ;
@@ -276,7 +307,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
 
     #endif
-//    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 2  PDO exchange....\n");
     // get current time
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
     int begin=5e4;
@@ -285,8 +315,6 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
         ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
-//    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 3  PDO exchange....\n");
-
         #if MEASURE_TIMING
             clock_gettime(CLOCK_TO_USE, &start_time);
             old_latency = latency_ns;
@@ -336,14 +364,17 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             status_check_counter--;
         }else { 
             // Checking master/domain/slaves state every 1sec.
-            //  ecat_node_->CheckMasterState();
-            //  ecat_node_->CheckMasterDomainState();
-           // ecat_node_->CheckSlaveConfigurationState();
+               if(ecat_node_->CheckMasterState() < 0 ){
+                    RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Connection error, check your physical connection.");
+                    al_state_ = g_master_state.al_states ; 
+                    PublishAllData();                    
+                    return;
+               }
+            // ecat_node_->CheckMasterDomainState();
+           //  ecat_node_->CheckSlaveConfigurationState();
             al_state_ = g_master_state.al_states ; 
             status_check_counter = 1000;
         }
-  //  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Phase 4  PDO exchange....\n");
-
         if (counter){
             counter--;
         }
@@ -373,8 +404,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
           /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                             "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
-            std::cout << "Left X Axis    : " << left_x_axis_ << std::endl;
-            std::cout << "Right X XAxis  : " << right_x_axis_ << std::endl;*/
+            std::cout << "Left X Axis    : " << controller_.left_x_axis_ << std::endl;
+            std::cout << "Right X XAxis  : " << controller_.right_x_axis_ << std::endl;*/
             std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
                     print_max_min=200;
             }else {
@@ -392,11 +423,18 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         }
 
         ReadFromSlaves();
-        UpdateMotorState();
-        UpdateControlParameters();
+#if POSITION_MODE
+        UpdateMotorStatePositionMode();
+        UpdatePositionModeParameters();
+        WriteToSlavesInPositionMode();
+#endif
 
+#if VELOCITY_MODE
+        UpdateMotorStateVelocityMode();
+        UpdateVelocityModeParameters();
+        WriteToSlavesVelocityMode();
+#endif
 
-        WriteToSlaves();
         if (g_sync_ref_counter) {
             g_sync_ref_counter--;
         } else {
@@ -433,7 +471,7 @@ void EthercatLifeCycle::ReadFromSlaves()
     emergency_status_  = received_data_.emergency_switch_val;
 }// ReadFromSlaves end
 
-void EthercatLifeCycle::WriteToSlaves()
+void EthercatLifeCycle::WriteToSlavesVelocityMode()
 {
   //  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Writing to slaves....\n");
   if(!emergency_status_ || !gui_node_data_){
@@ -466,6 +504,205 @@ void *EthercatLifeCycle::PassCycylicExchange(void *arg)
 int EthercatLifeCycle::GetComState()
 {
     return al_state_ ; 
+}
+
+void EthercatLifeCycle::UpdatePositionModeParameters()
+{   
+       // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
+            if (controller_.xbox_button_){
+                for(int j = 0 ; j < g_kNumberOfServoDrivers ; j++){
+                    sent_data_.target_pos[j] = 0 ; 
+                    sent_data_.control_word[j] = SM_GO_ENABLE ;
+                }
+                break;
+            }
+            // Settings for motor 1;
+            if(controller_.red_button_ > 0 ){
+                sent_data_.target_pos[0] = -FIVE_DEGREE_CCW ;
+            }
+            if(controller_.blue_button_ > 0){
+                sent_data_.target_pos[0] = FIVE_DEGREE_CCW ;
+            }
+            if(controller_.green_button_ > 0 ){
+                sent_data_.target_pos[0] = THIRTY_DEGREE_CCW ;
+            }
+            if(controller_.yellow_button_ > 0){
+                sent_data_.target_pos[0] = -THIRTY_DEGREE_CCW ;
+            }
+            
+            if(controller_.red_button_ || controller_.blue_button_ || controller_.green_button_ || controller_.yellow_button_){
+                sent_data_.control_word[0] = SM_GO_ENABLE;
+            }
+            // Settings for motor 2 
+            if(controller_.left_r_button_ > 0 ){
+                sent_data_.target_pos[1] = FIVE_DEGREE_CCW ;
+            }
+            if(controller_.left_l_button_ > 0){
+                sent_data_.target_pos[1] = -FIVE_DEGREE_CCW ;
+            }
+            if(controller_.left_u_button_ > 0 ){
+                sent_data_.target_pos[1] = -THIRTY_DEGREE_CCW ;
+            }
+            if(controller_.left_d_button_ > 0){
+                sent_data_.target_pos[1] = THIRTY_DEGREE_CCW ;
+            }
+
+            if((controller_.left_r_button_ || controller_.left_l_button_ || controller_.left_u_button_ || controller_.left_d_button_)){
+                sent_data_.control_word[1] = SM_GO_ENABLE;
+            }
+
+            // Settings for motor 3 
+            if(controller_.right_rb_button_ > 0 ){
+                sent_data_.target_pos[2] = -FIVE_DEGREE_CCW ;
+            }
+            if(controller_.left_rb_button_ > 0){
+                sent_data_.target_pos[2] = FIVE_DEGREE_CCW ;
+            }
+            if(controller_.left_start_button_ > 0 ){
+                sent_data_.target_pos[2] = THIRTY_DEGREE_CCW ;
+            }
+            if(controller_.right_start_button_ > 0){
+                sent_data_.target_pos[2] = -THIRTY_DEGREE_CCW ;
+            }
+            if((controller_.right_rb_button_ || controller_.left_rb_button_ || controller_.left_start_button_ || controller_.right_start_button_)){
+                sent_data_.control_word[2] = SM_GO_ENABLE;
+            }
+        }
+    }
+}
+
+void EthercatLifeCycle::UpdateMotorStatePositionMode()
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04F;
+                sent_data_.control_word[i] = SM_FULL_RESET;
+                motor_state_[i] = kFault;
+        }
+        if(motor_state_[i]!=kSwitchedOn){
+            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+            if ( (received_data_.status_word[i] & command_) == 0x0040){  
+                // If status is "Switch on disabled", \
+                change state to "Ready to switch on"
+                sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchOnDisabled;
+            } else if ( (received_data_.status_word[i] & command_) == 0x0021){
+                    // If status is "Ready to switch on", \
+                        change state to "Switched on"
+                sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+                command_ = 0x006f;
+                motor_state_[i] = kReadyToSwitchOn;
+
+            } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
+                // If status is "Switched on", change state to "Operation enabled"
+                sent_data_.control_word[i]  = SM_GO_ENABLE;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchedOn;
+
+            }else if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04f;
+
+                sent_data_.control_word[i]  = SM_FULL_RESET;
+                motor_state_[i] = kFault;
+            }
+        } else {
+            sent_data_.control_word[i]=SM_RUN;
+            if(TEST_BIT(received_data_.status_word[i],10)==1)
+            {
+                sent_data_.control_word[i]=SM_RELATIVE_POS;
+            }
+        }
+    }
+    return ;
+}
+
+void EthercatLifeCycle::WriteToSlavesInPositionMode()
+{
+  if(!emergency_status_ || !gui_node_data_){
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,SM_QUICKSTOP);
+//      EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,0);
+    }
+  }else{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+        EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,sent_data_.target_pos[i]);
+    }
+  }
+}
+
+void EthercatLifeCycle::UpdateVelocityModeParameters() 
+{
+   // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
+            if(controller_.right_x_axis_ > 1000 || controller_.right_x_axis_ < -1000 ){
+                sent_data_.target_vel[0] = controller_.right_x_axis_ /150 ;
+            }else{
+                sent_data_.target_vel[0] = 0;
+            }
+            if(controller_.left_x_axis_ < -1000 || controller_.left_x_axis_ > 1000){
+                sent_data_.target_vel[1] = controller_.left_x_axis_ /150 ;
+            }else{
+                sent_data_.target_vel[1] = 0 ;
+            }
+            if(controller_.left_y_axis_ < -1000 || controller_.left_y_axis_ > 1000){
+                sent_data_.target_vel[2] = controller_.left_y_axis_ /150 ;
+            }else{
+                sent_data_.target_vel[2] = 0 ;
+            }
+        }else{
+            sent_data_.target_vel[i]=0;
+        }
+    }
+
+}
+
+void EthercatLifeCycle::UpdateMotorStateVelocityMode()
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04F;
+                sent_data_.control_word[i] = SM_FULL_RESET;
+                motor_state_[i] = kFault;
+        }
+        if(motor_state_[i]!=kSwitchedOn){
+            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+            if ( (received_data_.status_word[i] & command_) == 0x0040){  
+                // If status is "Switch on disabled", \
+                change state to "Ready to switch on"
+                sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchOnDisabled;
+            } else if ( (received_data_.status_word[i] & command_) == 0x0021){
+                    // If status is "Ready to switch on", \
+                        change state to "Switched on"
+                sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+                command_ = 0x006f;
+                motor_state_[i] = kReadyToSwitchOn;
+
+            } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
+                // If status is "Switched on", change state to "Operation enabled"
+                sent_data_.control_word[i]  = SM_GO_ENABLE;
+                command_ = 0x006f;
+                motor_state_[i] = kSwitchedOn;
+
+            }else if ((received_data_.status_word[i] & command_) == 0X08){             
+                //if status is fault, reset fault state.
+                command_ = 0X04f;
+
+                sent_data_.control_word[i]  = SM_FULL_RESET;
+                motor_state_[i] = kFault;
+            }
+        }
+    }
+    return ;
 }
 
 void EthercatLifeCycle::EnableMotors()
@@ -505,74 +742,4 @@ void EthercatLifeCycle::EnableMotors()
 
         }
     }
-}
-
-void EthercatLifeCycle::UpdateControlParameters() 
-{
-   // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
-            if(left_x_axis_ > 1000 || left_x_axis_ < -1000 ){
-                sent_data_.target_vel[0] = left_x_axis_ /6 ;
-            }else{
-                sent_data_.target_vel[0] = 0;
-            }
-            if(right_x_axis_ < -1000 || right_x_axis_ > 1000){
-                sent_data_.target_vel[1] = right_x_axis_ /6 ;
-            }else{
-                sent_data_.target_vel[1] = 0 ;
-            }
-            if(left_y_axis_ < -1000 || left_y_axis_ > 1000){
-                sent_data_.target_vel[2] = left_y_axis_ /6 ;
-            }else{
-                sent_data_.target_vel[2] = 0 ;
-            }
-        }else{
-            sent_data_.target_vel[i]=0;
-        }
-    }
-
-}
-
-void EthercatLifeCycle::UpdateMotorState()
-{
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        
-        if ((received_data_.status_word[i] & command_) == 0X08){             
-                //if status is fault, reset fault state.
-                command_ = 0X04F;
-                sent_data_.control_word[i] = SM_FULL_RESET;
-                motor_state_[i] = kFault;
-        }
-        if(motor_state_[i]!=kSwitchedOn){
-            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
-            if ( (received_data_.status_word[i] & command_) == 0x0040){  
-                // If status is "Switch on disabled", \
-                change state to "Ready to switch on"
-                sent_data_.control_word[i]  = SM_GO_READY_TO_SWITCH_ON;
-                command_ = 0x006f;
-                motor_state_[i] = kSwitchOnDisabled;
-            } else if ( (received_data_.status_word[i] & command_) == 0x0021){
-                    // If status is "Ready to switch on", \
-                        change state to "Switched on"
-                sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
-                command_ = 0x006f;
-                motor_state_[i] = kReadyToSwitchOn;
-
-            } else if ( (received_data_.status_word[i] & command_) == 0x0023){         
-                // If status is "Switched on", change state to "Operation enabled"
-                sent_data_.control_word[i]  = SM_GO_ENABLE;
-                command_ = 0x006f;
-                motor_state_[i] = kSwitchedOn;
-
-            }else if ((received_data_.status_word[i] & command_) == 0X08){             
-                //if status is fault, reset fault state.
-                command_ = 0X04F;
-
-                sent_data_.control_word[i]  = 0x0080;
-                motor_state_[i] = kFault;
-            }
-        }
-    }
-    return ;
 }

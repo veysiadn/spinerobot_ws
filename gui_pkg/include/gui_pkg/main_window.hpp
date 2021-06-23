@@ -30,7 +30,8 @@
  *****************************************************************************/
 /*****************************************************************************
  * \file  main_window.hpp
- * \brief MainWindow implementation to show slave status and controller commands in ROS2.
+ * \brief MainWindow implementation to show slave status and controller commands
+ *        and endoscope camera view in GUI in ROS2.
  *        All GUI functionality and updating GUI handled by this MainWindow class.
  *******************************************************************************/
 #pragma once
@@ -98,6 +99,24 @@ class MainWindow;
      *
      */
     void rosSpinThread();
+    /**
+     * @brief Shows motor status in GUI.
+     */
+    void ShowAllMotorStatus();
+    /**
+     * @brief Shows communication status in GUI.
+     */
+    void ShowComStatus();
+    /**
+     * @brief Shows emergency button and switch status in GUI.
+     */
+    void ShowEmergencyStatus();
+    /**
+     * @brief Reads status word and turns it to readable string format.
+     * @param index slave index
+     * @return QString readable status word format.
+     */
+    QString GetReadableStatusWord(int index);
 
     Ui::MainWindow *ui;
     int argc_;
