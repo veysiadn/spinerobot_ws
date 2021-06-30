@@ -238,9 +238,9 @@ int EthercatLifeCycle::InitEthercatCommunication()
     ProfilePosParam P ;
     uint32_t max_fol_err ;
     P.profile_vel = 50 ;
-    P.profile_acc = 3e4 ;
-    P.profile_dec = 3e4 ;
-    P.max_profile_vel = 1000 ;
+    P.profile_acc = 1e4 ;
+    P.profile_dec = 1e4 ;
+    P.max_profile_vel = 100 ;
     P.quick_stop_dec = 3e4 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfilePositionParametersAll(P);
@@ -295,6 +295,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     uint32_t measurement_time = 0;
     uint32_t print_max_min = measurement_time * 6000 + 500 ; 
     int counter = 10;
+    int error_check=0;
     struct timespec wake_up_time, time;
     #if MEASURE_TIMING
         struct timespec start_time, end_time, last_start_time = {};
@@ -315,6 +316,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
         ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
+        
         #if MEASURE_TIMING
             clock_gettime(CLOCK_TO_USE, &start_time);
             old_latency = latency_ns;
@@ -367,13 +369,19 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                if(ecat_node_->CheckMasterState() < 0 ){
                     RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Connection error, check your physical connection.");
                     al_state_ = g_master_state.al_states ; 
-                    PublishAllData();                    
-                    return;
-               }
-            // ecat_node_->CheckMasterDomainState();
-           //  ecat_node_->CheckSlaveConfigurationState();
-            al_state_ = g_master_state.al_states ; 
-            status_check_counter = 1000;
+                    received_data_.emergency_switch_val=0;
+                    emergency_status_=0;
+                    PublishAllData();
+                    error_check++;                    
+                    if(error_check==5)
+                        return;
+               }else{
+                // ecat_node_->CheckMasterDomainState();
+                // ecat_node_->CheckSlaveConfigurationState();
+                error_check=0;
+                al_state_ = g_master_state.al_states ; 
+                status_check_counter = 1000;
+            }
         }
         if (counter){
             counter--;
@@ -623,17 +631,28 @@ void EthercatLifeCycle::UpdateMotorStatePositionMode()
 
 void EthercatLifeCycle::WriteToSlavesInPositionMode()
 {
-  if(!emergency_status_ || !gui_node_data_){
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,SM_QUICKSTOP);
-//      EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,0);
+    if(!received_data_.left_limit_switch_val || received_data_.right_limit_switch_val){
+        for(int i = 0 ; i < g_kNumberOfServoDrivers; i++){
+            if(sent_data_.target_pos[i] > 0){
+                EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+                EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,sent_data_.target_pos[i]);
+            }else{
+                EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,SM_QUICKSTOP);
+            }
+        }
+    }else {
+        if(!emergency_status_ || !gui_node_data_){
+            for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+                EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,SM_QUICKSTOP);
+        //      EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,0);
+            }
+        }else{
+            for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+                EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+                EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,sent_data_.target_pos[i]);
+            }
+        }
     }
-  }else{
-    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
-        EC_WRITE_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_pos,sent_data_.target_pos[i]);
-    }
-  }
 }
 
 void EthercatLifeCycle::UpdateVelocityModeParameters() 
