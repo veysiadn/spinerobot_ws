@@ -59,6 +59,7 @@
 #include <sched.h> /* sched_setscheduler() */
 #include <chrono>
 #include <memory>
+
 /****************************************************************************/
 // IgH EtherCAT library header file the user-space real-time interface library.
 // IgH, EtherCAT related functions and data types.
@@ -163,9 +164,9 @@ typedef enum
     kProfileTorque   = 4,
     kHoming = 6,
     kInterpolatedPosition = 7,
-    kCSP = 8,
-    kCSV = 9,
-    kCST = 10,
+    kCSPosition = 8,
+    kCSVelocity = 9,
+    kCSTorque = 10,
 } OpMode ;
 
 // CIA 402 state machine motor states
@@ -183,6 +184,42 @@ enum MotorStates{
 	kInternalLimitActivate
 };
 
+enum ErrorRegisterBits{
+    kGenericError = 0,
+    kCurrentError,
+    kVoltageError,
+    kTemperatureError,
+    kCommunicationError,
+    kDeviceProfileSpecificError,
+    kReserved,
+    kMotionError
+};
+/// Sensor Configuration for motor for more information \see EPOS4-Firmware-Specification Pg.138
+enum SensorConfig{
+    kSensor1TypeNone=0,
+    kSensor1TypeDigitalIncrementalEncoder1=1,
+    kSensor2TypeNone=0, 
+    kSensor2TypeDigitalIncrementalEncoder2=256,
+    kSensor2TypeAnalogIncrementalEncoderSinCos=512,
+    kSensor2TypeSSIAbsoluteEncoder=768,
+    kSensor3TypeNone=0,
+    kSensor3TypeDigitalHallSensor=131072  //EC motors only 
+
+};
+/// Control structure configuration for control mechanism to select sensor structure specific to hardware. \see EPOS4-Firmware-Specification pg. 140
+enum ControlStructureBits{
+    /// These are bit locations not values for values  \see EPOS4-Firmware-Specification pg. 140 !!!
+    kCurrentControlStructure  = 0,    // 0-3 , 4 bits. Val : 1 - PI current controller
+    kVelocityControlStructure = 4,   // 4-7,   4bits.  Val : 0 - None | 1 - PI Vecolity controller (low pass filter) | 2 - PI velocity controller (observer) 
+    kPositionControlStructure = 8,   // 8-11 , 4bits.  Val : 0 - None | 1 - PID position controller
+    kGearLocation             = 12,  // 1 bit          Val : 0 - None | 1 - Gear Mounted on system     
+    kProcessValueReference    = 14,  // 14-15 2 bits.  Val : 0 - On motor (or undefined) | 1 - On gear  
+    kMainSensor               = 16,  // 16-19 4 bits.  Val : 0 - None | 1 - Sensor 1  | 2 - Sensor 2 | 3 - Sensor 3
+    kAuxiliarySensor          = 20,  // 20-23 4 bits.  Val : 0 - None | 1 - Sensor 1  | 2 - Sensor 2 | 3 - Sensor 3
+    kMountingPositionSensor1  = 24,  // 24-25 2 bits.  Val : 0 - On motor (or undefined) | 1 - On gear 
+    kMountingPositionSensor2  = 26,  // 26-27 2 bits.  Val : 0 - On motor (or undefined) | 1 - On gear 
+    kMountingPositionSensor3  = 28,  // 28-29 2 bits.  Val : 0 - On motor 
+};
 //offset for PDO entries to register PDOs.
 typedef struct
 {
@@ -267,6 +304,67 @@ typedef struct
     uint16_t motion_profile_type ; 
 
 } ProfilePosParam ;
+/**
+ * @brief Struct contains configuration parameters for cyclic sync. position mode.
+ * 
+ */
+typedef struct 
+{
+    uint32_t nominal_current ;
+    uint16_t torque_constant ;
+    uint32_t current_controller_gain ;
+    uint32_t position_control_parameter_set ;
+    uint32_t software_position_limit ; 
+    uint16_t motor_rated_torque ;
+    uint32_t max_gear_input_speed ; 
+    uint32_t profile_vel ;
+    uint32_t profile_acc ;
+    uint32_t profile_dec ;
+    uint32_t max_fol_err ;
+    uint32_t max_profile_vel ; 
+    uint32_t quick_stop_dec ;
+    uint32_t interpolation_time_period ;
+} CSPositionModeParam ;
+/**
+ * @brief Struct contains configuration parameters for cyclic sync. velocity mode.
+ * 
+ */
+typedef struct 
+{
+    uint32_t nominal_current ;
+    uint16_t torque_constant ;
+    uint32_t current_controller_gain ;
+    uint32_t velocity_control_parameter_set ;
+    uint32_t software_position_limit ; 
+    uint16_t motor_rated_torque ;
+    uint32_t max_gear_input_speed ; 
+    uint32_t profile_vel ;
+    uint32_t profile_acc ;
+    uint32_t profile_dec ;
+    uint32_t max_fol_err ;
+    uint32_t max_profile_vel ; 
+    uint32_t quick_stop_dec ;
+    uint32_t interpolation_time_period ;
+} CSVelocityModeParam ;
+
+/**
+ * @brief Struct contains configuration parameters for cyclic sync. torque mode.
+ * 
+ */
+typedef struct 
+{
+    uint32_t nominal_current ;
+    uint16_t torque_constant ;
+    uint32_t software_position_limit ; 
+    uint16_t motor_rated_torque ;
+    uint32_t max_gear_input_speed ; 
+    uint32_t profile_vel ;
+    uint32_t profile_acc ;
+    uint32_t profile_dec ;
+    uint32_t max_profile_vel ; 
+    uint32_t quick_stop_dec ;
+    uint32_t interpolation_time_period ;
+} CSTorqueModeParam ;
 
 // Parameters that should be specified in homing mode.
 typedef struct

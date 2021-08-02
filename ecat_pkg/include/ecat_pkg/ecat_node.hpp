@@ -112,6 +112,21 @@ class EthercatNode
  */
     int SetProfileVelocityParametersAll(ProfileVelocityParam& P);
 /**
+ * @brief Set the Cyclic Sync Position Mode Parameters for slave in specified physical position w.r.t. master.
+ * 
+ * @param P Cyclic Sync. Position Mode Parameters.
+ * @param position Physical position of slave to be configured
+ * @return 0 if sucessfull, otherwise -1.
+ */
+    int SetCyclicSyncPositionModeParameters(CSPositionModeParam& P, int position);
+/**
+ * @brief Sets the Cyclic Synchronous Position Mode Parameters for all connected motor driver slaves
+ * 
+ * @return 0 if sucessful, otherwise -1.
+ */
+    int SetCyclicSyncPositionModeParametersAll(CSPositionModeParam &P);
+
+/**
  * @brief Maps default PDOs for our spine surgery robot implementation.
  * @note This method is specific for our spinerobot implementation.
  * If you have different topology or different servo drives use 

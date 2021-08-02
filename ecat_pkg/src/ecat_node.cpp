@@ -221,6 +221,88 @@ int EthercatNode::SetProfileVelocityParametersAll(ProfileVelocityParam& P)
     return 0;
 }
 
+int EthercatNode::SetCyclicSyncPositionModeParameters(CSPositionModeParam &P, int position)
+{
+    // Set operation mode to Cyclic Synchronous Position mode for motor in specified physical position w.r.t master.
+    if( ecrt_slave_config_sdo8(slaves_[position].slave_config_,OD_OPERATION_MODE, kCSPosition) ){
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
+        return  -1 ;
+    }
+    //profile velocity
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_PROFILE_VELOCITY, P.profile_vel) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile velocity failed ! ");
+        return -1;
+    }
+    //max profile velocity
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_MAX_PROFILE_VELOCITY,P.max_profile_vel) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max profile velocity failed ! ");
+        return -1;
+    }
+    //profile acceleration
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_PROFILE_ACCELERATION, P.profile_acc) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile acceleration failed ! ");
+        return -1;
+    }
+    //profile deceleration
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_PROFILE_DECELERATION,P.profile_dec) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile deceleration failed ! ");
+        return -1;
+    }
+    // quick stop deceleration 
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_QUICK_STOP_DECELERATION,P.quick_stop_dec) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+        return -1;
+    }
+    // Interpolation time period is 1ms by default.Default unit is milliseconds (ms)
+    if(ecrt_slave_config_sdo8(slaves_[position].slave_config_,OD_INTERPOLATION_TIME_PERIOD,P.interpolation_time_period) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+        return -1;
+    }
+    return 0; 
+}
+
+int EthercatNode::SetCyclicSyncPositionModeParametersAll(CSPositionModeParam &P)
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        // Set operation mode to Cyclic Synchronous Position mode for all motors.
+        if( ecrt_slave_config_sdo8(slaves_[i].slave_config_,OD_OPERATION_MODE, kCSPosition) ){
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
+            return  -1 ;
+        }
+        //profile velocity
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_PROFILE_VELOCITY, P.profile_vel) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile velocity failed ! ");
+            return -1;
+        }
+        //max profile velocity
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_MAX_PROFILE_VELOCITY,P.max_profile_vel) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max profile velocity failed ! ");
+            return -1;
+        }
+        //profile acceleration
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_PROFILE_ACCELERATION, P.profile_acc) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile acceleration failed ! ");
+            return -1;
+        }
+        //profile deceleration
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_PROFILE_DECELERATION,P.profile_dec) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile deceleration failed ! ");
+            return -1;
+        }
+        // quick stop deceleration 
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_QUICK_STOP_DECELERATION,P.quick_stop_dec) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+            return -1;
+        }
+        // Interpolation time period is 1ms by default.Default unit is milliseconds (ms)
+        if(ecrt_slave_config_sdo8(slaves_[i].slave_config_,OD_INTERPOLATION_TIME_PERIOD,P.interpolation_time_period) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+            return -1;
+        }
+    }
+    return 0; 
+}
+
 int EthercatNode::MapDefaultPdos()
 {
    /**

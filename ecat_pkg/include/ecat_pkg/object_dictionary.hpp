@@ -56,16 +56,42 @@
 #define OD_TARGET_VELOCITY         0x60FF,0x00
 #define	OD_VELOCITY_OFFSET		   0x60B1,0x00
 
-#define OD_PROFILE_VELOCITY                     0x6081,0x00
-#define OD_MAX_PROFILE_VELOCITY                 0x6080,0x00
-#define OD_MAX_MOTOR_SPEED						0X607F,0X00
-#define OD_PROFILE_ACCELERATION                 0x6083,0x00
-#define OD_PROFILE_DECELERATION                 0x6084,0x00
-#define OD_QUICK_STOP_DECELERATION              0x6085,0x00
-#define OD_MOTION_PROFILE_TYPE                  0x6086,0x00
-#define OD_LINEAR_RAMP_TRAPEZOIDAL              0x00,0x00
-#define OD_VELOCITY_ENCODER_RESOLUTION_NUM      0x6094,0x01
-#define OD_VELOCITY_ENCODER_RESOLUTION_DEN      0x6094,0x02
+#define OD_INTERPOLATION_TIME_PERIOD 					0X60C2,0X01	 // RW: uint8_t   check EPOS4 Firmware Specification pg. 247
+#define OD_INTERPOLATION_TIME_UNIT						0X60C2,0X02  // RW: uint8_t   set this to -3(default) for ms unit.
+#define OD_MOTOR_DATA_NOMINAL_CURRENT					0X3001,0X01	 // RW: uint32_t  unit is mA
+#define OD_MOTOR_DATA_OUTPUT_CURRENT_LIMIT				0X3001,0X02	 // RW: uint32_t
+#define OD_MOTOR_DATA_NUMBER_OF_POLE_PAIRS				0X3001,0X03	 // RW: uint8_t
+#define OD_MOTOR_DATA_THERMAL_TIME_CONSTANT_WINDINGS	0X3001,0X04	 // RW: uint16_t
+#define OD_MOTOR_DATA_TORQUE_CONSTANT					0X3001,0X05	 // RW: uint32_t
+#define OD_GEAR_REDUCTION_NUMERATOR 					0X3003,0X01  // RW: uint32_t
+#define OD_GEAR_REDUCTION_DENOMINATOR					0X3003,0X02	 // RW: uint32_t
+#define OD_GEAR_MAX_INPUT_SPEED							0X3003,0X03  // RW: uint32_t
+#define OD_GEAR_MISC_CONFIGURATION						0X3003,0X04  // RW: uint32_t // Gear direction 0 normal 1 inverted.
+#define OD_DIGITAL_INCREMENTAL_ENCODER_1_TYPE			0X3010,0X02  // RW: uint16_t // pg. 157 EPOS4-Firmware-Specifications
+
+#define OD_ERROR_REGISTER								0X1001,0X00  // RO: uint8_t Maxon EPOS4 Compact 50/5 \see ErrorRegisterBits struct 
+#define OD_ACTIVE_FIELDBUS								0X2010,0X00  // R0: uint8_t - 0: None , 1 : CANOpen -  2:EtherCAT 
+#define OD_CUSTOM_PERSISTENT_MEMORY_1					0X210C,0X01	 // RW: int32_t to store configuration values, up to 4 bytes.
+#define OD_CUSTOM_PERSISTENT_MEMORY_2					0X210C,0X02	 // RW: int32_t to store configuration values, up to 4 bytes.
+#define OD_CUSTOM_PERSISTENT_MEMORY_3					0X210C,0X03	 // RW: int32_t to store configuration values, up to 4 bytes.
+#define OD_CUSTOM_PERSISTENT_MEMORY_4					0X210C,0X04	 // RW: int32_t to store configuration values, up to 4 bytes.
+#define OD_POWER_SUPPLY_VOLTAGE							0X2200,0X01	 // RO: uint16_t 
+
+/// Object Dictionary for Axis configurations 
+#define OD_SENSOR_CONFIGURATION							0X3000,0X01	 // RW: uint32_t \see SensorConfig struct.
+#define OD_CONTROL_STRUCTURE 							0X3000,0X02  // RW: uint32_t \see IMPORTANT! EPOS4-Firmware-Specification pg. 139
+// EOF OD_AXIS_CONFIURATIONS
+
+#define OD_PROFILE_VELOCITY                     		0x6081,0x00
+#define OD_MAX_PROFILE_VELOCITY                			0x6080,0x00
+#define OD_MAX_MOTOR_SPEED								0X607F,0X00
+#define OD_PROFILE_ACCELERATION                			0x6083,0x00
+#define OD_PROFILE_DECELERATION               			0x6084,0x00
+#define OD_QUICK_STOP_DECELERATION             			0x6085,0x00
+#define OD_MOTION_PROFILE_TYPE                  		0x6086,0x00
+#define OD_LINEAR_RAMP_TRAPEZOIDAL              		0x00,0x00
+#define OD_VELOCITY_ENCODER_RESOLUTION_NUM      		0x6094,0x01
+#define OD_VELOCITY_ENCODER_RESOLUTION_DEN      		0x6094,0x02
 
 #define OD_DIGITAL_INPUTS			  0x60FD,0x00
 #define OD_DIGITAL_OUTPUTS 			  0x60FE,0x01
