@@ -556,7 +556,7 @@ int EthercatNode::WaitForOperationalMode()
 {
     int try_counter=0;
     int check_state_count=0;
-    int time_out = 15e3;
+    int time_out = 20e3;
     while (g_master_state.al_states != EC_AL_STATE_OP ){
         if(try_counter < time_out){
             ecrt_master_receive(g_master);

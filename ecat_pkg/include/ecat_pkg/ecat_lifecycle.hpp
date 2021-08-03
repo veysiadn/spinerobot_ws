@@ -63,6 +63,7 @@ class EthercatLifeCycle : public LifecycleNode
      * @return Success if configuration succesfull,otherwise FAILURE 
      */
         node_interfaces::LifecycleNodeInterface::CallbackReturn on_configure(const State &);
+    
     /**
      * @brief Activates Ethercat lifecycle node and starts real-time Ethercat communication.
      *        All publishing is done in real-time loop in this active state.
@@ -70,24 +71,28 @@ class EthercatLifeCycle : public LifecycleNode
      * @return Success if activation succesfull,otherwise FAILURE
      */
         node_interfaces::LifecycleNodeInterface::CallbackReturn on_activate(const State &);
+   
     /**
      * @brief Deactivates Ethercat lifecycle node, turns of real-time communication.
      * 
      * @return Success if deactivation succesfull,otherwise FAILURE
      */
         node_interfaces::LifecycleNodeInterface::CallbackReturn on_deactivate(const State &);
+    
     /**
      * @brief Cleans up all variables and datas assigned by Ethercat lifecycle node. 
      * 
      * @return Success if cleanup succesfull,otherwise FAILURE 
      */
         node_interfaces::LifecycleNodeInterface::CallbackReturn on_cleanup(const State &);
+    
     /**
      * @brief Shuts down EtherCAT lifecycle node, releases Ethercat master.
      * 
      * @return Success if shut down succesfull,otherwise FAILURE 
      */
         node_interfaces::LifecycleNodeInterface::CallbackReturn on_shutdown(const State &);
+    
     /**
      * @brief There isn't any error recovery functionality for this node, just resets nodes.
      *         Reconfiguration is needed for restarting communication.
@@ -123,6 +128,7 @@ class EthercatLifeCycle : public LifecycleNode
          * @return 0 if succesfull, otherwise -1.
          */
         int SetComThreadPriorities();
+        
         /**
          * @brief Encapsulates all configuration steps for the EtherCAT communication with default slaves.
          *        And waits for connected slaves to become operational.
@@ -154,6 +160,7 @@ class EthercatLifeCycle : public LifecycleNode
          * @return NULL
          */
         void StartPdoExchange(void *instance); 
+        
         /**
          * @brief Gets  master's communication state.
          *  \see ec_al_state_t
@@ -161,41 +168,55 @@ class EthercatLifeCycle : public LifecycleNode
          * @return Application layer state for master.
          */
         int GetComState();
+        
         /**
          * @brief Reads data from slaves and updates received data structure to be published
          */
         void ReadFromSlaves();
+        
         /**
          * @brief Publishes all data that master received and will be sent
          * 
          * @return 0 if succesfull otherwise -1. 
          */
         int PublishAllData();
+        
         /**
          * @brief Enables connected motor drives based on CIA402
          * 
          */
         void EnableMotors();
+        
         /**
          * @brief Updates data that will be sent to slaves.
          *        This updated data will be published as well.
          */
         void WriteToSlavesVelocityMode();
+        
         /**
          * @brief Writes target position and control word to motor in profile 
          *        position mode.
          */
         void WriteToSlavesInPositionMode();
+        
         /**
          * @brief Acquired data from subscribed controller topic will be assigned as 
          *        motor speed parameter.
          */
         void UpdateVelocityModeParameters();
+        
         /**
          * @brief Acquired data from subscribed controller topic will be assigned as 
          *        motor target position parameter.
          */
         void UpdatePositionModeParameters();
+        
+        /**
+         * @brief Acquired data from subscribed controller topic will be assigned as motor
+         *        cyclic target position parameter in configured interpolation time.
+         */
+        void UpdateCyclicPositionModeParameters();
+        
         /**
          * @brief Updates motor control world and motor state in velocity mode based on CIA402.
          * 
@@ -205,12 +226,14 @@ class EthercatLifeCycle : public LifecycleNode
          * @brief Updates motor control word and motor state in position mode based on CIA402 state machine,
          */
         void UpdateMotorStatePositionMode();
+        
         /**
          * @brief This function will handle values from GUI node.
          *        Updates parameters based on GUI node inputs.
          * 
          */
         void HandleGuiNodeCallbacks(const std_msgs::msg::UInt8::SharedPtr gui_sub);
+
     private : 
         /// pthread create required parameters.
         pthread_t ethercat_thread_;
