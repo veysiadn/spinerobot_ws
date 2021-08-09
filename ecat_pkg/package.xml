@@ -13,6 +13,7 @@
   <build_depend>rclcpp_lifecycle</build_depend>
   <build_depend>ecat_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
+  <build_depend>tlsf_cpp</build_depend>
   
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
@@ -21,7 +22,7 @@
   <exec_depend>rclcpp_lifecycle</exec_depend>
   <exec_depend>ecat_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
-  
+  <exec_depend>tlsf_cpp</exec_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

@@ -42,6 +42,10 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 ## This package required for opencv library
 find_package(cv_bridge REQUIRED)
+  
+find_package(rttest)
+find_package(tlsf_cpp)
+
 
 ##############################################################################
 # QT5 - FILES PATH | AUTO SET  
@@ -89,6 +93,8 @@ ament_target_dependencies(${node_name}
   ecat_msgs
   std_msgs
   cv_bridge
+  tlsf_cpp
+  rttest
   )
 
 #In case of QML, replace Widgets with Quick

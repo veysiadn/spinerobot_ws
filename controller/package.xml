@@ -26,10 +26,13 @@
   <url type="bugtracker">https://github.com/ros2/joystick_drivers/issues</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>rttest</build_depend>
+  <build_depend>tlsf_cpp</build_depend>
   
   <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
-
+  <exec_depend>rttest</exec_depend>
+  <exec_depend>tlsf_cpp</exec_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

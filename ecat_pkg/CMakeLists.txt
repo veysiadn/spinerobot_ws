@@ -24,6 +24,8 @@ set(node_name "ecat_node")
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(rttest)
+find_package(tlsf_cpp)
 ## This is for custom msg files.
 find_package(ecat_msgs REQUIRED)
 ## This is for joystick
@@ -55,7 +57,7 @@ include_directories(
 
 ## Don't forget to add dependencies to your build file, 
 ## Use find_package(x) then add dependecy for x. 
-ament_target_dependencies(${node_name}  rclcpp rclcpp_lifecycle ecat_msgs sensor_msgs)
+ament_target_dependencies(${node_name}  rclcpp rclcpp_lifecycle ecat_msgs sensor_msgs tlsf_cpp)
 
 install(TARGETS ecat_node
   DESTINATION lib/${PROJECT_NAME})

@@ -27,17 +27,27 @@ EthercatLifeCycle::~EthercatLifeCycle()
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_configure(const State &)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT device...");
-
+    auto qos = rclcpp::QoS(
+    // The "KEEP_LAST" history setting tells DDS to store a fixed-size buffer of values before they
+    // are sent, to aid with recovery in the event of dropped messages.
+    // "depth" specifies the size of this buffer.
+    // In this example, we are optimizing for performance and limited resource usage (preventing
+    // page faults), instead of reliability. Thus, we set the size of the history buffer to 1.
+    rclcpp::KeepLast(1)
+  );
+  // From http://www.opendds.org/qosusages.html: "A RELIABLE setting can potentially block while
+  // trying to send." Therefore set the policy to best effort to avoid blocking during execution.
+  qos.best_effort();
     if(InitEthercatCommunication())
     {
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Configuration phase failed");
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::FAILURE;
     }else{
-        received_data_publisher_ = this->create_publisher<ecat_msgs::msg::DataReceived>("Slave_Feedback", 10);
-        sent_data_publisher_     = this->create_publisher<ecat_msgs::msg::DataSent>("Master_Commands", 10);
-        joystick_subscriber_     = this->create_subscription<sensor_msgs::msg::Joy>("Controller", 10, 
-                                    std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this, std::placeholders::_1));
-        gui_subscriber_          = this->create_subscription<std_msgs::msg::UInt8>("gui_buttons", 10, 
+        received_data_publisher_ = this->create_publisher<ecat_msgs::msg::DataReceived>("Slave_Feedback", qos);
+        sent_data_publisher_     = this->create_publisher<ecat_msgs::msg::DataSent>("Master_Commands", qos);
+        joystick_subscriber_     = this->create_subscription<sensor_msgs::msg::Joy>("Controller", qos, 
+                                    std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this,std::placeholders::_1));
+        gui_subscriber_          = this->create_subscription<std_msgs::msg::UInt8>("gui_buttons", qos, 
                                     std::bind(&EthercatLifeCycle::HandleGuiNodeCallbacks, this, std::placeholders::_1));
 
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
@@ -151,11 +161,11 @@ int EthercatLifeCycle::SetComThreadPriorities()
     // for this feature to be active fist you have to modify GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub 
     // add isolcpus=3 so after editing it will be ; GRUB_CMDLINE_LINUX_DEFAULT = "quiet splash isolcpus=3" 
     // save and exit, and type sudo update-grub and reboot.
-    cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(3,&mask);
+    //  cpu_set_t mask;
+    // CPU_ZERO(&mask);
+    // CPU_SET(3,&mask);
 
-    int result = sched_setaffinity(0,sizeof(mask),&mask);
+    // int result = sched_setaffinity(0,sizeof(mask),&mask);
     /**********************************************************************************************/
     
     /* Set a specific stack size  */
@@ -401,7 +411,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         }
         else
         {
-            counter = 10;
+            counter = 0;
             PublishAllData();
             #if MEASURE_TIMING
             // output timing stats

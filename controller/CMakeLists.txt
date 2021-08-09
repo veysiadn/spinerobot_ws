@@ -13,6 +13,9 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+  
+find_package(rttest)
+find_package(tlsf_cpp)
 
 # for now, this program only exists for Linux hosts, since it calls into
 # the underlying joystick driver provided by the Linux kernel.
@@ -26,7 +29,9 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     add_executable(joy_node src/joy_node_linux.cpp)
     ament_target_dependencies(joy_node
       "rclcpp"
-      "sensor_msgs")
+      "sensor_msgs"
+      "tlsf_cpp"
+      "rttest")
     install(TARGETS joy_node DESTINATION lib/${PROJECT_NAME})
   else()
     message(FATAL_ERROR "no <linux/joystick.h>; can't build joy node")

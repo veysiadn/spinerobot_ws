@@ -45,6 +45,27 @@
 #include "ecat_msgs/msg/data_received.hpp"
 #include "ecat_msgs/msg/data_sent.hpp"
 /******************************************************************************/
+#include <rclcpp/strategies/message_pool_memory_strategy.hpp>   // /// Completely static memory allocation strategy for messages.
+#include <rclcpp/strategies/allocator_memory_strategy.hpp>
+/// Delegate for handling memory allocations while the Executor is executing.
+/**
+ * By default, the memory strategy dynamically allocates memory for structures that come in from
+ * the rmw implementation after the executor waits for work, based on the number of entities that
+ * come through.
+ */
+
+#include <rttest/rttest.h>   // To get number of allocation, statistics related memory allocation
+
+#include <tlsf_cpp/tlsf.hpp>   // C++ wrapper for Miguel Masmano Tello's implementation of the TLSF memory allocator
+// Implements the allocator_traits template
+
+/******************************************************************************/ 
+using rclcpp::strategies::message_pool_memory_strategy::MessagePoolMemoryStrategy;
+using rclcpp::memory_strategies::allocator_memory_strategy::AllocatorMemoryStrategy;
+
+template<typename T = void>
+using TLSFAllocator = tlsf_heap_allocator<T>;
+
 using namespace rclcpp_lifecycle ;
 using namespace EthercatCommunication ; 
 namespace EthercatLifeCycleNode
@@ -111,8 +132,8 @@ class EthercatLifeCycle : public LifecycleNode
         rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr       gui_subscriber_;
 
         
-        ecat_msgs::msg::DataReceived    received_data_;
-        ecat_msgs::msg::DataSent        sent_data_;
+        ecat_msgs::msg::DataReceived     received_data_;
+        ecat_msgs::msg::DataSent         sent_data_;
         std::unique_ptr<EthercatNode>    ecat_node_;
         
         
@@ -248,6 +269,9 @@ class EthercatLifeCycle : public LifecycleNode
         /// Values will be sent by controller node and will be assigned to variables below.
         uint8_t gui_node_data_ = 1;
         uint8_t emergency_status_ = 1 ;
-
+        rclcpp::memory_strategy::MemoryStrategy::SharedPtr memory_strategy =
+        std::make_shared<AllocatorMemoryStrategy<TLSFAllocator<void>>>();
+        template<typename T = void>
+        using TLSFAllocator = tlsf_heap_allocator<T>;
 };
 }

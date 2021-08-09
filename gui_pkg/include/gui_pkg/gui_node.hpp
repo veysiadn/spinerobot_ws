@@ -45,6 +45,25 @@
 #include "ecat_msgs/msg/data_received.hpp"
 #include "ecat_msgs/msg/data_sent.hpp"
 
+#include <rclcpp/rclcpp.hpp>    // Standard ROS2 header API
+#include <rclcpp/strategies/message_pool_memory_strategy.hpp>   // /// Completely static memory allocation strategy for messages.
+#include <rclcpp/strategies/allocator_memory_strategy.hpp>
+/// Delegate for handling memory allocations while the Executor is executing.
+/**
+ * By default, the memory strategy dynamically allocates memory for structures that come in from
+ * the rmw implementation after the executor waits for work, based on the number of entities that
+ * come through.
+ */
+
+#include <rttest/rttest.h>   // To get number of allocation, statistics related memory allocation
+
+#include <tlsf_cpp/tlsf.hpp>   // C++ wrapper for Miguel Masmano Tello's implementation of the TLSF memory allocator
+// Implements the allocator_traits template
+using rclcpp::strategies::message_pool_memory_strategy::MessagePoolMemoryStrategy;
+using rclcpp::memory_strategies::allocator_memory_strategy::AllocatorMemoryStrategy;
+
+template<typename T = void>
+using TLSFAllocator = tlsf_heap_allocator<T>;
 //CPP
 #include <vector>
 #include <chrono>
@@ -55,7 +74,7 @@
 
 using namespace std::chrono_literals;
 
-#define NUM_OF_SERVO_DRIVES 3
+#define NUM_OF_SERVO_DRIVES 1
 
 #define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.

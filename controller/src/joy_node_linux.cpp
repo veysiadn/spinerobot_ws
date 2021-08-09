@@ -26,6 +26,25 @@
 #include <rcutils/logging_macros.h>
 #include <sensor_msgs/msg/joy.hpp>
 
+#include <rclcpp/strategies/message_pool_memory_strategy.hpp>   // /// Completely static memory allocation strategy for messages.
+#include <rclcpp/strategies/allocator_memory_strategy.hpp>
+/// Delegate for handling memory allocations while the Executor is executing.
+/**
+ * By default, the memory strategy dynamically allocates memory for structures that come in from
+ * the rmw implementation after the executor waits for work, based on the number of entities that
+ * come through.
+ */
+
+#include <rttest/rttest.h>   // To get number of allocation, statistics related memory allocation
+
+#include <tlsf_cpp/tlsf.hpp>   // C++ wrapper for Miguel Masmano Tello's implementation of the TLSF memory allocator
+// Implements the allocator_traits template
+using rclcpp::strategies::message_pool_memory_strategy::MessagePoolMemoryStrategy;
+using rclcpp::memory_strategies::allocator_memory_strategy::AllocatorMemoryStrategy;
+
+template<typename T = void>
+using TLSFAllocator = tlsf_heap_allocator<T>;
+
 using namespace std::chrono_literals;
 
 ///\brief Opens, reads from and publishes joystick events
@@ -65,7 +84,7 @@ private:
     while ((entry = readdir(dev_dir)) != NULL)
     {
       // filter entries
-      if (strncmp(entry->d_name, "js1", 3) != 0) // skip device if it's not a joystick
+      if (strncmp(entry->d_name, "js0", 3) != 0) // skip device if it's not a joystick
         continue;
       std::string current_path = std::string(path) + "/" + entry->d_name;
       if (stat(current_path.c_str(), &stat_buf) == -1)
@@ -108,13 +127,23 @@ public:
     // diagnostic_.setHardwareID("none");
     (void)argc;
     (void)argv;
-
+    auto qos = rclcpp::QoS(
+    // The "KEEP_LAST" history setting tells DDS to store a fixed-size buffer of values before they
+    // are sent, to aid with recovery in the event of dropped messages.
+    // "depth" specifies the size of this buffer.
+    // In this example, we are optimizing for performance and limited resource usage (preventing
+    // page faults), instead of reliability. Thus, we set the size of the history buffer to 1.
+    rclcpp::KeepLast(1)
+  );
+  // From http://www.opendds.org/qosusages.html: "A RELIABLE setting can potentially block while
+  // trying to send." Therefore set the policy to best effort to avoid blocking during execution.
+  qos.best_effort();
     auto node = std::make_shared<rclcpp::Node>("joy_node");
 
     // Parameters
-    pub_ = node->create_publisher<sensor_msgs::msg::Joy>("Controller", 10);
+    pub_ = node->create_publisher<sensor_msgs::msg::Joy>("Controller", qos);
 
-    joy_dev_ = node->declare_parameter("dev", std::string("/dev/input/js1"));
+    joy_dev_ = node->declare_parameter("dev", std::string("/dev/input/js0"));
     joy_dev_name_ = node->declare_parameter("dev_name", std::string(""));
     deadzone_ = node->declare_parameter("deadzone", 0.05);
     autorepeat_rate_ = node->declare_parameter("autorepeat_rate", 20.0);

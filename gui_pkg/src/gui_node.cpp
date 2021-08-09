@@ -4,14 +4,25 @@
   using namespace GUI;
   GuiNode::GuiNode() : Node("gui_node")
   {
-      controller_commands_= this->create_subscription<sensor_msgs::msg::Joy>("Controller", 10,
+         auto qos = rclcpp::QoS(
+    // The "KEEP_LAST" history setting tells DDS to store a fixed-size buffer of values before they
+    // are sent, to aid with recovery in the event of dropped messages.
+    // "depth" specifies the size of this buffer.
+    // In this example, we are optimizing for performance and limited resource usage (preventing
+    // page faults), instead of reliability. Thus, we set the size of the history buffer to 1.
+    rclcpp::KeepLast(1)
+  );
+  // From http://www.opendds.org/qosusages.html: "A RELIABLE setting can potentially block while
+  // trying to send." Therefore set the policy to best effort to avoid blocking during execution.
+  qos.best_effort();
+      controller_commands_= this->create_subscription<sensor_msgs::msg::Joy>("Controller", qos,
                                           std::bind(&GuiNode::HandleControllerCallbacks, this, std::placeholders::_1));
-      slave_feedback_ = this->create_subscription<ecat_msgs::msg::DataReceived>("Slave_Feedback", 10,
+      slave_feedback_ = this->create_subscription<ecat_msgs::msg::DataReceived>("Slave_Feedback", qos,
                                            std::bind(&GuiNode::HandleSlaveFeedbackCallbacks, this, std::placeholders::_1));
-      master_commands_ = this->create_subscription<ecat_msgs::msg::DataSent>("Master_Commands", 10,
+      master_commands_ = this->create_subscription<ecat_msgs::msg::DataSent>("Master_Commands", qos,
                                            std::bind(&GuiNode::HandleMasterCommandCallbacks, this, std::placeholders::_1));
 
-     gui_publisher_ = create_publisher<std_msgs::msg::UInt8>("gui_buttons", 10);
+     gui_publisher_ = create_publisher<std_msgs::msg::UInt8>("gui_buttons", qos);
      timer_ = this->create_wall_timer(1ms,std::bind(&GuiNode::timer_callback,this));
      received_data_[0].p_emergency_switch_val=1;
   }
