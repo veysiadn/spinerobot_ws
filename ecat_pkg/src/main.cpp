@@ -25,6 +25,14 @@ int main(int argc, char **argv)
         RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Mlockall failed, check if you have sudo authority.");
         return -1;
     }
+
+    // https://design.ros2.org/articles/realtime_background.html
+    /* Turn off malloc trimming.*/
+    mallopt(M_TRIM_THRESHOLD, -1);
+
+    /* Turn off mmap usage. */
+    mallopt(M_MMAP_MAX, 0);
+
     ecat_lifecycle_node = std::make_unique<EthercatLifeCycleNode::EthercatLifeCycle>();
     rclcpp::spin(ecat_lifecycle_node->get_node_base_interface());
     rclcpp::shutdown();

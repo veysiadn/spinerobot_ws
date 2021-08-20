@@ -23,7 +23,8 @@ def generate_launch_description():
         node_executable = 'ecat_node',
         node_name = 'ecat_node',
         output = 'screen',
-        prefix = 'taskset -c 3'
+        prefix = 'taskset -c 3',
+		parameters=[{"measure_time": 180}]
     )
 
     # Make the pd node take the 'configure' transition

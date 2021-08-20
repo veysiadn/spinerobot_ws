@@ -273,5 +273,7 @@ class EthercatLifeCycle : public LifecycleNode
         std::make_shared<AllocatorMemoryStrategy<TLSFAllocator<void>>>();
         template<typename T = void>
         using TLSFAllocator = tlsf_heap_allocator<T>;
+        // Will be used as a parameter for taking timing measurements.
+        std::int32_t measurement_time = 0 ; 
 };
 }

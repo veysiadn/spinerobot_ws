@@ -17,6 +17,7 @@ EthercatLifeCycle::EthercatLifeCycle(): LifecycleNode("ecat_node")
     sent_data_.target_pos.resize(g_kNumberOfServoDrivers);
     sent_data_.target_vel.resize(g_kNumberOfServoDrivers);
     sent_data_.target_tor.resize(g_kNumberOfServoDrivers);
+    measurement_time = this->declare_parameter("measure_time",std::int32_t(1));
 }
 
 EthercatLifeCycle::~EthercatLifeCycle()
@@ -315,9 +316,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting PDO exchange....\n");
     // Measurement time in minutes, e.g.
-    uint32_t measurement_time = 0;
-    uint32_t print_max_min = measurement_time * 6000 + 500 ; 
-    int counter = 10;
+    uint32_t print_max_min = measurement_time * 60000 + 500 ; 
     int error_check=0;
     struct timespec wake_up_time, time;
     #if MEASURE_TIMING
@@ -326,14 +325,14 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         latency_min_ns = 0xffffffff, latency_max_ns = 0,
         period_min_ns = 0xffffffff, period_max_ns = 0,
         exec_min_ns = 0xffffffff, exec_max_ns = 0,
-        max_period=0, max_latency=0,max_exec=0,min_period = 0xffffffff,
+        max_period=0, max_latency=0,exec_max=0,min_period = 0xffffffff,
         exec_min = 0xffffffff , latency_min = 0xffffffff;
         int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
 
     #endif
     // get current time
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
-    int begin=5e4;
+    int begin=1e4;
     int status_check_counter = 1000;
     while(sig){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
@@ -354,7 +353,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                 if(jitter > jitter_max)             jitter_max  = jitter ; 
                 if(latency_ns > max_latency)        max_latency = latency_ns;
                 if(period_ns > max_period)          max_period  = period_ns;
-                if(exec_ns > max_exec)              max_exec    = exec_ns;
+                if(exec_ns > exec_max)              exec_max    = exec_ns;
                 if(period_ns < min_period)          min_period  = period_ns;
                 if(exec_ns < exec_min)              exec_min    = exec_ns;
                 if(latency_ns < latency_min)        latency_min = latency_ns;
@@ -406,52 +405,50 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                 status_check_counter = 1000;
             }
         }
-        if (counter){
-            counter--;
-        }
-        else
-        {
-            counter = 0;
             PublishAllData();
             #if MEASURE_TIMING
             // output timing stats
             if(!print_max_min){
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod   min   : %10u ns  | max : %10u ns\n",
-                            period_min_ns, period_max_ns);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec     min   : %10u ns  | max : %10u ns\n",
-                            exec_min_ns, exec_max_ns);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tlatency  min   : %10u ns  | max : %10u ns\n",
-                            latency_min_ns, latency_max_ns);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter max     : %10u ns  \n",
-                            latency_max_ns-latency_min_ns);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
-                            min_period, max_period);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
-                            exec_min, max_exec);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
-                            jitter_min, jitter_max);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
-          /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
-                            "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
-            std::cout << "Left X Axis    : " << controller_.left_x_axis_ << std::endl;
-            std::cout << "Right X XAxis  : " << controller_.right_x_axis_ << std::endl;*/
-            std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
-                    print_max_min=200;
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod   min   : %10u ns  | max : %10u ns\n",
+                    //         period_min_ns, period_max_ns);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec     min   : %10u ns  | max : %10u ns\n",
+                    //         exec_min_ns, exec_max_ns);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tlatency  min   : %10u ns  | max : %10u ns\n",
+                    //         latency_min_ns, latency_max_ns);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter max     : %10u ns  \n",
+                    //         latency_max_ns-latency_min_ns);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
+                    //         min_period, max_period);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
+                    //         exec_min, exec_max);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
+                    //         jitter_min, jitter_max);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
+                    std::cout << min_period << " " << max_period << " " << exec_min << " " << exec_max << " " << jitter_min << " " << jitter_max << std::endl;
+                    /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
+                                        "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
+                        std::cout << "Left X Axis    : " << controller_.left_x_axis_ << std::endl;
+                        std::cout << "Right X XAxis  : " << controller_.right_x_axis_ << std::endl;*/
+                        // std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
+                    print_max_min=5;
+                    std::cout << "Finished...." << std::endl;
+                    break;
             }else {
-                print_max_min--;
+                std::cout << std::dec << period_min_ns  << " " << period_max_ns << " " << exec_min_ns << " " << exec_max_ns << " " << 
+                latency_min_ns << " " <<  latency_max_ns << " " << latency_max_ns - latency_min_ns << std::endl;
+                print_max_min=print_max_min-10;
             }
-                    period_max_ns = 0;
-                    period_min_ns = 0xffffffff;
+                period_max_ns = 0;
+                period_min_ns = 0xffffffff;
 
-                    exec_max_ns = 0;
-                    exec_min_ns = 0xffffffff;
+                exec_max_ns = 0;
+                exec_min_ns = 0xffffffff;
 
-                    latency_max_ns = 0;
-                    latency_min_ns = 0xffffffff;
+                latency_max_ns = 0;
+                latency_min_ns = 0xffffffff;
             #endif
-        }
 
         ReadFromSlaves();
 #if POSITION_MODE

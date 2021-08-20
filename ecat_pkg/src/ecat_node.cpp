@@ -493,7 +493,6 @@ int EthercatNode::CheckMasterState()
 {
     ec_master_state_t ms;
     ecrt_master_state(g_master, &ms);
-    usleep(10);
     if (ms.slaves_responding != g_master_state.slaves_responding){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"%u slave(s).\n", ms.slaves_responding);
         if (ms.slaves_responding < 1) {
@@ -519,7 +518,6 @@ void EthercatNode::CheckMasterDomainState()
 {
     ec_domain_state_t ds;                     //Domain instance
     ecrt_domain_state(g_master_domain, &ds);
-    usleep(10);
     if (ds.working_counter != g_master_domain_state.working_counter)
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"masterDomain: WC %u.\n", ds.working_counter);
     if (ds.wc_state != g_master_domain_state.wc_state)
