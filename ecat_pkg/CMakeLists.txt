@@ -34,7 +34,8 @@ find_package(sensor_msgs REQUIRED)
 add_executable(ecat_node src/main.cpp
                          src/ecat_node.cpp
                          src/ecat_slave.cpp
-                         src/ecat_lifecycle.cpp)
+                         src/ecat_lifecycle.cpp
+                         src/timing.cpp)
 
 ## Specifying include directories for ecat_node specifically by using definitions above.
 ## target include directories adds include directory for specific target executable.

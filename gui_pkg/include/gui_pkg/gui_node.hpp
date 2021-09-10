@@ -71,10 +71,14 @@ using TLSFAllocator = tlsf_heap_allocator<T>;
 #include <functional>
 #include <string>
 #include <cstdint>
-
+#include <ctime>
+#include <ratio>
+#include <fstream>
+#include <string>
+#include "timing.hpp"
 using namespace std::chrono_literals;
 
-#define NUM_OF_SERVO_DRIVES 1
+#define NUM_OF_SERVO_DRIVES 3
 
 #define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
@@ -121,8 +125,8 @@ typedef struct
       ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
       // GUI button value to publish emergency button state.
       uint8_t emergency_button_val_ = 1;
-
-  private:
+      Timing time_info_;
+  private:  
       // ROS2 subscriptions.
       rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr slave_feedback_;
       rclcpp::Subscription<ecat_msgs::msg::DataSent>::SharedPtr master_commands_;

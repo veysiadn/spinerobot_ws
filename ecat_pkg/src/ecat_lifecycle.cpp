@@ -316,9 +316,10 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting PDO exchange....\n");
     // Measurement time in minutes, e.g.
-    uint32_t print_max_min = measurement_time * 60000 + 500 ; 
+    uint32_t print_max_min = measurement_time * 60000 ; 
+    uint32_t print_val = 1e4;
     int error_check=0;
-    struct timespec wake_up_time, time;
+    struct timespec wake_up_time, time, publish_time_start={}, publish_time_end={};
     #if MEASURE_TIMING
         struct timespec start_time, end_time, last_start_time = {};
         uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
@@ -327,6 +328,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         exec_min_ns = 0xffffffff, exec_max_ns = 0,
         max_period=0, max_latency=0,exec_max=0,min_period = 0xffffffff,
         exec_min = 0xffffffff , latency_min = 0xffffffff;
+        int32_t publishing_time_ns=1e4, publish_time_max=0, publish_time_min=0xfffffff;
         int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
 
     #endif
@@ -334,6 +336,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     clock_gettime(CLOCK_TO_USE, &wake_up_time);
     int begin=1e4;
     int status_check_counter = 1000;
+    
     while(sig){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
@@ -349,7 +352,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             if(!begin)
             {
                 jitter = latency_ns - old_latency ;
-                if(jitter < 0 ) jitter *=-1; 
+                if(jitter < 0 )                         jitter *=-1; 
                 if(jitter > jitter_max)             jitter_max  = jitter ; 
                 if(latency_ns > max_latency)        max_latency = latency_ns;
                 if(period_ns > max_period)          max_period  = period_ns;
@@ -397,18 +400,31 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     error_check++;                    
                     if(error_check==5)
                         return;
-               }else{
-                // ecat_node_->CheckMasterDomainState();
-                // ecat_node_->CheckSlaveConfigurationState();
-                error_check=0;
-                al_state_ = g_master_state.al_states ; 
-                status_check_counter = 1000;
+                    }else{
+                        // ecat_node_->CheckMasterDomainState();
+                        // ecat_node_->CheckSlaveConfigurationState();
+                        error_check=0;
+                        al_state_ = g_master_state.al_states ; 
+                        status_check_counter = 1000;
+                    }
             }
-        }
-            PublishAllData();
-            #if MEASURE_TIMING
+        if(!begin)
+        clock_gettime(CLOCK_TO_USE, &publish_time_start);
+        // timer_info_.GetTime();
+        PublishAllData();
+        // timer_info_.MeasureTimeDifference();
+        // if(timer_info_.counter_==NUMBER_OF_SAMPLES){
+        //     timer_info_.OutInfoToFile();
+        //     //break;
+        // }
+        if(!begin)
+        clock_gettime(CLOCK_TO_USE, &publish_time_end);
+        publishing_time_ns = DIFF_NS(publish_time_start,publish_time_end);
+        if(publishing_time_ns>publish_time_max) publish_time_max = publishing_time_ns;
+        if(publishing_time_ns<publish_time_min) publish_time_min = publishing_time_ns;
+        #if MEASURE_TIMING
             // output timing stats
-            if(!print_max_min){
+            if(!print_val){
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod   min   : %10u ns  | max : %10u ns\n",
                     //         period_min_ns, period_max_ns);
@@ -424,22 +440,33 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
                     //         exec_min, exec_max);
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
-                    //         jitter_min, jitter_max);
+                    //         jitter_min, jitter_max);  
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
+                    //       publish_time_min, publish_time_max);                             
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
-                    std::cout << min_period << " " << max_period << " " << exec_min << " " << exec_max << " " << jitter_min << " " << jitter_max << std::endl;
+                    // std::cout << min_period << " " << max_period << " " << exec_min << " " << exec_max << " " << jitter_min << " " << jitter_max << std::endl;
                     /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                                         "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
                         std::cout << "Left X Axis    : " << controller_.left_x_axis_ << std::endl;
                         std::cout << "Right X XAxis  : " << controller_.right_x_axis_ << std::endl;*/
                         // std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
-                    print_max_min=5;
-                    std::cout << "Finished...." << std::endl;
-                    break;
+                    //std::cout << std::dec << publishing_time_ns << std::endl;
+                    //std::cout << std::dec << time_span.count() << std::endl;
+                    print_val=10;
+
+                    //  std::cout << "Finished...." << std::endl;
+                    //  break;
             }else {
-                std::cout << std::dec << period_min_ns  << " " << period_max_ns << " " << exec_min_ns << " " << exec_max_ns << " " << 
-                latency_min_ns << " " <<  latency_max_ns << " " << latency_max_ns - latency_min_ns << std::endl;
-                print_max_min=print_max_min-10;
+                //std::cout << std::dec << period_min_ns  << " " << period_max_ns << " " << exec_min_ns << " " << exec_max_ns << " " << 
+               // latency_min_ns << " " <<  latency_max_ns << " " << latency_max_ns - latency_min_ns << std::endl;
+                print_val--;
             }
+            if(!print_max_min){
+                //RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
+                //publish_time_min, publish_time_max);
+                break;
+            }
+                print_max_min--;        
                 period_max_ns = 0;
                 period_min_ns = 0xffffffff;
 
@@ -448,7 +475,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
                 latency_max_ns = 0;
                 latency_min_ns = 0xffffffff;
-            #endif
+        #endif
 
         ReadFromSlaves();
 #if POSITION_MODE
@@ -485,6 +512,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                 clock_gettime(CLOCK_TO_USE, &end_time);
         #endif
     }//while(1/sig) //Ctrl+C signal
+    
+    
     ecat_node_->DeactivateCommunication();
     return;
 }// StartPdoExchange end
@@ -728,16 +757,16 @@ void EthercatLifeCycle::UpdateCyclicPositionModeParameters()
 
             // Settings for motor 3 
             if(controller_.right_rb_button_ > 0 ){
-                sent_data_.target_pos[2] = -FIVE_DEGREE_CCW/50 ;
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] + FIVE_DEGREE_CCW/50 ;
             }
             if(controller_.left_rb_button_ > 0){
-                sent_data_.target_pos[2] = FIVE_DEGREE_CCW/50 ;
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] - FIVE_DEGREE_CCW/50 ;
             }
             if(controller_.left_start_button_ > 0 ){
-                sent_data_.target_pos[2] = THIRTY_DEGREE_CCW/50 ;
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] + THIRTY_DEGREE_CCW/50 ;
             }
             if(controller_.right_start_button_ > 0){
-                sent_data_.target_pos[2] = -THIRTY_DEGREE_CCW/50 ;
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] - THIRTY_DEGREE_CCW/50 ;
             }
             if((controller_.right_rb_button_ || controller_.left_rb_button_ || controller_.left_start_button_ || controller_.right_start_button_)){
                 sent_data_.control_word[2] = SM_GO_ENABLE;

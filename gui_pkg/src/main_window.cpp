@@ -211,7 +211,7 @@ QString MainWindow::GetReadableStatusWord(int index)
     QString qstr;
 
     if (gui_node_->received_data_[index].status_word==4663 || gui_node_->received_data_[index].status_word==567){
-        QTextStream(&qstr) << "RUNNING";
+        QTextStream(&qstr) << "READY";
         switch (index) {
         case 0:
             ui->line_status_word_m1->setText(qstr);
@@ -259,7 +259,7 @@ QString MainWindow::GetReadableStatusWord(int index)
             break;
         }
     }else{
-        QTextStream(&qstr) << "WAITING";
+        QTextStream(&qstr) << "MOVING";
         switch (index) {
         case 0:
             ui->line_status_word_m1->setText(qstr);

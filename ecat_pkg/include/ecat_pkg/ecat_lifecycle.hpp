@@ -34,6 +34,7 @@
  *        loop implemented in this file.
  *******************************************************************************/
 #include "ecat_node.hpp"
+#include "timing.hpp"
 /******************************************************************************/
 /// ROS2 lifecycle node header files.
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
@@ -275,5 +276,6 @@ class EthercatLifeCycle : public LifecycleNode
         using TLSFAllocator = tlsf_heap_allocator<T>;
         // Will be used as a parameter for taking timing measurements.
         std::int32_t measurement_time = 0 ; 
+        Timing timer_info_ ; 
 };
 }

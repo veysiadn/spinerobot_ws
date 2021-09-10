@@ -49,6 +49,7 @@
 
   void GuiNode::HandleMasterCommandCallbacks(const ecat_msgs::msg::DataSent::SharedPtr msg)
   {
+      
       for(int i=0; i < NUM_OF_SERVO_DRIVES ; i++){
          received_data_[i].target_pos   =  msg->target_pos[i];
          received_data_[i].target_vel   =  msg->target_vel[i];
@@ -59,6 +60,7 @@
 
   void GuiNode::HandleSlaveFeedbackCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg)
   {
+      time_info_.GetTime();
       for(int i=0; i < NUM_OF_SERVO_DRIVES ; i++){
         received_data_[i].actual_pos             =  msg->actual_pos[i];
         received_data_[i].actual_vel             =  msg->actual_vel[i];
@@ -68,5 +70,9 @@
         received_data_[i].p_emergency_switch_val =  msg->emergency_switch_val;
         received_data_[i].com_status             =  msg->com_status;
     }
+    time_info_.MeasureTimeDifference();
+    if (time_info_.counter_ == NUMBER_OF_SAMPLES)
+      time_info_.OutInfoToFile();
      // emit UpdateParameters(0);
+
   }
