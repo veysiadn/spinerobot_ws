@@ -151,7 +151,7 @@ class EthercatNode
  * @brief Configures DC synchronization for specified slave position
  * 
  * @param assign_activate Activating DC synchronization for slave.
- * 0x300 for Elmo | and same for EasyCAT
+ * 0x300 for Elmo, Maxon EPOS and same for EasyCAT, check your slaves ESI file to get this information.
  * @note Assign activate parameters specified in slaves ESI file 
  * 
  * @param position

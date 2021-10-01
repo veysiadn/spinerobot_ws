@@ -473,7 +473,7 @@ void EthercatNode::ConfigDcSyncDefault()
     for(int i=0; i < g_kNumberOfServoDrivers ; i++){
         ecrt_slave_config_dc(slaves_[i].slave_config_, 0X0300, PERIOD_NS, slaves_[i].kSync0_shift_, 0, 0);
     }
-    ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);
+    ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);  //sync0 shift value is specific to each slave, check it from ESI file.
 }
 
 void EthercatNode::ConfigDcSync(uint16_t assign_activate, int position)
@@ -486,7 +486,6 @@ void EthercatNode::CheckSlaveConfigurationState()
     for(int i = 0 ; i < NUM_OF_SLAVES ;i++)
     {
         slaves_[i].CheckSlaveConfigState();
-
     }
 }
 
