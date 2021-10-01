@@ -579,7 +579,7 @@ int EthercatNode::WaitForOperationalMode()
             check_state_count--;
         }else {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Time out occurred while waiting for OP mode.!  ");
-            ecrt_master_deactivate_slaves(g_master);
+            ecrt_master_deactivate_slaves(g_master); // comment out this function if you're not using ribalda patch.
             ecrt_master_deactivate(g_master);
             ecrt_release_master(g_master);
             return -1;
@@ -623,7 +623,8 @@ int EthercatNode::GetNumberOfConnectedSlaves()
 
 void EthercatNode::DeactivateCommunication()
 {
-    ecrt_master_deactivate_slaves(g_master);
+    ecrt_master_deactivate_slaves(g_master);  // Comment out this function if you're not using ribalda patch.
+    ecrt_master_deactivate(g_master);
 }
 
 void EthercatNode::ReleaseMaster()
