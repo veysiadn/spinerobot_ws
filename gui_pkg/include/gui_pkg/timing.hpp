@@ -11,7 +11,7 @@
 #include <string>
 #include <iostream>
 
-#define NUMBER_OF_SAMPLES 5E5
+#define NUMBER_OF_SAMPLES 1E5
 
 class Timing{
     public:

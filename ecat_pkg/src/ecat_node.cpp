@@ -473,7 +473,7 @@ void EthercatNode::ConfigDcSyncDefault()
     for(int i=0; i < g_kNumberOfServoDrivers ; i++){
         ecrt_slave_config_dc(slaves_[i].slave_config_, 0X0300, PERIOD_NS, slaves_[i].kSync0_shift_, 0, 0);
     }
-    ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);  //sync0 shift value is specific to each slave, check it from ESI file.
+    ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);
 }
 
 void EthercatNode::ConfigDcSync(uint16_t assign_activate, int position)
@@ -486,6 +486,7 @@ void EthercatNode::CheckSlaveConfigurationState()
     for(int i = 0 ; i < NUM_OF_SLAVES ;i++)
     {
         slaves_[i].CheckSlaveConfigState();
+
     }
 }
 
@@ -578,7 +579,7 @@ int EthercatNode::WaitForOperationalMode()
             check_state_count--;
         }else {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Error : Time out occurred while waiting for OP mode.!  ");
-            ecrt_master_deactivate_slaves(g_master); // comment out this function if you're not using ribalda patch.
+            ecrt_master_deactivate_slaves(g_master);
             ecrt_master_deactivate(g_master);
             ecrt_release_master(g_master);
             return -1;
@@ -622,8 +623,7 @@ int EthercatNode::GetNumberOfConnectedSlaves()
 
 void EthercatNode::DeactivateCommunication()
 {
-    ecrt_master_deactivate_slaves(g_master);  // Comment out this function if you're not using ribalda patch.
-    ecrt_master_deactivate(g_master);
+    ecrt_master_deactivate_slaves(g_master);
 }
 
 void EthercatNode::ReleaseMaster()

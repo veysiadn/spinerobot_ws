@@ -410,13 +410,13 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             }
         if(!begin)
         clock_gettime(CLOCK_TO_USE, &publish_time_start);
-        // timer_info_.GetTime();
+         timer_info_.GetTime();
         PublishAllData();
-        // timer_info_.MeasureTimeDifference();
-        // if(timer_info_.counter_==NUMBER_OF_SAMPLES){
-        //     timer_info_.OutInfoToFile();
-        //     //break;
-        // }
+         timer_info_.MeasureTimeDifference();
+         if(timer_info_.counter_==NUMBER_OF_SAMPLES){
+             timer_info_.OutInfoToFile();
+               // break;
+          }
         if(!begin)
         clock_gettime(CLOCK_TO_USE, &publish_time_end);
         publishing_time_ns = DIFF_NS(publish_time_start,publish_time_end);
@@ -434,16 +434,16 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     //         latency_min_ns, latency_max_ns);
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter max     : %10u ns  \n",
                     //         latency_max_ns-latency_min_ns);
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
-                    //         min_period, max_period);
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
-                    //         exec_min, exec_max);
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
-                    //         jitter_min, jitter_max);  
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
-                    //       publish_time_min, publish_time_max);                             
-                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
+                            min_period, max_period);
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
+                            exec_min, exec_max);
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
+                            jitter_min, jitter_max);  
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
+                          publish_time_min, publish_time_max);                             
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
                     // std::cout << min_period << " " << max_period << " " << exec_min << " " << exec_max << " " << jitter_min << " " << jitter_max << std::endl;
                     /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                                         "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
@@ -452,7 +452,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                         // std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
                     //std::cout << std::dec << publishing_time_ns << std::endl;
                     //std::cout << std::dec << time_span.count() << std::endl;
-                    print_val=10;
+                    print_val=1000;
 
                     //  std::cout << "Finished...." << std::endl;
                     //  break;

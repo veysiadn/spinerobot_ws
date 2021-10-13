@@ -55,7 +55,7 @@
  * X will be your device ID.
 */
 
-#define ID_CAMERA 2
+#define ID_CAMERA 0
 
 class VideoCapture : public QThread
 {
