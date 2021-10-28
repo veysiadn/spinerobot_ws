@@ -59,6 +59,7 @@ def generate_launch_description():
         pd_node,
         pd_configure_event,
         Node(package='controller', node_executable='joy_node', output='screen', parameters=[
-            {"dev": "/dev/input/js1"}]),
+            {"dev": "/dev/input/js0"}]),
         Node(package='gui_pkg', node_executable='gui_node', output='screen',prefix = 'taskset -c 0,1,2'),
+        Node(package='tool_pkg', node_executable='surgicalToolNode', output='screen'),
         ])

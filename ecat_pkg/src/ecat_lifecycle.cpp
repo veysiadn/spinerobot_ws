@@ -27,7 +27,7 @@ EthercatLifeCycle::~EthercatLifeCycle()
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_configure(const State &)
 {
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT device...");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Configuring EtherCAT device...\n");
     auto qos = rclcpp::QoS(
     // The "KEEP_LAST" history setting tells DDS to store a fixed-size buffer of values before they
     // are sent, to aid with recovery in the event of dropped messages.
@@ -47,7 +47,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_co
         received_data_publisher_ = this->create_publisher<ecat_msgs::msg::DataReceived>("Slave_Feedback", qos);
         sent_data_publisher_     = this->create_publisher<ecat_msgs::msg::DataSent>("Master_Commands", qos);
         joystick_subscriber_     = this->create_subscription<sensor_msgs::msg::Joy>("Controller", qos, 
-                                    std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this,std::placeholders::_1));
+                                     std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this,std::placeholders::_1));
         gui_subscriber_          = this->create_subscription<std_msgs::msg::UInt8>("gui_buttons", qos, 
                                     std::bind(&EthercatLifeCycle::HandleGuiNodeCallbacks, this, std::placeholders::_1));
 
@@ -71,6 +71,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_ac
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_deactivate(const State &)
 {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Deactivating.");
     received_data_publisher_->on_deactivate();
     sent_data_publisher_->on_deactivate();
     ecat_node_->DeactivateCommunication();
@@ -79,6 +80,7 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_de
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cleanup(const State &)
 {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cleaning up.");
     ecat_node_.reset();
     received_data_publisher_.reset();
     sent_data_publisher_.reset();
@@ -87,6 +89,11 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_cl
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_shutdown(const State &)
 {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "On_Shutdown... Waiting for control thread.");
+    sig = 0;
+    usleep(1e3);
+    pthread_join(ethercat_thread_,NULL);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Control thread terminated.");
     ecat_node_->ReleaseMaster();
     ecat_node_->ShutDownEthercatMaster();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
@@ -94,12 +101,15 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_sh
 
 node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_error(const State &)
 {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "On Error.");
     ecat_node_.reset();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }
 
 void EthercatLifeCycle::HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
+    //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Joy Msgs : %.2f, %.2f",msg->axes[0],msg->axes[2]);
+
     controller_.left_x_axis_  = msg->axes[0];
     controller_.left_y_axis_  = msg->axes[1];
     controller_.right_x_axis_ = msg->axes[3];
@@ -230,7 +240,6 @@ int EthercatLifeCycle::InitEthercatCommunication()
                 ecat_node_->slaves_[i].slave_info_.name,i);
     }
 
-
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Configuring  slaves...\n");
     if(ecat_node_->ConfigureSlaves()){
         return -1 ;
@@ -249,11 +258,11 @@ int EthercatLifeCycle::InitEthercatCommunication()
 #if POSITION_MODE
     ProfilePosParam P ;
     uint32_t max_fol_err ;
-    P.profile_vel = 50 ;
-    P.profile_acc = 1e4 ;
-    P.profile_dec = 1e4 ;
-    P.max_profile_vel = 100 ;
-    P.quick_stop_dec = 3e4 ;
+    P.profile_vel = 450; //150 ;
+    P.profile_acc = 1e4;//1e4 ;
+    P.profile_dec = 1e4;//1e4 ;
+    P.max_profile_vel = 500; //100 ;
+    P.quick_stop_dec = 3e4;//3e4 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfilePositionParametersAll(P);
 #endif
@@ -266,9 +275,21 @@ int EthercatLifeCycle::InitEthercatCommunication()
     P.profile_dec = 3e4 ;
     P.max_profile_vel = 100 ;
     P.quick_stop_dec = 3e4 ;
-    P.interpolation_time_period = 1 ;
+    P.interpolation_time_period = 0;//1 ;
     ecat_node_->SetCyclicSyncPositionModeParametersAll(P);
 #endif
+
+#if CYCLIC_VELOCITY_MODE
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to CSV mode...\n");
+    CSVelocityModeParam P ;
+    P.velocity_controller_gain.Pgain = 40000;
+    P.velocity_controller_gain.Igain = 800000;
+    P.profile_dec=3e4 ;
+    P.quick_stop_dec = 3e4 ;
+    P.interpolation_time_period = 0;//1 ;
+    ecat_node_->SetCyclicSyncVelocityModeParametersAll(P);
+#endif
+
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Mapping default PDOs...\n");
     if(ecat_node_->MapDefaultPdos()){
         return  -1 ;
@@ -301,7 +322,6 @@ int EthercatLifeCycle::InitEthercatCommunication()
 
 int  EthercatLifeCycle::StartEthercatCommunication()
 {
-
     err_= pthread_create(&ethercat_thread_,&ethercat_thread_attr_, &EthercatLifeCycle::PassCycylicExchange,this);
     if(err_)
     {
@@ -310,6 +330,11 @@ int  EthercatLifeCycle::StartEthercatCommunication()
     }
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Communication thread called.\n");
     return 0 ;
+}
+
+void *EthercatLifeCycle::PassCycylicExchange(void *arg)
+{
+    static_cast<EthercatLifeCycle*>(arg)->StartPdoExchange(arg);
 }
 
 void EthercatLifeCycle::StartPdoExchange(void *instance)
@@ -337,6 +362,96 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     int begin=1e4;
     int status_check_counter = 1000;
     
+    // ------------------------------------------------------- //
+    // CKim - Initialization loop before entring control loop. 
+    // Switch On and Enable Driver
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Enabling motors...");
+    while(sig)
+    {
+        // CKim - Sleep for 1 ms
+        wake_up_time = timespec_add(wake_up_time, g_cycle_time);
+        clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
+        ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
+
+        // CKim - Receive process data
+        ecrt_master_receive(g_master);
+        ecrt_domain_process(g_master_domain);
+        ReadFromSlaves();
+
+        // CKim - Initialize target pos and vel
+        for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
+        {
+            sent_data_.target_pos[i] = received_data_.actual_pos[i];
+            sent_data_.target_vel[i] = 0;
+        }
+
+        // CKim - Check status and update control words to enable drivers
+        // Returns number of enabled drivers
+        if(EnableDrivers()==3)
+        {
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "All drives enabled");
+            break;
+        }
+
+        // CKim - Periodic printout
+        if (status_check_counter){
+            status_check_counter--;
+        }
+        else 
+        { 
+            // Checking master/domain/slaves state every 1sec.
+            if(ecat_node_->CheckMasterState() < 0 )
+            {
+                RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Connection error, check your physical connection.");
+                al_state_ = g_master_state.al_states ; 
+                received_data_.emergency_switch_val=0;
+                emergency_status_=0;
+                PublishAllData();
+                error_check++;                    
+                if(error_check==5)
+                    return;
+            }
+            else
+            {
+                //ecat_node_->CheckMasterDomainState();
+                //ecat_node_->CheckSlaveConfigurationState();
+                error_check=0;
+                al_state_ = g_master_state.al_states ; 
+                status_check_counter = 1000;
+
+                for(int i=0; i<g_kNumberOfServoDrivers; i++)
+                {
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "State of Drive %d : %d\n",i,motor_state_[i]);
+                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Trying to enable motors");
+                } 
+            }
+        }
+
+        // CKim - Queue data
+        PublishAllData();
+        
+        //WriteToSlavesInPositionMode();
+        WriteToSlavesVelocityMode();
+
+        // CKim - Sync Timer
+        if (g_sync_ref_counter) {
+            g_sync_ref_counter--;
+        } else {
+            g_sync_ref_counter = 1; // sync every cycle
+
+            clock_gettime(CLOCK_TO_USE, &time);
+            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
+        }
+        ecrt_master_sync_slave_clocks(g_master);
+
+        // CKim - Send process data
+        ecrt_domain_queue(g_master_domain);
+        ecrt_master_send(g_master);
+    }// while(sig)
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "All motors enabled, entering control loop");
+
+    // ------------------------------------------------------- //
+    // CKim - All motors enabled. Start control loop
     while(sig){
         wake_up_time = timespec_add(wake_up_time, g_cycle_time);
         clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
@@ -389,7 +504,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
         if (status_check_counter){
             status_check_counter--;
-        }else { 
+        }
+        else { 
             // Checking master/domain/slaves state every 1sec.
                if(ecat_node_->CheckMasterState() < 0 ){
                     RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Connection error, check your physical connection.");
@@ -408,20 +524,27 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                         status_check_counter = 1000;
                     }
             }
+
+        #if MEASURE_TIMING
         if(!begin)
         clock_gettime(CLOCK_TO_USE, &publish_time_start);
-         timer_info_.GetTime();
+        #endif
+        
+        // timer_info_.GetTime();
         PublishAllData();
-         timer_info_.MeasureTimeDifference();
-         if(timer_info_.counter_==NUMBER_OF_SAMPLES){
-             timer_info_.OutInfoToFile();
-               // break;
-          }
+        // timer_info_.MeasureTimeDifference();
+        // if(timer_info_.counter_==NUMBER_OF_SAMPLES){
+        //     timer_info_.OutInfoToFile();
+        //     //break;
+        // }
+        #if MEASURE_TIMING
         if(!begin)
         clock_gettime(CLOCK_TO_USE, &publish_time_end);
         publishing_time_ns = DIFF_NS(publish_time_start,publish_time_end);
         if(publishing_time_ns>publish_time_max) publish_time_max = publishing_time_ns;
         if(publishing_time_ns<publish_time_min) publish_time_min = publishing_time_ns;
+        #endif
+
         #if MEASURE_TIMING
             // output timing stats
             if(!print_val){
@@ -434,16 +557,16 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                     //         latency_min_ns, latency_max_ns);
                     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter max     : %10u ns  \n",
                     //         latency_max_ns-latency_min_ns);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
-                            min_period, max_period);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
-                            exec_min, exec_max);
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
-                            jitter_min, jitter_max);  
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
-                          publish_time_min, publish_time_max);                             
-                    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");       
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod min     : %10u ns  | max : %10u ns\n",
+                    //         min_period, max_period);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Texec  min      : %10u ns  | max : %10u ns\n",
+                    //         exec_min, exec_max);
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tjitter min     : %10u ns  | max : %10u ns\n",
+                    //         jitter_min, jitter_max);  
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
+                    //       publish_time_min, publish_time_max);                             
+                    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
                     // std::cout << min_period << " " << max_period << " " << exec_min << " " << exec_max << " " << jitter_min << " " << jitter_max << std::endl;
                     /*  std::cout <<    "Left Switch   : " << unsigned(received_data_.left_limit_switch_val) << std::endl << 
                                         "Right Switch  : " << unsigned(received_data_.right_limit_switch_val) << std::endl;
@@ -452,7 +575,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                         // std::cout << "Emergency button  : " << unsigned(gui_node_data_) << std::endl;
                     //std::cout << std::dec << publishing_time_ns << std::endl;
                     //std::cout << std::dec << time_span.count() << std::endl;
-                    print_val=1000;
+                    print_val=10;
 
                     //  std::cout << "Finished...." << std::endl;
                     //  break;
@@ -486,11 +609,16 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 #if CYCLIC_POSITION_MODE
     UpdateMotorStatePositionMode();
     UpdateCyclicPositionModeParameters();
-    WriteToSlavesInPositionMode();
+    //WriteToSlavesInPositionMode();
 #endif 
 #if VELOCITY_MODE
         UpdateMotorStateVelocityMode();
         UpdateVelocityModeParameters();
+        WriteToSlavesVelocityMode();
+#endif
+#if CYCLIC_VELOCITY_MODE
+        UpdateMotorStateVelocityMode();
+        UpdateCyclicVelocityModeParameters();
         WriteToSlavesVelocityMode();
 #endif
 
@@ -507,13 +635,35 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         // send process data
         ecrt_domain_queue(g_master_domain);
         ecrt_master_send(g_master);
+        
         if(begin) begin--;
         #if MEASURE_TIMING
                 clock_gettime(CLOCK_TO_USE, &end_time);
         #endif
     }//while(1/sig) //Ctrl+C signal
     
-    
+    // ------------------------------------------------------- //
+    // CKim - Disable drivers before exiting
+    wake_up_time = timespec_add(wake_up_time, g_cycle_time);
+    clock_nanosleep(CLOCK_TO_USE, TIMER_ABSTIME, &wake_up_time, NULL);
+    ecrt_master_application_time(g_master, TIMESPEC2NS(wake_up_time));
+
+    ecrt_master_receive(g_master);
+    ecrt_domain_process(g_master_domain);
+
+    ReadFromSlaves();
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
+    {
+        sent_data_.control_word[i] = SM_GO_SWITCH_ON_DISABLE;
+    }
+    WriteToSlavesVelocityMode();
+
+    ecrt_domain_queue(g_master_domain);
+    ecrt_master_send(g_master);
+    usleep(10000);
+    // ------------------------------------------------------- //
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Leaving control thread.");
     ecat_node_->DeactivateCommunication();
     return;
 }// StartPdoExchange end
@@ -555,11 +705,6 @@ int EthercatLifeCycle::PublishAllData()
     received_data_publisher_->publish(received_data_);
     sent_data_.header.stamp  = this->now();
     sent_data_publisher_->publish(sent_data_);
-}
-
-void *EthercatLifeCycle::PassCycylicExchange(void *arg)
-{
-    static_cast<EthercatLifeCycle*>(arg)->StartPdoExchange(arg);
 }
 
 int EthercatLifeCycle::GetComState()
@@ -671,7 +816,8 @@ void EthercatLifeCycle::UpdateMotorStatePositionMode()
                 sent_data_.control_word[i]  = SM_FULL_RESET;
                 motor_state_[i] = kFault;
             }
-        } else {
+        }
+        else {
             sent_data_.control_word[i]=SM_RUN;
             if(TEST_BIT(received_data_.status_word[i],10)==1)
             {
@@ -680,6 +826,80 @@ void EthercatLifeCycle::UpdateMotorStatePositionMode()
         }
     }
     return ;
+}
+
+int EthercatLifeCycle::GetDriveState(const int& statusWord)
+{
+    int state = 0;
+
+    // bit 6 is 1
+    if (TEST_BIT(statusWord,6)) 
+    {   
+        state = kSwitchOnDisabled;  return state;   
+    }
+    
+    // bit 6 is 0 and bit 5 is 1
+    if (TEST_BIT(statusWord,5)) 
+    {
+        if (TEST_BIT(statusWord,2)) {    
+            state = kOperationEnabled;  return state;   
+        }
+        if (TEST_BIT(statusWord,1)) {    
+            state = kSwitchedOn;        return state;   
+        }
+        if (TEST_BIT(statusWord,0)) {    
+            state = kReadyToSwitchOn;   return state;
+        }
+    }
+    
+    // bit 6 is 0 and bit 5 is 0
+    if (TEST_BIT(statusWord,3)) {
+        // For EPOS4, Fault or Fault Reaction Active,
+        // See P2-14 of the Firmware Manual
+        state = kFault;         return state;   
+    }
+    else {
+        // For EPOS4, Quick Stop Active or Not Switched on
+        // See P2-14 of the Firmware Manual
+        state = kQuickStop;     return state;
+    }
+    return state;
+}
+
+int EthercatLifeCycle::EnableDrivers()
+{
+    int cnt = 0;
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++)
+    {
+        motor_state_[i] = GetDriveState(received_data_.status_word[i]);
+        
+        // if status is fault, reset fault state.
+        if(motor_state_[i] == kFault) {
+            //RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Driver %d in Fault",i);
+            sent_data_.control_word[i] = SM_FULL_RESET;
+        }
+
+        // If status is "Switch on disabled", change state to "Ready to switch on"
+        if(motor_state_[i] == kSwitchOnDisabled) {
+            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
+        }
+
+        // If status is "Ready to switch on", change state to "Switched on"
+        if(motor_state_[i] == kReadyToSwitchOn) {
+            sent_data_.control_word[i]  = SM_GO_SWITCH_ON;     
+        }
+        
+        // If status is "Switched on", change state to "Operation enabled"
+        if(motor_state_[i] == kSwitchedOn) {
+            sent_data_.control_word[i]  = SM_GO_ENABLE;
+        }
+
+        // If status is "Switched on", change state to "Operation enabled"
+        if(motor_state_[i] == kOperationEnabled) {
+            cnt++;
+        }
+    }        
+    return cnt;
 }
 
 void EthercatLifeCycle::WriteToSlavesInPositionMode()
@@ -708,71 +928,214 @@ void EthercatLifeCycle::WriteToSlavesInPositionMode()
     }
 }
 
+// void EthercatLifeCycle::UpdateCyclicPositionModeParameters()
+// {
+//     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+//     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+//         if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
+//             if (controller_.xbox_button_){
+//                 for(int j = 0 ; j < g_kNumberOfServoDrivers ; j++){
+//                     sent_data_.target_pos[j] = 0 ; 
+//                     sent_data_.control_word[j] = SM_GO_ENABLE ;
+//                 }
+//                 break;
+//             }
+//             // Settings for motor 1;
+//             if(controller_.red_button_ > 0 ){
+//                 sent_data_.target_pos[0] = received_data_.actual_pos[0] - FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.blue_button_ > 0){
+//                 sent_data_.target_pos[0] = received_data_.actual_pos[0] + FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.green_button_ > 0 ){
+//                 sent_data_.target_pos[0] = received_data_.actual_pos[0] + THIRTY_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.yellow_button_ > 0){
+//                 sent_data_.target_pos[0] = received_data_.actual_pos[0] -THIRTY_DEGREE_CCW/50 ;
+//             }
+//            
+//             if(controller_.red_button_ || controller_.blue_button_ || controller_.green_button_ || controller_.yellow_button_){
+//                 sent_data_.control_word[0] = SM_GO_ENABLE;
+//             }
+//             // Settings for motor 2 
+//             if(controller_.left_r_button_ > 0 ){
+//                 sent_data_.target_pos[1] = received_data_.actual_pos[1] + FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.left_l_button_ > 0){
+//                 sent_data_.target_pos[1] = received_data_.actual_pos[1] - FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.left_u_button_ > 0 ){
+//                 sent_data_.target_pos[1] = received_data_.actual_pos[1] -THIRTY_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.left_d_button_ > 0){
+//                 sent_data_.target_pos[1] = received_data_.actual_pos[1] + THIRTY_DEGREE_CCW/50 ;
+//             }
+//
+//             if((controller_.left_r_button_ || controller_.left_l_button_ || controller_.left_u_button_ || controller_.left_d_button_)){
+//                 sent_data_.control_word[1] = SM_GO_ENABLE;
+//             }
+//
+//             // Settings for motor 3 
+//             if(controller_.right_rb_button_ > 0 ){
+//                 sent_data_.target_pos[2] = received_data_.actual_pos[2] + FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.left_rb_button_ > 0){
+//                 sent_data_.target_pos[2] = received_data_.actual_pos[2] - FIVE_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.left_start_button_ > 0 ){
+//                 sent_data_.target_pos[2] = received_data_.actual_pos[2] + THIRTY_DEGREE_CCW/50 ;
+//             }
+//             if(controller_.right_start_button_ > 0){
+//                 sent_data_.target_pos[2] = received_data_.actual_pos[2] - THIRTY_DEGREE_CCW/50 ;
+//             }
+//             if((controller_.right_rb_button_ || controller_.left_rb_button_ || controller_.left_start_button_ || controller_.right_start_button_)){
+//                 sent_data_.control_word[2] = SM_GO_ENABLE;
+//             }
+//         }
+//     }
+// }
+
+// CKim - Modifications
 void EthercatLifeCycle::UpdateCyclicPositionModeParameters()
 {
+    float deadzone = 0.05;
+    float amp = 1.0 - deadzone;
+    float val;
     // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
-            if (controller_.xbox_button_){
-                for(int j = 0 ; j < g_kNumberOfServoDrivers ; j++){
-                    sent_data_.target_pos[j] = 0 ; 
-                    sent_data_.control_word[j] = SM_GO_ENABLE ;
-                }
-                break;
-            }
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn)
+        {
             // Settings for motor 1;
-            if(controller_.red_button_ > 0 ){
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] - FIVE_DEGREE_CCW/50 ;
+            val = controller_.left_x_axis_;
+            if(val > deadzone) {
+                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val-deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
             }
-            if(controller_.blue_button_ > 0){
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] + FIVE_DEGREE_CCW/50 ;
+            else if(val < -deadzone) {
+                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val+deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
             }
-            if(controller_.green_button_ > 0 ){
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] + THIRTY_DEGREE_CCW/50 ;
-            }
-            if(controller_.yellow_button_ > 0){
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] -THIRTY_DEGREE_CCW/50 ;
-            }
-            
-            if(controller_.red_button_ || controller_.blue_button_ || controller_.green_button_ || controller_.yellow_button_){
+            // else {
+            //     sent_data_.target_pos[0] = received_data_.actual_pos[0];
+            // }
+            //if((val > deadzone) || (val < -deadzone)){
                 sent_data_.control_word[0] = SM_GO_ENABLE;
-            }
-            // Settings for motor 2 
-            if(controller_.left_r_button_ > 0 ){
-                sent_data_.target_pos[1] = received_data_.actual_pos[1] + FIVE_DEGREE_CCW/50 ;
-            }
-            if(controller_.left_l_button_ > 0){
-                sent_data_.target_pos[1] = received_data_.actual_pos[1] - FIVE_DEGREE_CCW/50 ;
-            }
-            if(controller_.left_u_button_ > 0 ){
-                sent_data_.target_pos[1] = received_data_.actual_pos[1] -THIRTY_DEGREE_CCW/50 ;
-            }
-            if(controller_.left_d_button_ > 0){
-                sent_data_.target_pos[1] = received_data_.actual_pos[1] + THIRTY_DEGREE_CCW/50 ;
-            }
+            //}
 
-            if((controller_.left_r_button_ || controller_.left_l_button_ || controller_.left_u_button_ || controller_.left_d_button_)){
-                sent_data_.control_word[1] = SM_GO_ENABLE;
+            // Settings for motor 2 
+            val = controller_.right_x_axis_;
+            if(val > deadzone) {
+                sent_data_.target_pos[1] = received_data_.actual_pos[1] + (val-deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
             }
+            else if(val < -deadzone) {
+                sent_data_.target_pos[1] = received_data_.actual_pos[1] + (val+deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
+            }
+            // else {
+            //     sent_data_.target_pos[1] = received_data_.actual_pos[1];
+            // }
+            //if((val > deadzone) || (val < -deadzone)){
+                sent_data_.control_word[1] = SM_GO_ENABLE;
+            //}
 
             // Settings for motor 3 
             if(controller_.right_rb_button_ > 0 ){
-                sent_data_.target_pos[2] = received_data_.actual_pos[2] + FIVE_DEGREE_CCW/50 ;
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] + FIVE_DEGREE_CCW/50/2.0 ;
             }
-            if(controller_.left_rb_button_ > 0){
-                sent_data_.target_pos[2] = received_data_.actual_pos[2] - FIVE_DEGREE_CCW/50 ;
+            else if(controller_.left_rb_button_ > 0){
+                sent_data_.target_pos[2] = received_data_.actual_pos[2] - FIVE_DEGREE_CCW/50/2.0 ;
             }
-            if(controller_.left_start_button_ > 0 ){
-                sent_data_.target_pos[2] = received_data_.actual_pos[2] + THIRTY_DEGREE_CCW/50 ;
-            }
-            if(controller_.right_start_button_ > 0){
-                sent_data_.target_pos[2] = received_data_.actual_pos[2] - THIRTY_DEGREE_CCW/50 ;
-            }
-            if((controller_.right_rb_button_ || controller_.left_rb_button_ || controller_.left_start_button_ || controller_.right_start_button_)){
+            // else {
+            //     sent_data_.target_pos[2] = received_data_.actual_pos[2];
+            // }
+            //if(controller_.right_rb_button_ || controller_.left_rb_button_){
                 sent_data_.control_word[2] = SM_GO_ENABLE;
-            }
+            //}
         }
     }
+}
+
+void EthercatLifeCycle::UpdateCyclicVelocityModeParameters() 
+{
+    float deadzone = 0.05;      
+    float maxSpeed = 250.0;    // rpm
+    float val;
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+
+    // Settings for motor 1;
+    if(motor_state_[0]==kOperationEnabled || motor_state_[0]==kSwitchedOn)
+    {
+        val = controller_.left_y_axis_;
+        if((val > deadzone) || (val < -deadzone))       
+            {   sent_data_.target_vel[0] = -val*maxSpeed;    }
+        else
+            {   sent_data_.target_vel[0] = 0;               }
+    }
+    else    {   sent_data_.target_vel[0] = 0;   }
+    sent_data_.control_word[0] = SM_GO_ENABLE;
+    
+    // Settings for motor 2 
+    if(motor_state_[1]==kOperationEnabled || motor_state_[1]==kSwitchedOn)
+    {
+        val = controller_.left_x_axis_;
+        if((val > deadzone) || (val < -deadzone))       
+            {
+                sent_data_.target_vel[1] = -val*maxSpeed;
+                sent_data_.target_vel[0] -= sent_data_.target_vel[1];
+            }
+        else
+            {   sent_data_.target_vel[1] = 0;               }
+    }
+    else    {   sent_data_.target_vel[1] = 0;   }
+    sent_data_.control_word[1] = SM_GO_ENABLE;
+
+    // Settings for motor 3 
+    if(motor_state_[2]==kOperationEnabled || motor_state_[2]==kSwitchedOn)
+    {
+        if(controller_.right_rb_button_ > 0 )   {   sent_data_.target_vel[2] = 100;     }
+        else if(controller_.left_rb_button_ > 0){   sent_data_.target_vel[2] = -100;    }
+        else                                    {   sent_data_.target_vel[2] = 0;       }
+    }
+    else    {   sent_data_.target_vel[2] = 0;   }
+    sent_data_.control_word[2] = SM_GO_ENABLE;
+
+
+
+
+    // // Settings for motor 1;
+    // if(motor_state_[0]==kOperationEnabled || motor_state_[0]==kSwitchedOn)
+    // {
+    //     if(controller_.green_button_)        {   sent_data_.target_vel[0] = 200;           }
+    //     else if(controller_.yellow_button_)    {   sent_data_.target_vel[0] = -200;          }
+    //     else                                {   sent_data_.target_vel[0] = 0;                           }
+    // }
+    // else    {   sent_data_.target_vel[0] = 0;   }
+    // sent_data_.control_word[0] = SM_GO_ENABLE;
+    
+    // // Settings for motor 2 
+    // if(motor_state_[1]==kOperationEnabled || motor_state_[1]==kSwitchedOn)
+    // {
+    //     if(controller_.red_button_)         
+    //     {
+    //         //sent_data_.target_vel[0] = -200;           
+    //         sent_data_.target_vel[1] = 200;           
+    //     }
+    //     else if(controller_.blue_button_)   
+    //     {   
+    //         //sent_data_.target_vel[0] = +200;          
+    //         sent_data_.target_vel[1] = -200;          
+    //     }
+    //     else {   sent_data_.target_vel[1] = 0;  }
+    // }
+    // else    {   sent_data_.target_vel[1] = 0;   }
+    // sent_data_.control_word[1] = SM_GO_ENABLE;
+
+    // // Settings for motor 3 
+    // if(motor_state_[2]==kOperationEnabled || motor_state_[2]==kSwitchedOn)
+    // {
+    //     if(controller_.right_rb_button_ > 0 )   {   sent_data_.target_vel[2] = 100;     }
+    //     else if(controller_.left_rb_button_ > 0){   sent_data_.target_vel[2] = -100;    }
+    //     else                                    {   sent_data_.target_vel[2] = 0;       }
+    // }
+    // else    {   sent_data_.target_vel[2] = 0;   }
+    // sent_data_.control_word[2] = SM_GO_ENABLE;
 }
 
 void EthercatLifeCycle::UpdateVelocityModeParameters() 

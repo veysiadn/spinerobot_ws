@@ -93,6 +93,10 @@
 #define OD_VELOCITY_ENCODER_RESOLUTION_NUM      		0x6094,0x01
 #define OD_VELOCITY_ENCODER_RESOLUTION_DEN      		0x6094,0x02
 
+#define OD_VELOCITY_CONTROLLER_PGAIN		      		0x30A2,0x01	  // RW: uint32_t  \see EPOS4-Firmware-Specification pg. 167
+#define OD_VELOCITY_CONTROLLER_IGAIN		      		0x30A2,0x02	  // RW: uint32_t  \see EPOS4-Firmware-Specification pg. 167
+
+
 #define OD_DIGITAL_INPUTS			  0x60FD,0x00
 #define OD_DIGITAL_OUTPUTS 			  0x60FE,0x01
 

@@ -127,6 +127,21 @@ class EthercatNode
     int SetCyclicSyncPositionModeParametersAll(CSPositionModeParam &P);
 
 /**
+ * @brief Set the Cyclic Sync Velocity Mode Parameters for slave in specified physical position w.r.t. master.
+ * 
+ * @param P Cyclic Sync. Velocity Mode Parameters.
+ * @param position Physical position of slave to be configured
+ * @return 0 if sucessfull, otherwise -1.
+ */
+    int SetCyclicSyncVelocityModeParameters(CSVelocityModeParam& P, int position);
+/**
+ * @brief Sets the Cyclic Synchronous Velocity Mode Parameters for all connected motor driver slaves
+ * 
+ * @return 0 if sucessful, otherwise -1.
+ */
+    int SetCyclicSyncVelocityModeParametersAll(CSVelocityModeParam &P);
+
+/**
  * @brief Maps default PDOs for our spine surgery robot implementation.
  * @note This method is specific for our spinerobot implementation.
  * If you have different topology or different servo drives use 
@@ -188,7 +203,7 @@ class EthercatNode
  */
     int  RegisterDomain();
 /**
- * @brief Puts all slave to operational mode.User must call this before entering real-time operation.
+ * @brief Puts all slave to operational mode. User must call this before entering real-time operation.
  *        Reason for this function is that, master and slave has to do several exchange before becoming operational.
  *        So this function does exchange between master and slaves for up to 10 sec, could finish earlier.
  *        If timeout occurs it will return -1.

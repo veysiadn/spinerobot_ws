@@ -226,7 +226,13 @@ class EthercatLifeCycle : public LifecycleNode
          *        motor speed parameter.
          */
         void UpdateVelocityModeParameters();
-        
+
+        /**
+         * @brief Acquired data from subscribed controller topic will be assigned as 
+         *        motor speed parameter.
+         */
+        void UpdateCyclicVelocityModeParameters(); 
+
         /**
          * @brief Acquired data from subscribed controller topic will be assigned as 
          *        motor target position parameter.
@@ -255,6 +261,20 @@ class EthercatLifeCycle : public LifecycleNode
          * 
          */
         void HandleGuiNodeCallbacks(const std_msgs::msg::UInt8::SharedPtr gui_sub);
+
+        /**
+         * @brief CKim - This function checks status word and returns
+         *        state of the motor driver
+         * 
+         */
+        int GetDriveState(const int& statusWord);
+
+        /**
+         * @brief CKim - This function checks status word, clears
+         *        any faults and enables torque of the motor driver
+         * 
+         */
+        int EnableDrivers();
 
     private : 
         /// pthread create required parameters.

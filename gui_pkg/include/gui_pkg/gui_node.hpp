@@ -78,7 +78,7 @@ using TLSFAllocator = tlsf_heap_allocator<T>;
 #include "timing.hpp"
 using namespace std::chrono_literals;
 
-#define NUM_OF_SERVO_DRIVES 1
+#define NUM_OF_SERVO_DRIVES 3
 
 #define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.

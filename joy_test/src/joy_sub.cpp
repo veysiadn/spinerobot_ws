@@ -31,8 +31,25 @@ class JoySubscriber : public rclcpp::Node
     JoySubscriber() : Node("joy_sub")
 
     {
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "This is Sparta!!");
+
+      // CKim - Experimenting effect of qos settings on subscription value      
+      // Ordinarily, Joy msg give -1.0 to 1.0 for analog joystick but
+      // with different qos settings.... 
+      auto qos = rclcpp::QoS(
+      // The "KEEP_LAST" history setting tells DDS to store a fixed-size buffer of values before they
+      // are sent, to aid with recovery in the event of dropped messages.
+      // "depth" specifies the size of this buffer.
+      // In this example, we are optimizing for performance and limited resource usage (preventing
+      // page faults), instead of reliability. Thus, we set the size of the history buffer to 1.
+      rclcpp::KeepLast(1));
+
+      qos.best_effort();
       subscription_ = this->create_subscription<sensor_msgs::msg::Joy>(
-      "Controller", 10, std::bind(&JoySubscriber::topic_callback, this, _1));
+      "Controller", qos, std::bind(&JoySubscriber::topic_callback, this, _1));
+            
+      // subscription_ = this->create_subscription<sensor_msgs::msg::Joy>(
+      // "Controller", 10, std::bind(&JoySubscriber::topic_callback, this, _1));
     }
 
   private:

@@ -30,6 +30,7 @@ find_package(tlsf_cpp)
 find_package(ecat_msgs REQUIRED)
 ## This is for joystick
 find_package(sensor_msgs REQUIRED)
+
 ## Output executable name and requied cpp files for executable
 add_executable(ecat_node src/main.cpp
                          src/ecat_node.cpp
