@@ -565,6 +565,9 @@ int EthercatNode::WaitForOperationalMode()
     int time_out = 20e3;
     while (g_master_state.al_states != EC_AL_STATE_OP ){
         if(try_counter < time_out){
+            clock_gettime(CLOCK_MONOTONIC, &g_sync_timer);
+            ecrt_master_application_time(g_master, TIMESPEC2NS(g_sync_timer));
+
             ecrt_master_receive(g_master);
             ecrt_domain_process(g_master_domain);
             usleep(PERIOD_US);
@@ -574,12 +577,10 @@ int EthercatNode::WaitForOperationalMode()
                 CheckSlaveConfigurationState();
                 check_state_count = PERIOD_US ;
             }
-            clock_gettime(CLOCK_MONOTONIC, &g_sync_timer);
-            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(g_sync_timer));
-            ecrt_master_sync_slave_clocks(g_master);
-            ecrt_master_application_time(g_master, TIMESPEC2NS(g_sync_timer));
 
             ecrt_domain_queue(g_master_domain);                
+            ecrt_master_sync_slave_clocks(g_master);
+            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(g_sync_timer));
             ecrt_master_send(g_master);
 
             try_counter++;

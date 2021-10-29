@@ -432,20 +432,13 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         
         //WriteToSlavesInPositionMode();
         WriteToSlavesVelocityMode();
-
+        ecrt_domain_queue(g_master_domain);
         // CKim - Sync Timer
-        if (g_sync_ref_counter) {
-            g_sync_ref_counter--;
-        } else {
-            g_sync_ref_counter = 1; // sync every cycle
-
-            clock_gettime(CLOCK_TO_USE, &time);
-            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
-        }
+        clock_gettime(CLOCK_TO_USE, &time);
+        ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
         ecrt_master_sync_slave_clocks(g_master);
 
         // CKim - Send process data
-        ecrt_domain_queue(g_master_domain);
         ecrt_master_send(g_master);
     }// while(sig)
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "All motors enabled, entering control loop");
@@ -621,19 +614,11 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         UpdateCyclicVelocityModeParameters();
         WriteToSlavesVelocityMode();
 #endif
-
-        if (g_sync_ref_counter) {
-            g_sync_ref_counter--;
-        } else {
-            g_sync_ref_counter = 1; // sync every cycle
-
-            clock_gettime(CLOCK_TO_USE, &time);
-            ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
-        }
-        ecrt_master_sync_slave_clocks(g_master);
-
-        // send process data
         ecrt_domain_queue(g_master_domain);
+        clock_gettime(CLOCK_TO_USE, &time);
+        ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
+        ecrt_master_sync_slave_clocks(g_master);
+        // send process data
         ecrt_master_send(g_master);
         
         if(begin) begin--;
