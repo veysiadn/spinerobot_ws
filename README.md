@@ -4,7 +4,7 @@
   
   • EtherCAT node : Responsible for EtherCAT communication between master and slaves and publishes acquired feedback from slaves under /slavefeedback topicname in 1 kHz frequency. Additionally, subscribes to/mastercommands topic published from control node and sends control commands to slaves via EtherCATcommunication.
   
-  • Control node : Kinematic calculations will be done inthis node. This node subscribes /slavefeedback topic published from EtherCAT node and publishes control commands under /mastercommands topic.
+  • Control node : Kinematic calculations will be done in this node. This node subscribes /slavefeedback topic published from EtherCAT node and publishes control commands under /mastercommands topic.Currently this node retrieves button and joystick data from Xbox Controller via USB communication.
   
   • GUI node : Consist of camera viewer and slave feedback visualizers such as motor state, communication state, emergency button state. Publishes under /guidata consists of soft emergency button events, subscribes to /mastercommands and /slavefeedback topics to give visual feedback to user
   
