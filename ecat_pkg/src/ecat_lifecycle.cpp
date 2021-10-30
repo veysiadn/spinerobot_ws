@@ -387,7 +387,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
         // CKim - Check status and update control words to enable drivers
         // Returns number of enabled drivers
-        if(EnableDrivers()==3)
+        if(EnableDrivers()==g_kNumberOfServoDrivers)
+        
         {
             RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "All drives enabled");
             break;

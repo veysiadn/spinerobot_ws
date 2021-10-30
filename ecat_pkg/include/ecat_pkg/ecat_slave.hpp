@@ -69,7 +69,15 @@ class EthercatSlave
 
     /// Slave state handle to check if slave is online and slaves state machine status(INIT/PREOP/SAFEOP/0P)
     ec_slave_config_state_t  slave_config_state_ ;
-
+    
+    /// For custom PDO configuration, check \see MapDefaultPdos() function @file ethercat_node.cpp as an example 
+    ec_pdo_info_t          * slave_pdo_info_ ;
+    /// For custom PDO configuration, check \see MapDefaultPdos() function @file ethercat_node.cpp as an example 
+    ec_pdo_entry_info_t    * slave_pdo_entry_info_;
+    /// For custom PDO configuration, check \see MapDefaultPdos() function @file ethercat_node.cpp as an example 
+    ec_sync_info_t         * slave_sync_info_;
+    /// For custom PDO configuration, check \see MapDefaultPdos() function @file ethercat_node.cpp as an example 
+    ec_pdo_entry_reg_t     * slave_pdo_entry_reg_ ;
     /// PDO domain for data exchange
     uint8_t                * slave_pdo_domain_ ;
 

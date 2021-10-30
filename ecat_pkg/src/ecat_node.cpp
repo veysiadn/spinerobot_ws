@@ -603,14 +603,15 @@ void EthercatNode::SetCustomSlave(EthercatSlave c_slave, int position)
     slaves_[position] = c_slave ; 
 }
 
-int EthercatNode::MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_entry_reg, int position)
+int EthercatNode::MapCustomPdos(EthercatSlave c_slave, int position)
 {
-        int err = ecrt_slave_config_pdos(slaves_[position].slave_config_,EC_END,syncs);
+        slaves_[position] = c_slave;
+        int err = ecrt_slave_config_pdos(slaves_[position].slave_config_,EC_END,slaves_[position].slave_sync_info_);
         if ( err ) {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs!  ");
             return -1;
         } 
-        err = ecrt_domain_reg_pdo_entry_list(g_master_domain, pdo_entry_reg);
+        err = ecrt_domain_reg_pdo_entry_list(g_master_domain, slaves_[position].slave_pdo_entry_reg_);
         if ( err ){
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to register PDO entries ");
             return -1;
@@ -693,6 +694,8 @@ int EthercatNode::GetNumberOfConnectedSlaves()
 void EthercatNode::DeactivateCommunication()
 {
     //ecrt_master_deactivate_slaves(g_master);
+    ecrt_master_deactivate(g_master);
+    ecrt_release_master(g_master);
 }
 
 void EthercatNode::ReleaseMaster()

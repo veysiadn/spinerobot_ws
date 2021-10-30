@@ -152,11 +152,11 @@ class EthercatNode
 /**
  * @brief Map Custom PDO based on your PDO mappings
  * @note  You have to specify slave syncs and slave pdo registers before using function
- * @param S EthercatSlave instance
+ * @param c_slave EthercatSlave instance
  * @param position Physical position of your slave w.r.t master
  * @return 0 if succesfull, -1 otherwise.
  */
-    int MapCustomPdos(ec_sync_info_t *syncs, ec_pdo_entry_reg_t *pdo_entry_reg, int position);
+    int MapCustomPdos(EthercatSlave c_slave, int position);
 /**
  * @brief Configures DC sync for our default configuration
  * 
