@@ -78,7 +78,7 @@ using TLSFAllocator = tlsf_heap_allocator<T>;
 #include "timing.hpp"
 using namespace std::chrono_literals;
 
-#define NUM_OF_SERVO_DRIVES 3
+#define NUM_OF_SERVO_DRIVES 1
 
 #define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
 #define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
@@ -90,7 +90,7 @@ namespace GUI {
  * @brief This structure will be all data that'll be received by this node from other nodes.
  * 
  */
-typedef struct
+struct ReceivedData
 {
     int32_t   target_pos ;
     int32_t   target_vel ;
@@ -112,7 +112,7 @@ typedef struct
     int32_t  left_x_axis;
     uint8_t  p_emergency_switch_val;
     uint8_t  com_status;
-}ReceivedData;
+};
 
  class GuiNode : public rclcpp::Node
   {
@@ -122,7 +122,7 @@ typedef struct
       virtual ~GuiNode();
   public:
       // Received data structure to store all subscribed data.
-      ReceivedData received_data_[NUM_OF_SERVO_DRIVES];
+      ReceivedData received_data_[NUM_OF_SERVO_DRIVES] = {};
       // GUI button value to publish emergency button state.
       uint8_t emergency_button_val_ = 1;
       Timing time_info_;

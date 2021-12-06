@@ -256,6 +256,23 @@ class EthercatLifeCycle : public LifecycleNode
         void UpdateMotorStatePositionMode();
         
         /**
+         * @brief Updates cylic torque mode parameters based on controller inputs.
+         * 
+         */
+        void UpdateCyclicTorqueModeParameters();
+        
+        /**
+         * @brief Writes target torque and control word in cyclic sync. torque mode.
+         * 
+         */
+        void WriteToSlavesInCyclicTorqueMode();
+        /**
+         * @brief CKim - This function checks status word and returns
+         *        state of the motor driver
+         * 
+         */
+        
+        /**
          * @brief This function will handle values from GUI node.
          *        Updates parameters based on GUI node inputs.
          * 

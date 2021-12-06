@@ -56,41 +56,46 @@
 #include <time.h>
 #include <sys/mman.h>
 #include <malloc.h>
-#include <sched.h> /* sched_setscheduler() */
+#include <sched.h>
 #include <chrono>
 #include <memory>
 
 /****************************************************************************/
-// IgH EtherCAT library header file the user-space real-time interface library.
-// IgH, EtherCAT related functions and data types.
+/// IgH EtherCAT library header file the user-space real-time interface library.
+/// IgH, EtherCAT related functions and data types.
 #include "ecrt.h"  
      
-// Object dictionary paramaters PDO index and default values in here.
+/// Object dictionary paramaters PDO index and default values in here.
 #include "object_dictionary.hpp"  
 
 /****************************************************************************/
-                // USER SHOULD DEFINE THIS AREAS //
-#define NUM_OF_SLAVES     4  // Total number of connected slave to the bus.
-const uint32_t  g_kNumberOfServoDrivers = 3 ; // Number of connected servo drives.
+                /// USER SHOULD DEFINE THIS AREAS ///
+#define NUM_OF_SLAVES     1  /// Total number of connected slave to the bus.
+const uint32_t  g_kNumberOfServoDrivers = 1 ; /// Number of connected servo drives.
+#define CUSTOM_SLAVE    0
 #define FREQUENCY       1000  // Ethercat PDO exchange loop frequency in Hz
-#define MEASURE_TIMING         0//1    // If you want to measure timings leave it as one, otherwise make it 0.
-#define VELOCITY_MODE          0    // set this to 1 if you want to use it in velocity mode (and set position mode 0)
-#define POSITION_MODE          0    // set this to 1 if you want to use it in position mode (and set velocity mode 0)
-#define CYCLIC_POSITION_MODE   0    // set this to 1 if you want to use it in cyclic synchronous position mode (and set velocity mode 0)
-#define CYCLIC_VELOCITY_MODE   1    // set this to 1 if you want to use it in cyclic synchronous position mode (and set velocity mode 0)
+#define MEASURE_TIMING         0    /// If you want to measure timings leave it as one, otherwise make it 0.
+#define VELOCITY_MODE          0    /// set this to 1 if you want to use it in velocity mode (and set other modes to 0)
+#define POSITION_MODE          0    /// set this to 1 if you want to use it in position mode (and set other modes to 0)
+#define CYCLIC_POSITION_MODE   0    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
+#define CYCLIC_VELOCITY_MODE   0    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
+#define CYCLIC_TORQUE_MODE     1    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
+
 /*****************************************************************************/
 #define GEAR_RATIO          103
 #define ENCODER_RESOLUTION  1024
 #define INC_PER_ROTATION      GEAR_RATIO*ENCODER_RESOLUTION*4
 #define FIVE_DEGREE_CCW      int(INC_PER_ROTATION/72)
 #define THIRTY_DEGREE_CCW    int(INC_PER_ROTATION/12)
-const uint32_t           g_kNsPerSec = 1000000000;     // Nanoseconds per second.
-#define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  // EtherCAT communication period in nanoseconds.
+const uint32_t           g_kNsPerSec = 1000000000;     /// Nanoseconds per second.
+#define PERIOD_NS       (g_kNsPerSec/FREQUENCY)  /// EtherCAT communication period in nanoseconds.
 #define PERIOD_US       (PERIOD_NS / 1000)
 #define PERIOD_MS       (PERIOD_US / 1000)
-#define FINAL_SLAVE     (NUM_OF_SLAVES-1)
+#if CUSTOM_SLAVE
+    #define FINAL_SLAVE     (NUM_OF_SLAVES-1)
+#endif
 /****************************************************************************/
-//// Global variable declarations, definitions are in @file ethercat_node.cpp
+/// Global variable declarations, definitions are in @file ethercat_node.cpp
 static volatile sig_atomic_t sig = 1;
 extern ec_master_t        * g_master ;  // EtherCAT master
 extern ec_master_state_t    g_master_state ; // EtherCAT master state
@@ -103,13 +108,13 @@ const struct timespec       g_cycle_time = {0, PERIOD_NS} ;       // cycletime s
 extern uint32_t             g_sync_ref_counter;                  // To sync every cycle.
 
 /****************************************************************************/
-#define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  // Check specific bit in the data. 0 or 1.
-#define SET_BIT(NUM,N)      (NUM |  (1 << N))  // Set(1) specific bit in the data.
-#define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  // Reset(0) specific bit in the data
-/* Convert timespec struct to nanoseconds */ 
+#define TEST_BIT(NUM,N)    ((NUM &  (1 << N))>>N)  /// Check specific bit in the data. 0 or 1.
+#define SET_BIT(NUM,N)      (NUM |  (1 << N))  /// Set(1) specific bit in the data.
+#define RESET_BIT(NUM,N)    (NUM & ~(1 << N))  /// Reset(0) specific bit in the data
+/// Convert timespec struct to nanoseconds */ 
 #define TIMESPEC2NS(T)      ((uint64_t) (T).tv_sec * g_kNsPerSec + (T).tv_nsec) 
 #define DIFF_NS(A, B) (((B).tv_sec - (A).tv_sec) * g_kNsPerSec + (B).tv_nsec - (A).tv_nsec)
-/* Using Monotonic system-wide clock.  */
+/// Using Monotonic system-wide clock.  */
 #define CLOCK_TO_USE        CLOCK_MONOTONIC  
 
 /**
@@ -158,7 +163,9 @@ typedef struct
     uint8_t right_start_button_ ; 
     uint8_t xbox_button_;
 } Controller;
- // Motor operation modes
+
+
+ /// Motor operation modes
 typedef enum
 {
     kProfilePosition = 1,
@@ -171,7 +178,7 @@ typedef enum
     kCSTorque = 10,
 } OpMode ;
 
-// CIA 402 state machine motor states
+/// CIA 402 state machine motor states
 enum MotorStates{
 	kReadyToSwitchOn = 1,
 	kSwitchedOn,
@@ -222,7 +229,7 @@ enum ControlStructureBits{
     kMountingPositionSensor2  = 26,  // 26-27 2 bits.  Val : 0 - On motor (or undefined) | 1 - On gear 
     kMountingPositionSensor3  = 28,  // 28-29 2 bits.  Val : 0 - On motor 
 };
-//offset for PDO entries to register PDOs.
+/// Offset for PDO entries to register PDOs.
 typedef struct
 {
     uint32_t target_pos ;
@@ -245,6 +252,7 @@ typedef struct
     uint32_t op_mode_display ;
     uint32_t error_code ;
     uint32_t extra_status_reg ;
+    uint32_t torque_offset;
 
     uint32_t r_limit_switch;
     uint32_t l_limit_switch;
@@ -252,7 +260,7 @@ typedef struct
 } OffsetPDO ;
 
 
-// Received feedback data from slaves
+/// Received feedback data from slaves
 typedef struct
 {
     int32_t   target_pos ;
@@ -275,7 +283,7 @@ typedef struct
     uint8_t  s_emergency_switch_val;
 }ReceivedData;
 
-// EtherCAT SDO request structure for configuration phase.
+/// EtherCAT SDO request structure for configuration phase.
 typedef struct
 {
     ec_sdo_request * profile_acc ;    
@@ -294,7 +302,7 @@ typedef struct
 } SdoRequest ;
 
 
-// Parameters that should be specified in position mode.
+/// Parameters that should be specified in position mode.
 typedef struct 
 {
     uint32_t profile_vel ;
@@ -359,18 +367,18 @@ typedef struct
 {
     uint32_t nominal_current ;
     uint16_t torque_constant ;
-    uint32_t software_position_limit ; 
-    uint16_t motor_rated_torque ;
-    uint32_t max_gear_input_speed ; 
-    uint32_t profile_vel ;
-    uint32_t profile_acc ;
-    uint32_t profile_dec ;
-    uint32_t max_profile_vel ; 
+    uint32_t max_motor_speed ; 
+    uint32_t max_gear_input_speed ;
+    uint32_t current_controller_p_gain ;
+    uint32_t current_controller_i_gain ; 
     uint32_t quick_stop_dec ;
-    uint32_t interpolation_time_period ;
+    uint32_t profile_dec ;
+    uint16_t motor_rated_torque ;
+    uint32_t software_position_limit ; 
+
 } CSTorqueModeParam ;
 
-// Parameters that should be specified in homing mode.
+/// Parameters that should be specified in homing mode.
 typedef struct
 {
 	uint32_t	max_fol_err;
@@ -386,7 +394,7 @@ typedef struct
 	int8_t		homing_method;
 } HomingParam;
 
-// Parameters that should be specified in velocity mode.
+/// Parameters that should be specified in velocity mode.
 typedef struct
 {
     uint32_t	max_profile_vel;

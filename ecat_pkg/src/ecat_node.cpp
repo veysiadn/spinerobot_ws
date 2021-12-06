@@ -103,19 +103,22 @@ int EthercatNode::MapDefaultPdos()
      * Revision number: 0x01600000
      */
 
-    ec_pdo_entry_info_t maxon_epos_pdo_entries[6] = {
+    ec_pdo_entry_info_t maxon_epos_pdo_entries[9] = {
         {OD_CONTROL_WORD, 16},      // CKim - First three entries will be read by slave (master sends command). RxPDO
         {OD_TARGET_VELOCITY,32},
         {OD_TARGET_POSITION, 32},
-        
+        {OD_TARGET_TORQUE,16},
+        {OD_TORQUE_OFFSET,16},
+
         {OD_STATUS_WORD, 16},       // CKim - Last three entries will be transmitted by slave (master receives the data). TxPDO
         {OD_POSITION_ACTUAL_VAL, 32},
-        {OD_VELOCITY_ACTUAL_VALUE,32}
+        {OD_VELOCITY_ACTUAL_VALUE,32},
+        {OD_TORQUE_ACTUAL_VALUE,16}
     };
 
     ec_pdo_info_t maxon_pdos[2] = {
-        {0x1600, 3, maxon_epos_pdo_entries + 0},    // CKim - RxPDO index of the EPOS4
-        {0x1a00, 3, maxon_epos_pdo_entries + 3}     // CKim - TxPDO index of the EPOS4
+        {0x1600, 5, maxon_epos_pdo_entries + 0},    // CKim - RxPDO index of the EPOS4
+        {0x1a00, 4, maxon_epos_pdo_entries + 5}     // CKim - TxPDO index of the EPOS4
     };
 
     // CKim - Sync manager configuration of the EPOS4. 0,1 is reserved for SDO communications
@@ -168,12 +171,12 @@ int EthercatNode::MapDefaultPdos()
             return -1;
         }
     }
-    
-    if(ecrt_slave_config_pdos(slaves_[FINAL_SLAVE].slave_config_,EC_END,easycat_syncs)){
-        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "EasyCAT slave PDO configuration failed... ");
-        return -1;
-    }
-    
+    #if CUSTOM_SLAVE    
+        if(ecrt_slave_config_pdos(slaves_[FINAL_SLAVE].slave_config_,EC_END,easycat_syncs)){
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "EasyCAT slave PDO configuration failed... ");
+            return -1;
+        }
+    #endif
     // CKim - Registers a PDO entry for process data exchange in a domain. Obtain offsets
     for(int i = 0; i < g_kNumberOfServoDrivers ; i++){
         this->slaves_[i].offset_.actual_pos        = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
@@ -182,40 +185,51 @@ int EthercatNode::MapDefaultPdos()
                                                                                   OD_STATUS_WORD,g_master_domain,NULL);
         this->slaves_[i].offset_.actual_vel        = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
                                                                                   OD_VELOCITY_ACTUAL_VALUE,g_master_domain,NULL);
+        this->slaves_[i].offset_.actual_tor        = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
+                                                                                  OD_TORQUE_ACTUAL_VALUE,g_master_domain,NULL);
 
+        this->slaves_[i].offset_.torque_offset     = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
+                                                                                  OD_TORQUE_OFFSET,g_master_domain,NULL);
 
         this->slaves_[i].offset_.target_pos       = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
                                                                                   OD_TARGET_POSITION,g_master_domain,NULL);                                                                                                                                                                  
         this->slaves_[i].offset_.target_vel       = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
                                                                                   OD_TARGET_VELOCITY,g_master_domain,NULL);
+        this->slaves_[i].offset_.target_tor       = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
+                                                                                  OD_TARGET_TORQUE,g_master_domain,NULL);                                                                                  
         this->slaves_[i].offset_.control_word     = ecrt_slave_config_reg_pdo_entry(this->slaves_[i].slave_config_,
                                                                                   OD_CONTROL_WORD,g_master_domain,NULL);
-        if((slaves_[i].offset_.actual_pos < 0)  || (slaves_[i].offset_.status_word  < 0) || (slaves_[i].offset_.actual_vel < 0)
-        || (slaves_[i].offset_.target_vel < 0) ||(slaves_[i].offset_.target_pos < 0) || (slaves_[i].offset_.control_word < 0) )
+                                                                                  
+        if(
+            (slaves_[i].offset_.actual_pos < 0) || (slaves_[i].offset_.status_word < 0) || (slaves_[i].offset_.actual_vel    < 0)
+        ||  (slaves_[i].offset_.target_vel < 0) || (slaves_[i].offset_.target_pos  < 0) || (slaves_[i].offset_.control_word  < 0) 
+        ||  (slaves_[i].offset_.target_tor < 0) || (slaves_[i].offset_.actual_tor  < 0) || (slaves_[i].offset_.torque_offset < 0)
+        )
         {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Failed to configure  PDOs for motors.!");
             return -1;
         }
     }
-
-    slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
-                                                                                  0x006,0x006,g_master_domain,NULL);
-    if (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0){
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT right limit switch PDO configuration failed...\n");
-        return -1;
-    }
-    slaves_[FINAL_SLAVE].offset_.l_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
-                                                                                  0x006, 0x07, g_master_domain, NULL);
-    if (slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0){
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
-        return -1;
-    }
-    slaves_[FINAL_SLAVE].offset_.emergency_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
-                                                                                  0x006, 0x05, g_master_domain, NULL);
-    if (slaves_[FINAL_SLAVE].offset_.emergency_switch < 0){
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
-        return -1;
-    }
+    #if CUSTOM_SLAVE
+        slaves_[FINAL_SLAVE].offset_.r_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                    0x006,0x006,g_master_domain,NULL);
+        if (slaves_[FINAL_SLAVE].offset_.r_limit_switch < 0){
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT right limit switch PDO configuration failed...\n");
+            return -1;
+        }
+        slaves_[FINAL_SLAVE].offset_.l_limit_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                    0x006, 0x07, g_master_domain, NULL);
+        if (slaves_[FINAL_SLAVE].offset_.l_limit_switch < 0){
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
+            return -1;
+        }
+        slaves_[FINAL_SLAVE].offset_.emergency_switch = ecrt_slave_config_reg_pdo_entry(slaves_[FINAL_SLAVE].slave_config_,
+                                                                                    0x006, 0x05, g_master_domain, NULL);
+        if (slaves_[FINAL_SLAVE].offset_.emergency_switch < 0){
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"EasyCAT left limit switch PDO configuration failed...\n");
+            return -1;
+        }
+    #endif    
     return 0;
 }
 
@@ -224,7 +238,9 @@ void EthercatNode::ConfigDcSyncDefault()
     for(int i=0; i < g_kNumberOfServoDrivers ; i++){
         ecrt_slave_config_dc(slaves_[i].slave_config_, 0X0300, PERIOD_NS, slaves_[i].kSync0_shift_, 0, 0);
     }
-    ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);
+    #if CUSTOM_SLAVE
+        ecrt_slave_config_dc(slaves_[FINAL_SLAVE].slave_config_, 0X0300, PERIOD_NS, 2000200000, 0, 0);
+    #endif
 }
 
 int EthercatNode::ActivateMaster()
@@ -521,6 +537,28 @@ int EthercatNode::SetCyclicSyncVelocityModeParameters(CSVelocityModeParam &P, in
     return 0; 
 }
 
+
+int EthercatNode::SetCyclicSyncTorqueModeParameters(CSTorqueModeParam &P, int position)
+{
+    // Set operation mode to Cyclic Synchronous Velocity mode for motor in specified physical position w.r.t master.
+    if( ecrt_slave_config_sdo8(slaves_[position].slave_config_,OD_OPERATION_MODE, kCSTorque) ){
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
+        return  -1 ;
+    }
+    //profile deceleration
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_PROFILE_DECELERATION,P.profile_dec) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile deceleration failed ! ");
+        return -1;
+    }
+    // quick stop deceleration 
+    if(ecrt_slave_config_sdo32(slaves_[position].slave_config_,OD_QUICK_STOP_DECELERATION,P.quick_stop_dec) < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+        return -1;
+    }
+    return 0; 
+}
+
+
 int EthercatNode::SetCyclicSyncVelocityModeParametersAll(CSVelocityModeParam &P)
 {
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
@@ -550,6 +588,28 @@ int EthercatNode::SetCyclicSyncVelocityModeParametersAll(CSVelocityModeParam &P)
         }
         // Interpolation time period is 1ms by default.Default unit is milliseconds (ms)
         if(ecrt_slave_config_sdo8(slaves_[i].slave_config_,OD_INTERPOLATION_TIME_PERIOD,P.interpolation_time_period) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
+            return -1;
+        }
+    }
+    return 0; 
+}
+
+int EthercatNode::SetCyclicSyncTorqueModeParametersAll(CSTorqueModeParam &P)
+{
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        // Set operation mode to Cyclic Synchronous Velocity mode for motor in specified physical position w.r.t master.
+        if( ecrt_slave_config_sdo8(slaves_[i].slave_config_,OD_OPERATION_MODE, kCSTorque) ){
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set operation mode config error ! ");
+            return  -1 ;
+        }
+        //profile deceleration
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_PROFILE_DECELERATION,P.profile_dec) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile deceleration failed ! ");
+            return -1;
+        }
+        // quick stop deceleration 
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_QUICK_STOP_DECELERATION,P.quick_stop_dec) < 0) {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set quick stop deceleration failed !");
             return -1;
         }

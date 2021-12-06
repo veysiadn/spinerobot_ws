@@ -290,6 +290,14 @@ int EthercatLifeCycle::InitEthercatCommunication()
     ecat_node_->SetCyclicSyncVelocityModeParametersAll(P);
 #endif
 
+#if CYCLIC_TORQUE_MODE
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to CSV mode...\n");
+    CSTorqueModeParam P ;
+    P.profile_dec=3e4 ;
+    P.quick_stop_dec = 3e4 ;
+    ecat_node_->SetCyclicSyncTorqueModeParametersAll(P);
+#endif
+
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Mapping default PDOs...\n");
     if(ecat_node_->MapDefaultPdos()){
         return  -1 ;
@@ -615,6 +623,11 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         UpdateCyclicVelocityModeParameters();
         WriteToSlavesVelocityMode();
 #endif
+#if CYCLIC_TORQUE_MODE
+        UpdateMotorStateVelocityMode();
+        UpdateCyclicTorqueModeParameters();
+        WriteToSlavesInCyclicTorqueMode();
+#endif
         ecrt_domain_queue(g_master_domain);
         clock_gettime(CLOCK_TO_USE, &time);
         ecrt_master_sync_reference_clock_to(g_master, TIMESPEC2NS(time));
@@ -660,12 +673,18 @@ void EthercatLifeCycle::ReadFromSlaves()
         received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
         received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
         received_data_.status_word[i] = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
+        received_data_.actual_tor[i]  = EC_READ_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.actual_tor);
     }
     received_data_.com_status = al_state_ ; 
-    received_data_.right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
-    received_data_.left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
-    received_data_.emergency_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.emergency_switch);
-    emergency_status_  = received_data_.emergency_switch_val;
+    #if CUSTOM_SLAVE
+        received_data_.right_limit_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.r_limit_switch);
+        received_data_.left_limit_switch_val  = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.l_limit_switch);
+        received_data_.emergency_switch_val = EC_READ_U8(ecat_node_->slaves_[FINAL_SLAVE].slave_pdo_domain_ +ecat_node_->slaves_[FINAL_SLAVE].offset_.emergency_switch);
+        emergency_status_  = received_data_.emergency_switch_val;
+    #else
+    emergency_status_ = 1;    
+    received_data_.emergency_switch_val = 1 ;
+    #endif  
 }// ReadFromSlaves end
 
 void EthercatLifeCycle::WriteToSlavesVelocityMode()
@@ -1228,6 +1247,54 @@ void EthercatLifeCycle::EnableMotors()
             sent_data_.control_word[i] = SM_FULL_RESET;
             motor_state_[i] = kFault;
 
+        }
+    }
+}
+
+void EthercatLifeCycle::WriteToSlavesInCyclicTorqueMode()
+{
+  if(!emergency_status_ || !gui_node_data_)
+  {
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+        EC_WRITE_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_tor,0);
+        EC_WRITE_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.torque_offset,0);
+        
+    }
+  }
+  else
+  {
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        EC_WRITE_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.control_word,sent_data_.control_word[i]);
+        EC_WRITE_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.target_tor,sent_data_.target_tor[i]);
+        EC_WRITE_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.torque_offset,0);
+    }
+  }
+}
+
+void EthercatLifeCycle::UpdateCyclicTorqueModeParameters()
+{
+    // Torque mode: sending target_torque value in per thousand of Motor Rated Torque value.
+    for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
+        sent_data_.control_word[i] = SM_GO_ENABLE;
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
+            if(controller_.right_x_axis_ < -0.1 || controller_.right_x_axis_ > 0.1 ){
+                sent_data_.target_tor[0] = controller_.right_x_axis_ * 300 ;
+            }else{
+                sent_data_.target_tor[0] = 0;
+            }
+            if(controller_.left_x_axis_ < -0.1 || controller_.left_x_axis_ > 0.1){
+                sent_data_.target_tor[1] = controller_.left_x_axis_ * 300;
+            }else{
+                sent_data_.target_tor[1] = 0 ;
+            }
+            if(controller_.left_y_axis_ < -0.1 || controller_.left_y_axis_ > 0.1){
+                sent_data_.target_tor[2] = controller_.left_y_axis_ * 300 ;
+            }else{
+                sent_data_.target_tor[2] = 0 ;
+            }
+        }else{
+            sent_data_.target_tor[i]=0;
         }
     }
 }
