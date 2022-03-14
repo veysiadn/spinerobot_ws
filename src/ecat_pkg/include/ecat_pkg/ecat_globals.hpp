@@ -70,16 +70,16 @@
 
 /****************************************************************************/
                 /// USER SHOULD DEFINE THIS AREAS ///
-#define NUM_OF_SLAVES     1  /// Total number of connected slave to the bus.
+#define NUM_OF_SLAVES     1     /// Total number of connected slave to the bus.
 const uint32_t  g_kNumberOfServoDrivers = 1 ; /// Number of connected servo drives.
 #define CUSTOM_SLAVE    0
-#define FREQUENCY       1000  // Ethercat PDO exchange loop frequency in Hz
+#define FREQUENCY       1000        // Ethercat PDO exchange loop frequency in Hz
 #define MEASURE_TIMING         0    /// If you want to measure timings leave it as one, otherwise make it 0.
-#define VELOCITY_MODE          0    /// set this to 1 if you want to use it in velocity mode (and set other modes to 0)
+#define VELOCITY_MODE          1    /// set this to 1 if you want to use it in velocity mode (and set other modes to 0)
 #define POSITION_MODE          0    /// set this to 1 if you want to use it in position mode (and set other modes to 0)
 #define CYCLIC_POSITION_MODE   0    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
 #define CYCLIC_VELOCITY_MODE   0    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
-#define CYCLIC_TORQUE_MODE     1    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
+#define CYCLIC_TORQUE_MODE     0    /// set this to 1 if you want to use it in cyclic synchronous position mode (and set other modes to 0)
 
 /*****************************************************************************/
 #define GEAR_RATIO          103

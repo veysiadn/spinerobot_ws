@@ -249,7 +249,7 @@ int EthercatLifeCycle::InitEthercatCommunication()
     
     P.profile_acc=3e4 ;
     P.profile_dec=3e4 ;
-    P.max_profile_vel = 7000 ;
+    P.max_profile_vel = 1000 ;
     P.quick_stop_dec = 3e4 ;
     P.motion_profile_type = 0 ;
     ecat_node_->SetProfileVelocityParametersAll(P);
@@ -611,7 +611,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 #if CYCLIC_POSITION_MODE
     UpdateMotorStatePositionMode();
     UpdateCyclicPositionModeParameters();
-    //WriteToSlavesInPositionMode();
+    WriteToSlavesInPositionMode();
 #endif 
 #if VELOCITY_MODE
         UpdateMotorStateVelocityMode();
@@ -1148,18 +1148,18 @@ void EthercatLifeCycle::UpdateVelocityModeParameters()
    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
         if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
-            if(controller_.right_x_axis_ > 1000 || controller_.right_x_axis_ < -1000 ){
-                sent_data_.target_vel[0] = controller_.right_x_axis_ /150 ;
+            if(controller_.right_x_axis_ > 0.1 || controller_.right_x_axis_ < -0.1 ){
+                sent_data_.target_vel[0] = controller_.right_x_axis_ * 250  ;
             }else{
                 sent_data_.target_vel[0] = 0;
             }
-            if(controller_.left_x_axis_ < -1000 || controller_.left_x_axis_ > 1000){
-                sent_data_.target_vel[1] = controller_.left_x_axis_ /150 ;
+            if(controller_.left_x_axis_ < -0.1 || controller_.left_x_axis_ > 0.1){
+                sent_data_.target_vel[1] = controller_.left_x_axis_ * 250  ;
             }else{
                 sent_data_.target_vel[1] = 0 ;
             }
-            if(controller_.left_y_axis_ < -1000 || controller_.left_y_axis_ > 1000){
-                sent_data_.target_vel[2] = controller_.left_y_axis_ /150 ;
+            if(controller_.left_y_axis_ < -0.1 || controller_.left_y_axis_ > 0.1){
+                sent_data_.target_vel[2] = controller_.left_y_axis_ * 250  ;
             }else{
                 sent_data_.target_vel[2] = 0 ;
             }
@@ -1180,7 +1180,6 @@ void EthercatLifeCycle::UpdateMotorStateVelocityMode()
                 motor_state_[i] = kFault;
         }
         if(motor_state_[i]!=kSwitchedOn){
-            sent_data_.control_word[i] = SM_GO_READY_TO_SWITCH_ON;
             if ( (received_data_.status_word[i] & command_) == 0x0040){  
                 // If status is "Switch on disabled", \
                 change state to "Ready to switch on"

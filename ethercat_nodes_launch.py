@@ -20,10 +20,10 @@ def generate_launch_description():
     # Create pd node
     pd_node = launch_ros.actions.LifecycleNode(
         package = 'ecat_pkg',
-        node_executable = 'ecat_node',
-        node_name = 'ecat_node',
+        executable = 'ecat_node',
+        name = 'ecat_node',
         output = 'screen',
-        prefix = 'taskset -c 3',
+        prefix = 'taskset -c 8,9',
 		parameters=[{"measure_time": 180}]
     )
 
@@ -58,8 +58,8 @@ def generate_launch_description():
         pd_inactive_state_handler,
         pd_node,
         pd_configure_event,
-        Node(package='controller', node_executable='joy_node', output='screen', parameters=[
+        Node(package='controller', executable='joy_node', output='screen', parameters=[
             {"dev": "/dev/input/js0"}]),
-        Node(package='gui_pkg', node_executable='gui_node', output='screen',prefix = 'taskset -c 0,1,2'),
-        Node(package='tool_pkg', node_executable='surgicalToolNode', output='screen'),
+        Node(package='gui_pkg', executable='gui_node', output='screen',prefix = 'taskset -c 10,11'),
+        # Node(package='tool_pkg', node_executable='surgicalToolNode', output='screen'),
         ])
