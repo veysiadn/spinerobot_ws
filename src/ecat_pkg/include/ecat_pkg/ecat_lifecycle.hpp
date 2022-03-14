@@ -61,6 +61,7 @@
 // Implements the allocator_traits template
 
 /******************************************************************************/ 
+#include "ecat_msgs/msg/haptic_cmd.hpp"
 using rclcpp::strategies::message_pool_memory_strategy::MessagePoolMemoryStrategy;
 using rclcpp::memory_strategies::allocator_memory_strategy::AllocatorMemoryStrategy;
 
@@ -131,6 +132,7 @@ class EthercatLifeCycle : public LifecycleNode
         /// This subscriber  will be used to receive data from controller node.
         rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr      joystick_subscriber_;
         rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr       gui_subscriber_;
+        rclcpp::Subscription<ecat_msgs::msg::HapticCmd>::SharedPtr  haptic_subscriber_; 
 
         
         ecat_msgs::msg::DataReceived     received_data_;
@@ -143,6 +145,12 @@ class EthercatLifeCycle : public LifecycleNode
         *        It will update received values from controller node.
         */
         void HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg);
+
+        /**
+         * @brief This function handles callbacks from haptic input node.
+         *        It will update received values from haptic node.
+         */
+        void HandleHapticCmdCallbacks(const ecat_msgs::msg::HapticCmd::SharedPtr haptic_msg); 
 
         /**
          * @brief Sets Ethercat communication thread's properties 
@@ -314,5 +322,6 @@ class EthercatLifeCycle : public LifecycleNode
         // Will be used as a parameter for taking timing measurements.
         std::int32_t measurement_time = 0 ; 
         Timing timer_info_ ; 
+        HapticInputs haptic_inputs_;
 };
 }

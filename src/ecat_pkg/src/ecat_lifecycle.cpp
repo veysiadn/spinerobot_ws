@@ -50,7 +50,8 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_co
                                      std::bind(&EthercatLifeCycle::HandleControlNodeCallbacks, this,std::placeholders::_1));
         gui_subscriber_          = this->create_subscription<std_msgs::msg::UInt8>("gui_buttons", qos, 
                                     std::bind(&EthercatLifeCycle::HandleGuiNodeCallbacks, this, std::placeholders::_1));
-
+        haptic_subscriber_       =  this->create_subscription<ecat_msgs::msg::HapticCmd>("HapticInput",qos , 
+                                     std::bind(&EthercatLifeCycle::HandleHapticCmdCallbacks, this,std::placeholders::_1));
         return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
     }
 }
@@ -104,6 +105,17 @@ node_interfaces::LifecycleNodeInterface::CallbackReturn EthercatLifeCycle::on_er
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "On Error.");
     ecat_node_.reset();
     return node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+}
+
+void EthercatLifeCycle::HandleHapticCmdCallbacks(const ecat_msgs::msg::HapticCmd::SharedPtr haptic_msg)
+{
+    haptic_inputs_.x_axis_ = haptic_msg->array[0];
+    haptic_inputs_.y_axis_ = haptic_msg->array[1];
+    haptic_inputs_.z_axis_ = haptic_msg->array[2];
+    haptic_inputs_.rx_axis_ = haptic_msg->array[3];
+    haptic_inputs_.ry_axis_ = haptic_msg->array[4];
+    haptic_inputs_.rz_axis_ = haptic_msg->array[5];
+    haptic_inputs_.grip_ = haptic_msg->array[6];
 }
 
 void EthercatLifeCycle::HandleControlNodeCallbacks(const sensor_msgs::msg::Joy::SharedPtr msg)

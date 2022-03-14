@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/usr/include/**",
+        "/opt/ros/foxy/include/**",
+        "/home/veysiadn/spinerobot_ws/src/gui_pkg/include/gui_pkg",
+        "/home/veysiadn/spinerobot_ws/src/ecat_pkg/include/ecat_pkg",
+        "/opt/etherlab/include",
+        "../install/ecat_msgs/include/",
+        "ecat_pkg/include/ecat_pkg"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

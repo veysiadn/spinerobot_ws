@@ -178,6 +178,21 @@ typedef enum
     kCSTorque = 10,
 } OpMode ;
 
+typedef enum
+{
+    JoystickInput=0,
+    HapticInput=1,
+} InputType;
+typedef struct
+{
+    double x_axis_ ;
+    double y_axis_ ;
+    double z_axis_ ;
+    double rx_axis_ ;
+    double ry_axis_ ;
+    double rz_axis_ ;
+    double grip_ ;
+} HapticInputs;
 /// CIA 402 state machine motor states
 enum MotorStates{
 	kReadyToSwitchOn = 1,
