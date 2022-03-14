@@ -25,6 +25,7 @@ find_package(rosidl_default_generators REQUIRED)
 set(msg_files
   "msg/DataReceived.msg"
   "msg/DataSent.msg"
+  "msg/HapticCmd.msg"
 )
 ## generate interface from your msg files.
 rosidl_generate_interfaces(${PROJECT_NAME}

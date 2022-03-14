@@ -1,6 +1,7 @@
 ## Header file directories : 
 ## /home/spinerobot/ros2_dashing/src/ros2/launch_ros/launch_ros/launch_ros/actions/lifecycle_node.py
 
+from ast import arguments
 from launch import LaunchDescription
 
 ## For lifecycle state transitions.
@@ -23,8 +24,8 @@ def generate_launch_description():
         executable = 'ecat_node',
         name = 'ecat_node',
         output = 'screen',
-        prefix = 'taskset -c 8,9',
-		parameters=[{"measure_time": 180}]
+        prefix = 'taskset -c 3',
+	parameters=[{"measure_time": 180}]
     )
 
     # Make the pd node take the 'configure' transition
@@ -58,8 +59,9 @@ def generate_launch_description():
         pd_inactive_state_handler,
         pd_node,
         pd_configure_event,
-        Node(package='controller', executable='joy_node', output='screen', parameters=[
-            {"dev": "/dev/input/js0"}]),
-        Node(package='gui_pkg', executable='gui_node', output='screen',prefix = 'taskset -c 10,11'),
-        # Node(package='tool_pkg', node_executable='surgicalToolNode', output='screen'),
+         Node(package='controller', executable='joy_node', output='screen', parameters=[
+             {"dev": "/dev/input/js0"}]),
+        Node(package='input_pkg', executable='hapticNode', output='screen',arguments="192.168.0.1 2134"),
+        Node(package='gui_pkg', executable='gui_node', output='screen'),
+#        Node(package='tool_pkg', executable='surgicalToolNode', output='screen', prefix = 'taskset -c 2'),
         ])
