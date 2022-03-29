@@ -1,0 +1,235 @@
+\hypertarget{classDxlMaster}{}\doxysection{Dxl\+Master Class Reference}
+\label{classDxlMaster}\index{DxlMaster@{DxlMaster}}
+
+
+{\ttfamily \#include $<$Dxl\+Master.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDxlMaster_a57b80d1925b9dbe919e06a8ee380d0ec}{Dxl\+Master}} ()
+\item 
+\mbox{\hyperlink{classDxlMaster_a1004d427584d35cd5ebbc60a124bd3f7}{$\sim$\+Dxl\+Master}} ()
+\item 
+int \mbox{\hyperlink{classDxlMaster_adfc1539549c33e06a2e7f833317a769e}{Initialize\+Driver}} (const char $\ast$port\+Name, const int baudrate, int protocol\+Ver)
+\item 
+void \mbox{\hyperlink{classDxlMaster_a82e629ff742d2bf9168aa3abcdede947}{Disconnect}} ()
+\item 
+void \mbox{\hyperlink{classDxlMaster_ade92d999040b8fbc18953ec9423c56e3}{Get\+Dynamixel\+Info}} (int id)
+\item 
+int \mbox{\hyperlink{classDxlMaster_aaab0cbd1acd2124ca571230326c9826a}{Set\+Wheel\+Mode}} (int id)
+\item 
+int \mbox{\hyperlink{classDxlMaster_a1f4e3e9b677a76e92b1834854b23c48e}{Set\+Joint\+Mode}} (int id, int cwlim, int ccwlim)
+\item 
+int \mbox{\hyperlink{classDxlMaster_a5308c3a34bf72e24d2c0344e2da0a95b}{Enable\+Torque}} (int id)
+\item 
+int \mbox{\hyperlink{classDxlMaster_a35b59b12ad18fceaf622040496937c42}{Disable\+Torque}} (int id)
+\item 
+int \mbox{\hyperlink{classDxlMaster_a51d3844cfb83a2767f5dfd36f5904903}{Get\+Jpos}} (int id, int \&Pos)
+\item 
+int \mbox{\hyperlink{classDxlMaster_aaa5d309fe48bb3b8fa75e4534bf709db}{Set\+Jpos}} (int id, const int \&Pos)
+\item 
+int \mbox{\hyperlink{classDxlMaster_ac62223e8f5c2a0b52914733b30be98f8}{Get\+Vel}} (int id, int \&vel)
+\item 
+int \mbox{\hyperlink{classDxlMaster_ad922a466c0a0f435b54b0cee9d9baa7f}{Set\+Vel}} (int id, const int \&Vel)
+\item 
+int \mbox{\hyperlink{classDxlMaster_a7f130561ef754ca1a4c9f386c48c60f5}{Set\+Jpos\+All}} (const int $\ast$p\+List)
+\item 
+int \mbox{\hyperlink{classDxlMaster_aa99296412505f1c04b9eec603ddca1cd}{Set\+Vel\+All}} (const int $\ast$v\+List)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+dynamixel\+::\+Port\+Handler $\ast$ \mbox{\hyperlink{classDxlMaster_afa633e2589a7eaf244c2a2438c8e07a9}{m\+\_\+port\+Handler}}
+\item 
+dynamixel\+::\+Packet\+Handler $\ast$ \mbox{\hyperlink{classDxlMaster_aa6dd22d956836bfa636b641b5843e5aa}{m\+\_\+packet\+Handler}}
+\item 
+char \mbox{\hyperlink{classDxlMaster_a4f78f04334ffc7313f2d907fa1d89c6e}{m\+\_\+port\+Name}} \mbox{[}40\mbox{]}
+\item 
+int \mbox{\hyperlink{classDxlMaster_abaa93fa1e60faf8c5f7a5a903790d5c6}{m\+\_\+baudrate}}
+\item 
+dynamixel\+::\+Group\+Sync\+Write $\ast$ \mbox{\hyperlink{classDxlMaster_a5196c95e8d5e8f538e41ae0ee78c9fbd}{m\+\_\+group\+Sync\+Write\+Pos}}
+\item 
+dynamixel\+::\+Group\+Sync\+Write $\ast$ \mbox{\hyperlink{classDxlMaster_a211a3e262ae9389e5e522e8f2307cff9}{m\+\_\+group\+Sync\+Write\+Vel}}
+\item 
+dynamixel\+::\+Group\+Sync\+Read $\ast$ \mbox{\hyperlink{classDxlMaster_ac08535c5fb336c2aa0b3630725468267}{m\+\_\+group\+Sync\+Read}}
+\item 
+dynamixel\+::\+Group\+Bulk\+Read $\ast$ \mbox{\hyperlink{classDxlMaster_a70a8e816f1c9368f7ee8143abb5abd9f}{m\+\_\+group\+Bulk\+Read}}
+\item 
+dynamixel\+::\+Group\+Bulk\+Write $\ast$ \mbox{\hyperlink{classDxlMaster_a8f9314d5d9b7e20dae601a5ef2d4b43a}{m\+\_\+group\+Bulk\+Write}}
+\item 
+int \mbox{\hyperlink{classDxlMaster_aba4fb2af73870748cf76a726ddc40975}{m\+\_\+\+Id}}
+\item 
+int \mbox{\hyperlink{classDxlMaster_ae72120d8f6ce451fd046aa9122f5b727}{m\+\_\+dev\+Ids}} \mbox{[}\mbox{\hyperlink{DxlMaster_8h_a1396a3899b612a4e50205c2e0e0f0030}{NUM\+\_\+\+DXL}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDxlMaster_a57b80d1925b9dbe919e06a8ee380d0ec}\label{classDxlMaster_a57b80d1925b9dbe919e06a8ee380d0ec}} 
+\index{DxlMaster@{DxlMaster}!DxlMaster@{DxlMaster}}
+\index{DxlMaster@{DxlMaster}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{DxlMaster()}{DxlMaster()}}
+{\footnotesize\ttfamily Dxl\+Master\+::\+Dxl\+Master (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a1004d427584d35cd5ebbc60a124bd3f7}\label{classDxlMaster_a1004d427584d35cd5ebbc60a124bd3f7}} 
+\index{DxlMaster@{DxlMaster}!````~DxlMaster@{$\sim$DxlMaster}}
+\index{````~DxlMaster@{$\sim$DxlMaster}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{$\sim$DxlMaster()}{~DxlMaster()}}
+{\footnotesize\ttfamily Dxl\+Master\+::$\sim$\+Dxl\+Master (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDxlMaster_a35b59b12ad18fceaf622040496937c42}\label{classDxlMaster_a35b59b12ad18fceaf622040496937c42}} 
+\index{DxlMaster@{DxlMaster}!DisableTorque@{DisableTorque}}
+\index{DisableTorque@{DisableTorque}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{DisableTorque()}{DisableTorque()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Disable\+Torque (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a82e629ff742d2bf9168aa3abcdede947}\label{classDxlMaster_a82e629ff742d2bf9168aa3abcdede947}} 
+\index{DxlMaster@{DxlMaster}!Disconnect@{Disconnect}}
+\index{Disconnect@{Disconnect}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{Disconnect()}{Disconnect()}}
+{\footnotesize\ttfamily void Dxl\+Master\+::\+Disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a5308c3a34bf72e24d2c0344e2da0a95b}\label{classDxlMaster_a5308c3a34bf72e24d2c0344e2da0a95b}} 
+\index{DxlMaster@{DxlMaster}!EnableTorque@{EnableTorque}}
+\index{EnableTorque@{EnableTorque}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{EnableTorque()}{EnableTorque()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Enable\+Torque (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_ade92d999040b8fbc18953ec9423c56e3}\label{classDxlMaster_ade92d999040b8fbc18953ec9423c56e3}} 
+\index{DxlMaster@{DxlMaster}!GetDynamixelInfo@{GetDynamixelInfo}}
+\index{GetDynamixelInfo@{GetDynamixelInfo}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{GetDynamixelInfo()}{GetDynamixelInfo()}}
+{\footnotesize\ttfamily void Dxl\+Master\+::\+Get\+Dynamixel\+Info (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a51d3844cfb83a2767f5dfd36f5904903}\label{classDxlMaster_a51d3844cfb83a2767f5dfd36f5904903}} 
+\index{DxlMaster@{DxlMaster}!GetJpos@{GetJpos}}
+\index{GetJpos@{GetJpos}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{GetJpos()}{GetJpos()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Get\+Jpos (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int \&}]{Pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_ac62223e8f5c2a0b52914733b30be98f8}\label{classDxlMaster_ac62223e8f5c2a0b52914733b30be98f8}} 
+\index{DxlMaster@{DxlMaster}!GetVel@{GetVel}}
+\index{GetVel@{GetVel}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{GetVel()}{GetVel()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Get\+Vel (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int \&}]{vel }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_adfc1539549c33e06a2e7f833317a769e}\label{classDxlMaster_adfc1539549c33e06a2e7f833317a769e}} 
+\index{DxlMaster@{DxlMaster}!InitializeDriver@{InitializeDriver}}
+\index{InitializeDriver@{InitializeDriver}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{InitializeDriver()}{InitializeDriver()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Initialize\+Driver (\begin{DoxyParamCaption}\item[{const char $\ast$}]{port\+Name,  }\item[{const int}]{baudrate,  }\item[{int}]{protocol\+Ver }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a1f4e3e9b677a76e92b1834854b23c48e}\label{classDxlMaster_a1f4e3e9b677a76e92b1834854b23c48e}} 
+\index{DxlMaster@{DxlMaster}!SetJointMode@{SetJointMode}}
+\index{SetJointMode@{SetJointMode}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetJointMode()}{SetJointMode()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Joint\+Mode (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{int}]{cwlim,  }\item[{int}]{ccwlim }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_aaa5d309fe48bb3b8fa75e4534bf709db}\label{classDxlMaster_aaa5d309fe48bb3b8fa75e4534bf709db}} 
+\index{DxlMaster@{DxlMaster}!SetJpos@{SetJpos}}
+\index{SetJpos@{SetJpos}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetJpos()}{SetJpos()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Jpos (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{const int \&}]{Pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_a7f130561ef754ca1a4c9f386c48c60f5}\label{classDxlMaster_a7f130561ef754ca1a4c9f386c48c60f5}} 
+\index{DxlMaster@{DxlMaster}!SetJposAll@{SetJposAll}}
+\index{SetJposAll@{SetJposAll}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetJposAll()}{SetJposAll()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Jpos\+All (\begin{DoxyParamCaption}\item[{const int $\ast$}]{p\+List }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_ad922a466c0a0f435b54b0cee9d9baa7f}\label{classDxlMaster_ad922a466c0a0f435b54b0cee9d9baa7f}} 
+\index{DxlMaster@{DxlMaster}!SetVel@{SetVel}}
+\index{SetVel@{SetVel}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetVel()}{SetVel()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Vel (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{const int \&}]{Vel }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_aa99296412505f1c04b9eec603ddca1cd}\label{classDxlMaster_aa99296412505f1c04b9eec603ddca1cd}} 
+\index{DxlMaster@{DxlMaster}!SetVelAll@{SetVelAll}}
+\index{SetVelAll@{SetVelAll}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetVelAll()}{SetVelAll()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Vel\+All (\begin{DoxyParamCaption}\item[{const int $\ast$}]{v\+List }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classDxlMaster_aaab0cbd1acd2124ca571230326c9826a}\label{classDxlMaster_aaab0cbd1acd2124ca571230326c9826a}} 
+\index{DxlMaster@{DxlMaster}!SetWheelMode@{SetWheelMode}}
+\index{SetWheelMode@{SetWheelMode}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{SetWheelMode()}{SetWheelMode()}}
+{\footnotesize\ttfamily int Dxl\+Master\+::\+Set\+Wheel\+Mode (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classDxlMaster_abaa93fa1e60faf8c5f7a5a903790d5c6}\label{classDxlMaster_abaa93fa1e60faf8c5f7a5a903790d5c6}} 
+\index{DxlMaster@{DxlMaster}!m\_baudrate@{m\_baudrate}}
+\index{m\_baudrate@{m\_baudrate}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_baudrate}{m\_baudrate}}
+{\footnotesize\ttfamily int Dxl\+Master\+::m\+\_\+baudrate\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_ae72120d8f6ce451fd046aa9122f5b727}\label{classDxlMaster_ae72120d8f6ce451fd046aa9122f5b727}} 
+\index{DxlMaster@{DxlMaster}!m\_devIds@{m\_devIds}}
+\index{m\_devIds@{m\_devIds}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_devIds}{m\_devIds}}
+{\footnotesize\ttfamily int Dxl\+Master\+::m\+\_\+dev\+Ids\mbox{[}\mbox{\hyperlink{DxlMaster_8h_a1396a3899b612a4e50205c2e0e0f0030}{NUM\+\_\+\+DXL}}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_a70a8e816f1c9368f7ee8143abb5abd9f}\label{classDxlMaster_a70a8e816f1c9368f7ee8143abb5abd9f}} 
+\index{DxlMaster@{DxlMaster}!m\_groupBulkRead@{m\_groupBulkRead}}
+\index{m\_groupBulkRead@{m\_groupBulkRead}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_groupBulkRead}{m\_groupBulkRead}}
+{\footnotesize\ttfamily dynamixel\+::\+Group\+Bulk\+Read$\ast$ Dxl\+Master\+::m\+\_\+group\+Bulk\+Read\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_a8f9314d5d9b7e20dae601a5ef2d4b43a}\label{classDxlMaster_a8f9314d5d9b7e20dae601a5ef2d4b43a}} 
+\index{DxlMaster@{DxlMaster}!m\_groupBulkWrite@{m\_groupBulkWrite}}
+\index{m\_groupBulkWrite@{m\_groupBulkWrite}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_groupBulkWrite}{m\_groupBulkWrite}}
+{\footnotesize\ttfamily dynamixel\+::\+Group\+Bulk\+Write$\ast$ Dxl\+Master\+::m\+\_\+group\+Bulk\+Write\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_ac08535c5fb336c2aa0b3630725468267}\label{classDxlMaster_ac08535c5fb336c2aa0b3630725468267}} 
+\index{DxlMaster@{DxlMaster}!m\_groupSyncRead@{m\_groupSyncRead}}
+\index{m\_groupSyncRead@{m\_groupSyncRead}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_groupSyncRead}{m\_groupSyncRead}}
+{\footnotesize\ttfamily dynamixel\+::\+Group\+Sync\+Read$\ast$ Dxl\+Master\+::m\+\_\+group\+Sync\+Read\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_a5196c95e8d5e8f538e41ae0ee78c9fbd}\label{classDxlMaster_a5196c95e8d5e8f538e41ae0ee78c9fbd}} 
+\index{DxlMaster@{DxlMaster}!m\_groupSyncWritePos@{m\_groupSyncWritePos}}
+\index{m\_groupSyncWritePos@{m\_groupSyncWritePos}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_groupSyncWritePos}{m\_groupSyncWritePos}}
+{\footnotesize\ttfamily dynamixel\+::\+Group\+Sync\+Write$\ast$ Dxl\+Master\+::m\+\_\+group\+Sync\+Write\+Pos\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_a211a3e262ae9389e5e522e8f2307cff9}\label{classDxlMaster_a211a3e262ae9389e5e522e8f2307cff9}} 
+\index{DxlMaster@{DxlMaster}!m\_groupSyncWriteVel@{m\_groupSyncWriteVel}}
+\index{m\_groupSyncWriteVel@{m\_groupSyncWriteVel}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_groupSyncWriteVel}{m\_groupSyncWriteVel}}
+{\footnotesize\ttfamily dynamixel\+::\+Group\+Sync\+Write$\ast$ Dxl\+Master\+::m\+\_\+group\+Sync\+Write\+Vel\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_aba4fb2af73870748cf76a726ddc40975}\label{classDxlMaster_aba4fb2af73870748cf76a726ddc40975}} 
+\index{DxlMaster@{DxlMaster}!m\_Id@{m\_Id}}
+\index{m\_Id@{m\_Id}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_Id}{m\_Id}}
+{\footnotesize\ttfamily int Dxl\+Master\+::m\+\_\+\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_aa6dd22d956836bfa636b641b5843e5aa}\label{classDxlMaster_aa6dd22d956836bfa636b641b5843e5aa}} 
+\index{DxlMaster@{DxlMaster}!m\_packetHandler@{m\_packetHandler}}
+\index{m\_packetHandler@{m\_packetHandler}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_packetHandler}{m\_packetHandler}}
+{\footnotesize\ttfamily dynamixel\+::\+Packet\+Handler$\ast$ Dxl\+Master\+::m\+\_\+packet\+Handler\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_afa633e2589a7eaf244c2a2438c8e07a9}\label{classDxlMaster_afa633e2589a7eaf244c2a2438c8e07a9}} 
+\index{DxlMaster@{DxlMaster}!m\_portHandler@{m\_portHandler}}
+\index{m\_portHandler@{m\_portHandler}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_portHandler}{m\_portHandler}}
+{\footnotesize\ttfamily dynamixel\+::\+Port\+Handler$\ast$ Dxl\+Master\+::m\+\_\+port\+Handler\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classDxlMaster_a4f78f04334ffc7313f2d907fa1d89c6e}\label{classDxlMaster_a4f78f04334ffc7313f2d907fa1d89c6e}} 
+\index{DxlMaster@{DxlMaster}!m\_portName@{m\_portName}}
+\index{m\_portName@{m\_portName}!DxlMaster@{DxlMaster}}
+\doxysubsubsection{\texorpdfstring{m\_portName}{m\_portName}}
+{\footnotesize\ttfamily char Dxl\+Master\+::m\+\_\+port\+Name\mbox{[}40\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/tool\+\_\+pkg/include/tool\+\_\+pkg/\mbox{\hyperlink{DxlMaster_8h}{Dxl\+Master.\+h}}\item 
+src/tool\+\_\+pkg/src/\mbox{\hyperlink{DxlMaster_8cpp}{Dxl\+Master.\+cpp}}\end{DoxyCompactItemize}

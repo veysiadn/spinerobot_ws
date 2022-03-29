@@ -1,0 +1,196 @@
+\hypertarget{classGUI_1_1GuiNode}{}\doxysection{GUI\+::Gui\+Node Class Reference}
+\label{classGUI_1_1GuiNode}\index{GUI::GuiNode@{GUI::GuiNode}}
+
+
+{\ttfamily \#include $<$gui\+\_\+node.\+hpp$>$}
+
+
+
+Inheritance diagram for GUI\+::Gui\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classGUI_1_1GuiNode__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for GUI\+::Gui\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{classGUI_1_1GuiNode__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGUI_1_1GuiNode_a8c7fc35c758517e35c82b262ca1a0cce}{Gui\+Node}} ()
+\item 
+virtual \mbox{\hyperlink{classGUI_1_1GuiNode_a988fcbb2f9503d2f7a28fb657b95d97d}{$\sim$\+Gui\+Node}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structGUI_1_1ReceivedData}{Received\+Data}} \mbox{\hyperlink{classGUI_1_1GuiNode_ad82bf819b8190c3eaf2ab0c3af887ad1}{received\+\_\+data\+\_\+}} \mbox{[}\mbox{\hyperlink{gui__node_8hpp_abcd0af621da2a1f852fb466fcb225fe1}{NUM\+\_\+\+OF\+\_\+\+SERVO\+\_\+\+DRIVES}}\mbox{]} = \{\}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classGUI_1_1GuiNode_aacb0457b99abd4c286d49cb9bcaeb459}{emergency\+\_\+button\+\_\+val\+\_\+}} = 1
+\item 
+\mbox{\hyperlink{classTiming}{Timing}} \mbox{\hyperlink{classGUI_1_1GuiNode_a9e0e5d2cd3d41f0b11bad899eb13e2b1}{time\+\_\+info\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classGUI_1_1GuiNode_aa378c566c59d220011f3c37df69f47c5}{timer\+\_\+callback}} ()
+\begin{DoxyCompactList}\small\item\em Publishes gui button value in specified interval. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1GuiNode_a8c671d0d93d0c61da722666d7b01230f}{Handle\+Controller\+Callbacks}} (const sensor\+\_\+msgs\+::msg\+::\+Joy\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Function will be used for subscribtion callbacks from controller node for \mbox{\hyperlink{structController}{Controller}} topic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1GuiNode_a692f44e42736bb1e31f435024cfdc4f9}{Handle\+Master\+Command\+Callbacks}} (const ecat\+\_\+msgs\+::msg\+::\+Data\+Sent\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Function will be used for subscribtion callbacks from Ethercat\+Lifecycle node for Master\+\_\+\+Commands topic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_1_1GuiNode_a7bbe29f0fba8cede61e3587adfdc56cb}{Handle\+Slave\+Feedback\+Callbacks}} (const ecat\+\_\+msgs\+::msg\+::\+Data\+Received\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Function will be used for subscribtion callbacks from Ethercat\+Lifecycle node for Master\+\_\+\+Commands topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rclcpp\+::\+Subscription$<$ ecat\+\_\+msgs\+::msg\+::\+Data\+Received $>$\+::\+Shared\+Ptr \mbox{\hyperlink{classGUI_1_1GuiNode_a2088bd1f9691f85ca00f52ddf3c2ce9a}{slave\+\_\+feedback\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ ecat\+\_\+msgs\+::msg\+::\+Data\+Sent $>$\+::\+Shared\+Ptr \mbox{\hyperlink{classGUI_1_1GuiNode_abf1caf97a94659045c927db80791a380}{master\+\_\+commands\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ sensor\+\_\+msgs\+::msg\+::\+Joy $>$\+::\+Shared\+Ptr \mbox{\hyperlink{classGUI_1_1GuiNode_a0d8c7deb8ea9697735e630aa83f02f81}{controller\+\_\+commands\+\_\+}}
+\item 
+rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr \mbox{\hyperlink{classGUI_1_1GuiNode_a847bb4ebc91435e0716106b192aee148}{timer\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+UInt8 $>$\+::\+Shared\+Ptr \mbox{\hyperlink{classGUI_1_1GuiNode_a4f904ded435034a98156c531f68102e9}{gui\+\_\+publisher\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a8c7fc35c758517e35c82b262ca1a0cce}\label{classGUI_1_1GuiNode_a8c7fc35c758517e35c82b262ca1a0cce}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!GuiNode@{GuiNode}}
+\index{GuiNode@{GuiNode}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{GuiNode()}{GuiNode()}}
+{\footnotesize\ttfamily Gui\+Node\+::\+Gui\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a988fcbb2f9503d2f7a28fb657b95d97d}\label{classGUI_1_1GuiNode_a988fcbb2f9503d2f7a28fb657b95d97d}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!````~GuiNode@{$\sim$GuiNode}}
+\index{````~GuiNode@{$\sim$GuiNode}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{$\sim$GuiNode()}{~GuiNode()}}
+{\footnotesize\ttfamily Gui\+Node\+::$\sim$\+Gui\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a8c671d0d93d0c61da722666d7b01230f}\label{classGUI_1_1GuiNode_a8c671d0d93d0c61da722666d7b01230f}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!HandleControllerCallbacks@{HandleControllerCallbacks}}
+\index{HandleControllerCallbacks@{HandleControllerCallbacks}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{HandleControllerCallbacks()}{HandleControllerCallbacks()}}
+{\footnotesize\ttfamily void Gui\+Node\+::\+Handle\+Controller\+Callbacks (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::msg\+::\+Joy\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function will be used for subscribtion callbacks from controller node for \mbox{\hyperlink{structController}{Controller}} topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & controller command structure published by controller node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a692f44e42736bb1e31f435024cfdc4f9}\label{classGUI_1_1GuiNode_a692f44e42736bb1e31f435024cfdc4f9}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!HandleMasterCommandCallbacks@{HandleMasterCommandCallbacks}}
+\index{HandleMasterCommandCallbacks@{HandleMasterCommandCallbacks}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{HandleMasterCommandCallbacks()}{HandleMasterCommandCallbacks()}}
+{\footnotesize\ttfamily void Gui\+Node\+::\+Handle\+Master\+Command\+Callbacks (\begin{DoxyParamCaption}\item[{const ecat\+\_\+msgs\+::msg\+::\+Data\+Sent\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function will be used for subscribtion callbacks from Ethercat\+Lifecycle node for Master\+\_\+\+Commands topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Master commands structure published by Ethercat\+Lifecycle node \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a7bbe29f0fba8cede61e3587adfdc56cb}\label{classGUI_1_1GuiNode_a7bbe29f0fba8cede61e3587adfdc56cb}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!HandleSlaveFeedbackCallbacks@{HandleSlaveFeedbackCallbacks}}
+\index{HandleSlaveFeedbackCallbacks@{HandleSlaveFeedbackCallbacks}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{HandleSlaveFeedbackCallbacks()}{HandleSlaveFeedbackCallbacks()}}
+{\footnotesize\ttfamily void Gui\+Node\+::\+Handle\+Slave\+Feedback\+Callbacks (\begin{DoxyParamCaption}\item[{const ecat\+\_\+msgs\+::msg\+::\+Data\+Received\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function will be used for subscribtion callbacks from Ethercat\+Lifecycle node for Master\+\_\+\+Commands topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Slave feedback structure published by Ethercat\+Lifecycle node \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_aa378c566c59d220011f3c37df69f47c5}\label{classGUI_1_1GuiNode_aa378c566c59d220011f3c37df69f47c5}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!timer\_callback@{timer\_callback}}
+\index{timer\_callback@{timer\_callback}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{timer\_callback()}{timer\_callback()}}
+{\footnotesize\ttfamily void Gui\+Node\+::timer\+\_\+callback (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Publishes gui button value in specified interval. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a0d8c7deb8ea9697735e630aa83f02f81}\label{classGUI_1_1GuiNode_a0d8c7deb8ea9697735e630aa83f02f81}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!controller\_commands\_@{controller\_commands\_}}
+\index{controller\_commands\_@{controller\_commands\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{controller\_commands\_}{controller\_commands\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$sensor\+\_\+msgs\+::msg\+::\+Joy$>$\+::\+Shared\+Ptr GUI\+::\+Gui\+Node\+::controller\+\_\+commands\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_aacb0457b99abd4c286d49cb9bcaeb459}\label{classGUI_1_1GuiNode_aacb0457b99abd4c286d49cb9bcaeb459}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!emergency\_button\_val\_@{emergency\_button\_val\_}}
+\index{emergency\_button\_val\_@{emergency\_button\_val\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{emergency\_button\_val\_}{emergency\_button\_val\_}}
+{\footnotesize\ttfamily uint8\+\_\+t GUI\+::\+Gui\+Node\+::emergency\+\_\+button\+\_\+val\+\_\+ = 1}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a4f904ded435034a98156c531f68102e9}\label{classGUI_1_1GuiNode_a4f904ded435034a98156c531f68102e9}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!gui\_publisher\_@{gui\_publisher\_}}
+\index{gui\_publisher\_@{gui\_publisher\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{gui\_publisher\_}{gui\_publisher\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+UInt8$>$\+::\+Shared\+Ptr GUI\+::\+Gui\+Node\+::gui\+\_\+publisher\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_abf1caf97a94659045c927db80791a380}\label{classGUI_1_1GuiNode_abf1caf97a94659045c927db80791a380}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!master\_commands\_@{master\_commands\_}}
+\index{master\_commands\_@{master\_commands\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{master\_commands\_}{master\_commands\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$ecat\+\_\+msgs\+::msg\+::\+Data\+Sent$>$\+::\+Shared\+Ptr GUI\+::\+Gui\+Node\+::master\+\_\+commands\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_ad82bf819b8190c3eaf2ab0c3af887ad1}\label{classGUI_1_1GuiNode_ad82bf819b8190c3eaf2ab0c3af887ad1}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!received\_data\_@{received\_data\_}}
+\index{received\_data\_@{received\_data\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{received\_data\_}{received\_data\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structGUI_1_1ReceivedData}{Received\+Data}} GUI\+::\+Gui\+Node\+::received\+\_\+data\+\_\+\mbox{[}\mbox{\hyperlink{gui__node_8hpp_abcd0af621da2a1f852fb466fcb225fe1}{NUM\+\_\+\+OF\+\_\+\+SERVO\+\_\+\+DRIVES}}\mbox{]} = \{\}}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a2088bd1f9691f85ca00f52ddf3c2ce9a}\label{classGUI_1_1GuiNode_a2088bd1f9691f85ca00f52ddf3c2ce9a}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!slave\_feedback\_@{slave\_feedback\_}}
+\index{slave\_feedback\_@{slave\_feedback\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{slave\_feedback\_}{slave\_feedback\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$ecat\+\_\+msgs\+::msg\+::\+Data\+Received$>$\+::\+Shared\+Ptr GUI\+::\+Gui\+Node\+::slave\+\_\+feedback\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a9e0e5d2cd3d41f0b11bad899eb13e2b1}\label{classGUI_1_1GuiNode_a9e0e5d2cd3d41f0b11bad899eb13e2b1}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!time\_info\_@{time\_info\_}}
+\index{time\_info\_@{time\_info\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{time\_info\_}{time\_info\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTiming}{Timing}} GUI\+::\+Gui\+Node\+::time\+\_\+info\+\_\+}
+
+\mbox{\Hypertarget{classGUI_1_1GuiNode_a847bb4ebc91435e0716106b192aee148}\label{classGUI_1_1GuiNode_a847bb4ebc91435e0716106b192aee148}} 
+\index{GUI::GuiNode@{GUI::GuiNode}!timer\_@{timer\_}}
+\index{timer\_@{timer\_}!GUI::GuiNode@{GUI::GuiNode}}
+\doxysubsubsection{\texorpdfstring{timer\_}{timer\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr GUI\+::\+Gui\+Node\+::timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui\+\_\+pkg/include/gui\+\_\+pkg/\mbox{\hyperlink{gui__node_8hpp}{gui\+\_\+node.\+hpp}}\item 
+src/gui\+\_\+pkg/src/\mbox{\hyperlink{gui__node_8cpp}{gui\+\_\+node.\+cpp}}\end{DoxyCompactItemize}

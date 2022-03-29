@@ -1,0 +1,305 @@
+\hypertarget{structController}{}\doxysection{Controller Class Reference}
+\label{structController}\index{Controller@{Controller}}
+
+
+Opens, reads from and publishes joystick events.  
+
+
+
+
+{\ttfamily \#include $<$ecat\+\_\+globals.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structController_a95c56822d667e94b031451729ce069a9}{Controller}} ()
+\item 
+int \mbox{\hyperlink{structController_af947edd39192c4bf792137836069756a}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Opens joystick port, reads from port and publishes while node is active. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structController_af8e29e6b38ab7740566e703237c79654}{left\+\_\+x\+\_\+axis\+\_\+}}
+\item 
+float \mbox{\hyperlink{structController_a23d43716969133c3a84aefc223235bba}{left\+\_\+y\+\_\+axis\+\_\+}}
+\item 
+float \mbox{\hyperlink{structController_a4491f31970440809252f792325f3332c}{right\+\_\+x\+\_\+axis\+\_\+}}
+\item 
+float \mbox{\hyperlink{structController_a48605a75d1e18d653d428aa12f267cf7}{right\+\_\+y\+\_\+axis\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a21b2cc61fc8759e3612edf6cb7659844}{blue\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_af4090cca658badffa788cc347c0d8976}{green\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_aedf7f3ad3fc4cf9587eb814939f2fe1e}{red\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_ae17bf9a44fae3b631880fb01f790dda8}{yellow\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_afc07641196aa5459f44ccc52e896df2e}{left\+\_\+r\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_ab8b2eb8470d7ef53fa8d46876d229b8b}{left\+\_\+l\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a2ef1067504a96ac17b88fa903e60e27d}{left\+\_\+u\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a45cde5bec749e075351dcb620ee2508a}{left\+\_\+d\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a08305d57bdb81da6a151bef723ae8a3e}{left\+\_\+rb\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a156db40170025123bf4a71c89e872dd0}{right\+\_\+rb\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_ac70c2cb907d0a24b1773269558d2cf5a}{left\+\_\+start\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a9695b16477597d0b1009839cb97856d7}{right\+\_\+start\+\_\+button\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structController_a2295a00cf96f532ab8d11777e12ad16c}{xbox\+\_\+button\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{structController_acfc3737a49027159c6f7cbbef861b212}{get\+\_\+dev\+\_\+by\+\_\+joy\+\_\+name}} (const std\+::string \&joy\+\_\+name, rclcpp\+::\+Logger logger)
+\begin{DoxyCompactList}\small\item\em Returns the device path of the first joystick that matches joy\+\_\+name. If no match is found, an empty string is returned. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structController_ab7b6b0bc77a4663f831fb178a7809503}{open\+\_\+}}
+\item 
+bool \mbox{\hyperlink{structController_acae097f8b09be11cf90e7d9c06197c86}{sticky\+\_\+buttons\+\_\+}}
+\item 
+bool \mbox{\hyperlink{structController_aa04fed8e92f18ed3a0e300205a17da72}{default\+\_\+trig\+\_\+val\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{structController_af77e52ad5ee2a4845708ee0078ff57aa}{joy\+\_\+dev\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{structController_a149527fe9a7812f70a2b333f7d3dda9b}{joy\+\_\+dev\+\_\+name\+\_\+}}
+\item 
+double \mbox{\hyperlink{structController_aa6c693873757fb991274c5abf2ebac15}{deadzone\+\_\+}}
+\item 
+double \mbox{\hyperlink{structController_a358e2ef57f61decb162889510e34f2ed}{autorepeat\+\_\+rate\+\_\+}}
+\item 
+double \mbox{\hyperlink{structController_a4f675391f5742ab81426d704ce3e033f}{coalesce\+\_\+interval\+\_\+}}
+\item 
+int \mbox{\hyperlink{structController_a05cc7d634a0eb444cbe3b0dc2aa3cdce}{event\+\_\+count\+\_\+}}
+\item 
+int \mbox{\hyperlink{structController_af975a10298f007d51d3dfcca85c252de}{pub\+\_\+count\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ sensor\+\_\+msgs\+::msg\+::\+Joy $>$\+::\+Shared\+Ptr \mbox{\hyperlink{structController_a4eafefa76ef07cf463037b8b8209a9a4}{pub\+\_\+}}
+\item 
+double \mbox{\hyperlink{structController_a06a56596f8231bdaae280466b01b4f83}{last\+Diag\+Time\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Opens, reads from and publishes joystick events. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structController_a95c56822d667e94b031451729ce069a9}\label{structController_a95c56822d667e94b031451729ce069a9}} 
+\index{Controller@{Controller}!Controller@{Controller}}
+\index{Controller@{Controller}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{Controller()}{Controller()}}
+{\footnotesize\ttfamily Controller\+::\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structController_acfc3737a49027159c6f7cbbef861b212}\label{structController_acfc3737a49027159c6f7cbbef861b212}} 
+\index{Controller@{Controller}!get\_dev\_by\_joy\_name@{get\_dev\_by\_joy\_name}}
+\index{get\_dev\_by\_joy\_name@{get\_dev\_by\_joy\_name}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{get\_dev\_by\_joy\_name()}{get\_dev\_by\_joy\_name()}}
+{\footnotesize\ttfamily std\+::string Controller\+::get\+\_\+dev\+\_\+by\+\_\+joy\+\_\+name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{joy\+\_\+name,  }\item[{rclcpp\+::\+Logger}]{logger }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Returns the device path of the first joystick that matches joy\+\_\+name. If no match is found, an empty string is returned. 
+
+\mbox{\Hypertarget{structController_af947edd39192c4bf792137836069756a}\label{structController_af947edd39192c4bf792137836069756a}} 
+\index{Controller@{Controller}!main@{main}}
+\index{main@{main}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int Controller\+::main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Opens joystick port, reads from port and publishes while node is active. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structController_a358e2ef57f61decb162889510e34f2ed}\label{structController_a358e2ef57f61decb162889510e34f2ed}} 
+\index{Controller@{Controller}!autorepeat\_rate\_@{autorepeat\_rate\_}}
+\index{autorepeat\_rate\_@{autorepeat\_rate\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{autorepeat\_rate\_}{autorepeat\_rate\_}}
+{\footnotesize\ttfamily double Controller\+::autorepeat\+\_\+rate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a21b2cc61fc8759e3612edf6cb7659844}\label{structController_a21b2cc61fc8759e3612edf6cb7659844}} 
+\index{Controller@{Controller}!blue\_button\_@{blue\_button\_}}
+\index{blue\_button\_@{blue\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{blue\_button\_}{blue\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::blue\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a4f675391f5742ab81426d704ce3e033f}\label{structController_a4f675391f5742ab81426d704ce3e033f}} 
+\index{Controller@{Controller}!coalesce\_interval\_@{coalesce\_interval\_}}
+\index{coalesce\_interval\_@{coalesce\_interval\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{coalesce\_interval\_}{coalesce\_interval\_}}
+{\footnotesize\ttfamily double Controller\+::coalesce\+\_\+interval\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_aa6c693873757fb991274c5abf2ebac15}\label{structController_aa6c693873757fb991274c5abf2ebac15}} 
+\index{Controller@{Controller}!deadzone\_@{deadzone\_}}
+\index{deadzone\_@{deadzone\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{deadzone\_}{deadzone\_}}
+{\footnotesize\ttfamily double Controller\+::deadzone\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_aa04fed8e92f18ed3a0e300205a17da72}\label{structController_aa04fed8e92f18ed3a0e300205a17da72}} 
+\index{Controller@{Controller}!default\_trig\_val\_@{default\_trig\_val\_}}
+\index{default\_trig\_val\_@{default\_trig\_val\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{default\_trig\_val\_}{default\_trig\_val\_}}
+{\footnotesize\ttfamily bool Controller\+::default\+\_\+trig\+\_\+val\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a05cc7d634a0eb444cbe3b0dc2aa3cdce}\label{structController_a05cc7d634a0eb444cbe3b0dc2aa3cdce}} 
+\index{Controller@{Controller}!event\_count\_@{event\_count\_}}
+\index{event\_count\_@{event\_count\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{event\_count\_}{event\_count\_}}
+{\footnotesize\ttfamily int Controller\+::event\+\_\+count\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_af4090cca658badffa788cc347c0d8976}\label{structController_af4090cca658badffa788cc347c0d8976}} 
+\index{Controller@{Controller}!green\_button\_@{green\_button\_}}
+\index{green\_button\_@{green\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{green\_button\_}{green\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::green\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_af77e52ad5ee2a4845708ee0078ff57aa}\label{structController_af77e52ad5ee2a4845708ee0078ff57aa}} 
+\index{Controller@{Controller}!joy\_dev\_@{joy\_dev\_}}
+\index{joy\_dev\_@{joy\_dev\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{joy\_dev\_}{joy\_dev\_}}
+{\footnotesize\ttfamily std\+::string Controller\+::joy\+\_\+dev\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a149527fe9a7812f70a2b333f7d3dda9b}\label{structController_a149527fe9a7812f70a2b333f7d3dda9b}} 
+\index{Controller@{Controller}!joy\_dev\_name\_@{joy\_dev\_name\_}}
+\index{joy\_dev\_name\_@{joy\_dev\_name\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{joy\_dev\_name\_}{joy\_dev\_name\_}}
+{\footnotesize\ttfamily std\+::string Controller\+::joy\+\_\+dev\+\_\+name\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a06a56596f8231bdaae280466b01b4f83}\label{structController_a06a56596f8231bdaae280466b01b4f83}} 
+\index{Controller@{Controller}!lastDiagTime\_@{lastDiagTime\_}}
+\index{lastDiagTime\_@{lastDiagTime\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{lastDiagTime\_}{lastDiagTime\_}}
+{\footnotesize\ttfamily double Controller\+::last\+Diag\+Time\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a45cde5bec749e075351dcb620ee2508a}\label{structController_a45cde5bec749e075351dcb620ee2508a}} 
+\index{Controller@{Controller}!left\_d\_button\_@{left\_d\_button\_}}
+\index{left\_d\_button\_@{left\_d\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_d\_button\_}{left\_d\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+d\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_ab8b2eb8470d7ef53fa8d46876d229b8b}\label{structController_ab8b2eb8470d7ef53fa8d46876d229b8b}} 
+\index{Controller@{Controller}!left\_l\_button\_@{left\_l\_button\_}}
+\index{left\_l\_button\_@{left\_l\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_l\_button\_}{left\_l\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+l\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_afc07641196aa5459f44ccc52e896df2e}\label{structController_afc07641196aa5459f44ccc52e896df2e}} 
+\index{Controller@{Controller}!left\_r\_button\_@{left\_r\_button\_}}
+\index{left\_r\_button\_@{left\_r\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_r\_button\_}{left\_r\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+r\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a08305d57bdb81da6a151bef723ae8a3e}\label{structController_a08305d57bdb81da6a151bef723ae8a3e}} 
+\index{Controller@{Controller}!left\_rb\_button\_@{left\_rb\_button\_}}
+\index{left\_rb\_button\_@{left\_rb\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_rb\_button\_}{left\_rb\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+rb\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_ac70c2cb907d0a24b1773269558d2cf5a}\label{structController_ac70c2cb907d0a24b1773269558d2cf5a}} 
+\index{Controller@{Controller}!left\_start\_button\_@{left\_start\_button\_}}
+\index{left\_start\_button\_@{left\_start\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_start\_button\_}{left\_start\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+start\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a2ef1067504a96ac17b88fa903e60e27d}\label{structController_a2ef1067504a96ac17b88fa903e60e27d}} 
+\index{Controller@{Controller}!left\_u\_button\_@{left\_u\_button\_}}
+\index{left\_u\_button\_@{left\_u\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_u\_button\_}{left\_u\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::left\+\_\+u\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_af8e29e6b38ab7740566e703237c79654}\label{structController_af8e29e6b38ab7740566e703237c79654}} 
+\index{Controller@{Controller}!left\_x\_axis\_@{left\_x\_axis\_}}
+\index{left\_x\_axis\_@{left\_x\_axis\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_x\_axis\_}{left\_x\_axis\_}}
+{\footnotesize\ttfamily float Controller\+::left\+\_\+x\+\_\+axis\+\_\+}
+
+\mbox{\Hypertarget{structController_a23d43716969133c3a84aefc223235bba}\label{structController_a23d43716969133c3a84aefc223235bba}} 
+\index{Controller@{Controller}!left\_y\_axis\_@{left\_y\_axis\_}}
+\index{left\_y\_axis\_@{left\_y\_axis\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{left\_y\_axis\_}{left\_y\_axis\_}}
+{\footnotesize\ttfamily float Controller\+::left\+\_\+y\+\_\+axis\+\_\+}
+
+\mbox{\Hypertarget{structController_ab7b6b0bc77a4663f831fb178a7809503}\label{structController_ab7b6b0bc77a4663f831fb178a7809503}} 
+\index{Controller@{Controller}!open\_@{open\_}}
+\index{open\_@{open\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{open\_}{open\_}}
+{\footnotesize\ttfamily bool Controller\+::open\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a4eafefa76ef07cf463037b8b8209a9a4}\label{structController_a4eafefa76ef07cf463037b8b8209a9a4}} 
+\index{Controller@{Controller}!pub\_@{pub\_}}
+\index{pub\_@{pub\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{pub\_}{pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$sensor\+\_\+msgs\+::msg\+::\+Joy$>$\+::\+Shared\+Ptr Controller\+::pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_af975a10298f007d51d3dfcca85c252de}\label{structController_af975a10298f007d51d3dfcca85c252de}} 
+\index{Controller@{Controller}!pub\_count\_@{pub\_count\_}}
+\index{pub\_count\_@{pub\_count\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{pub\_count\_}{pub\_count\_}}
+{\footnotesize\ttfamily int Controller\+::pub\+\_\+count\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_aedf7f3ad3fc4cf9587eb814939f2fe1e}\label{structController_aedf7f3ad3fc4cf9587eb814939f2fe1e}} 
+\index{Controller@{Controller}!red\_button\_@{red\_button\_}}
+\index{red\_button\_@{red\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{red\_button\_}{red\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::red\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a156db40170025123bf4a71c89e872dd0}\label{structController_a156db40170025123bf4a71c89e872dd0}} 
+\index{Controller@{Controller}!right\_rb\_button\_@{right\_rb\_button\_}}
+\index{right\_rb\_button\_@{right\_rb\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{right\_rb\_button\_}{right\_rb\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::right\+\_\+rb\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a9695b16477597d0b1009839cb97856d7}\label{structController_a9695b16477597d0b1009839cb97856d7}} 
+\index{Controller@{Controller}!right\_start\_button\_@{right\_start\_button\_}}
+\index{right\_start\_button\_@{right\_start\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{right\_start\_button\_}{right\_start\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::right\+\_\+start\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_a4491f31970440809252f792325f3332c}\label{structController_a4491f31970440809252f792325f3332c}} 
+\index{Controller@{Controller}!right\_x\_axis\_@{right\_x\_axis\_}}
+\index{right\_x\_axis\_@{right\_x\_axis\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{right\_x\_axis\_}{right\_x\_axis\_}}
+{\footnotesize\ttfamily float Controller\+::right\+\_\+x\+\_\+axis\+\_\+}
+
+\mbox{\Hypertarget{structController_a48605a75d1e18d653d428aa12f267cf7}\label{structController_a48605a75d1e18d653d428aa12f267cf7}} 
+\index{Controller@{Controller}!right\_y\_axis\_@{right\_y\_axis\_}}
+\index{right\_y\_axis\_@{right\_y\_axis\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{right\_y\_axis\_}{right\_y\_axis\_}}
+{\footnotesize\ttfamily float Controller\+::right\+\_\+y\+\_\+axis\+\_\+}
+
+\mbox{\Hypertarget{structController_acae097f8b09be11cf90e7d9c06197c86}\label{structController_acae097f8b09be11cf90e7d9c06197c86}} 
+\index{Controller@{Controller}!sticky\_buttons\_@{sticky\_buttons\_}}
+\index{sticky\_buttons\_@{sticky\_buttons\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{sticky\_buttons\_}{sticky\_buttons\_}}
+{\footnotesize\ttfamily bool Controller\+::sticky\+\_\+buttons\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{structController_a2295a00cf96f532ab8d11777e12ad16c}\label{structController_a2295a00cf96f532ab8d11777e12ad16c}} 
+\index{Controller@{Controller}!xbox\_button\_@{xbox\_button\_}}
+\index{xbox\_button\_@{xbox\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{xbox\_button\_}{xbox\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::xbox\+\_\+button\+\_\+}
+
+\mbox{\Hypertarget{structController_ae17bf9a44fae3b631880fb01f790dda8}\label{structController_ae17bf9a44fae3b631880fb01f790dda8}} 
+\index{Controller@{Controller}!yellow\_button\_@{yellow\_button\_}}
+\index{yellow\_button\_@{yellow\_button\_}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{yellow\_button\_}{yellow\_button\_}}
+{\footnotesize\ttfamily uint8\+\_\+t Controller\+::yellow\+\_\+button\+\_\+}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/ecat\+\_\+pkg/include/ecat\+\_\+pkg/\mbox{\hyperlink{ecat__globals_8hpp}{ecat\+\_\+globals.\+hpp}}\item 
+src/controller/src/\mbox{\hyperlink{joy__node__linux_8cpp}{joy\+\_\+node\+\_\+linux.\+cpp}}\end{DoxyCompactItemize}

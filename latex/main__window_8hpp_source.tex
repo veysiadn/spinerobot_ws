@@ -1,0 +1,101 @@
+\hypertarget{main__window_8hpp_source}{}\doxysection{main\+\_\+window.\+hpp}
+\label{main__window_8hpp_source}\index{src/gui\_pkg/include/gui\_pkg/main\_window.hpp@{src/gui\_pkg/include/gui\_pkg/main\_window.hpp}}
+\mbox{\hyperlink{main__window_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *****************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/*****************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ * \(\backslash\)file  main\_window.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ * \(\backslash\)brief MainWindow implementation to show slave status and controller commands}}
+\DoxyCodeLine{34 \textcolor{comment}{ *        and endoscope camera view in GUI in ROS2.}}
+\DoxyCodeLine{35 \textcolor{comment}{ *        All GUI functionality and updating GUI handled by this MainWindow class.}}
+\DoxyCodeLine{36 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{comment}{//CPP}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{comment}{//ROS2}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include "{}rclcpp/rclcpp.hpp"{}}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{comment}{//GUI\_Node Headers}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{gui__node_8hpp}{gui\_node.hpp}}"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{video__capture_8hpp}{video\_capture.hpp}}"{}}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{comment}{// QT}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#include "{}ui\_main\_window.h"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#include <QMainWindow>}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#include <QApplication>}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#include <QStandardItemModel>}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#include <QTableView>}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#include <QHeaderView>}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#include <QString>}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#include <QTextStream>}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#include <QTimer>}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespaceGUI}{GUI}};}
+\DoxyCodeLine{63 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceUi}{Ui}} \{}
+\DoxyCodeLine{64 \textcolor{keyword}{class }\mbox{\hyperlink{classMainWindow}{MainWindow}};}
+\DoxyCodeLine{65 \}}
+\DoxyCodeLine{66   \textcolor{keyword}{class }\mbox{\hyperlink{classMainWindow}{MainWindow}} : \textcolor{keyword}{public} QMainWindow \{}
+\DoxyCodeLine{67   Q\_OBJECT}
+\DoxyCodeLine{68   \textcolor{keyword}{public}:}
+\DoxyCodeLine{69     \mbox{\hyperlink{classMainWindow_ae2ddc67ba27a37bd8566220c08dbefd2}{MainWindow}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char}** argv, QWidget *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{70     \mbox{\hyperlink{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}{\string~MainWindow}}();}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a83f2a616cb173f53c9d596f83b08bff0}{on\_button\_reset\_clicked}}();}
+\DoxyCodeLine{82     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a154d7ce1f55e8aa59a1a26923dade1bd}{UpdateGUI}}();}
+\DoxyCodeLine{86     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a3b3ad0a073a9622890c233c3056904e3}{setDisabledStyleSheet}}();}
+\DoxyCodeLine{90     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_aac937ffafed6cbbe7968fb551c7cc901}{setEnabledStyleSheet}}();}
+\DoxyCodeLine{94     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a547993c6322f86a04e81cc815cdc829a}{on\_button\_emergency\_clicked}}();}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{keyword}{private}:}
+\DoxyCodeLine{101     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a7e5ea9c0a6e400ec59e1467bf128d2d0}{rosSpinThread}}();}
+\DoxyCodeLine{105     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a81106fa4074753c9f3f44433925dfbb3}{ShowAllMotorStatus}}();}
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_ac6b58c3f8db6fb9fc2d4626413587d68}{ShowComStatus}}();}
+\DoxyCodeLine{113     \textcolor{keywordtype}{void} \mbox{\hyperlink{classMainWindow_a26b90b4b64b9504e2a7323e736626642}{ShowEmergencyStatus}}();}
+\DoxyCodeLine{119     QString \mbox{\hyperlink{classMainWindow_a70637fbde6b63b5a29f69f7e915054e2}{GetReadableStatusWord}}(\textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     Ui::MainWindow *\mbox{\hyperlink{classMainWindow_a35466a70ed47252a0191168126a352a5}{ui}};}
+\DoxyCodeLine{122     \textcolor{keywordtype}{int} \mbox{\hyperlink{classMainWindow_a641f8c24c72931a0e774025e33b71987}{argc\_}};}
+\DoxyCodeLine{123     \textcolor{keywordtype}{char}** \mbox{\hyperlink{classMainWindow_aeaf74f00fe0680c71919c4904ac69bad}{argv\_}};}
+\DoxyCodeLine{128     QTimer \mbox{\hyperlink{classMainWindow_abd16d3dc5ac42f7ee311732452568d01}{my\_timer}};}
+\DoxyCodeLine{129     \textcolor{comment}{// To get data from gui\_node\_ .}}
+\DoxyCodeLine{130     std::shared\_ptr<GuiNode> \mbox{\hyperlink{classMainWindow_a4d0be713b3887132ae20938817a6116f}{gui\_node\_}};}
+\DoxyCodeLine{131     \mbox{\hyperlink{classVideoCapture}{VideoCapture}}* \mbox{\hyperlink{classMainWindow_a70848fd0e676cb8bfa6f2a70d2ef75a5}{opencv\_video\_cap}};}
+\DoxyCodeLine{132     \textcolor{comment}{// Thread for ROS2 spinning.}}
+\DoxyCodeLine{133     std::thread \mbox{\hyperlink{classMainWindow_a3db7bc81842485486803124fdf8c3d06}{ros\_spin\_thread\_}};}
+\DoxyCodeLine{134   \};}
+
+\end{DoxyCode}

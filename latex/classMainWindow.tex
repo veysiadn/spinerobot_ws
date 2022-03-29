@@ -1,0 +1,257 @@
+\hypertarget{classMainWindow}{}\doxysection{Main\+Window Class Reference}
+\label{classMainWindow}\index{MainWindow@{MainWindow}}
+
+
+{\ttfamily \#include $<$main\+\_\+window.\+hpp$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classMainWindow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{classMainWindow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMainWindow_ae2ddc67ba27a37bd8566220c08dbefd2}{Main\+Window}} (int argc, char $\ast$$\ast$argv, QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMainWindow_a83f2a616cb173f53c9d596f83b08bff0}{on\+\_\+button\+\_\+reset\+\_\+clicked}} ()
+\begin{DoxyCompactList}\small\item\em Resets all received values to 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a154d7ce1f55e8aa59a1a26923dade1bd}{Update\+GUI}} ()
+\begin{DoxyCompactList}\small\item\em Updates \mbox{\hyperlink{namespaceGUI}{GUI}} based on timer callback in this case 25ms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a3b3ad0a073a9622890c233c3056904e3}{set\+Disabled\+Style\+Sheet}} ()
+\begin{DoxyCompactList}\small\item\em Sets \mbox{\hyperlink{namespaceGUI}{GUI}} appearance for disabled emergency button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_aac937ffafed6cbbe7968fb551c7cc901}{set\+Enabled\+Style\+Sheet}} ()
+\begin{DoxyCompactList}\small\item\em Sets \mbox{\hyperlink{namespaceGUI}{GUI}} appearance for enabled emergency button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a547993c6322f86a04e81cc815cdc829a}{on\+\_\+button\+\_\+emergency\+\_\+clicked}} ()
+\begin{DoxyCompactList}\small\item\em Stops motor movement while maintining Ether\+CAT communication in case of emergency. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMainWindow_a7e5ea9c0a6e400ec59e1467bf128d2d0}{ros\+Spin\+Thread}} ()
+\begin{DoxyCompactList}\small\item\em To use ROS2 spinining functionality in our specific thread. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a81106fa4074753c9f3f44433925dfbb3}{Show\+All\+Motor\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Shows motor status in \mbox{\hyperlink{namespaceGUI}{GUI}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_ac6b58c3f8db6fb9fc2d4626413587d68}{Show\+Com\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Shows communication status in \mbox{\hyperlink{namespaceGUI}{GUI}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a26b90b4b64b9504e2a7323e736626642}{Show\+Emergency\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Shows emergency button and switch status in \mbox{\hyperlink{namespaceGUI}{GUI}}. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classMainWindow_a70637fbde6b63b5a29f69f7e915054e2}{Get\+Readable\+Status\+Word}} (int index)
+\begin{DoxyCompactList}\small\item\em Reads status word and turns it to readable string format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Ui\+::\+Main\+Window $\ast$ \mbox{\hyperlink{classMainWindow_a35466a70ed47252a0191168126a352a5}{ui}}
+\item 
+int \mbox{\hyperlink{classMainWindow_a641f8c24c72931a0e774025e33b71987}{argc\+\_\+}}
+\item 
+char $\ast$$\ast$ \mbox{\hyperlink{classMainWindow_aeaf74f00fe0680c71919c4904ac69bad}{argv\+\_\+}}
+\item 
+QTimer \mbox{\hyperlink{classMainWindow_abd16d3dc5ac42f7ee311732452568d01}{my\+\_\+timer}}
+\begin{DoxyCompactList}\small\item\em timer to update \mbox{\hyperlink{namespaceGUI}{GUI}} in specific intervals.\+In this case 25ms. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classGUI_1_1GuiNode}{Gui\+Node}} $>$ \mbox{\hyperlink{classMainWindow_a4d0be713b3887132ae20938817a6116f}{gui\+\_\+node\+\_\+}}
+\item 
+\mbox{\hyperlink{classVideoCapture}{Video\+Capture}} $\ast$ \mbox{\hyperlink{classMainWindow_a70848fd0e676cb8bfa6f2a70d2ef75a5}{opencv\+\_\+video\+\_\+cap}}
+\item 
+std\+::thread \mbox{\hyperlink{classMainWindow_a3db7bc81842485486803124fdf8c3d06}{ros\+\_\+spin\+\_\+thread\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMainWindow_ae2ddc67ba27a37bd8566220c08dbefd2}\label{classMainWindow_ae2ddc67ba27a37bd8566220c08dbefd2}} 
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}\label{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}} 
+\index{MainWindow@{MainWindow}!````~MainWindow@{$\sim$MainWindow}}
+\index{````~MainWindow@{$\sim$MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{$\sim$MainWindow()}{~MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::$\sim$\+Main\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMainWindow_a70637fbde6b63b5a29f69f7e915054e2}\label{classMainWindow_a70637fbde6b63b5a29f69f7e915054e2}} 
+\index{MainWindow@{MainWindow}!GetReadableStatusWord@{GetReadableStatusWord}}
+\index{GetReadableStatusWord@{GetReadableStatusWord}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{GetReadableStatusWord()}{GetReadableStatusWord()}}
+{\footnotesize\ttfamily QString Main\+Window\+::\+Get\+Readable\+Status\+Word (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reads status word and turns it to readable string format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & slave index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+QString readable status word format. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMainWindow_a547993c6322f86a04e81cc815cdc829a}\label{classMainWindow_a547993c6322f86a04e81cc815cdc829a}} 
+\index{MainWindow@{MainWindow}!on\_button\_emergency\_clicked@{on\_button\_emergency\_clicked}}
+\index{on\_button\_emergency\_clicked@{on\_button\_emergency\_clicked}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{on\_button\_emergency\_clicked}{on\_button\_emergency\_clicked}}
+{\footnotesize\ttfamily void Main\+Window\+::on\+\_\+button\+\_\+emergency\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Stops motor movement while maintining Ether\+CAT communication in case of emergency. 
+
+\mbox{\Hypertarget{classMainWindow_a83f2a616cb173f53c9d596f83b08bff0}\label{classMainWindow_a83f2a616cb173f53c9d596f83b08bff0}} 
+\index{MainWindow@{MainWindow}!on\_button\_reset\_clicked@{on\_button\_reset\_clicked}}
+\index{on\_button\_reset\_clicked@{on\_button\_reset\_clicked}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{on\_button\_reset\_clicked}{on\_button\_reset\_clicked}}
+{\footnotesize\ttfamily void Main\+Window\+::on\+\_\+button\+\_\+reset\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Resets all received values to 0. 
+
+\mbox{\Hypertarget{classMainWindow_a7e5ea9c0a6e400ec59e1467bf128d2d0}\label{classMainWindow_a7e5ea9c0a6e400ec59e1467bf128d2d0}} 
+\index{MainWindow@{MainWindow}!rosSpinThread@{rosSpinThread}}
+\index{rosSpinThread@{rosSpinThread}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{rosSpinThread()}{rosSpinThread()}}
+{\footnotesize\ttfamily void Main\+Window\+::ros\+Spin\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+To use ROS2 spinining functionality in our specific thread. 
+
+\mbox{\Hypertarget{classMainWindow_a3b3ad0a073a9622890c233c3056904e3}\label{classMainWindow_a3b3ad0a073a9622890c233c3056904e3}} 
+\index{MainWindow@{MainWindow}!setDisabledStyleSheet@{setDisabledStyleSheet}}
+\index{setDisabledStyleSheet@{setDisabledStyleSheet}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setDisabledStyleSheet}{setDisabledStyleSheet}}
+{\footnotesize\ttfamily void Main\+Window\+::set\+Disabled\+Style\+Sheet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Sets \mbox{\hyperlink{namespaceGUI}{GUI}} appearance for disabled emergency button. 
+
+\mbox{\Hypertarget{classMainWindow_aac937ffafed6cbbe7968fb551c7cc901}\label{classMainWindow_aac937ffafed6cbbe7968fb551c7cc901}} 
+\index{MainWindow@{MainWindow}!setEnabledStyleSheet@{setEnabledStyleSheet}}
+\index{setEnabledStyleSheet@{setEnabledStyleSheet}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setEnabledStyleSheet}{setEnabledStyleSheet}}
+{\footnotesize\ttfamily void Main\+Window\+::set\+Enabled\+Style\+Sheet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Sets \mbox{\hyperlink{namespaceGUI}{GUI}} appearance for enabled emergency button. 
+
+\mbox{\Hypertarget{classMainWindow_a81106fa4074753c9f3f44433925dfbb3}\label{classMainWindow_a81106fa4074753c9f3f44433925dfbb3}} 
+\index{MainWindow@{MainWindow}!ShowAllMotorStatus@{ShowAllMotorStatus}}
+\index{ShowAllMotorStatus@{ShowAllMotorStatus}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ShowAllMotorStatus()}{ShowAllMotorStatus()}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Show\+All\+Motor\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Shows motor status in \mbox{\hyperlink{namespaceGUI}{GUI}}. 
+
+\mbox{\Hypertarget{classMainWindow_ac6b58c3f8db6fb9fc2d4626413587d68}\label{classMainWindow_ac6b58c3f8db6fb9fc2d4626413587d68}} 
+\index{MainWindow@{MainWindow}!ShowComStatus@{ShowComStatus}}
+\index{ShowComStatus@{ShowComStatus}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ShowComStatus()}{ShowComStatus()}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Show\+Com\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Shows communication status in \mbox{\hyperlink{namespaceGUI}{GUI}}. 
+
+\mbox{\Hypertarget{classMainWindow_a26b90b4b64b9504e2a7323e736626642}\label{classMainWindow_a26b90b4b64b9504e2a7323e736626642}} 
+\index{MainWindow@{MainWindow}!ShowEmergencyStatus@{ShowEmergencyStatus}}
+\index{ShowEmergencyStatus@{ShowEmergencyStatus}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ShowEmergencyStatus()}{ShowEmergencyStatus()}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Show\+Emergency\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Shows emergency button and switch status in \mbox{\hyperlink{namespaceGUI}{GUI}}. 
+
+\mbox{\Hypertarget{classMainWindow_a154d7ce1f55e8aa59a1a26923dade1bd}\label{classMainWindow_a154d7ce1f55e8aa59a1a26923dade1bd}} 
+\index{MainWindow@{MainWindow}!UpdateGUI@{UpdateGUI}}
+\index{UpdateGUI@{UpdateGUI}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{UpdateGUI}{UpdateGUI}}
+{\footnotesize\ttfamily void Main\+Window\+::\+Update\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+Updates \mbox{\hyperlink{namespaceGUI}{GUI}} based on timer callback in this case 25ms. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classMainWindow_a641f8c24c72931a0e774025e33b71987}\label{classMainWindow_a641f8c24c72931a0e774025e33b71987}} 
+\index{MainWindow@{MainWindow}!argc\_@{argc\_}}
+\index{argc\_@{argc\_}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{argc\_}{argc\_}}
+{\footnotesize\ttfamily int Main\+Window\+::argc\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMainWindow_aeaf74f00fe0680c71919c4904ac69bad}\label{classMainWindow_aeaf74f00fe0680c71919c4904ac69bad}} 
+\index{MainWindow@{MainWindow}!argv\_@{argv\_}}
+\index{argv\_@{argv\_}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{argv\_}{argv\_}}
+{\footnotesize\ttfamily char$\ast$$\ast$ Main\+Window\+::argv\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMainWindow_a4d0be713b3887132ae20938817a6116f}\label{classMainWindow_a4d0be713b3887132ae20938817a6116f}} 
+\index{MainWindow@{MainWindow}!gui\_node\_@{gui\_node\_}}
+\index{gui\_node\_@{gui\_node\_}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{gui\_node\_}{gui\_node\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classGUI_1_1GuiNode}{Gui\+Node}}$>$ Main\+Window\+::gui\+\_\+node\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMainWindow_abd16d3dc5ac42f7ee311732452568d01}\label{classMainWindow_abd16d3dc5ac42f7ee311732452568d01}} 
+\index{MainWindow@{MainWindow}!my\_timer@{my\_timer}}
+\index{my\_timer@{my\_timer}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{my\_timer}{my\_timer}}
+{\footnotesize\ttfamily QTimer Main\+Window\+::my\+\_\+timer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+timer to update \mbox{\hyperlink{namespaceGUI}{GUI}} in specific intervals.\+In this case 25ms. 
+
+\mbox{\Hypertarget{classMainWindow_a70848fd0e676cb8bfa6f2a70d2ef75a5}\label{classMainWindow_a70848fd0e676cb8bfa6f2a70d2ef75a5}} 
+\index{MainWindow@{MainWindow}!opencv\_video\_cap@{opencv\_video\_cap}}
+\index{opencv\_video\_cap@{opencv\_video\_cap}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{opencv\_video\_cap}{opencv\_video\_cap}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVideoCapture}{Video\+Capture}}$\ast$ Main\+Window\+::opencv\+\_\+video\+\_\+cap\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMainWindow_a3db7bc81842485486803124fdf8c3d06}\label{classMainWindow_a3db7bc81842485486803124fdf8c3d06}} 
+\index{MainWindow@{MainWindow}!ros\_spin\_thread\_@{ros\_spin\_thread\_}}
+\index{ros\_spin\_thread\_@{ros\_spin\_thread\_}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ros\_spin\_thread\_}{ros\_spin\_thread\_}}
+{\footnotesize\ttfamily std\+::thread Main\+Window\+::ros\+\_\+spin\+\_\+thread\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMainWindow_a35466a70ed47252a0191168126a352a5}\label{classMainWindow_a35466a70ed47252a0191168126a352a5}} 
+\index{MainWindow@{MainWindow}!ui@{ui}}
+\index{ui@{ui}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily Ui\+::\+Main\+Window$\ast$ Main\+Window\+::ui\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui\+\_\+pkg/include/gui\+\_\+pkg/\mbox{\hyperlink{main__window_8hpp}{main\+\_\+window.\+hpp}}\item 
+src/gui\+\_\+pkg/src/\mbox{\hyperlink{main__window_8cpp}{main\+\_\+window.\+cpp}}\end{DoxyCompactItemize}

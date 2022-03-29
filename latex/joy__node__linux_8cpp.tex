@@ -1,0 +1,82 @@
+\hypertarget{joy__node__linux_8cpp}{}\doxysection{src/controller/src/joy\+\_\+node\+\_\+linux.cpp File Reference}
+\label{joy__node__linux_8cpp}\index{src/controller/src/joy\_node\_linux.cpp@{src/controller/src/joy\_node\_linux.cpp}}
+
+
+This file contains joystick data publisher as a ROS2 node. Original source code for this node \+: \href{https://github.com/ros2/joystick_drivers/releases/tag/2.3.2}{\texttt{ https\+://github.\+com/ros2/joystick\+\_\+drivers/releases/tag/2.\+3.\+2}} This code has been downloaded from mentioned address and modified for specific purposes.  
+
+
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$linux/joystick.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$rclcpp/clock.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/rclcpp.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/time.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/time\+\_\+source.\+hpp$>$}\newline
+{\ttfamily \#include $<$rcutils/logging\+\_\+macros.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/msg/joy.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/strategies/message\+\_\+pool\+\_\+memory\+\_\+strategy.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/strategies/allocator\+\_\+memory\+\_\+strategy.\+hpp$>$}\newline
+{\ttfamily \#include $<$rttest/rttest.\+h$>$}\newline
+{\ttfamily \#include $<$tlsf\+\_\+cpp/tlsf.\+hpp$>$}\newline
+Include dependency graph for joy\+\_\+node\+\_\+linux.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{joy__node__linux_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{structController}{Controller}}
+\begin{DoxyCompactList}\small\item\em Opens, reads from and publishes joystick events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T  = void$>$ }\\using \mbox{\hyperlink{joy__node__linux_8cpp_ad8e9de5b070f6d2a84f39a36e0dcff9b}{TLSFAllocator}} = tlsf\+\_\+heap\+\_\+allocator$<$ T $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{joy__node__linux_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains joystick data publisher as a ROS2 node. Original source code for this node \+: \href{https://github.com/ros2/joystick_drivers/releases/tag/2.3.2}{\texttt{ https\+://github.\+com/ros2/joystick\+\_\+drivers/releases/tag/2.\+3.\+2}} This code has been downloaded from mentioned address and modified for specific purposes. 
+
+\begin{DoxyAuthor}{Author}
+Veysi ADIN (\href{mailto:veysi.adin@kist.re.kr}{\texttt{ veysi.\+adin@kist.\+re.\+kr}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2021-\/04-\/20
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{joy__node__linux_8cpp_ad8e9de5b070f6d2a84f39a36e0dcff9b}\label{joy__node__linux_8cpp_ad8e9de5b070f6d2a84f39a36e0dcff9b}} 
+\index{joy\_node\_linux.cpp@{joy\_node\_linux.cpp}!TLSFAllocator@{TLSFAllocator}}
+\index{TLSFAllocator@{TLSFAllocator}!joy\_node\_linux.cpp@{joy\_node\_linux.cpp}}
+\doxysubsubsection{\texorpdfstring{TLSFAllocator}{TLSFAllocator}}
+{\footnotesize\ttfamily template$<$typename T  = void$>$ \\
+using \mbox{\hyperlink{ecat__lifecycle_8hpp_ad8e9de5b070f6d2a84f39a36e0dcff9b}{TLSFAllocator}} =  tlsf\+\_\+heap\+\_\+allocator$<$T$>$}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{joy__node__linux_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{joy__node__linux_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{joy\_node\_linux.cpp@{joy\_node\_linux.cpp}!main@{main}}
+\index{main@{main}!joy\_node\_linux.cpp@{joy\_node\_linux.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+

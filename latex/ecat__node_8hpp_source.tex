@@ -1,0 +1,102 @@
+\hypertarget{ecat__node_8hpp_source}{}\doxysection{ecat\+\_\+node.\+hpp}
+\label{ecat__node_8hpp_source}\index{src/ecat\_pkg/include/ecat\_pkg/ecat\_node.hpp@{src/ecat\_pkg/include/ecat\_pkg/ecat\_node.hpp}}
+\mbox{\hyperlink{ecat__node_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *****************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ *  \(\backslash\)file   ecat\_node.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ *  \(\backslash\)brief  IgH EtherCAT library functionality wrapper class header file.}}
+\DoxyCodeLine{34 \textcolor{comment}{ * }}
+\DoxyCodeLine{35 \textcolor{comment}{ *   This header file contains blueprint of EthercatNode class which will be }}
+\DoxyCodeLine{36 \textcolor{comment}{ *   responsible for encapsulating IgH EtherCAT library's functionality.}}
+\DoxyCodeLine{37 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{39 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{ecat__globals_8hpp}{ecat\_globals.hpp}}"{}}}
+\DoxyCodeLine{41 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classEthercatSlave}{EthercatSlave}} ;}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{ecat__slave_8hpp}{ecat\_slave.hpp}}"{}}}
+\DoxyCodeLine{45 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <rclcpp/rclcpp.hpp>}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include "{}sensor\_msgs/msg/joy.hpp"{}}}
+\DoxyCodeLine{49 \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{50 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceEthercatCommunication}{EthercatCommunication}}}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52 \textcolor{keyword}{class }\mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode}{EthercatNode}}}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     \textcolor{keyword}{public}:}
+\DoxyCodeLine{55         \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a020b9007aa6e51112c09f3342dc5bc8d}{EthercatNode}}();}
+\DoxyCodeLine{56         \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a0535214bb0696de6537beafdc39c6207}{\string~EthercatNode}}();}
+\DoxyCodeLine{57     \mbox{\hyperlink{classEthercatSlave}{EthercatSlave}} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_adca54bebbcfe48cb57edca8de6c3d084}{slaves\_}}[\mbox{\hyperlink{ecat__globals_8hpp_a5d918ecbea3b854bbfe74765c9357be3}{NUM\_OF\_SLAVES}}];}
+\DoxyCodeLine{63     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a44858407cdf70da448d663df9af054f1}{ConfigureMaster}}();}
+\DoxyCodeLine{70     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_addf743b2ca64c1692e8d12f0045cde1d}{DefineDefaultSlaves}}();}
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ad9c38c7d21f5c644634e647c7a9f42ab}{SetCustomSlave}}(\mbox{\hyperlink{classEthercatSlave}{EthercatSlave}} c\_slave, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{82     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a473246ebddb4b4d9c4e72434a563f0e2}{ConfigureSlaves}}();}
+\DoxyCodeLine{90     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a7b60a300f70876769da887921932301f}{SetProfilePositionParameters}}(\mbox{\hyperlink{structProfilePosParam}{ProfilePosParam}}\& P , \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{97     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a67e154560b31cebc27431efc46d56b83}{SetProfilePositionParametersAll}}(\mbox{\hyperlink{structProfilePosParam}{ProfilePosParam}}\& P);}
+\DoxyCodeLine{105     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a1ce7e6a7f9f707ff6d8feb8b79078219}{SetProfileVelocityParameters}}(\mbox{\hyperlink{structProfileVelocityParam}{ProfileVelocityParam}}\& P,\textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{113     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ac0f1d24eb783d34c604f7a91ff5ba45c}{SetProfileVelocityParametersAll}}(\mbox{\hyperlink{structProfileVelocityParam}{ProfileVelocityParam}}\& P);}
+\DoxyCodeLine{121     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a3dd07ec5620f136505a3a41154557898}{SetCyclicSyncPositionModeParameters}}(\mbox{\hyperlink{structCSPositionModeParam}{CSPositionModeParam}}\& P, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{127     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_aa9d52ad13b5ecc696e6ab0441573cde4}{SetCyclicSyncPositionModeParametersAll}}(\mbox{\hyperlink{structCSPositionModeParam}{CSPositionModeParam}} \&P);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{136     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a6a89e6d94328c23f8b19167412932c30}{SetCyclicSyncVelocityModeParameters}}(\mbox{\hyperlink{structCSVelocityModeParam}{CSVelocityModeParam}}\& P, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{142     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_adad463c8f6c2c4e2fb61805cfa4d5d3e}{SetCyclicSyncVelocityModeParametersAll}}(\mbox{\hyperlink{structCSVelocityModeParam}{CSVelocityModeParam}} \&P);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{151     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a3cd4836ae50c1a998e412b98aecdce77}{SetCyclicSyncTorqueModeParameters}}(\mbox{\hyperlink{structCSTorqueModeParam}{CSTorqueModeParam}}\& P, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{158     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ab1e699e13c478bb3ef5f73a0ba029b21}{SetCyclicSyncTorqueModeParametersAll}}(\mbox{\hyperlink{structCSTorqueModeParam}{CSTorqueModeParam}} \&P);}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{167     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a2eefc79d0eda991d04050516890801c9}{MapDefaultPdos}}();}
+\DoxyCodeLine{175     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a659bf253ebf3a927ec6fb3519eb0bbfe}{MapCustomPdos}}(\mbox{\hyperlink{classEthercatSlave}{EthercatSlave}} c\_slave, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{180     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a57ca95ffa0562dc7c34705a0514d6ea2}{ConfigDcSyncDefault}}();}
+\DoxyCodeLine{190     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a5bb6c912a9fe73dc73a6cf216177e886}{ConfigDcSync}}(uint16\_t assign\_activate, \textcolor{keywordtype}{int} position);}
+\DoxyCodeLine{194     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a78c55e7bee137dcee3fb65d2954171fb}{CheckSlaveConfigurationState}}();}
+\DoxyCodeLine{201     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_af64a25729064c533ee955e0b461ddcca}{CheckMasterState}}();}
+\DoxyCodeLine{207     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_af76be6b843886442b2d4d7b94be9374f}{CheckMasterDomainState}}();}
+\DoxyCodeLine{214     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_aa0d2eae2b57c39c827a882699c705325}{ActivateMaster}}();}
+\DoxyCodeLine{220     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a5ced6bccaa5b3cf141a39b26782bdb2e}{RegisterDomain}}();}
+\DoxyCodeLine{228     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a373f1966b60a63d9f54db94c05326931}{WaitForOperationalMode}}();}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{235     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a4455e0ba8abeedb96055615eb5a37f68}{OpenEthercatMaster}}();}
+\DoxyCodeLine{241     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a284ff9ea43d86a07c696833a9ffc11fe}{GetNumberOfConnectedSlaves}}();}
+\DoxyCodeLine{246     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ab39e88b76a081092bb0627a05cc5815a}{GetAllSlaveInformation}}();}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{251     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_afa5b462e02be78bbf21e76732f1cc316}{DeactivateCommunication}}();}
+\DoxyCodeLine{255     \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ac3a61d761598ce347570b9b4e9d31cac}{ReleaseMaster}}();}
+\DoxyCodeLine{261     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_ace130837f0f23861d07f2d252960cac8}{ShutDownEthercatMaster}}();}
+\DoxyCodeLine{262     \textcolor{keyword}{private}:}
+\DoxyCodeLine{264     \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatCommunication_1_1EthercatNode_a3f8dd08c4b1cf9e455a60b8b5ae04cfb}{fd}};}
+\DoxyCodeLine{265     }
+\DoxyCodeLine{266 \};}
+\DoxyCodeLine{267 \}}
+
+\end{DoxyCode}
