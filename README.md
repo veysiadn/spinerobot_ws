@@ -34,9 +34,9 @@
 ## Implementation
   
 ```sh
-mkdir spinerobot_ws 
-cd spinerobot_ws
-git clone https://github.com/veysiadn/spinerobot_ws src
+git clone https://github.com/veysiadn/spinerobot_ws 
+cd spinerobot_ws 
+git checkout development
 sudo -s
 source /opt/ros/foxy/setup.bash
 colcon build --symlink install
