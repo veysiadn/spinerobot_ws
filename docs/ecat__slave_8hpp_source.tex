@@ -1,0 +1,84 @@
+\hypertarget{ecat__slave_8hpp_source}{}\doxysection{ecat\+\_\+slave.\+hpp}
+\label{ecat__slave_8hpp_source}\index{src/ecat\_pkg/include/ecat\_pkg/ecat\_slave.hpp@{src/ecat\_pkg/include/ecat\_pkg/ecat\_slave.hpp}}
+\mbox{\hyperlink{ecat__slave_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *****************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ *  \(\backslash\)file   ecat\_slave.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ *  \(\backslash\)brief  Ethercat slave class implementation header file.}}
+\DoxyCodeLine{34 \textcolor{comment}{ * }}
+\DoxyCodeLine{35 \textcolor{comment}{ *   This header file contains blueprint of EtherCAT slave's which will be }}
+\DoxyCodeLine{36 \textcolor{comment}{ *   used to  communicate with EtherCAT master.}}
+\DoxyCodeLine{37 \textcolor{comment}{ *    @todo After implementation explain functionality of this class and methods.}}
+\DoxyCodeLine{38 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{ecat__globals_8hpp}{ecat\_globals.hpp}}"{}}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{45 \textcolor{comment}{ *  \(\backslash\)class   EthercatSlave}}
+\DoxyCodeLine{46 \textcolor{comment}{ *  \(\backslash\)brief   Contains EtherCAT slave parameters for configuration.}}
+\DoxyCodeLine{47 \textcolor{comment}{ * .}}
+\DoxyCodeLine{48 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{49 \textcolor{keyword}{class }\mbox{\hyperlink{classEthercatSlave}{EthercatSlave}}}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51     \textcolor{keyword}{public}:}
+\DoxyCodeLine{52         \mbox{\hyperlink{classEthercatSlave_af6372d6701c86e6d9c3e5c0c2bd3b350}{EthercatSlave}}();}
+\DoxyCodeLine{53         \mbox{\hyperlink{classEthercatSlave_a9c43c36743f85bcd76d7ea512cc8ef82}{\string~EthercatSlave}}();}
+\DoxyCodeLine{61     \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatSlave_a2a0e089503f81440185e983401d1bbba}{CheckSlaveConfigState}}();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63  }
+\DoxyCodeLine{65     \textcolor{keyword}{const} \textcolor{keyword}{static} uint32\_t   \mbox{\hyperlink{classEthercatSlave_aacda7e069d00c22feed8c929f78a1a6c}{kSync0\_shift\_}} = 0;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{68     ec\_slave\_config\_t       * \mbox{\hyperlink{classEthercatSlave_aa2480c6d91ce19bf6c5a58b3207fa498}{slave\_config\_}} ;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{71     ec\_slave\_config\_state\_t  \mbox{\hyperlink{classEthercatSlave_aca431a49f052ab63631b6936e53f0457}{slave\_config\_state\_}} ;}
+\DoxyCodeLine{72     }
+\DoxyCodeLine{74     ec\_pdo\_info\_t          * \mbox{\hyperlink{classEthercatSlave_ac5c55d28338a4ec4d3d5d35917b20cdd}{slave\_pdo\_info\_}} ;}
+\DoxyCodeLine{76     ec\_pdo\_entry\_info\_t    * \mbox{\hyperlink{classEthercatSlave_a58cf8fe477af002374286aacc2c1fba6}{slave\_pdo\_entry\_info\_}};}
+\DoxyCodeLine{78     ec\_sync\_info\_t         * \mbox{\hyperlink{classEthercatSlave_af1119fff25fd80bfa7faa44ffa8238df}{slave\_sync\_info\_}};}
+\DoxyCodeLine{80     ec\_pdo\_entry\_reg\_t     * \mbox{\hyperlink{classEthercatSlave_ac3a8a75c23e09dd498d649568cff1563}{slave\_pdo\_entry\_reg\_}} ;}
+\DoxyCodeLine{82     uint8\_t                * \mbox{\hyperlink{classEthercatSlave_aea2c7dcf075da6a02e90ca31e020f7b7}{slave\_pdo\_domain\_}} ;}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{85     int32\_t                  \mbox{\hyperlink{classEthercatSlave_acc991db772f2c27736a75b78d2dee912}{motor\_state\_}} ;}
+\DoxyCodeLine{91     ec\_slave\_info\_t         \mbox{\hyperlink{classEthercatSlave_a986287a9af930e49b4b3bf5e7227ac18}{slave\_info\_}};}
+\DoxyCodeLine{93     \mbox{\hyperlink{structOffsetPDO}{OffsetPDO}}                 \mbox{\hyperlink{classEthercatSlave_a0a5355318e90e91ac90668a250872f53}{offset\_}} ;}
+\DoxyCodeLine{95     \mbox{\hyperlink{structReceivedData}{ReceivedData}}              \mbox{\hyperlink{classEthercatSlave_abb0a0ad7f0c81563cf9594637eaaf683}{data\_}} ;}
+\DoxyCodeLine{97     \mbox{\hyperlink{structProfileVelocityParam}{ProfileVelocityParam}}    \mbox{\hyperlink{classEthercatSlave_a2a26b98ad5fa0a57da0920e0f508ed8b}{velocity\_param\_}} ;}
+\DoxyCodeLine{99     \mbox{\hyperlink{structProfilePosParam}{ProfilePosParam}}         \mbox{\hyperlink{classEthercatSlave_a903b2d0f527e0f649cc208db76190e5b}{position\_param\_}} ;}
+\DoxyCodeLine{100     \textcolor{comment}{// Slave homing parameters. }}
+\DoxyCodeLine{101     \mbox{\hyperlink{structHomingParam}{HomingParam}}             \mbox{\hyperlink{classEthercatSlave_a0339be5945bb3d1857a7ed083161ab89}{homing\_param\_}} ;}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \};\textcolor{comment}{// EthercatSlave class}}
+
+\end{DoxyCode}

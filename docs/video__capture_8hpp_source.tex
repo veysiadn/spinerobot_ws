@@ -1,0 +1,79 @@
+\hypertarget{video__capture_8hpp_source}{}\doxysection{video\+\_\+capture.\+hpp}
+\label{video__capture_8hpp_source}\index{src/gui\_pkg/include/gui\_pkg/video\_capture.hpp@{src/gui\_pkg/include/gui\_pkg/video\_capture.hpp}}
+\mbox{\hyperlink{video__capture_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *****************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/*****************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ * \(\backslash\)file  video\_capture.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ * \(\backslash\)brief Class header for video capture from endoscope camera by using OpenCV to show in GUI}}
+\DoxyCodeLine{34 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef VIDEO\_CAPTURE\_HPP}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#define VIDEO\_CAPTURE\_HPP}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{comment}{// QT headers for image and reading thread.}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <QPixmap>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <QImage>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <QThread>}}
+\DoxyCodeLine{42 \textcolor{comment}{// OpenCV headers for camera capture.}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include <opencv2/opencv.hpp>}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include "{}opencv2/highgui/highgui.hpp"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include <opencv2/imgproc.hpp>}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <opencv2/core/core.hpp>}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#define ID\_CAMERA 0}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{keyword}{class }\mbox{\hyperlink{classVideoCapture}{VideoCapture}} : \textcolor{keyword}{public} QThread}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62     Q\_OBJECT}
+\DoxyCodeLine{63 \textcolor{keyword}{public}:}
+\DoxyCodeLine{64     \mbox{\hyperlink{classVideoCapture_ab7ca174b155d6f85212232f62bfa7537}{VideoCapture}}(QObject *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{65     QPixmap \mbox{\hyperlink{classVideoCapture_a40d0a95efe6459b3e292e0e354d9b3c8}{pixmap}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classVideoCapture_a26abea177d7bb42a8be557c31e6af6a8}{pixmap\_cap}};\}}
+\DoxyCodeLine{66 signals:}
+\DoxyCodeLine{67     \textcolor{comment}{//capture a frame}}
+\DoxyCodeLine{68     \textcolor{keywordtype}{void} \mbox{\hyperlink{classVideoCapture_af97dc7c07779d2d618a72787f4305cf8}{NewPixmapCapture}}();}
+\DoxyCodeLine{69 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{70     \textcolor{keywordtype}{void} \mbox{\hyperlink{classVideoCapture_a5823b23c4670f2abfdfa523b17adbeca}{run}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{71 \textcolor{keyword}{private}:}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     QPixmap \mbox{\hyperlink{classVideoCapture_a26abea177d7bb42a8be557c31e6af6a8}{pixmap\_cap}};              \textcolor{comment}{//Qt image}}
+\DoxyCodeLine{74     cv::Mat \mbox{\hyperlink{classVideoCapture_ad7e4bd3b6701101854543da3ce395ac6}{frame\_cap}};               \textcolor{comment}{//OpenCV image}}
+\DoxyCodeLine{75     cv::VideoCapture \mbox{\hyperlink{classVideoCapture_ae05ab150ec60856c798cad097621f244}{video\_cap}};   \textcolor{comment}{//video capture}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{classVideoCapture_a9bd97daedba6d42b480faade04b3e06b}{frame\_rate}} = 30;}
+\DoxyCodeLine{78     \textcolor{comment}{// Convert opencv readings to QImage \&\& QPixmap format}}
+\DoxyCodeLine{79     QImage \mbox{\hyperlink{classVideoCapture_a97fc96e7b4aca0ee7cd2256ae4174d83}{cvMatToQImage}}(\textcolor{keyword}{const} cv::Mat \&inMat);}
+\DoxyCodeLine{80     QPixmap \mbox{\hyperlink{classVideoCapture_a3e439afbb57883262644b4853251f862}{cvMatToQPixmap}}(\textcolor{keyword}{const} cv::Mat \&inMat );}
+\DoxyCodeLine{81 \};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MYVIDEOCAPTURE\_H}}
+
+\end{DoxyCode}

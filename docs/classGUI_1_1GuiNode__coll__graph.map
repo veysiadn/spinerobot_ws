@@ -1,0 +1,6 @@
+<map id="GUI::GuiNode" name="GUI::GuiNode">
+<area shape="rect" id="node1" title=" " alt="" coords="140,95,243,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,100,32"/>
+<area shape="rect" id="node3" href="$structGUI_1_1ReceivedData.html" title="This structure will be all data that&#39;ll be received by this node from other nodes." alt="" coords="125,5,258,32"/>
+<area shape="rect" id="node4" href="$classTiming.html" title=" " alt="" coords="283,5,345,32"/>
+</map>

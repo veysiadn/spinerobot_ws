@@ -1,0 +1,169 @@
+\hypertarget{ecat__lifecycle_8hpp_source}{}\doxysection{ecat\+\_\+lifecycle.\+hpp}
+\label{ecat__lifecycle_8hpp_source}\index{src/ecat\_pkg/include/ecat\_pkg/ecat\_lifecycle.hpp@{src/ecat\_pkg/include/ecat\_pkg/ecat\_lifecycle.hpp}}
+\mbox{\hyperlink{ecat__lifecycle_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *****************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/*****************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ * \(\backslash\)file  ecat\_lifecycle.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ * \(\backslash\)brief Ethercat lifecycle node implementation and real-\/time communication}}
+\DoxyCodeLine{34 \textcolor{comment}{ *        loop implemented in this file.}}
+\DoxyCodeLine{35 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{ecat__node_8hpp}{ecat\_node.hpp}}"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{gui__pkg_2include_2gui__pkg_2timing_8hpp}{timing.hpp}}"{}}}
+\DoxyCodeLine{38 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <rclcpp\_lifecycle/lifecycle\_node.hpp>}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include <rclcpp\_lifecycle/lifecycle\_publisher.hpp>}}
+\DoxyCodeLine{42 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include "{}std\_msgs/msg/u\_int8.hpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include "{}ecat\_msgs/msg/data\_received.hpp"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include "{}ecat\_msgs/msg/data\_sent.hpp"{}}}
+\DoxyCodeLine{48 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#include <rclcpp/strategies/message\_pool\_memory\_strategy.hpp>}   \textcolor{comment}{// /// Completely static memory allocation strategy for messages.}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#include <rclcpp/strategies/allocator\_memory\_strategy.hpp>}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#include <rttest/rttest.h>}   \textcolor{comment}{// To get number of allocation, statistics related memory allocation}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#include <tlsf\_cpp/tlsf.hpp>}   \textcolor{comment}{// C++ wrapper for Miguel Masmano Tello's implementation of the TLSF memory allocator}}
+\DoxyCodeLine{61 \textcolor{comment}{// Implements the allocator\_traits template}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{comment}{/******************************************************************************/} }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#include "{}ecat\_msgs/msg/haptic\_cmd.hpp"{}}}
+\DoxyCodeLine{65 \textcolor{keyword}{using} rclcpp::strategies::message\_pool\_memory\_strategy::MessagePoolMemoryStrategy;}
+\DoxyCodeLine{66 \textcolor{keyword}{using} rclcpp::memory\_strategies::allocator\_memory\_strategy::AllocatorMemoryStrategy;}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T = \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{69 \textcolor{keyword}{using} \mbox{\hyperlink{ecat__lifecycle_8hpp_ad8e9de5b070f6d2a84f39a36e0dcff9b}{TLSFAllocator}} = tlsf\_heap\_allocator<T>;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{keyword}{using namespace }rclcpp\_lifecycle ;}
+\DoxyCodeLine{72 \textcolor{keyword}{using namespace }\mbox{\hyperlink{namespaceEthercatCommunication}{EthercatCommunication}} ; }
+\DoxyCodeLine{73 \textcolor{keyword}{namespace }\mbox{\hyperlink{namespaceEthercatLifeCycleNode}{EthercatLifeCycleNode}}}
+\DoxyCodeLine{74 \{}
+\DoxyCodeLine{75 \textcolor{keyword}{class }\mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle}{EthercatLifeCycle}} : \textcolor{keyword}{public} LifecycleNode}
+\DoxyCodeLine{76 \{}
+\DoxyCodeLine{77     \textcolor{keyword}{public}:}
+\DoxyCodeLine{78         \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ab88fd9de520c44c80c64440443d25ff7}{EthercatLifeCycle}}();}
+\DoxyCodeLine{79         \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a9c591445a71b8a9d9e1913e183f9c8f3}{\string~EthercatLifeCycle}}();}
+\DoxyCodeLine{80     \textcolor{keyword}{private}:}
+\DoxyCodeLine{88         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aff53e3ce90249a5eae244992926b5546}{on\_configure}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{89     }
+\DoxyCodeLine{96         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a8a02b7880be6b1013144c6cbdfff69d0}{on\_activate}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{97    }
+\DoxyCodeLine{103         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ac577f6a1a1e7dbc1a8eed0ab89147001}{on\_deactivate}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{104     }
+\DoxyCodeLine{110         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a51c4cfcb0bb62abc07d69eb43dd7a2b7}{on\_cleanup}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{111     }
+\DoxyCodeLine{117         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aa25e720251694b4db416e42ccd2ccc5c}{on\_shutdown}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{118     }
+\DoxyCodeLine{125         node\_interfaces::LifecycleNodeInterface::CallbackReturn \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a5496949daefea78b4b353463d4dd96d3}{on\_error}}(\textcolor{keyword}{const} State \&);}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127         rclcpp::TimerBase::SharedPtr \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aceb14d548ec18d88764a0ef49a28ee94}{timer\_}};}
+\DoxyCodeLine{129         LifecyclePublisher<ecat\_msgs::msg::DataReceived>::SharedPtr \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a5b04ad15ed389f96ee8ccda5f2267e32}{received\_data\_publisher\_}};}
+\DoxyCodeLine{131         LifecyclePublisher<ecat\_msgs::msg::DataSent>::SharedPtr     \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aff85c60922315e6ef94d71ca4bfe1daf}{sent\_data\_publisher\_}};}
+\DoxyCodeLine{133         rclcpp::Subscription<sensor\_msgs::msg::Joy>::SharedPtr      \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ab32a2bcc4d29d7fdec05346f28a6bb38}{joystick\_subscriber\_}};}
+\DoxyCodeLine{134         rclcpp::Subscription<std\_msgs::msg::UInt8>::SharedPtr       \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a409e4ab637d81ced08b0db2c609b51bc}{gui\_subscriber\_}};}
+\DoxyCodeLine{135         rclcpp::Subscription<ecat\_msgs::msg::HapticCmd>::SharedPtr  \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a536ff61ea9226f8a224856881053b9c1}{haptic\_subscriber\_}}; }
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137         }
+\DoxyCodeLine{138         ecat\_msgs::msg::DataReceived     \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a03f7cd39fe66c336e7ff5465792bdfe7}{received\_data\_}};}
+\DoxyCodeLine{139         ecat\_msgs::msg::DataSent         \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ae644985bdee331ff660a80f786d09355}{sent\_data\_}};}
+\DoxyCodeLine{140         std::unique\_ptr<EthercatNode>    \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_adecbe58e78eb53eaf1a526b5b83712c6}{ecat\_node\_}};}
+\DoxyCodeLine{141         }
+\DoxyCodeLine{142         }
+\DoxyCodeLine{147         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aad342ebbb517eefd587c8030ea2b4e3e}{HandleControlNodeCallbacks}}(\textcolor{keyword}{const} sensor\_msgs::msg::Joy::SharedPtr msg);}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{153         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ac365891859a98e2b9ca36840d8c6cd20}{HandleHapticCmdCallbacks}}(\textcolor{keyword}{const} ecat\_msgs::msg::HapticCmd::SharedPtr haptic\_msg); }
+\DoxyCodeLine{154 }
+\DoxyCodeLine{160         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aadb5d2d00179549ea65186fd0ad12aae}{SetComThreadPriorities}}();}
+\DoxyCodeLine{161         }
+\DoxyCodeLine{167         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ad059e2876da36b4549279643b380a480}{InitEthercatCommunication}}() ;}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{177         \textcolor{keyword}{static} \textcolor{keywordtype}{void} *\mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a3f14c000af09d7d9480d700266da624f}{PassCycylicExchange}}(\textcolor{keywordtype}{void} *arg);}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{184         \textcolor{keywordtype}{int}  \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a2c5796d0f5f88a228c4b064d81a6b2f7}{StartEthercatCommunication}}(); }
+\DoxyCodeLine{185 }
+\DoxyCodeLine{192         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a52a7c57222fb8c896986fafc470d3bc3}{StartPdoExchange}}(\textcolor{keywordtype}{void} *instance); }
+\DoxyCodeLine{193         }
+\DoxyCodeLine{200         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a901c06f35510c5be5c40c4f934b5974b}{GetComState}}();}
+\DoxyCodeLine{201         }
+\DoxyCodeLine{205         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_acde7634de380e1bc00e138aa9d3f90f0}{ReadFromSlaves}}();}
+\DoxyCodeLine{206         }
+\DoxyCodeLine{212         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a2f5f32634315c20ee20d44fd75faebf8}{PublishAllData}}();}
+\DoxyCodeLine{213         }
+\DoxyCodeLine{218         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ad0b93ac341e9e3f1aa08eba16a5cdc45}{EnableMotors}}();}
+\DoxyCodeLine{219         }
+\DoxyCodeLine{224         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a9d4c4f4d59fb5831e85c17b55bc23cbf}{WriteToSlavesVelocityMode}}();}
+\DoxyCodeLine{225         }
+\DoxyCodeLine{230         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a5bf86789850a0b8e21ef44f50aefa497}{WriteToSlavesInPositionMode}}();}
+\DoxyCodeLine{231         }
+\DoxyCodeLine{236         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a1940951e1d285e7ce193d7444474dca7}{UpdateVelocityModeParameters}}();}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{242         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_aa8678dbf6a5a60844c614553aaa6d484}{UpdateCyclicVelocityModeParameters}}(); }
+\DoxyCodeLine{243 }
+\DoxyCodeLine{248         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a8d762bf02972f1f318148175d5641317}{UpdatePositionModeParameters}}();}
+\DoxyCodeLine{249         }
+\DoxyCodeLine{254         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a434a3dc8581b010974d60b24e4ab7df2}{UpdateCyclicPositionModeParameters}}();}
+\DoxyCodeLine{255         }
+\DoxyCodeLine{260         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ac81a74790509a9912c14982e9fa58d66}{UpdateMotorStateVelocityMode}}();}
+\DoxyCodeLine{264         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a1be54ebbef9bf865be39dd5b16b4e17f}{UpdateMotorStatePositionMode}}();}
+\DoxyCodeLine{265         }
+\DoxyCodeLine{270         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a6bdee6a9dc5d22b58429a9ee507c9fe2}{UpdateCyclicTorqueModeParameters}}();}
+\DoxyCodeLine{271         }
+\DoxyCodeLine{276         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a50318001792b039b8cf179e4d38108ec}{WriteToSlavesInCyclicTorqueMode}}();}
+\DoxyCodeLine{288         \textcolor{keywordtype}{void} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a4b9009e464f398aa89dab7ae2f4f8d38}{HandleGuiNodeCallbacks}}(\textcolor{keyword}{const} std\_msgs::msg::UInt8::SharedPtr gui\_sub);}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{295         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a6187ef3af76844b80e7a3ae399fa8460}{GetDriveState}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int}\& statusWord);}
+\DoxyCodeLine{296 }
+\DoxyCodeLine{302         \textcolor{keywordtype}{int} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a1367595ced86d25b6299ce281f1e1607}{EnableDrivers}}();}
+\DoxyCodeLine{303 }
+\DoxyCodeLine{304     private : }
+\DoxyCodeLine{306         pthread\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ac443f07a1f4e7252788ca000ea70458f}{ethercat\_thread\_}};}
+\DoxyCodeLine{307         \textcolor{keyword}{struct }sched\_param \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a80c1aefb15a64041bd5f59e47b3ac29e}{ethercat\_sched\_param\_}} = \{\};}
+\DoxyCodeLine{308         pthread\_attr\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a78acbaf6dc792b96f2df3fbef7395dfc}{ethercat\_thread\_attr\_}};}
+\DoxyCodeLine{309         int32\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a38d0a2c725202ef0fd67beff679ab9b1}{err\_}};}
+\DoxyCodeLine{311         uint8\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a799a0bdf01f5a0da57c29900f3d8180d}{al\_state\_}} = 0; }
+\DoxyCodeLine{312         uint32\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a7380630e7299c28135f8eb0134729b26}{motor\_state\_}}[\mbox{\hyperlink{ecat__globals_8hpp_aacc3c7aef173b1cde9377fb7f05c924d}{g\_kNumberOfServoDrivers}}];}
+\DoxyCodeLine{313         uint32\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a8852f433f1e6d0927892fab6f88e01d1}{command\_}} = 0x004F;}
+\DoxyCodeLine{314         \mbox{\hyperlink{structController}{Controller}} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a2b55e301403a0e5eaf17f2ee898d0f6e}{controller\_}};}
+\DoxyCodeLine{316         uint8\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a976089de625f06f54ec68723854cfa81}{gui\_node\_data\_}} = 1;}
+\DoxyCodeLine{317         uint8\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ab273dc79ac03b8bee9fcbf4bff21da61}{emergency\_status\_}} = 1 ;}
+\DoxyCodeLine{318         rclcpp::memory\_strategy::MemoryStrategy::SharedPtr \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a8b0df3007547a8a24c061509ff0b7bbd}{memory\_strategy}} =}
+\DoxyCodeLine{319         std::make\_shared<AllocatorMemoryStrategy<TLSFAllocator<void>>>();}
+\DoxyCodeLine{320         \textcolor{keyword}{template}<\textcolor{keyword}{typename} T = \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{321         \textcolor{keyword}{using} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ada44b5981e5bbcb54144ad50dedb9753}{TLSFAllocator}} = tlsf\_heap\_allocator<T>;}
+\DoxyCodeLine{322         \textcolor{comment}{// Will be used as a parameter for taking timing measurements.}}
+\DoxyCodeLine{323         std::int32\_t \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_ac3ddb4ba9d791e8186237a6da3da6a20}{measurement\_time}} = 0 ; }
+\DoxyCodeLine{324         \mbox{\hyperlink{classTiming}{Timing}} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a40a619f28629b0a03ff7b980e608b299}{timer\_info\_}} ; }
+\DoxyCodeLine{325         \mbox{\hyperlink{structHapticInputs}{HapticInputs}} \mbox{\hyperlink{classEthercatLifeCycleNode_1_1EthercatLifeCycle_a46a294d056ca556f18107b0040db8f22}{haptic\_inputs\_}};}
+\DoxyCodeLine{326 \};}
+\DoxyCodeLine{327 \}}
+
+\end{DoxyCode}

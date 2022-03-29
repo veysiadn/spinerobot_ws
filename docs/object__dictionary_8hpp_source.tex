@@ -1,0 +1,186 @@
+\hypertarget{object__dictionary_8hpp_source}{}\doxysection{object\+\_\+dictionary.\+hpp}
+\label{object__dictionary_8hpp_source}\index{src/ecat\_pkg/include/ecat\_pkg/object\_dictionary.hpp@{src/ecat\_pkg/include/ecat\_pkg/object\_dictionary.hpp}}
+\mbox{\hyperlink{object__dictionary_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{2 \textcolor{comment}{ *}}
+\DoxyCodeLine{3 \textcolor{comment}{ *  \$Id\$}}
+\DoxyCodeLine{4 \textcolor{comment}{ *}}
+\DoxyCodeLine{5 \textcolor{comment}{ *  Copyright (C) 2021 Veysi ADIN, UST KIST}}
+\DoxyCodeLine{6 \textcolor{comment}{ *}}
+\DoxyCodeLine{7 \textcolor{comment}{ *  This file is part of the IgH EtherCAT master userspace program in the ROS2 environment.}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is free software; you can}}
+\DoxyCodeLine{10 \textcolor{comment}{ *  redistribute it and/or modify it under the terms of the GNU General}}
+\DoxyCodeLine{11 \textcolor{comment}{ *  Public License as published by the Free Software Foundation; version 2}}
+\DoxyCodeLine{12 \textcolor{comment}{ *  of the License.}}
+\DoxyCodeLine{13 \textcolor{comment}{ *}}
+\DoxyCodeLine{14 \textcolor{comment}{ *  The IgH EtherCAT master userspace program in the ROS2 environment is distributed in the hope that}}
+\DoxyCodeLine{15 \textcolor{comment}{ *  it will be useful, but WITHOUT ANY WARRANTY; without even the implied}}
+\DoxyCodeLine{16 \textcolor{comment}{ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{17 \textcolor{comment}{ *  GNU General Public License for more details.}}
+\DoxyCodeLine{18 \textcolor{comment}{ *}}
+\DoxyCodeLine{19 \textcolor{comment}{ *  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{20 \textcolor{comment}{ *  along with the IgH EtherCAT master userspace program in the ROS environment. If not, see}}
+\DoxyCodeLine{21 \textcolor{comment}{ *  <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{ *}}
+\DoxyCodeLine{23 \textcolor{comment}{ *  -\/-\/-\/}}
+\DoxyCodeLine{24 \textcolor{comment}{ *}}
+\DoxyCodeLine{25 \textcolor{comment}{ *  The license mentioned above concerns the source code only. Using the}}
+\DoxyCodeLine{26 \textcolor{comment}{ *  EtherCAT technology and brand is only permitted in compliance with the}}
+\DoxyCodeLine{27 \textcolor{comment}{ *  industrial property and similar rights of Beckhoff Automation GmbH.}}
+\DoxyCodeLine{28 \textcolor{comment}{ *}}
+\DoxyCodeLine{29 \textcolor{comment}{ *  Contact information: veysi.adin@kist.re.kr}}
+\DoxyCodeLine{30 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{31 \textcolor{comment}{/*******************************************************************************}}
+\DoxyCodeLine{32 \textcolor{comment}{ * \(\backslash\)file  object\_dictionary.hpp}}
+\DoxyCodeLine{33 \textcolor{comment}{ * \(\backslash\)brief Contains object dictionary and state machine definitions based on CIA402}}
+\DoxyCodeLine{34 \textcolor{comment}{ *        Some index and subindexes may be specific to Elmo Gold Solo Twitter.}}
+\DoxyCodeLine{35 \textcolor{comment}{ *        Check indexes if you're using different slave.}}
+\DoxyCodeLine{36 \textcolor{comment}{ *******************************************************************************/}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{comment}{// Object Dictionary of Elmo GOLD Solo Twitter Starts.}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define OD\_CONTROL\_WORD            0x6040,0x00}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define OD\_STATUS\_WORD             0x6041,0x00}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define OD\_OPERATION\_MODE           0x6060,0x00}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#define OD\_OPERATION\_MODE\_DISPLAY   0x6061,0x00}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define OD\_TARGET\_POSITION          0x607A,0x00}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define OD\_POSITION\_ACTUAL\_VAL      0x6064,0x00}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define OD\_POSITION\_DEMAND          0x6062,0x00}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define OD\_POSITON\_FOLLOWING\_ERROR  0x60F4,0X00}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define OD\_POSITONCOUNTS            0x6063,0x00}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#define OD\_MAX\_FOLLOWING\_ERROR      0x6065,0x00}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#define OD\_VELOCITY\_ACTUAL\_VALUE   0x606C,0x00}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#define OD\_VELOCITY\_ADDRESS        0x6069,0x00}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#define OD\_TARGET\_VELOCITY         0x60FF,0x00}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#define OD\_VELOCITY\_OFFSET         0x60B1,0x00}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#define OD\_INTERPOLATION\_TIME\_PERIOD                    0X60C2,0X01  }\textcolor{comment}{// RW: uint8\_t   check EPOS4 Firmware Specification pg. 247}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#define OD\_INTERPOLATION\_TIME\_UNIT                      0X60C2,0X02  }\textcolor{comment}{// RW: uint8\_t   set this to -\/3(default) for ms unit.}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#define OD\_MOTOR\_DATA\_NOMINAL\_CURRENT                   0X3001,0X01  }\textcolor{comment}{// RW: uint32\_t  unit is mA}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#define OD\_MOTOR\_DATA\_OUTPUT\_CURRENT\_LIMIT              0X3001,0X02  }\textcolor{comment}{// RW: uint32\_t}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#define OD\_MOTOR\_DATA\_NUMBER\_OF\_POLE\_PAIRS              0X3001,0X03  }\textcolor{comment}{// RW: uint8\_t}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#define OD\_MOTOR\_DATA\_THERMAL\_TIME\_CONSTANT\_WINDINGS    0X3001,0X04  }\textcolor{comment}{// RW: uint16\_t}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define OD\_MOTOR\_DATA\_TORQUE\_CONSTANT                   0X3001,0X05  }\textcolor{comment}{// RW: uint32\_t unit is uNm/A}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#define OD\_GEAR\_REDUCTION\_NUMERATOR                     0X3003,0X01  }\textcolor{comment}{// RW: uint32\_t}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#define OD\_GEAR\_REDUCTION\_DENOMINATOR                   0X3003,0X02  }\textcolor{comment}{// RW: uint32\_t}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#define OD\_GEAR\_MAX\_INPUT\_SPEED                         0X3003,0X03  }\textcolor{comment}{// RW: uint32\_t}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#define OD\_GEAR\_MISC\_CONFIGURATION                      0X3003,0X04  }\textcolor{comment}{// RW: uint32\_t // Gear direction 0 normal 1 inverted.}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#define OD\_DIGITAL\_INCREMENTAL\_ENCODER\_1\_TYPE           0X3010,0X02  }\textcolor{comment}{// RW: uint16\_t // pg. 157 EPOS4-\/Firmware-\/Specifications}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#define OD\_ERROR\_REGISTER                               0X1001,0X00  }\textcolor{comment}{// RO: uint8\_t Maxon EPOS4 Compact 50/5 \(\backslash\)see ErrorRegisterBits struct }}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#define OD\_ACTIVE\_FIELDBUS                              0X2010,0X00  }\textcolor{comment}{// R0: uint8\_t -\/ 0: None , 1 : CANOpen -\/  2:EtherCAT }}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#define OD\_CUSTOM\_PERSISTENT\_MEMORY\_1                   0X210C,0X01  }\textcolor{comment}{// RW: int32\_t to store configuration values, up to 4 bytes.}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#define OD\_CUSTOM\_PERSISTENT\_MEMORY\_2                   0X210C,0X02  }\textcolor{comment}{// RW: int32\_t to store configuration values, up to 4 bytes.}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#define OD\_CUSTOM\_PERSISTENT\_MEMORY\_3                   0X210C,0X03  }\textcolor{comment}{// RW: int32\_t to store configuration values, up to 4 bytes.}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#define OD\_CUSTOM\_PERSISTENT\_MEMORY\_4                   0X210C,0X04  }\textcolor{comment}{// RW: int32\_t to store configuration values, up to 4 bytes.}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#define OD\_POWER\_SUPPLY\_VOLTAGE                         0X2200,0X01  }\textcolor{comment}{// RO: uint16\_t }}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#define OD\_SENSOR\_CONFIGURATION                         0X3000,0X01  }\textcolor{comment}{// RW: uint32\_t \(\backslash\)see SensorConfig struct.}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#define OD\_CONTROL\_STRUCTURE                            0X3000,0X02  }\textcolor{comment}{// RW: uint32\_t \(\backslash\)see IMPORTANT! EPOS4-\/Firmware-\/Specification pg. 139}}
+\DoxyCodeLine{83 \textcolor{comment}{// EOF OD\_AXIS\_CONFIURATIONS}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#define OD\_PROFILE\_VELOCITY                             0x6081,0x00}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#define OD\_MAX\_MOTOR\_SPEED                              0x6080,0x00}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#define OD\_MAX\_PROFILE\_VELOCITY                         0X607F,0X00}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#define OD\_PROFILE\_ACCELERATION                         0x6083,0x00}}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#define OD\_PROFILE\_DECELERATION                         0x6084,0x00}}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#define OD\_QUICK\_STOP\_DECELERATION                      0x6085,0x00}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#define OD\_MOTION\_PROFILE\_TYPE                          0x6086,0x00}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#define OD\_LINEAR\_RAMP\_TRAPEZOIDAL                      0x00,0x00}}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#define OD\_VELOCITY\_ENCODER\_RESOLUTION\_NUM              0x6094,0x01}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#define OD\_VELOCITY\_ENCODER\_RESOLUTION\_DEN              0x6094,0x02}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#define OD\_VELOCITY\_CONTROLLER\_PGAIN                    0x30A2,0x01   }\textcolor{comment}{// RW: uint32\_t  \(\backslash\)see EPOS4-\/Firmware-\/Specification pg. 167}}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#define OD\_VELOCITY\_CONTROLLER\_IGAIN                    0x30A2,0x02   }\textcolor{comment}{// RW: uint32\_t  \(\backslash\)see EPOS4-\/Firmware-\/Specification pg. 167}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#define OD\_DIGITAL\_INPUTS             0x60FD,0x00}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#define OD\_DIGITAL\_OUTPUTS            0x60FE,0x01}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#define OD\_DC\_CIRCUIT\_LINK\_VOLTAGE     0x6079,0x00}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#define OD\_TARGET\_TORQUE               0x6071,0x00 }}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#define OD\_TORQUE\_MAX                  0x6072,0x00}}
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#define OD\_TORQUE\_ACTUAL\_VALUE         0x6077,0x00}}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#define OD\_TORQUE\_OFFSET               0x60b2,0x00}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#define OD\_MAX\_CURRENT                 0x6073, 0x00}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#define OD\_CURRENT\_ACTUAL\_VALUE        0x6078, 0x00}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#define OD\_ERROR\_CODE                  0x603F, 0x00   }\textcolor{comment}{// 2 bit}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#define OD\_EXTRA\_STATUS\_REGISTER        0x2085, 0x00}}
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#define OD\_CHECK\_ERROR                  0x1002,0x00}}
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#define OD\_QUICK\_STOP\_MODE              0x605A,0x00}}
+\DoxyCodeLine{116 \textcolor{preprocessor}{\#define OD\_STOP\_OPTION\_CODE             0x605D,0x00}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{comment}{// Object Dictionary of Elmo GOLD Solo Twitter Ends.}}
+\DoxyCodeLine{119 \textcolor{comment}{/*****************************************************************/}}
+\DoxyCodeLine{120 \textcolor{comment}{// CIA 402 State machine definitions start. }}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#define SM\_COMM\_RESET               0x81}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#define SM\_FULL\_RESET               0x82}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#define SM\_START                    0x01}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#define SM\_GO\_READY\_TO\_SWITCH\_ON    0x06}}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#define SM\_GO\_SWITCH\_ON             0x07}}
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#define SM\_GO\_ENABLE                0X0F}}
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#define SM\_GO\_SWITCH\_ON\_DISABLE     0x00}}
+\DoxyCodeLine{129 \textcolor{preprocessor}{\#define SM\_RUN                      0x1F}}
+\DoxyCodeLine{130 \textcolor{preprocessor}{\#define SM\_EXPEDITE                 0x3F       }\textcolor{comment}{//like run, but dont finish actual position profile}}
+\DoxyCodeLine{131 \textcolor{preprocessor}{\#define SM\_QUICKSTOP                0x02 }}
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#define SM\_RELATIVE\_POS             0X7F}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134 \textcolor{comment}{/* From CiA402,  -\/ State coding}}
+\DoxyCodeLine{135 \textcolor{comment}{    Statusword      |      PDS FSA state}}
+\DoxyCodeLine{136 \textcolor{comment}{xxxx xxxx x0xx 0000 | Not ready to switch on}}
+\DoxyCodeLine{137 \textcolor{comment}{xxxx xxxx x1xx 0000 | Switch on disabled}}
+\DoxyCodeLine{138 \textcolor{comment}{xxxx xxxx x01x 0001 | Ready to switch on}}
+\DoxyCodeLine{139 \textcolor{comment}{xxxx xxxx x01x 0011 | Switched on}}
+\DoxyCodeLine{140 \textcolor{comment}{xxxx xxxx x01x 0111 | Operation enabled}}
+\DoxyCodeLine{141 \textcolor{comment}{xxxx xxxx x00x 0111 | Quick stop active}}
+\DoxyCodeLine{142 \textcolor{comment}{xxxx xxxx x0xx 1111 | Fault reaction active}}
+\DoxyCodeLine{143 \textcolor{comment}{xxxx xxxx x0xx 1000 | Fault}}
+\DoxyCodeLine{144 \textcolor{comment}{*/}}
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#define SM\_FSAFROMSTATUSWORD(SW)        (SW \& 0x006f)}}
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#define SM\_NOT\_READY\_TO\_SWITCH\_ON       0b00000000}}
+\DoxyCodeLine{147 \textcolor{preprocessor}{\#define SM\_NOT\_READY\_TO\_SWITCH\_ON\_2     0b00100000}}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#define SM\_SWITCH\_ON\_DISABLED           0b01000000}}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#define SM\_SWITCH\_ON\_DISABLED\_2         0b01100000}}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#define SM\_READY\_TO\_SWITCH\_ON           0b00100001}}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#define SM\_SWITCHED\_ON                  0b00100011}}
+\DoxyCodeLine{152 \textcolor{preprocessor}{\#define SM\_OPERATION\_ENABLED            0b00100111}}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#define SM\_QUICK\_STOP\_ACTIVE            0b00000111}}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#define SM\_FAULT\_REACTION\_ACTIVE        0b00001111}}
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#define SM\_FAULTREACTIONACTIVE2         0b00101111}}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#define SM\_FAULT                        0b00001000}}
+\DoxyCodeLine{157 \textcolor{preprocessor}{\#define SM\_FAULT2                       0b00101000}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{comment}{// SatusWord bits :}}
+\DoxyCodeLine{160 \textcolor{preprocessor}{\#define SM\_SW\_READY\_TO\_SWITCH\_ON        0x0001}}
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#define SM\_SW\_SWITCHED\_ON               0x0002}}
+\DoxyCodeLine{162 \textcolor{preprocessor}{\#define SM\_SW\_OPERATION\_ENABLED         0x0004}}
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#define SM\_SW\_FAULT                     0x0008}}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#define SM\_SW\_VOLTAGE\_ENABLED           0x0010}}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#define SM\_SW\_QUICK\_STOP                0x0020}}
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#define SM\_SW\_SWITCH\_ON\_DISABLED        0x0040}}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#define SM\_SW\_WARNING                   0x0080}}
+\DoxyCodeLine{168 \textcolor{preprocessor}{\#define SM\_SW\_REMOTE                    0x0200}}
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#define SM\_SW\_TARGET\_REACHED            0x0400}}
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#define SM\_SW\_INTERNAL\_LIMIT\_ACTIVE     0x0800}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172 \textcolor{comment}{// ControlWord bits :}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#define SM\_CW\_SWITCH\_ON         0x0001}}
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#define SM\_CW\_ENABLE\_VOLTAGE    0x0002}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#define SM\_CW\_QUICK\_STOP        0x0004}}
+\DoxyCodeLine{176 \textcolor{preprocessor}{\#define SM\_CW\_ENABLE\_OPERATION  0x0008}}
+\DoxyCodeLine{177 \textcolor{preprocessor}{\#define SM\_CW\_FAULT\_RESET       0x0080}}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#define SM\_CW\_OD\_HALT           0x0100}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180 \textcolor{comment}{/* CiA402 statemachine definition end */}}
+\DoxyCodeLine{181 \textcolor{comment}{/*****************************************************************/}}
+
+\end{DoxyCode}

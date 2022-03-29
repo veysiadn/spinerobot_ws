@@ -1,0 +1,162 @@
+\hypertarget{classHapticNode}{}\doxysection{Haptic\+Node Class Reference}
+\label{classHapticNode}\index{HapticNode@{HapticNode}}
+
+
+{\ttfamily \#include $<$haptic\+Node.\+hpp$>$}
+
+
+
+Inheritance diagram for Haptic\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classHapticNode__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Haptic\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classHapticNode__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHapticNode_a7c88a59333ed4ef72cc153bf956a35bc}{Haptic\+Node}} (char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classHapticNode_aeda8b38814fa9c906bf680f502d9b848}{Haptic\+Node}} (\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&\&c)=delete
+\item 
+\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \& \mbox{\hyperlink{classHapticNode_ae9af5f1fbd09ec9ccf0e0d7a16c1790f}{operator=}} (\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&\&c)=delete
+\item 
+\mbox{\hyperlink{classHapticNode_a9ca1281b7cec0b02220a0812235ed55c}{Haptic\+Node}} (const \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&c)=delete
+\item 
+\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \& \mbox{\hyperlink{classHapticNode_a065d38b29f309a170a843d09dd4b491f}{operator=}} (const \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&c)=delete
+\item 
+\mbox{\hyperlink{classHapticNode_a44380fb90f8c55f35d06f391acb410e3}{$\sim$\+Haptic\+Node}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classHapticNode_a468dc1c2e491c3f8a6013ae641e77832}{comm\+Thread}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::thread \mbox{\hyperlink{classHapticNode_a684ca1834830027f30a05b9809af1551}{comm\+\_\+thread\+\_\+}}
+\item 
+std\+::shared\+\_\+future$<$ void $>$ \mbox{\hyperlink{classHapticNode_aed4068cefac2b574be853e1cf9572a18}{future\+\_\+}}
+\item 
+std\+::promise$<$ void $>$ \mbox{\hyperlink{classHapticNode_a57e6292d41b4fbfa4160d328c91cea3a}{exit\+\_\+signal\+\_\+}}
+\item 
+std\+::string \mbox{\hyperlink{classHapticNode_ab9c8435b606aa914cfee677624b46579}{m\+\_\+\+IP}}
+\item 
+std\+::string \mbox{\hyperlink{classHapticNode_a43ee95dc228f1d7bd021870b44249687}{m\+\_\+\+Port}}
+\item 
+rclcpp\+::\+Publisher$<$ ecat\+\_\+msgs\+::msg\+::\+Haptic\+Cmd $>$\+::\+Shared\+Ptr \mbox{\hyperlink{classHapticNode_ac6e51c4350e57c6fa887c7d0feb07a11}{haptic\+\_\+publisher\+\_\+}}
+\item 
+ecat\+\_\+msgs\+::msg\+::\+Haptic\+Cmd \mbox{\hyperlink{classHapticNode_abafd596ed63850ed26bd82f6fa7da3ba}{haptic\+Msg}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHapticNode_a7c88a59333ed4ef72cc153bf956a35bc}\label{classHapticNode_a7c88a59333ed4ef72cc153bf956a35bc}} 
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{HapticNode()}{HapticNode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Haptic\+Node\+::\+Haptic\+Node (\begin{DoxyParamCaption}\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classHapticNode_aeda8b38814fa9c906bf680f502d9b848}\label{classHapticNode_aeda8b38814fa9c906bf680f502d9b848}} 
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{HapticNode()}{HapticNode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Haptic\+Node\+::\+Haptic\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&\&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classHapticNode_a9ca1281b7cec0b02220a0812235ed55c}\label{classHapticNode_a9ca1281b7cec0b02220a0812235ed55c}} 
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\index{HapticNode@{HapticNode}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{HapticNode()}{HapticNode()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Haptic\+Node\+::\+Haptic\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classHapticNode_a44380fb90f8c55f35d06f391acb410e3}\label{classHapticNode_a44380fb90f8c55f35d06f391acb410e3}} 
+\index{HapticNode@{HapticNode}!````~HapticNode@{$\sim$HapticNode}}
+\index{````~HapticNode@{$\sim$HapticNode}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{$\sim$HapticNode()}{~HapticNode()}}
+{\footnotesize\ttfamily Haptic\+Node\+::$\sim$\+Haptic\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHapticNode_a468dc1c2e491c3f8a6013ae641e77832}\label{classHapticNode_a468dc1c2e491c3f8a6013ae641e77832}} 
+\index{HapticNode@{HapticNode}!commThread@{commThread}}
+\index{commThread@{commThread}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{commThread()}{commThread()}}
+{\footnotesize\ttfamily void Haptic\+Node\+::comm\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_a065d38b29f309a170a843d09dd4b491f}\label{classHapticNode_a065d38b29f309a170a843d09dd4b491f}} 
+\index{HapticNode@{HapticNode}!operator=@{operator=}}
+\index{operator=@{operator=}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \& Haptic\+Node\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classHapticNode_ae9af5f1fbd09ec9ccf0e0d7a16c1790f}\label{classHapticNode_ae9af5f1fbd09ec9ccf0e0d7a16c1790f}} 
+\index{HapticNode@{HapticNode}!operator=@{operator=}}
+\index{operator=@{operator=}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \& Haptic\+Node\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classHapticNode}{Haptic\+Node}} \&\&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classHapticNode_a684ca1834830027f30a05b9809af1551}\label{classHapticNode_a684ca1834830027f30a05b9809af1551}} 
+\index{HapticNode@{HapticNode}!comm\_thread\_@{comm\_thread\_}}
+\index{comm\_thread\_@{comm\_thread\_}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{comm\_thread\_}{comm\_thread\_}}
+{\footnotesize\ttfamily std\+::thread Haptic\+Node\+::comm\+\_\+thread\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_a57e6292d41b4fbfa4160d328c91cea3a}\label{classHapticNode_a57e6292d41b4fbfa4160d328c91cea3a}} 
+\index{HapticNode@{HapticNode}!exit\_signal\_@{exit\_signal\_}}
+\index{exit\_signal\_@{exit\_signal\_}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{exit\_signal\_}{exit\_signal\_}}
+{\footnotesize\ttfamily std\+::promise$<$void$>$ Haptic\+Node\+::exit\+\_\+signal\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_aed4068cefac2b574be853e1cf9572a18}\label{classHapticNode_aed4068cefac2b574be853e1cf9572a18}} 
+\index{HapticNode@{HapticNode}!future\_@{future\_}}
+\index{future\_@{future\_}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{future\_}{future\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+future$<$void$>$ Haptic\+Node\+::future\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_ac6e51c4350e57c6fa887c7d0feb07a11}\label{classHapticNode_ac6e51c4350e57c6fa887c7d0feb07a11}} 
+\index{HapticNode@{HapticNode}!haptic\_publisher\_@{haptic\_publisher\_}}
+\index{haptic\_publisher\_@{haptic\_publisher\_}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{haptic\_publisher\_}{haptic\_publisher\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$ecat\+\_\+msgs\+::msg\+::\+Haptic\+Cmd$>$\+::\+Shared\+Ptr Haptic\+Node\+::haptic\+\_\+publisher\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_abafd596ed63850ed26bd82f6fa7da3ba}\label{classHapticNode_abafd596ed63850ed26bd82f6fa7da3ba}} 
+\index{HapticNode@{HapticNode}!hapticMsg@{hapticMsg}}
+\index{hapticMsg@{hapticMsg}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{hapticMsg}{hapticMsg}}
+{\footnotesize\ttfamily ecat\+\_\+msgs\+::msg\+::\+Haptic\+Cmd Haptic\+Node\+::haptic\+Msg\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_ab9c8435b606aa914cfee677624b46579}\label{classHapticNode_ab9c8435b606aa914cfee677624b46579}} 
+\index{HapticNode@{HapticNode}!m\_IP@{m\_IP}}
+\index{m\_IP@{m\_IP}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{m\_IP}{m\_IP}}
+{\footnotesize\ttfamily std\+::string Haptic\+Node\+::m\+\_\+\+IP\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classHapticNode_a43ee95dc228f1d7bd021870b44249687}\label{classHapticNode_a43ee95dc228f1d7bd021870b44249687}} 
+\index{HapticNode@{HapticNode}!m\_Port@{m\_Port}}
+\index{m\_Port@{m\_Port}!HapticNode@{HapticNode}}
+\doxysubsubsection{\texorpdfstring{m\_Port}{m\_Port}}
+{\footnotesize\ttfamily std\+::string Haptic\+Node\+::m\+\_\+\+Port\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/input\+\_\+pkg/include/input\+\_\+pkg/\mbox{\hyperlink{hapticNode_8hpp}{haptic\+Node.\+hpp}}\item 
+src/input\+\_\+pkg/src/\mbox{\hyperlink{hapticNode_8cpp}{haptic\+Node.\+cpp}}\end{DoxyCompactItemize}
