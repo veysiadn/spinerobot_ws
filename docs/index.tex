@@ -1,0 +1,46 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ This repository contains ROS2 and Ether\+CAT based control framework for our spine surgery robot project, but this implementation can be used with any robotic system with small modifications.\+Contains Ether\+CAT real-\/time thread with priority of 98. Software consists of four components (ROS2 nodes) \+:
+
+• Ether\+CAT node \+: Responsible for Ether\+CAT communication between master and slaves and publishes acquired feedback from slaves under /slavefeedback topicname in 1 k\+Hz frequency. Additionally, subscribes to/mastercommands topic published from control node and sends control commands to slaves via Ether\+CATcommunication.
+
+• Control node \+: Kinematic calculations will be done in this node. This node subscribes /slavefeedback topic published from Ether\+CAT node and publishes control commands under /mastercommands topic.\+Currently this node retrieves button and joystick data from Xbox \mbox{\hyperlink{structController}{Controller}} via USB communication.
+
+• \mbox{\hyperlink{namespaceGUI}{GUI}} node \+: Consist of camera viewer and slave feedback visualizers such as motor state, communication state, emergency button state. Publishes under /guidata consists of soft emergency button events, subscribes to /mastercommands and /slavefeedback topics to give visual feedback to user
+
+• Surgical Tool Node \+: Contains Dynamixel SDK for RS485 communication with Dynamixel motors.
+
+Please check guides, links and documentations before installation, or using this control framework.\hypertarget{index_autotoc_md1}{}\doxysection{Guides}\label{index_autotoc_md1}
+
+\begin{DoxyItemize}
+\item \href{https://docs.ros.org/en/foxy/index.html}{\texttt{ ROS2}}
+\item \href{https://design.ros2.org/articles/node_lifecycle.html}{\texttt{ ROS2 Life-\/cycle Node}}
+\item \href{https://design.ros2.org/articles/ros_on_dds.html}{\texttt{ ROS2 DDS}}
+\item \href{https://design.ros2.org/articles/qos_deadline_liveliness_lifespan.html}{\texttt{ ROS2 QoS}}
+\item \href{https://www.ethercat.org/en/technology.html}{\texttt{ Ether\+CAT}}
+\item \href{https://www.etherlab.org/en/ethercat/index.php}{\texttt{ Etherlab Webpage}}
+\item \href{https://www.etherlab.org/download/ethercat/ethercat-1.5.2.pdf}{\texttt{ IgH Ether\+CAT Library Documentation}}
+\item \href{https://wiki.linuxfoundation.org/realtime/documentation/technical_basics/start}{\texttt{ Real-\/time Linux}}
+\item \href{https://design.ros2.org/articles/realtime_background.html}{\texttt{ ROS2 Real-\/time Background}}
+\item \href{https://www.ripublication.com/ijaer17/ijaerv12n21_94.pdf}{\texttt{ Article on Ether\+CAT-\/\+RT PREEMPT-\/ Xenomai}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysection{Prerequisites}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item \href{https://github.com/veysiadn/IgHEtherCATImplementation}{\texttt{ RT\+\_\+\+Preempt Linux and IgH Ether\+CAT Implementation}}
+\item If you want to use \href{https://github.com/veysiadn/xenomai-install}{\texttt{ Xenomai-\/\+Instalattion}}
+\item \href{https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html}{\texttt{ ROS2 Foxy Installation}}
+\item \href{https://github.com/ROBOTIS-GIT/DynamixelSDK}{\texttt{ Dynamixel-\/\+SDK}}
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{Implementation}\label{index_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir spinerobot\_ws }
+\DoxyCodeLine{cd spinerobot\_ws}
+\DoxyCodeLine{git clone https://github.com/veysiadn/spinerobot\_ws src}
+\DoxyCodeLine{sudo -\/s}
+\DoxyCodeLine{source /opt/ros/foxy/setup.bash}
+\DoxyCodeLine{colcon build -\/-\/symlink install}
+\DoxyCodeLine{. install/setup.bash}
+\DoxyCodeLine{ros2 launch ./src/ethercat\_nodes\_launch.py}
+
+\end{DoxyCode}
+ 
