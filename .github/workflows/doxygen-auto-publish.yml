@@ -41,4 +41,4 @@ jobs:
         uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH_NAME: 'master' # your branch name goes here
+          BRANCH_NAME: 'development' # your branch name goes here
