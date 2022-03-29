@@ -4,9 +4,9 @@ name: Generate-doc-publish
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ development ]
   pull_request:
-    branches: [ master ]
+    branches: [ development ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
