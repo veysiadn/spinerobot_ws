@@ -22,6 +22,5 @@ var searchData=
   ['speed_5ffor_5fzero_5fsearch_19',['speed_for_zero_search',['../structHomingParam.html#ad31cac6c7692107df40469f3ae2b7370',1,'HomingParam']]],
   ['status_5fword_20',['status_word',['../structOffsetPDO.html#ad170d2294efd553e8f5e690c394c96ab',1,'OffsetPDO::status_word()'],['../structReceivedData.html#a149b41071f2011b95143e2e6003ef251',1,'ReceivedData::status_word()'],['../structSdoRequest.html#ad324b1260cacd0165fb12f55967ceed2',1,'SdoRequest::status_word()']]],
   ['sticky_5fbuttons_5f_21',['sticky_buttons_',['../classController.html#acae097f8b09be11cf90e7d9c06197c86',1,'Controller']]],
-  ['sub_5findex_22',['sub_index',['../structSDO__data.html#a32ad9e80b6edf968610407b14be6fa3d',1,'SDO_data']]],
-  ['subscription_5f_23',['subscription_',['../classJoySubscriber.html#a158f862786dd88254e4770b347c222b0',1,'JoySubscriber']]]
+  ['sub_5findex_22',['sub_index',['../structSDO__data.html#a32ad9e80b6edf968610407b14be6fa3d',1,'SDO_data']]]
 ];
