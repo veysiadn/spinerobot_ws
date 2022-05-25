@@ -45,6 +45,7 @@ static constexpr char const * lifecycle_node = "ecat_node";
 // ecat_node/change_state
 static constexpr char const * node_get_state_topic    = "ecat_node/get_state";
 static constexpr char const * node_change_state_topic = "ecat_node/change_state";
+
 typedef struct
 {
     float left_x_axis_;

@@ -1,7 +1,6 @@
-#ifndef GUI_GLOBALS_HPP
-#define GUI_GLOBALS_HPP
+#pragma once
 
-#define NUM_OF_SERVO_DRIVES 1
+#define NUM_OF_SERVO_DRIVES 3
 #define ID_CAMERA 0
 
 
@@ -105,4 +104,3 @@ struct ControlUIButtonData{
 #define SM_EXPEDITE               	0x3F       //like run, but dont finish actual position profile
 #define SM_QUICKSTOP              	0x02
 #define SM_RELATIVE_                0X7F
-#endif // GUI_GLOBALS_HPP

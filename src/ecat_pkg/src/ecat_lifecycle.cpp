@@ -759,7 +759,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
         #if MEASURE_TIMING
         if(!begin)
-        clock_gettime(CLOCK_TO_USE, &publish_time_start);
+            clock_gettime(CLOCK_TO_USE, &publish_time_start);
         #endif
         
         // timer_info_.GetTime();
@@ -778,7 +778,8 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         #endif
 
         #if MEASURE_TIMING
-            // output timing stats
+            // if you want to print timing stats
+            #if 0
             if(!print_val){
                 RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"-----------------------------------------------\n\n");
                 RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Tperiod   min   : %10u ns  | max : %10u ns\n",
@@ -816,11 +817,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
                // latency_min_ns << " " <<  latency_max_ns << " " << latency_max_ns - latency_min_ns << std::endl;
                 print_val--;
             }
-            if(!print_max_min){
-                //RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Publish time min: %10d ns  | max : %10d ns\n",
-                //publish_time_min, publish_time_max);
-                break;
-            }
+            #endif
                 print_max_min--;        
                 period_max_ns = 0;
                 period_min_ns = 0xffffffff;
@@ -830,10 +827,12 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
 
                 latency_max_ns = 0;
                 latency_min_ns = 0xffffffff;
+                received_data_.period_ns = period_ns;
+                received_data_.exec_ns = exec_ns; 
+                received_data_.jitter_ns = jitter;
         #endif
 
         ReadFromSlaves();
-
         UpdateControlParameters();
 
         if(g_sync_ref_counter){

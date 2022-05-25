@@ -1,21 +1,21 @@
-#include <lifecycle_node_manager.hpp>
-class LifecycleNodeManager : public rclcpp::Node
+#include <safety_node.hpp>
+class SafetyNode : public rclcpp::Node
 {
 public:
-  explicit LifecycleNodeManager(const std::string & node_name)
+  explicit SafetyNode(const std::string & node_name)
   : Node(node_name)
   {
       this->init();
    auto qos = rclcpp::QoS(rclcpp::KeepLast(1));
       qos.best_effort();
       gui_button_subscriber_   = this->create_subscription<ecat_msgs::msg::GuiButtonData>(
-        "gui_buttons",qos,std::bind(&LifecycleNodeManager::HandleGuiNodeCallbacks, this,std::placeholders::_1
+        "gui_buttons",qos,std::bind(&SafetyNode::HandleGuiNodeCallbacks, this,std::placeholders::_1
       ));
 
     /// Subscribtion for control node.
     /// Subscribtion for slave feedback values acquired from connected slaves.
     lifecycle_node_subscriber_ = this->create_subscription<ecat_msgs::msg::DataReceived>(
-      "Slave_Feedback",qos,std::bind(&LifecycleNodeManager::HandleLifecycleNodeCallbacks, this, std::placeholders::_1));
+      "Slave_Feedback",qos,std::bind(&SafetyNode::HandleLifecycleNodeCallbacks, this, std::placeholders::_1));
   }
 
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr      joystick_subscriber_;
@@ -168,8 +168,10 @@ public:
         return lifecycle_msgs::msg::State::TRANSITION_STATE_ERRORPROCESSING;
         break;      
       default:
+        return lifecycle_msgs::msg::State::PRIMARY_STATE_UNKNOWN;
         break;
     };
+    return lifecycle_msgs::msg::State::PRIMARY_STATE_UNKNOWN;
     // if (!client_get_state_->wait_for_service(time_out)) {
     //   RCLCPP_ERROR(
     //     get_logger(),
@@ -278,7 +280,7 @@ int main(int argc, char ** argv)
 
   rclcpp::init(argc, argv);
 
-  auto lifecycle_manager = std::make_shared<LifecycleNodeManager>("lifecycle_manager_node");
+  auto safety_node = std::make_shared<SafetyNode>("safety_node");
   
 #if 0
   rclcpp::executors::SingleThreadedExecutor exe;
@@ -289,7 +291,7 @@ int main(int argc, char ** argv)
     std::bind(callee_script, lc_client));
   exe.spin_until_future_complete(script);
 #else
-    rclcpp::spin(lifecycle_manager);
+    rclcpp::spin(safety_node);
 #endif 
   rclcpp::shutdown();
 
