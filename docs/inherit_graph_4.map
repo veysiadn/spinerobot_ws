@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<<<<<<< HEAD
 <area shape="rect" id="node1" href="$structCSTorqueModeParam.html" title="Struct contains configuration parameters for cyclic sync. torque mode." alt="" coords="5,5,165,32"/>
+=======
+<area shape="rect" id="node1" href="$structCSTorqueModeParam.html" title="Struct contains configuration parameters for cyclic sync. torque mode." alt="" coords="5,5,156,32"/>
+>>>>>>> 9c755e3a79c6b5cabe04b58498e8e95c325ead7b
 </map>

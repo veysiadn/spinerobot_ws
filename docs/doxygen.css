@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* The standard CSS for doxygen 1.8.17 */
+=======
+/* The standard CSS for doxygen 1.9.2 */
+>>>>>>> 9c755e3a79c6b5cabe04b58498e8e95c325ead7b
 
 body, table, div, p, dl {
 	font: 400 14px/22px Roboto,sans-serif;
@@ -1424,6 +1428,15 @@ div.toc li.level4 {
         margin-left: 45px;
 }
 
+<<<<<<< HEAD
+=======
+span.emoji {
+        /* font family used at the site: https://unicode.org/emoji/charts/full-emoji-list.html
+         * font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+         */
+}
+
+>>>>>>> 9c755e3a79c6b5cabe04b58498e8e95c325ead7b
 .PageDocRTL-title div.toc li.level1 {
   margin-left: 0 !important;
   margin-right: 0;

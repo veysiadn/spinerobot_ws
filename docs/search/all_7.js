@@ -1,5 +1,6 @@
 var searchData=
 [
+<<<<<<< HEAD
   ['hall_5fangle_5fdetection_5ferror_190',['HALL_ANGLE_DETECTION_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa7160a0bb29391901b1d6bc79a52006e5',1,'ecat_definitions.hpp']]],
   ['hall_5fsensor_5ferror_191',['HALL_SENSOR_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aaaec0121115a14ece6c9376a94f7a2776',1,'ecat_definitions.hpp']]],
   ['hall_5fsensor_5fnot_5ffound_5ferror_192',['HALL_SENSOR_NOT_FOUND_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aae3b86fae0e6c86123675f68d46e4fe31',1,'ecat_definitions.hpp']]],
@@ -25,4 +26,31 @@ var searchData=
   ['homing_5fmethod_212',['homing_method',['../structHomingParam.html#a78a0209212385df219c3e14c8ced924b',1,'HomingParam']]],
   ['homing_5fparam_5f_213',['homing_param_',['../classEthercatSlave.html#a0339be5945bb3d1857a7ed083161ab89',1,'EthercatSlave']]],
   ['homingparam_214',['HomingParam',['../structHomingParam.html',1,'']]]
+=======
+  ['hall_5fangle_5fdetection_5ferror_0',['HALL_ANGLE_DETECTION_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa7160a0bb29391901b1d6bc79a52006e5',1,'ecat_definitions.hpp']]],
+  ['hall_5fsensor_5ferror_1',['HALL_SENSOR_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aaaec0121115a14ece6c9376a94f7a2776',1,'ecat_definitions.hpp']]],
+  ['hall_5fsensor_5fnot_5ffound_5ferror_2',['HALL_SENSOR_NOT_FOUND_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aae3b86fae0e6c86123675f68d46e4fe31',1,'ecat_definitions.hpp']]],
+  ['handlecontrollercallbacks_3',['HandleControllerCallbacks',['../classGUI_1_1GuiNode.html#a8c671d0d93d0c61da722666d7b01230f',1,'GUI::GuiNode']]],
+  ['handlecontrolnodecallbacks_4',['HandleControlNodeCallbacks',['../classEthercatLifeCycleNode_1_1EthercatLifeCycle.html#aad342ebbb517eefd587c8030ea2b4e3e',1,'EthercatLifeCycleNode::EthercatLifeCycle']]],
+  ['handleguinodecallbacks_5',['HandleGuiNodeCallbacks',['../classEthercatLifeCycleNode_1_1EthercatLifeCycle.html#ab14d7e2501fbf43848ecbfac39fc76b5',1,'EthercatLifeCycleNode::EthercatLifeCycle::HandleGuiNodeCallbacks()'],['../classSafetyNode.html#a46a6805575045e55abee6da1f7c5c1a7',1,'SafetyNode::HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonData::SharedPtr msg)']]],
+  ['handlelifecyclenodecallbacks_6',['HandleLifecycleNodeCallbacks',['../classSafetyNode.html#ab9728a04827bf37f3d99aa860c46d26f',1,'SafetyNode']]],
+  ['handlemastercommandcallbacks_7',['HandleMasterCommandCallbacks',['../classGUI_1_1GuiNode.html#a692f44e42736bb1e31f435024cfdc4f9',1,'GUI::GuiNode']]],
+  ['handleslavefeedbackcallbacks_8',['HandleSlaveFeedbackCallbacks',['../classGUI_1_1GuiNode.html#a7bbe29f0fba8cede61e3587adfdc56cb',1,'GUI::GuiNode']]],
+  ['haptic_5fpublisher_5f_9',['haptic_publisher_',['../classHapticNode.html#ac6e51c4350e57c6fa887c7d0feb07a11',1,'HapticNode']]],
+  ['hapticmsg_10',['hapticMsg',['../classHapticNode.html#abafd596ed63850ed26bd82f6fa7da3ba',1,'HapticNode']]],
+  ['hapticnode_11',['HapticNode',['../classHapticNode.html',1,'HapticNode'],['../classHapticNode.html#a9ca1281b7cec0b02220a0812235ed55c',1,'HapticNode::HapticNode(const HapticNode &amp;c)=delete'],['../classHapticNode.html#aeda8b38814fa9c906bf680f502d9b848',1,'HapticNode::HapticNode(HapticNode &amp;&amp;c)=delete'],['../classHapticNode.html#a7c88a59333ed4ef72cc153bf956a35bc',1,'HapticNode::HapticNode(char *argv[])']]],
+  ['hapticnode_2ecpp_12',['hapticNode.cpp',['../hapticNode_8cpp.html',1,'']]],
+  ['hapticnode_2ehpp_13',['hapticNode.hpp',['../hapticNode_8hpp.html',1,'']]],
+  ['hardware_5fdefect_5ferror_14',['HARDWARE_DEFECT_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aaab6c7d6ce3a56b8623715c466a8c6133',1,'ecat_definitions.hpp']]],
+  ['hardware_5ferror_15',['HARDWARE_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa28a3763240d6c1ba52bf1f13b8a348db',1,'ecat_definitions.hpp']]],
+  ['hardware_5ferror_5f1_16',['HARDWARE_ERROR_1',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aadf33309cdf451cccf4535535c90fd769',1,'ecat_definitions.hpp']]],
+  ['hardware_5ferror_5f2_17',['HARDWARE_ERROR_2',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa3fc207987acf9602a03ab24467710051',1,'ecat_definitions.hpp']]],
+  ['hardware_5ferror_5f3_18',['HARDWARE_ERROR_3',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa65dbd6ef294771dc8be5b538978d4857',1,'ecat_definitions.hpp']]],
+  ['hardware_5fincompatiblity_5ferror_19',['HARDWARE_INCOMPATIBLITY_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aa6450e53101b312a440411ba9f80229a2',1,'ecat_definitions.hpp']]],
+  ['home_5foffset_20',['home_offset',['../structHomingParam.html#a4b529e1ff01a93d2e64dda04908aa449',1,'HomingParam']]],
+  ['homing_5facc_21',['homing_acc',['../structHomingParam.html#a9e971cf8fbc36593528189c664a0f0eb',1,'HomingParam']]],
+  ['homing_5fmethod_22',['homing_method',['../structHomingParam.html#a78a0209212385df219c3e14c8ced924b',1,'HomingParam']]],
+  ['homing_5fparam_5f_23',['homing_param_',['../classEthercatSlave.html#a0339be5945bb3d1857a7ed083161ab89',1,'EthercatSlave']]],
+  ['homingparam_24',['HomingParam',['../structHomingParam.html',1,'']]]
+>>>>>>> 9c755e3a79c6b5cabe04b58498e8e95c325ead7b
 ];
