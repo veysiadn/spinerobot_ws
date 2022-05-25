@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "spine_robot_ws",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/include",
+        "/opt/etherlab/include",
+        "/opt/ros/foxy/include",
+        "./install/ecat_msgs/include/",
+        "./src/ecat_pkg/include/ecat_pkg"
+      ],
+      "configurationProvider": "go2sh.cmake-integration",
+      "compilerArgs": [],
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "compilerPath": "/usr/bin/gcc",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}
