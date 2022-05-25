@@ -52,6 +52,60 @@ src/ecat_pkg/src/ecat_lifecycle.cpp:584:59: style: Variable 'publish_time_start'
 src/ecat_pkg/src/ecat_lifecycle.cpp:584:80: style: Variable 'publish_time_end' is assigned a value that is never used. [unreadVariable]
     struct timespec wake_up_time, time, publish_time_start={}, publish_time_end={};
                                                                                ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:828:32: style: Variable 'latency_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                latency_max_ns = 0;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:714:32: note: latency_max_ns is assigned
+                latency_max_ns = latency_ns;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:828:32: note: latency_max_ns is overwritten
+                latency_max_ns = 0;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:829:32: style: Variable 'latency_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                latency_min_ns = 0xffffffff;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:717:32: note: latency_min_ns is assigned
+                latency_min_ns = latency_ns;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:829:32: note: latency_min_ns is overwritten
+                latency_min_ns = 0xffffffff;
+                               ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:822:31: style: Variable 'period_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                period_max_ns = 0;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:720:31: note: period_max_ns is assigned
+                period_max_ns = period_ns;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:822:31: note: period_max_ns is overwritten
+                period_max_ns = 0;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:823:31: style: Variable 'period_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                period_min_ns = 0xffffffff;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:723:31: note: period_min_ns is assigned
+                period_min_ns = period_ns;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:823:31: note: period_min_ns is overwritten
+                period_min_ns = 0xffffffff;
+                              ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:825:29: style: Variable 'exec_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                exec_max_ns = 0;
+                            ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:726:29: note: exec_max_ns is assigned
+                exec_max_ns = exec_ns;
+                            ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:825:29: note: exec_max_ns is overwritten
+                exec_max_ns = 0;
+                            ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:826:29: style: Variable 'exec_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
+                exec_min_ns = 0xffffffff;
+                            ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:729:29: note: exec_min_ns is assigned
+                exec_min_ns = exec_ns;
+                            ^
+src/ecat_pkg/src/ecat_lifecycle.cpp:826:29: note: exec_min_ns is overwritten
+                exec_min_ns = 0xffffffff;
+                            ^
 src/ecat_pkg/src/ecat_lifecycle.cpp:587:28: style: Variable 'period_ns' is assigned a value that is never used. [unreadVariable]
         uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
                            ^
@@ -61,9 +115,6 @@ src/ecat_pkg/src/ecat_lifecycle.cpp:587:41: style: Variable 'exec_ns' is assigne
 src/ecat_pkg/src/ecat_lifecycle.cpp:593:35: style: Variable 'publishing_time_ns' is assigned a value that is never used. [unreadVariable]
         int32_t publishing_time_ns=1e4, publish_time_max=0, publish_time_min=0xfffffff;
                                   ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:594:24: style: Variable 'jitter' is assigned a value that is never used. [unreadVariable]
-        int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
-                       ^
 src/ecat_pkg/src/ecat_lifecycle.cpp:594:81: style: Variable 'old_latency' is assigned a value that is never used. [unreadVariable]
         int32_t jitter = 0 , jitter_min = 0xfffffff, jitter_max = 0, old_latency=0;
                                                                                 ^
@@ -82,9 +133,6 @@ src/ecat_pkg/src/ecat_node.cpp:94:34: style: Variable 'elmo_syncs' is assigned a
 src/ecat_pkg/src/ecat_node.cpp:162:37: style: Variable 'easycat_syncs' is assigned a value that is never used. [unreadVariable]
     ec_sync_info_t easycat_syncs[3] = {
                                     ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:241:24: style: Variable 'future_result' is assigned a value that is never used. [unreadVariable]
-    auto future_result = client_change_state_->async_send_request(request);
-                       ^
 src/gui_pkg/src/main_window.cpp:332:27: warning: Logical conjunction always evaluates to false: state == 0x01 && state == 0. [incorrectLogicOperator]
    else if (state == 0x01 && state==0){
                           ^
@@ -100,21 +148,9 @@ src/gui_pkg/include/gui_pkg/timing.hpp:25:8: note: Technically the member functi
 src/input_pkg/src/hapticNode.cpp:134:18: portability: Casting between signed char * and double * which have an incompatible binary data representation. [invalidPointerCast]
    double* val = (double*) str2;
                  ^
-src/tool_pkg/src/DxlMaster.cpp:259:10: style: The scope of the variable 'dxl_addparam_result' can be reduced. [variableScope]
-    bool dxl_addparam_result = false;               // addParam result
-         ^
-src/tool_pkg/src/DxlMaster.cpp:294:10: style: The scope of the variable 'dxl_addparam_result' can be reduced. [variableScope]
-    bool dxl_addparam_result = false;               // addParam result
-         ^
-src/tool_pkg/src/DxlMaster.cpp:259:30: style: Variable 'dxl_addparam_result' is assigned a value that is never used. [unreadVariable]
-    bool dxl_addparam_result = false;               // addParam result
-                             ^
-src/tool_pkg/src/DxlMaster.cpp:294:30: style: Variable 'dxl_addparam_result' is assigned a value that is never used. [unreadVariable]
-    bool dxl_addparam_result = false;               // addParam result
-                             ^
-src/tool_pkg/src/surgicalToolNode.cpp:25:7: performance: Variable 'dxl' is assigned in constructor body. Consider performing initialization in initialization list. [useInitializationList]
-      dxl = std::make_unique<DxlMaster>();
-      ^
+src/safety_pkg/src/safety_node.cpp:243:24: style: Variable 'future_result' is assigned a value that is never used. [unreadVariable]
+    auto future_result = client_change_state_->async_send_request(request);
+                       ^
 src/gui_pkg/src/timing.cpp:3:0: style: The function 'GetTime' is never used. [unusedFunction]
 
 ^
