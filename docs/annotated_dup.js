@@ -1,0 +1,27 @@
+var annotated_dup =
+[
+    [ "EthercatCommunication", "namespaceEthercatCommunication.html", "namespaceEthercatCommunication" ],
+    [ "EthercatLifeCycleNode", "namespaceEthercatLifeCycleNode.html", "namespaceEthercatLifeCycleNode" ],
+    [ "GUI", "namespaceGUI.html", "namespaceGUI" ],
+    [ "Controller", "classController.html", "classController" ],
+    [ "ControlUI", "classControlUI.html", "classControlUI" ],
+    [ "ControlUIButtonData", "structControlUIButtonData.html", "structControlUIButtonData" ],
+    [ "CSPositionModeParam", "structCSPositionModeParam.html", "structCSPositionModeParam" ],
+    [ "CSTorqueModeParam", "structCSTorqueModeParam.html", "structCSTorqueModeParam" ],
+    [ "CSVelocityModeParam", "structCSVelocityModeParam.html", "structCSVelocityModeParam" ],
+    [ "EndoscopeViewer", "classEndoscopeViewer.html", "classEndoscopeViewer" ],
+    [ "EthercatSlave", "classEthercatSlave.html", "classEthercatSlave" ],
+    [ "HapticNode", "classHapticNode.html", "classHapticNode" ],
+    [ "HomingParam", "structHomingParam.html", "structHomingParam" ],
+    [ "MainWindow", "classMainWindow.html", "classMainWindow" ],
+    [ "OffsetPDO", "structOffsetPDO.html", "structOffsetPDO" ],
+    [ "ProfilePosParam", "structProfilePosParam.html", "structProfilePosParam" ],
+    [ "ProfileVelocityParam", "structProfileVelocityParam.html", "structProfileVelocityParam" ],
+    [ "ReceivedData", "structReceivedData.html", "structReceivedData" ],
+    [ "SafetyNode", "classSafetyNode.html", "classSafetyNode" ],
+    [ "SDO_data", "structSDO__data.html", "structSDO__data" ],
+    [ "SdoRequest", "structSdoRequest.html", "structSdoRequest" ],
+    [ "Timing", "classTiming.html", "classTiming" ],
+    [ "VelControlParam", "structVelControlParam.html", "structVelControlParam" ],
+    [ "VideoCapture", "classVideoCapture.html", "classVideoCapture" ]
+];

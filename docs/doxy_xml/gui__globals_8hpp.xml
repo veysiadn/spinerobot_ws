@@ -1,0 +1,771 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="gui__globals_8hpp" kind="file" language="C++">
+    <compoundname>gui_globals.hpp</compoundname>
+    <includedby refid="video__capture_8hpp" local="yes">src/gui_pkg/include/gui_pkg/video_capture.hpp</includedby>
+    <includedby refid="gui__node_8hpp" local="yes">src/gui_pkg/include/gui_pkg/gui_node.hpp</includedby>
+    <includedby refid="main__window_8hpp" local="yes">src/gui_pkg/include/gui_pkg/main_window.hpp</includedby>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/gui_pkg/src/endoscope_viewer.cpp</label>
+        <link refid="endoscope__viewer_8cpp"/>
+      </node>
+      <node id="5">
+        <label>src/gui_pkg/src/main.cpp</label>
+        <link refid="gui__pkg_2src_2main_8cpp"/>
+      </node>
+      <node id="6">
+        <label>src/gui_pkg/include/gui_pkg/main_window.hpp</label>
+        <link refid="main__window_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/gui_pkg/include/gui_pkg/gui_globals.hpp</label>
+        <link refid="gui__globals_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/gui_pkg/src/gui_node.cpp</label>
+        <link refid="gui__node_8cpp"/>
+      </node>
+      <node id="2">
+        <label>src/gui_pkg/include/gui_pkg/video_capture.hpp</label>
+        <link refid="video__capture_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/gui_pkg/src/video_capture.cpp</label>
+        <link refid="video__capture_8cpp"/>
+      </node>
+      <node id="7">
+        <label>src/gui_pkg/src/main_window.cpp</label>
+        <link refid="main__window_8cpp"/>
+      </node>
+      <node id="3">
+        <label>src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp</label>
+        <link refid="endoscope__viewer_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>src/gui_pkg/include/gui_pkg/gui_node.hpp</label>
+        <link refid="gui__node_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structReceivedData" prot="public">ReceivedData</innerclass>
+    <innerclass refid="structControlUIButtonData" prot="public">ControlUIButtonData</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="gui__globals_8hpp_1abcd0af621da2a1f852fb466fcb225fe1" prot="public" static="no">
+        <name>NUM_OF_SERVO_DRIVES</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="3" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a1014738a6cd53047136514ced82de7b0" prot="public" static="no">
+        <name>ID_CAMERA</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="4" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a3e343f521bdee99c94f22627c930d24d" prot="public" static="no">
+        <name>TEST_BIT</name>
+        <param><defname>NUM</defname></param>
+        <param><defname>N</defname></param>
+        <initializer>((NUM &amp;  (1 &lt;&lt; N))&gt;&gt;N)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="7" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a11c01176d68fc4cd05ed423d922eca26" prot="public" static="no">
+        <name>SET_BIT</name>
+        <param><defname>NUM</defname></param>
+        <param><defname>N</defname></param>
+        <initializer>(NUM |  (1 &lt;&lt; N))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="8" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" prot="public" static="no">
+        <name>RESET_BIT</name>
+        <param><defname>NUM</defname></param>
+        <param><defname>N</defname></param>
+        <initializer>(NUM &amp; ~(1 &lt;&lt; N))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="9" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a79387c4437b10720436d6d6ab8f17311" prot="public" static="no">
+        <name>SM_COMM_RESET</name>
+        <initializer>0x81</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="96" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a560d3d1a5d98131f995f14022b89065e" prot="public" static="no">
+        <name>SM_FULL_RESET</name>
+        <initializer>0x82</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="97" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a0151dbb41c760a19abbe63baa11a2ab7" prot="public" static="no">
+        <name>SM_START</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="98" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1ad65751bc944de3d8a311d3c4b67e3902" prot="public" static="no">
+        <name>SM_GO_READY_TO_SWITCH_ON</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="99" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a31d0ed64eb662ab9189ad53d0684efad" prot="public" static="no">
+        <name>SM_GO_SWITCH_ON</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="100" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a106be1a156a40681180306c587d2f6f2" prot="public" static="no">
+        <name>SM_GO_ENABLE</name>
+        <initializer>0X0F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="101" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a67a844adb1df22f93037703a7aae4af6" prot="public" static="no">
+        <name>SM_GO_SWITCH_ON_DISABLE</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="102" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a9250a46e089de909358597e6075e4580" prot="public" static="no">
+        <name>SM_RUN</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="103" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1a789a1d3357f273990a249fcb757c41b0" prot="public" static="no">
+        <name>SM_EXPEDITE</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="104" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1ab7adcfce5cab981c20d9074db1a40dfe" prot="public" static="no">
+        <name>SM_QUICKSTOP</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="105" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="gui__globals_8hpp_1aa5373bcec0b512425ecff493e17fb2a9" prot="public" static="no">
+        <name>SM_RELATIVE_</name>
+        <initializer>0X7F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="106" column="9" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" prot="public" static="no" strong="no">
+        <type></type>
+        <name>MotorStates</name>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" prot="public">
+          <name>kReadyToSwitchOn</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a1aec86a3bb84af0dc09dfba27134d870" prot="public">
+          <name>kSwitchedOn</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a830836c1b6166075e14d3cde3ba188bc" prot="public">
+          <name>kOperationEnabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a17586673585e43ca084718a6a193c61d" prot="public">
+          <name>kFault</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a94491568dfbb921ec2bc5e0b90bfdf51" prot="public">
+          <name>kVoltageEnabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a9ebe2d45f83dd0328a95f91b5f7f3197" prot="public">
+          <name>kQuickStop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a69fef3d95dbc631270c0a449c873b1f9" prot="public">
+          <name>kSwitchOnDisabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" prot="public">
+          <name>kWarning</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" prot="public">
+          <name>kRemote</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" prot="public">
+          <name>kTargetReached</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" prot="public">
+          <name>kInternalLimitActivate</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" prot="public">
+          <name>kReadyToSwitchOn</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a1aec86a3bb84af0dc09dfba27134d870" prot="public">
+          <name>kSwitchedOn</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a830836c1b6166075e14d3cde3ba188bc" prot="public">
+          <name>kOperationEnabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a17586673585e43ca084718a6a193c61d" prot="public">
+          <name>kFault</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a94491568dfbb921ec2bc5e0b90bfdf51" prot="public">
+          <name>kVoltageEnabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a9ebe2d45f83dd0328a95f91b5f7f3197" prot="public">
+          <name>kQuickStop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a69fef3d95dbc631270c0a449c873b1f9" prot="public">
+          <name>kSwitchOnDisabled</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" prot="public">
+          <name>kWarning</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" prot="public">
+          <name>kRemote</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" prot="public">
+          <name>kTargetReached</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" prot="public">
+          <name>kInternalLimitActivate</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="12" column="17" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="12" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="enum" id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" prot="public" static="no" strong="no">
+        <type></type>
+        <name>LifeCycleStates</name>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ae0b771369dfb01dcddb2c023a9c1f89b" prot="public">
+          <name>kInitialized</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a0d8a083216a21de9b9e4aa973eaa6054" prot="public">
+          <name>kUnconfigured</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab1df3ce3210909025bec699a0ebe10e5" prot="public">
+          <name>kInactive</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab6a8784b4cf96692e0d71d19c44ce732" prot="public">
+          <name>kActive</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a58748d5f89bdcf8de8dbaf3304bc651c" prot="public">
+          <name>kFinalized</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a43a736e8410f7f4b6cda49ee54e845c4" prot="public">
+          <name>kConfiguring</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab333470372060ef5f030cc34123a706e" prot="public">
+          <name>kCleaningUp</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a6bd968912a244d1eaf5edaa3dfe372e0" prot="public">
+          <name>kShuttingDown</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a517eb424d6d407f6969d37b7a2493008" prot="public">
+          <name>kActivating</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34aceea6f4c5b66edd5029dc0078df5dbcf" prot="public">
+          <name>kDeactivating</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" prot="public">
+          <name>kErrorProcessing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="27" column="21" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="27" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="enum" id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68af" prot="public" static="no" strong="no">
+        <type></type>
+        <name>OpMode</name>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afad52f0058d24f3e3fec39d4502604a22e" prot="public">
+          <name>kProfilePosition</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa5d2b33d7161a77fdc97acfdc4de48a03" prot="public">
+          <name>kProfileVelocity</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa3e1069b7c47950dd03ed7eb55f6421d2" prot="public">
+          <name>kProfileTorque</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa90b00776b82cbe0b451a0a9c46e68945" prot="public">
+          <name>kHoming</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa7a6bd1ac4ba0aab0998cbccaded2ca27" prot="public">
+          <name>kInterpolatedPosition</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa1566565deaca1a00f9046cea18ccf5de" prot="public">
+          <name>kCSPosition</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afab7ddf4a5dec8aca3035989b429490bc4" prot="public">
+          <name>kCSVelocity</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa32c69215479b5f329044f8c79a74e1a4" prot="public">
+          <name>kCSTorque</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afad52f0058d24f3e3fec39d4502604a22e" prot="public">
+          <name>kProfilePosition</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa5d2b33d7161a77fdc97acfdc4de48a03" prot="public">
+          <name>kProfileVelocity</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa3e1069b7c47950dd03ed7eb55f6421d2" prot="public">
+          <name>kProfileTorque</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa90b00776b82cbe0b451a0a9c46e68945" prot="public">
+          <name>kHoming</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa7a6bd1ac4ba0aab0998cbccaded2ca27" prot="public">
+          <name>kInterpolatedPosition</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa1566565deaca1a00f9046cea18ccf5de" prot="public">
+          <name>kCSPosition</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afab7ddf4a5dec8aca3035989b429490bc4" prot="public">
+          <name>kCSVelocity</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa32c69215479b5f329044f8c79a74e1a4" prot="public">
+          <name>kCSTorque</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="69" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="68" bodyend="78"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="gui__globals_8hpp_1abcd0af621da2a1f852fb466fcb225fe1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_OF_SERVO_DRIVES<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="gui__globals_8hpp_1a1014738a6cd53047136514ced82de7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ID_CAMERA<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="gui__globals_8hpp_1a3e343f521bdee99c94f22627c930d24d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BIT(NUM,N)<sp/><sp/><sp/><sp/>((NUM<sp/>&amp;<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))&gt;&gt;N)<sp/><sp/>//<sp/>Check<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.<sp/>0<sp/>or<sp/>1.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="gui__globals_8hpp_1a11c01176d68fc4cd05ed423d922eca26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_BIT(NUM,N)<sp/><sp/><sp/><sp/><sp/><sp/>(NUM<sp/>|<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/>//<sp/>Set(1)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="gui__globals_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_BIT(NUM,N)<sp/><sp/><sp/><sp/>(NUM<sp/>&amp;<sp/>~(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/>//<sp/>Reset(0)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" kindref="member">MotorStates</ref>{</highlight></codeline>
+<codeline lineno="13" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" kindref="member">kReadyToSwitchOn</ref><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="14" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a1aec86a3bb84af0dc09dfba27134d870" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a1aec86a3bb84af0dc09dfba27134d870" kindref="member">kSwitchedOn</ref>,</highlight></codeline>
+<codeline lineno="15" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a830836c1b6166075e14d3cde3ba188bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a830836c1b6166075e14d3cde3ba188bc" kindref="member">kOperationEnabled</ref>,</highlight></codeline>
+<codeline lineno="16" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a17586673585e43ca084718a6a193c61d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a17586673585e43ca084718a6a193c61d" kindref="member">kFault</ref>,</highlight></codeline>
+<codeline lineno="17" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a94491568dfbb921ec2bc5e0b90bfdf51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a94491568dfbb921ec2bc5e0b90bfdf51" kindref="member">kVoltageEnabled</ref>,</highlight></codeline>
+<codeline lineno="18" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a9ebe2d45f83dd0328a95f91b5f7f3197" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a9ebe2d45f83dd0328a95f91b5f7f3197" kindref="member">kQuickStop</ref>,</highlight></codeline>
+<codeline lineno="19" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a69fef3d95dbc631270c0a449c873b1f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a69fef3d95dbc631270c0a449c873b1f9" kindref="member">kSwitchOnDisabled</ref>,</highlight></codeline>
+<codeline lineno="20" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" kindref="member">kWarning</ref>,</highlight></codeline>
+<codeline lineno="21" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" kindref="member">kRemote</ref>,</highlight></codeline>
+<codeline lineno="22" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" kindref="member">kTargetReached</ref>,</highlight></codeline>
+<codeline lineno="23" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" kindref="member">kInternalLimitActivate</ref></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" kindref="member">LifeCycleStates</ref>{</highlight></codeline>
+<codeline lineno="28" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ae0b771369dfb01dcddb2c023a9c1f89b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ae0b771369dfb01dcddb2c023a9c1f89b" kindref="member">kInitialized</ref>,</highlight></codeline>
+<codeline lineno="29" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a0d8a083216a21de9b9e4aa973eaa6054" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a0d8a083216a21de9b9e4aa973eaa6054" kindref="member">kUnconfigured</ref>,</highlight></codeline>
+<codeline lineno="30" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab1df3ce3210909025bec699a0ebe10e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab1df3ce3210909025bec699a0ebe10e5" kindref="member">kInactive</ref>,</highlight></codeline>
+<codeline lineno="31" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab6a8784b4cf96692e0d71d19c44ce732" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab6a8784b4cf96692e0d71d19c44ce732" kindref="member">kActive</ref>,</highlight></codeline>
+<codeline lineno="32" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a58748d5f89bdcf8de8dbaf3304bc651c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a58748d5f89bdcf8de8dbaf3304bc651c" kindref="member">kFinalized</ref>,</highlight></codeline>
+<codeline lineno="33" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a43a736e8410f7f4b6cda49ee54e845c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a43a736e8410f7f4b6cda49ee54e845c4" kindref="member">kConfiguring</ref><sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="34" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab333470372060ef5f030cc34123a706e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34ab333470372060ef5f030cc34123a706e" kindref="member">kCleaningUp</ref>,<sp/></highlight></codeline>
+<codeline lineno="35" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a6bd968912a244d1eaf5edaa3dfe372e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a6bd968912a244d1eaf5edaa3dfe372e0" kindref="member">kShuttingDown</ref>,</highlight></codeline>
+<codeline lineno="36" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a517eb424d6d407f6969d37b7a2493008" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a517eb424d6d407f6969d37b7a2493008" kindref="member">kActivating</ref>,</highlight></codeline>
+<codeline lineno="37" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34aceea6f4c5b66edd5029dc0078df5dbcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34aceea6f4c5b66edd5029dc0078df5dbcf" kindref="member">kDeactivating</ref>,</highlight></codeline>
+<codeline lineno="38" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" kindref="member">kErrorProcessing</ref></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structReceivedData" kindref="compound">ReceivedData</ref></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><sp/><ref refid="structReceivedData_1afff99790265b4a2f4d67ae70a0dc17ce" kindref="member">target_pos</ref><sp/>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><sp/><ref refid="structReceivedData_1a2ab83acfaad70e3d4a1f1393a4ee708f" kindref="member">target_vel</ref><sp/>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><sp/><ref refid="structReceivedData_1a3fc68c33af6351193d225cdf062f8227" kindref="member">target_tor</ref><sp/>;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><sp/><ref refid="structReceivedData_1a4015807759d6e67ef30820d1c0f6d02f" kindref="member">max_tor</ref><sp/>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><sp/><ref refid="structReceivedData_1a1699392bb03d114ab5a0c7e9250c8d32" kindref="member">control_word</ref><sp/>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><sp/><ref refid="structReceivedData_1ac5c4a47a3cfcf5b1bd6a3014afdb958a" kindref="member">vel_offset</ref><sp/>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><sp/><ref refid="structReceivedData_1a4a23d372f63980ad2e07bcbf3cd3181e" kindref="member">tor_offset</ref><sp/>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><ref refid="structReceivedData_1a256a4ccad5573ed0d9a4c8add634b86e" kindref="member">actual_pos</ref><sp/>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><ref refid="structReceivedData_1abcbbbeec0786dd863007f3b29d37633a" kindref="member">actual_vel</ref><sp/>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structReceivedData_1a9cc287786c97420c997b43ec051e0749" kindref="member">actual_cur</ref><sp/>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structReceivedData_1ab300dfb5692a9b757908d5d779a8b5b5" kindref="member">actual_tor</ref><sp/>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structReceivedData_1a149b41071f2011b95143e2e6003ef251" kindref="member">status_word</ref><sp/>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/><sp/><sp/><ref refid="structReceivedData_1a25c4e0bcf00afa5883e2c0978cc861b6" kindref="member">op_mode_display</ref><sp/>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1a04019bdb0f44e77381bffe9adf25e1fe" kindref="member">left_limit_switch_val</ref><sp/>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1a233c9141d68048d21b26e10a11036e26" kindref="member">right_limit_switch_val</ref><sp/>;</highlight></codeline>
+<codeline lineno="60" refid="structReceivedData_1a4f26602ace4259763df1030b19b6d64f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><ref refid="structReceivedData_1a4f26602ace4259763df1030b19b6d64f" kindref="member">right_x_axis</ref>;</highlight></codeline>
+<codeline lineno="61" refid="structReceivedData_1a2af989aebb271f62b967408aa869bc01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><ref refid="structReceivedData_1a2af989aebb271f62b967408aa869bc01" kindref="member">left_x_axis</ref>;</highlight></codeline>
+<codeline lineno="62" refid="structReceivedData_1abe986d947a31ea05be50bdf96814e59e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1abe986d947a31ea05be50bdf96814e59e" kindref="member">p_emergency_switch_val</ref>;</highlight></codeline>
+<codeline lineno="63" refid="structReceivedData_1a3afcc288ec8cf840cc34b4426c42a54f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1a3afcc288ec8cf840cc34b4426c42a54f" kindref="member">com_status</ref>;</highlight></codeline>
+<codeline lineno="64" refid="structReceivedData_1ae27cd80acb1039ffe05a6d02dbb33f8f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1ae27cd80acb1039ffe05a6d02dbb33f8f" kindref="member">slave_com_status</ref>;</highlight></codeline>
+<codeline lineno="65" refid="structReceivedData_1acdb3787a6b0dc60745069f93d3b2c5ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><ref refid="structReceivedData_1acdb3787a6b0dc60745069f93d3b2c5ec" kindref="member">current_lifecycle_state</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68af" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afad52f0058d24f3e3fec39d4502604a22e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afad52f0058d24f3e3fec39d4502604a22e" kindref="member">kProfilePosition</ref><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="71" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa5d2b33d7161a77fdc97acfdc4de48a03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa5d2b33d7161a77fdc97acfdc4de48a03" kindref="member">kProfileVelocity</ref><sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="72" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa3e1069b7c47950dd03ed7eb55f6421d2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa3e1069b7c47950dd03ed7eb55f6421d2" kindref="member">kProfileTorque</ref><sp/><sp/><sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="73" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa90b00776b82cbe0b451a0a9c46e68945" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa90b00776b82cbe0b451a0a9c46e68945" kindref="member">kHoming</ref><sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="74" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa7a6bd1ac4ba0aab0998cbccaded2ca27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa7a6bd1ac4ba0aab0998cbccaded2ca27" kindref="member">kInterpolatedPosition</ref><sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="75" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa1566565deaca1a00f9046cea18ccf5de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa1566565deaca1a00f9046cea18ccf5de" kindref="member">kCSPosition</ref><sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="76" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afab7ddf4a5dec8aca3035989b429490bc4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afab7ddf4a5dec8aca3035989b429490bc4" kindref="member">kCSVelocity</ref><sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="77" refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa32c69215479b5f329044f8c79a74e1a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68afa32c69215479b5f329044f8c79a74e1a4" kindref="member">kCSTorque</ref><sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/><ref refid="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68af" kindref="member">OpMode</ref><sp/>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="structControlUIButtonData" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structControlUIButtonData" kindref="compound">ControlUIButtonData</ref>{</highlight></codeline>
+<codeline lineno="81" refid="structControlUIButtonData_1a159f79d8922c840e127589b55bdd49e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a159f79d8922c840e127589b55bdd49e8" kindref="member">b_init_ecat</ref>;</highlight></codeline>
+<codeline lineno="82" refid="structControlUIButtonData_1ad997dd1579d5ddba6b1732b245c78df0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1ad997dd1579d5ddba6b1732b245c78df0" kindref="member">b_reinit_ecat</ref>;</highlight></codeline>
+<codeline lineno="83" refid="structControlUIButtonData_1a6ea3c9660676c76b0a177782bcd1bc4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a6ea3c9660676c76b0a177782bcd1bc4f" kindref="member">b_stop_cyclic_pdo</ref><sp/>;<sp/></highlight></codeline>
+<codeline lineno="84" refid="structControlUIButtonData_1a281503d032887eb113403dfaa4be413f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a281503d032887eb113403dfaa4be413f" kindref="member">b_enable_drives</ref>;</highlight></codeline>
+<codeline lineno="85" refid="structControlUIButtonData_1a1f6ee7050766572eeea63b77b59d5ae1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a1f6ee7050766572eeea63b77b59d5ae1" kindref="member">b_disable_drives</ref>;</highlight></codeline>
+<codeline lineno="86" refid="structControlUIButtonData_1a7927fc4aa1b1e66deb628cfba4f84aac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a7927fc4aa1b1e66deb628cfba4f84aac" kindref="member">b_enable_cyclic_pos</ref>;</highlight></codeline>
+<codeline lineno="87" refid="structControlUIButtonData_1a9da7551ad6af62ad9419593ad1916e11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a9da7551ad6af62ad9419593ad1916e11" kindref="member">b_enable_cyclic_vel</ref>;</highlight></codeline>
+<codeline lineno="88" refid="structControlUIButtonData_1a1b1c2a7d44a1e1ba5fea472cbbb8f611" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a1b1c2a7d44a1e1ba5fea472cbbb8f611" kindref="member">b_enable_vel</ref>;</highlight></codeline>
+<codeline lineno="89" refid="structControlUIButtonData_1a41a30954171b8f5acfa3f04cba81c9aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a41a30954171b8f5acfa3f04cba81c9aa" kindref="member">b_enable_pos</ref>;</highlight></codeline>
+<codeline lineno="90" refid="structControlUIButtonData_1a8f0892ccf5398525440cfe46e80db953" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a8f0892ccf5398525440cfe46e80db953" kindref="member">b_enter_cyclic_pdo</ref>;</highlight></codeline>
+<codeline lineno="91" refid="structControlUIButtonData_1a9a37a98efc39c42870246421a83b7f95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a9a37a98efc39c42870246421a83b7f95" kindref="member">b_emergency_mode</ref>;</highlight></codeline>
+<codeline lineno="92" refid="structControlUIButtonData_1a16f408c268b53db43e393dd8cc27c22f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structControlUIButtonData_1a16f408c268b53db43e393dd8cc27c22f" kindref="member">b_send</ref>;</highlight></codeline>
+<codeline lineno="93" refid="structControlUIButtonData_1a8c1b8287572701d04f32f04b0f5b722d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structControlUIButtonData_1a8c1b8287572701d04f32f04b0f5b722d" kindref="member">l_target_val</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="gui__globals_8hpp_1a79387c4437b10720436d6d6ab8f17311" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_COMM_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x81</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="gui__globals_8hpp_1a560d3d1a5d98131f995f14022b89065e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_FULL_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x82</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="gui__globals_8hpp_1a0151dbb41c760a19abbe63baa11a2ab7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="gui__globals_8hpp_1ad65751bc944de3d8a311d3c4b67e3902" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_READY_TO_SWITCH_ON<sp/><sp/><sp/><sp/>0x06</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="gui__globals_8hpp_1a31d0ed64eb662ab9189ad53d0684efad" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_SWITCH_ON<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="gui__globals_8hpp_1a106be1a156a40681180306c587d2f6f2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X0F</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="gui__globals_8hpp_1a67a844adb1df22f93037703a7aae4af6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_SWITCH_ON_DISABLE<sp/><sp/><sp/><sp/><sp/>0x00</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="gui__globals_8hpp_1a9250a46e089de909358597e6075e4580" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_RUN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1F</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="gui__globals_8hpp_1a789a1d3357f273990a249fcb757c41b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_EXPEDITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F<sp/><sp/><sp/><sp/><sp/><sp/><sp/>//like<sp/>run,<sp/>but<sp/>dont<sp/>finish<sp/>actual<sp/>position<sp/>profile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="gui__globals_8hpp_1ab7adcfce5cab981c20d9074db1a40dfe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_QUICKSTOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="gui__globals_8hpp_1aa5373bcec0b512425ecff493e17fb2a9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_RELATIVE_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X7F</highlight></codeline>
+    </programlisting>
+    <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp"/>
+  </compounddef>
+</doxygen>

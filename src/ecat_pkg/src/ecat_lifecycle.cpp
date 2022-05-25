@@ -10,6 +10,7 @@ rclcpp::NodeOptions().use_intra_process_comms(false))
     received_data_.actual_pos.resize(g_kNumberOfServoDrivers);
     received_data_.actual_vel.resize(g_kNumberOfServoDrivers);
     received_data_.actual_tor.resize(g_kNumberOfServoDrivers);
+    received_data_.error_code.resize(g_kNumberOfServoDrivers);
     received_data_.op_mode_display.resize(g_kNumberOfServoDrivers);
     received_data_.slave_com_status.resize(g_kNumberOfServoDrivers);
     sent_data_.control_word.resize(g_kNumberOfServoDrivers);
@@ -235,7 +236,7 @@ void EthercatLifeCycle::HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonDa
             g_kOperationMode = kCSPosition;
             for(int i = 0; i < g_kNumberOfServoDrivers; i++){
               ecat_node_->WriteOpModeViaSDO(i,kCSPosition);
-              AssignOperationModeParameters();
+              SetConfigurationParameters();
             }
         }
         
@@ -243,7 +244,7 @@ void EthercatLifeCycle::HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonDa
             g_kOperationMode = kCSVelocity;
             for(int i = 0; i < g_kNumberOfServoDrivers; i++){
               ecat_node_->WriteOpModeViaSDO(i,kCSVelocity);
-              AssignOperationModeParameters();
+              SetConfigurationParameters();
             }
         }
         
@@ -251,7 +252,7 @@ void EthercatLifeCycle::HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonDa
             g_kOperationMode = kProfilePosition;
             for(int i = 0; i < g_kNumberOfServoDrivers; i++){
               ecat_node_->WriteOpModeViaSDO(i,kProfilePosition);
-              AssignOperationModeParameters();
+              SetConfigurationParameters();
             }            
         }
         
@@ -259,7 +260,7 @@ void EthercatLifeCycle::HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonDa
             g_kOperationMode = kProfileVelocity;
             for(int i = 0; i < g_kNumberOfServoDrivers; i++){
               ecat_node_->WriteOpModeViaSDO(i,kProfileVelocity);
-              AssignOperationModeParameters();
+              SetConfigurationParameters();
             }
         }
 
@@ -472,8 +473,10 @@ int EthercatLifeCycle::InitEthercatCommunication()
         return -1;
     }
 
-    
-    AssignOperationModeParameters();
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Assigning configuration parameters...\n");
+    if(SetConfigurationParameters()){
+        return -1;
+    }
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Mapping default PDOs...\n");
     
     if(ecat_node_->MapDefaultPdos()){
@@ -485,8 +488,9 @@ int EthercatLifeCycle::InitEthercatCommunication()
     return 0 ; 
 }
 
-void EthercatLifeCycle::AssignOperationModeParameters()
+int EthercatLifeCycle::SetConfigurationParameters()
 {
+    int error = 0 ;
     if(g_kOperationMode==kProfilePosition){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to Position mode...\n");
         ProfilePosParam P ;
@@ -497,7 +501,7 @@ void EthercatLifeCycle::AssignOperationModeParameters()
         P.max_profile_vel = 500; //100 ;
         P.quick_stop_dec = 3e4;//3e4 ;
         P.motion_profile_type = 0 ;
-        ecat_node_->SetProfilePositionParametersAll(P);
+        error = ecat_node_->SetProfilePositionParametersAll(P);
     }else if(g_kOperationMode==kCSPosition){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to CSP mode...\n");
         CSPositionModeParam P ;
@@ -505,10 +509,10 @@ void EthercatLifeCycle::AssignOperationModeParameters()
         P.profile_vel = 50 ;
         P.profile_acc = 3e4 ;
         P.profile_dec = 3e4 ;
-        P.max_profile_vel = 100 ;
+        P.max_profile_vel = 500 ;
         P.quick_stop_dec = 3e4 ;
         P.interpolation_time_period = 0;//1 ;
-        ecat_node_->SetCyclicSyncPositionModeParametersAll(P);
+        error = ecat_node_->SetCyclicSyncPositionModeParametersAll(P);
     }else if(g_kOperationMode==kCSVelocity){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to CSV mode...\n");
         CSVelocityModeParam P ;
@@ -517,25 +521,25 @@ void EthercatLifeCycle::AssignOperationModeParameters()
         P.profile_dec=3e4 ;
         P.quick_stop_dec = 3e4 ;
         P.interpolation_time_period = 0;    //1 ;
-        ecat_node_->SetCyclicSyncVelocityModeParametersAll(P);
+        error =  ecat_node_->SetCyclicSyncVelocityModeParametersAll(P);
     }else if(g_kOperationMode==kCSTorque){
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to CST mode...\n");
         CSTorqueModeParam P ;
         P.profile_dec=3e4 ;
         P.quick_stop_dec = 3e4 ;
-        ecat_node_->SetCyclicSyncTorqueModeParametersAll(P);
+        error = ecat_node_->SetCyclicSyncTorqueModeParametersAll(P);
     }else {
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Setting drives to Velocity mode...\n");
         g_kOperationMode==kProfileVelocity;
         ProfileVelocityParam P ;
         P.profile_acc=3e4 ;
         P.profile_dec=3e4 ;
-        P.max_profile_vel = 500 ;
+        P.max_profile_vel = 1000 ;
         P.quick_stop_dec = 3e4 ;
         P.motion_profile_type = 0 ;
-        ecat_node_->SetProfileVelocityParametersAll(P);
+        error = ecat_node_->SetProfileVelocityParametersAll(P);
     }
-
+    return error; 
 }
 
 int  EthercatLifeCycle::StartEthercatCommunication()
@@ -762,13 +766,7 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
             clock_gettime(CLOCK_TO_USE, &publish_time_start);
         #endif
         
-        // timer_info_.GetTime();
-        PublishAllData();
-        // timer_info_.MeasureTimeDifference();
-        // if(timer_info_.counter_==NUMBER_OF_SAMPLES){
-        //     timer_info_.OutInfoToFile();
-        //     //break;
-        // }
+
         #if MEASURE_TIMING
         if(!begin)
         clock_gettime(CLOCK_TO_USE, &publish_time_end);
@@ -833,7 +831,10 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
         #endif
 
         ReadFromSlaves();
+
         UpdateControlParameters();
+
+        PublishAllData();
 
         if(g_sync_ref_counter){
             g_sync_ref_counter--;
@@ -875,30 +876,24 @@ void EthercatLifeCycle::StartPdoExchange(void *instance)
     // ------------------------------------------------------- //
 
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Leaving control thread.");
-    // ecat_node_->DeactivateCommunication();
     pthread_exit(NULL);
 }// StartPdoExchange end
 
 void EthercatLifeCycle::UpdateControlParameters()
 {
     if(g_kOperationMode==kProfilePosition){
-        UpdateMotorStatePositionMode();
         UpdatePositionModeParameters();
         WriteToSlavesInPositionMode();
     }else if(g_kOperationMode==kCSPosition){
-        UpdateMotorStatePositionMode();
         UpdateCyclicPositionModeParameters();
         WriteToSlavesInPositionMode();
     }else if(g_kOperationMode==kCSVelocity){
-        UpdateMotorStateVelocityMode();
         UpdateCyclicVelocityModeParameters();
         WriteToSlavesVelocityMode();
     }else if(g_kOperationMode==kCSTorque){
-        UpdateMotorStateVelocityMode();
         UpdateCyclicTorqueModeParameters();
         WriteToSlavesInCyclicTorqueMode();
     }else{
-        UpdateMotorStateVelocityMode();
         UpdateVelocityModeParameters();
         WriteToSlavesVelocityMode();
     }
@@ -907,10 +902,11 @@ void EthercatLifeCycle::UpdateControlParameters()
 void EthercatLifeCycle::ReadFromSlaves()
 {
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_pos);
-        received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.actual_vel);
-        received_data_.status_word[i] = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ +ecat_node_->slaves_[i].offset_.status_word);
+        received_data_.actual_pos[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.actual_pos);
+        received_data_.actual_vel[i]  = EC_READ_S32(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.actual_vel);
+        received_data_.status_word[i] = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.status_word);
         received_data_.actual_tor[i]  = EC_READ_S16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.actual_tor);
+        received_data_.error_code[i]  = EC_READ_U16(ecat_node_->slaves_[i].slave_pdo_domain_ + ecat_node_->slaves_[i].offset_.error_code);
     }
     received_data_.com_status = al_state_ ; 
     #if CUSTOM_SLAVE
@@ -964,13 +960,25 @@ int EthercatLifeCycle::GetComState()
 
 void EthercatLifeCycle::UpdatePositionModeParameters()
 {   
-       // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+    /// WRITE YOUR CUSTOM CONTROL ALGORITHM, VARIABLES DECLARATAION HERE, LIKE IN EXAMPLE BELOW.
+    /// KEEP IN MIND THAT YOU WILL HAVE TO WAIT FOR THE MOTION TO FINISH IN POSITION MODE, THEREFORE
+    /// YOU HAVE TO CHECK 10th BIT OF STATUS WORD TO CHECK WHETHER TARGET IS REACHED OR NOT.
+    static uint8_t operation_ready = 0 ;
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
+        if(motor_state_[i]==kOperationEnabled || 
+        motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
             if (controller_.xbox_button_){
                 for(int j = 0 ; j < g_kNumberOfServoDrivers ; j++){
                     sent_data_.target_pos[j] = 0 ; 
-                    sent_data_.control_word[j] = SM_GO_ENABLE ;
+                    if(!operation_ready){
+                         sent_data_.control_word[j] = SM_RUN ;
+                         if(TEST_BIT(received_data_.status_word[j],10)){
+                            operation_ready = 1; 
+                         }
+                    }else{
+                        sent_data_.control_word[0] = SM_GO_ENABLE;
+                        operation_ready = 0; 
+                    }
                 }
                 break;
             }
@@ -988,9 +996,19 @@ void EthercatLifeCycle::UpdatePositionModeParameters()
                 sent_data_.target_pos[0] = -THIRTY_DEGREE_CCW ;
             }
             
-            // if(controller_.red_button_ || controller_.blue_button_ || controller_.green_button_ || controller_.yellow_button_){
-            //     sent_data_.control_word[0] = SM_GO_ENABLE;
-            // }
+            if(controller_.red_button_ || controller_.blue_button_ || controller_.green_button_ 
+            || controller_.yellow_button_){
+                sent_data_.control_word[0] = SM_GO_ENABLE;
+                if(!operation_ready){
+                    sent_data_.control_word[0] = SM_RUN ;
+                    if(TEST_BIT(received_data_.status_word[0],10)){
+                    operation_ready = 1; 
+                    }
+                }else{
+                    sent_data_.control_word[0] = SM_GO_ENABLE;
+                    operation_ready = 0; 
+                }
+            }
             // Settings for motor 2 
             if(controller_.left_r_button_ > 0 ){
                 sent_data_.target_pos[1] = FIVE_DEGREE_CCW ;
@@ -1249,26 +1267,35 @@ void EthercatLifeCycle::WriteToSlavesInPositionMode()
 // CKim - Modifications
 void EthercatLifeCycle::UpdateCyclicPositionModeParameters()
 {
+    /// WRITE YOUR CUSTOM CONTROL ALGORITHM, VARIABLES DECLARATAION HERE, LIKE IN EXAMPLE BELOW.
     float deadzone = 0.05;
     float amp = 1.0 - deadzone;
     float val;
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+    static uint8_t operation_ready = 0;
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn)
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached 
+        || motor_state_[i]==kSwitchedOn)
         {
             // Settings for motor 1;
             val = controller_.left_x_axis_;
             if(val > deadzone) {
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val-deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
+                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val-deadzone)/amp*THIRTY_DEGREE_CCW/500 ;
             }
             else if(val < -deadzone) {
-                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val+deadzone)/amp*THIRTY_DEGREE_CCW/50 ;
+                sent_data_.target_pos[0] = received_data_.actual_pos[0] + (val+deadzone)/amp*THIRTY_DEGREE_CCW/500 ;
             }
             // else {
             //     sent_data_.target_pos[0] = received_data_.actual_pos[0];
             // }
             //if((val > deadzone) || (val < -deadzone)){
+            if (!operation_ready){
+                sent_data_.control_word[0] = SM_RUN;
+                if(TEST_BIT(received_data_.status_word[0],10))
+                    operation_ready = 1;
+            }else{
                 sent_data_.control_word[0] = SM_GO_ENABLE;
+                operation_ready = 0; 
+            }
             //}
 
             // Settings for motor 2 
@@ -1305,17 +1332,15 @@ void EthercatLifeCycle::UpdateCyclicPositionModeParameters()
 
 void EthercatLifeCycle::UpdateCyclicVelocityModeParameters() 
 {
+        /// WRITE YOUR CUSTOM CONTROL ALGORITHM, VARIABLES DECLARATAION HERE, LIKE IN EXAMPLE BELOW.
     float deadzone = 0.05;      
-    float maxSpeed = 250.0;    // rpm
+    float maxSpeed = 500.0;
     float val;
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
-
-    // Settings for motor 1;
     if(motor_state_[0]==kOperationEnabled || motor_state_[0]==kSwitchedOn)
     {
         val = controller_.left_y_axis_;
         if((val > deadzone) || (val < -deadzone))       
-            {   sent_data_.target_vel[0] = -val*maxSpeed;    }
+            {   sent_data_.target_vel[0] = int32_t(-val*maxSpeed);  }
         else
             {   sent_data_.target_vel[0] = 0;               }
     }
@@ -1390,23 +1415,25 @@ void EthercatLifeCycle::UpdateCyclicVelocityModeParameters()
 }
 
 void EthercatLifeCycle::UpdateVelocityModeParameters() 
-{
-   // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Updating control parameters....\n");
+{   
+    /// WRITE YOUR CUSTOM CONTROL ALGORITHM VARIABLES DECLARATAION HERE
     for(int i = 0 ; i < g_kNumberOfServoDrivers ; i++){
-        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached || motor_state_[i]==kSwitchedOn){
-            // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "axis = %d \n target_vel = %d\n",controller_.right_x_axis_,sent_data_.target_vel[0]);
+        if(motor_state_[i]==kOperationEnabled || motor_state_[i]==kTargetReached 
+            || motor_state_[i]==kSwitchedOn){
+               /// WRITE YOUR CUSTOM CONTROL ALGORITHM HERE IF YOU WANT TO USE VELOCITY MODE
+              /// YOU CAN CHECK  EXAMPLE CONTROL CODE BELOW.
             if(controller_.right_x_axis_ > 0.1 || controller_.right_x_axis_ < -0.1 ){
-                sent_data_.target_vel[0] = controller_.right_x_axis_ * 250  ;
+                sent_data_.target_vel[0] = controller_.right_x_axis_ *1000 ;
             }else{
                 sent_data_.target_vel[0] = 0;
             }
             if(controller_.left_x_axis_ < -0.1 || controller_.left_x_axis_ > 0.1){
-                sent_data_.target_vel[1] = controller_.left_x_axis_ * 250  ;
+                sent_data_.target_vel[1] = controller_.left_x_axis_ *1000 ;
             }else{
                 sent_data_.target_vel[1] = 0 ;
             }
             if(controller_.left_y_axis_ < -0.1 || controller_.left_y_axis_ > 0.1){
-                sent_data_.target_vel[2] = controller_.left_y_axis_ * 250  ;
+                sent_data_.target_vel[2] = controller_.left_y_axis_ *1000 ;
             }else{
                 sent_data_.target_vel[2] = 0 ;
             }

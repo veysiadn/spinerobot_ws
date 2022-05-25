@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['baudrate_0',['BAUDRATE',['../DxlMaster_8h.html#a734bbab06e1a9fd2e5522db0221ff6e3',1,'DxlMaster.h']]]
+  ['diff_5fns_1331',['DIFF_NS',['../ecat__definitions_8hpp.html#aff98fed4398150e17dbcd151445065ee',1,'ecat_definitions.hpp']]]
 ];
