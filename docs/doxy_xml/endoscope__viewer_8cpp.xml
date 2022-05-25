@@ -1,39 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="endoscope__viewer_8cpp" kind="file" language="C++">
     <compoundname>endoscope_viewer.cpp</compoundname>
     <includes refid="endoscope__viewer_8hpp" local="yes">../include/gui_pkg/endoscope_viewer.hpp</includes>
     <incdepgraph>
-      <node id="1">
-        <label>src/gui_pkg/src/endoscope_viewer.cpp</label>
-        <link refid="endoscope__viewer_8cpp"/>
-        <childnode refid="2" relation="include">
+      <node id="2">
+        <label>../include/gui_pkg/endoscope_viewer.hpp</label>
+        <link refid="endoscope__viewer_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
       <node id="15">
         <label>gui_globals.hpp</label>
         <link refid="gui__globals_8hpp"/>
-      </node>
-      <node id="10">
-        <label>QThread</label>
-      </node>
-      <node id="14">
-        <label>opencv2/core/core.hpp</label>
-      </node>
-      <node id="13">
-        <label>opencv2/imgproc.hpp</label>
-      </node>
-      <node id="11">
-        <label>opencv2/opencv.hpp</label>
-      </node>
-      <node id="3">
-        <label>QMainWindow</label>
-      </node>
-      <node id="9">
-        <label>QImage</label>
-      </node>
-      <node id="6">
-        <label>Qt</label>
       </node>
       <node id="7">
         <label>video_capture.hpp</label>
@@ -55,31 +42,44 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
+      <node id="1">
+        <label>src/gui_pkg/src/endoscope_viewer.cpp</label>
+        <link refid="endoscope__viewer_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="5">
         <label>QApplication</label>
       </node>
-      <node id="4">
-        <label>ui_endoscope_viewer.h</label>
+      <node id="9">
+        <label>QImage</label>
       </node>
-      <node id="12">
-        <label>opencv2/highgui/highgui.hpp</label>
+      <node id="3">
+        <label>QMainWindow</label>
       </node>
       <node id="8">
         <label>QPixmap</label>
       </node>
-      <node id="2">
-        <label>../include/gui_pkg/endoscope_viewer.hpp</label>
-        <link refid="endoscope__viewer_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
+      <node id="10">
+        <label>QThread</label>
+      </node>
+      <node id="6">
+        <label>Qt</label>
+      </node>
+      <node id="14">
+        <label>opencv2/core/core.hpp</label>
+      </node>
+      <node id="12">
+        <label>opencv2/highgui/highgui.hpp</label>
+      </node>
+      <node id="13">
+        <label>opencv2/imgproc.hpp</label>
+      </node>
+      <node id="11">
+        <label>opencv2/opencv.hpp</label>
+      </node>
+      <node id="4">
+        <label>ui_endoscope_viewer.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -94,7 +94,7 @@
 <codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>ui(new<sp/><ref refid="namespaceUi" kindref="compound">Ui</ref>::<ref refid="classEndoscopeViewer" kindref="compound">EndoscopeViewer</ref>)</highlight></codeline>
 <codeline lineno="6"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>ui-&gt;setupUi(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>opencv_video_cap_<sp/>=<sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classVideoCapture_1ab7ca174b155d6f85212232f62bfa7537" kindref="member">VideoCapture</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>opencv_video_cap_<sp/>=<sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classVideoCapture" kindref="compound">VideoCapture</ref>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>connect(opencv_video_cap_,<sp/>&amp;<ref refid="classVideoCapture_1af97dc7c07779d2d618a72787f4305cf8" kindref="member">VideoCapture::NewPixmapCapture</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>[&amp;]()</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ui-&gt;image_frame-&gt;setPixmap(opencv_video_cap_-&gt;pixmap().scaled(1280,720,Qt::KeepAspectRatioByExpanding));</highlight></codeline>

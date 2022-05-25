@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structOffsetPDO" kind="struct" language="C++" prot="public">
     <compoundname>OffsetPDO</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -322,7 +322,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="230" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="229" bodyend="257"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="229" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="230" bodyend="257"/>
     <listofallmembers>
       <member refid="structOffsetPDO_1a9497d0c8b4cc1de3dd0e435b4f071a92" prot="public" virt="non-virtual"><scope>OffsetPDO</scope><name>actual_cur</name></member>
       <member refid="structOffsetPDO_1aa660132e2053405390ec7c21feab28a6" prot="public" virt="non-virtual"><scope>OffsetPDO</scope><name>actual_pos</name></member>

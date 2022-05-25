@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="dir_34a4b34f2cfbf09a1592a51ce47086eb" kind="dir">
     <compoundname>src/ecat_pkg/src</compoundname>
     <innerfile refid="ecat__lifecycle_8cpp">ecat_lifecycle.cpp</innerfile>

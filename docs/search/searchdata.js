@@ -10,11 +10,7 @@ var indexSectionsWithContent =
   7: "celmos",
   8: "acefghiklmnopstuw",
   9: "cdefgimnoprst",
-<<<<<<< HEAD
   10: "w"
-=======
-  10: "tw"
->>>>>>> 9c755e3a79c6b5cabe04b58498e8e95c325ead7b
 };
 
 var indexSectionNames =

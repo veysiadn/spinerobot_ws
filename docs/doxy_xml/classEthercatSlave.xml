@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classEthercatSlave" kind="class" language="C++" prot="public">
     <compoundname>EthercatSlave</compoundname>
     <includes refid="ecat__slave_8hpp" local="no">ecat_slave.hpp</includes>
       <sectiondef kind="public-static-attrib">
-      <memberdef kind="variable" id="classEthercatSlave_1a6f2a027b6738cc31de9613305f1b8532" prot="public" static="yes" mutable="no">
-        <type>const static uint32_t</type>
-        <definition>const static uint32_t EthercatSlave::kSync0_shift_</definition>
+      <memberdef kind="variable" id="classEthercatSlave_1aacda7e069d00c22feed8c929f78a1a6c" prot="public" static="yes" mutable="no">
+        <type>const uint32_t</type>
+        <definition>const uint32_t EthercatSlave::kSync0_shift_</definition>
         <argsstring></argsstring>
         <name>kSync0_shift_</name>
         <initializer>= 0</initializer>
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="105" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="105" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="65" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="65" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="108" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="108" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="68" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1aca431a49f052ab63631b6936e53f0457" prot="public" static="no" mutable="no">
         <type>ec_slave_config_state_t</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="111" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="111" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="71" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1ac5c55d28338a4ec4d3d5d35917b20cdd" prot="public" static="no" mutable="no">
         <type>ec_pdo_info_t *</type>
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="114" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="114" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="74" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a58cf8fe477af002374286aacc2c1fba6" prot="public" static="no" mutable="no">
         <type>ec_pdo_entry_info_t *</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="116" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="116" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="76" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1af1119fff25fd80bfa7faa44ffa8238df" prot="public" static="no" mutable="no">
         <type>ec_sync_info_t *</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="118" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="118" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="78" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1ac3a8a75c23e09dd498d649568cff1563" prot="public" static="no" mutable="no">
         <type>ec_pdo_entry_reg_t *</type>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="120" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="120" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="80" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1aea2c7dcf075da6a02e90ca31e020f7b7" prot="public" static="no" mutable="no">
         <type>uint8_t *</type>
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="122" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="122" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="82" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1acc991db772f2c27736a75b78d2dee912" prot="public" static="no" mutable="no">
         <type>int32_t</type>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="125" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="125" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="85" column="30" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a986287a9af930e49b4b3bf5e7227ac18" prot="public" static="no" mutable="no">
         <type>ec_slave_info_t</type>
@@ -141,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="131" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="131" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="91" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a0a5355318e90e91ac90668a250872f53" prot="public" static="no" mutable="no">
         <type><ref refid="structOffsetPDO" kindref="compound">OffsetPDO</ref></type>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="133" column="31" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="133" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="93" column="31" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1abb0a0ad7f0c81563cf9594637eaaf683" prot="public" static="no" mutable="no">
         <type><ref refid="structReceivedData" kindref="compound">ReceivedData</ref></type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="135" column="31" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="135" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="95" column="31" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a2a26b98ad5fa0a57da0920e0f508ed8b" prot="public" static="no" mutable="no">
         <type><ref refid="structProfileVelocityParam" kindref="compound">ProfileVelocityParam</ref></type>
@@ -183,7 +183,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="137" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="137" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="97" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a903b2d0f527e0f649cc208db76190e5b" prot="public" static="no" mutable="no">
         <type><ref refid="structProfilePosParam" kindref="compound">ProfilePosParam</ref></type>
@@ -197,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="139" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="139" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="99" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatSlave_1a0339be5945bb3d1857a7ed083161ab89" prot="public" static="no" mutable="no">
         <type><ref refid="structHomingParam" kindref="compound">HomingParam</ref></type>
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="141" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="141" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="101" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="101" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -225,7 +225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="92" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="3" bodyend="6"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="52" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="3" bodyend="6"/>
       </memberdef>
       <memberdef kind="function" id="classEthercatSlave_1a9c43c36743f85bcd76d7ea512cc8ef82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -238,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="93" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="8" bodyend="11"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="53" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="8" bodyend="11"/>
       </memberdef>
       <memberdef kind="function" id="classEthercatSlave_1a2a0e089503f81440185e983401d1bbba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="101" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="13" bodyend="21"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="61" column="9" bodyfile="src/ecat_pkg/src/ecat_slave.cpp" bodystart="13" bodyend="21"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -265,15 +265,11 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>ProfilePosParam</label>
-        <link refid="structProfilePosParam"/>
-      </node>
       <node id="1">
         <label>EthercatSlave</label>
         <link refid="classEthercatSlave"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>position_param_</edgelabel>
+          <edgelabel>offset_</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>data_</edgelabel>
@@ -282,19 +278,23 @@
           <edgelabel>velocity_param_</edgelabel>
         </childnode>
         <childnode refid="5" relation="usage">
-          <edgelabel>homing_param_</edgelabel>
+          <edgelabel>position_param_</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>offset_</edgelabel>
+          <edgelabel>homing_param_</edgelabel>
         </childnode>
       </node>
-      <node id="5">
+      <node id="6">
         <label>HomingParam</label>
         <link refid="structHomingParam"/>
       </node>
-      <node id="6">
+      <node id="2">
         <label>OffsetPDO</label>
         <link refid="structOffsetPDO"/>
+      </node>
+      <node id="5">
+        <label>ProfilePosParam</label>
+        <link refid="structProfilePosParam"/>
       </node>
       <node id="4">
         <label>ProfileVelocityParam</label>
@@ -305,13 +305,13 @@
         <link refid="structReceivedData"/>
       </node>
     </collaborationgraph>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="50" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="49" bodyend="103"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" line="49" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp" bodystart="50" bodyend="103"/>
     <listofallmembers>
       <member refid="classEthercatSlave_1a2a0e089503f81440185e983401d1bbba" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>CheckSlaveConfigState</name></member>
       <member refid="classEthercatSlave_1abb0a0ad7f0c81563cf9594637eaaf683" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>data_</name></member>
       <member refid="classEthercatSlave_1af6372d6701c86e6d9c3e5c0c2bd3b350" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>EthercatSlave</name></member>
       <member refid="classEthercatSlave_1a0339be5945bb3d1857a7ed083161ab89" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>homing_param_</name></member>
-      <member refid="classEthercatSlave_1a6f2a027b6738cc31de9613305f1b8532" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>kSync0_shift_</name></member>
+      <member refid="classEthercatSlave_1aacda7e069d00c22feed8c929f78a1a6c" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>kSync0_shift_</name></member>
       <member refid="classEthercatSlave_1acc991db772f2c27736a75b78d2dee912" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>motor_state_</name></member>
       <member refid="classEthercatSlave_1a0a5355318e90e91ac90668a250872f53" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>offset_</name></member>
       <member refid="classEthercatSlave_1a903b2d0f527e0f649cc208db76190e5b" prot="public" virt="non-virtual"><scope>EthercatSlave</scope><name>position_param_</name></member>

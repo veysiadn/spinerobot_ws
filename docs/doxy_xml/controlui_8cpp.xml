@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="controlui_8cpp" kind="file" language="C++">
     <compoundname>controlui.cpp</compoundname>
     <includes refid="controlui_8hpp" local="yes">../include/gui_pkg/controlui.hpp</includes>
     <includes local="yes">ui_controlui.h</includes>
     <incdepgraph>
-      <node id="3">
-        <label>QMainWindow</label>
-      </node>
-      <node id="4">
-        <label>ui_controlui.h</label>
+      <node id="2">
+        <label>../include/gui_pkg/controlui.hpp</label>
+        <link refid="controlui_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>src/gui_pkg/src/controlui.cpp</label>
@@ -19,11 +19,11 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>../include/gui_pkg/controlui.hpp</label>
-        <link refid="controlui_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="3">
+        <label>QMainWindow</label>
+      </node>
+      <node id="4">
+        <label>ui_controlui.h</label>
       </node>
     </incdepgraph>
     <briefdescription>

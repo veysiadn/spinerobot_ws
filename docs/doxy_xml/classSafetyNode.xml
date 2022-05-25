@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classSafetyNode" kind="class" language="C++" prot="public">
     <compoundname>SafetyNode</compoundname>
-    <basecompoundref prot="public" virt="non-virtual">Node</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">rclcpp::Node</basecompoundref>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classSafetyNode_1a5532f3816bd196ced9de231b3df4a17b" prot="public" static="no" mutable="no">
         <type>rclcpp::Subscription&lt; sensor_msgs::msg::Joy &gt;::SharedPtr</type>
@@ -243,10 +243,14 @@
         </childnode>
       </node>
       <node id="2">
-        <label>Node</label>
+        <label>rclcpp::Node</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
+      <node id="3">
+        <label>Controller</label>
+        <link refid="classController"/>
+      </node>
       <node id="1">
         <label>SafetyNode</label>
         <link refid="classSafetyNode"/>
@@ -257,14 +261,10 @@
         </childnode>
       </node>
       <node id="2">
-        <label>Node</label>
-      </node>
-      <node id="3">
-        <label>Controller</label>
-        <link refid="classController"/>
+        <label>rclcpp::Node</label>
       </node>
     </collaborationgraph>
-    <location file="src/safety_pkg/src/safety_node.cpp" line="3" column="1" bodyfile="src/safety_pkg/src/safety_node.cpp" bodystart="2" bodyend="271"/>
+    <location file="src/safety_pkg/src/safety_node.cpp" line="2" column="1" bodyfile="src/safety_pkg/src/safety_node.cpp" bodystart="3" bodyend="271"/>
     <listofallmembers>
       <member refid="classSafetyNode_1ad5a78fd32388d7ee72f8567d7e157adc" prot="public" virt="non-virtual"><scope>SafetyNode</scope><name>change_state</name></member>
       <member refid="classSafetyNode_1a8bfafeed901f7601e58959c89c5ddbef" prot="private" virt="non-virtual"><scope>SafetyNode</scope><name>client_change_state_</name></member>

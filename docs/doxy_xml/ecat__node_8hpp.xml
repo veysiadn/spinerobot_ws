@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="ecat__node_8hpp" kind="file" language="C++">
     <compoundname>ecat_node.hpp</compoundname>
     <includes refid="ecat__globals_8hpp" local="yes">ecat_globals.hpp</includes>
@@ -10,42 +10,6 @@
     <includedby refid="ecat__node_8cpp" local="yes">src/ecat_pkg/src/ecat_node.cpp</includedby>
     <includedby refid="ecat__pkg_2src_2main_8cpp" local="yes">src/ecat_pkg/src/main.cpp</includedby>
     <incdepgraph>
-      <node id="27">
-        <label>sensor_msgs/msg/joy.hpp</label>
-      </node>
-      <node id="1">
-        <label>src/ecat_pkg/include/ecat_pkg/ecat_node.hpp</label>
-        <link refid="ecat__node_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>ecat_globals.hpp</label>
-        <link refid="ecat__globals_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>sys/mman.h</label>
-      </node>
-      <node id="7">
-        <label>stdlib.h</label>
-      </node>
-      <node id="9">
-        <label>errno.h</label>
-      </node>
-      <node id="19">
-        <label>malloc.h</label>
-      </node>
-      <node id="26">
-        <label>rclcpp/rclcpp.hpp</label>
-      </node>
       <node id="3">
         <label>ecat_definitions.hpp</label>
         <link refid="ecat__definitions_8hpp"/>
@@ -92,54 +56,23 @@
         <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>limits.h</label>
+      <node id="2">
+        <label>ecat_globals.hpp</label>
+        <link refid="ecat__globals_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
-      <node id="13">
-        <label>sys/resource.h</label>
-      </node>
-      <node id="8">
-        <label>pthread.h</label>
-      </node>
-      <node id="15">
-        <label>sys/types.h</label>
-      </node>
-      <node id="12">
-        <label>string.h</label>
-      </node>
-      <node id="16">
-        <label>unistd.h</label>
-      </node>
-      <node id="10">
-        <label>signal.h</label>
-      </node>
-      <node id="24">
-        <label>object_dictionary.hpp</label>
-        <link refid="object__dictionary_8hpp"/>
-      </node>
-      <node id="17">
-        <label>time.h</label>
-      </node>
-      <node id="14">
-        <label>sys/time.h</label>
-      </node>
-      <node id="4">
-        <label>iostream</label>
-      </node>
-      <node id="23">
-        <label>ecrt.h</label>
-      </node>
-      <node id="21">
-        <label>chrono</label>
-      </node>
-      <node id="20">
-        <label>sched.h</label>
-      </node>
-      <node id="11">
-        <label>stdio.h</label>
-      </node>
-      <node id="5">
-        <label>cstring</label>
+      <node id="1">
+        <label>src/ecat_pkg/include/ecat_pkg/ecat_node.hpp</label>
+        <link refid="ecat__node_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
       </node>
       <node id="25">
         <label>ecat_slave.hpp</label>
@@ -147,11 +80,86 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="24">
+        <label>object_dictionary.hpp</label>
+        <link refid="object__dictionary_8hpp"/>
+      </node>
+      <node id="21">
+        <label>chrono</label>
+      </node>
+      <node id="5">
+        <label>cstring</label>
+      </node>
+      <node id="23">
+        <label>ecrt.h</label>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>limits.h</label>
+      </node>
+      <node id="19">
+        <label>malloc.h</label>
+      </node>
       <node id="22">
         <label>memory</label>
       </node>
+      <node id="8">
+        <label>pthread.h</label>
+      </node>
+      <node id="26">
+        <label>rclcpp/rclcpp.hpp</label>
+      </node>
+      <node id="20">
+        <label>sched.h</label>
+      </node>
+      <node id="27">
+        <label>sensor_msgs/msg/joy.hpp</label>
+      </node>
+      <node id="10">
+        <label>signal.h</label>
+      </node>
+      <node id="11">
+        <label>stdio.h</label>
+      </node>
+      <node id="7">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12">
+        <label>string.h</label>
+      </node>
+      <node id="18">
+        <label>sys/mman.h</label>
+      </node>
+      <node id="13">
+        <label>sys/resource.h</label>
+      </node>
+      <node id="14">
+        <label>sys/time.h</label>
+      </node>
+      <node id="15">
+        <label>sys/types.h</label>
+      </node>
+      <node id="17">
+        <label>time.h</label>
+      </node>
+      <node id="16">
+        <label>unistd.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="2">
+        <label>src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp</label>
+        <link refid="ecat__lifecycle_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="1">
         <label>src/ecat_pkg/include/ecat_pkg/ecat_node.hpp</label>
         <link refid="ecat__node_8hpp"/>
@@ -166,21 +174,13 @@
         <label>src/ecat_pkg/src/ecat_lifecycle.cpp</label>
         <link refid="ecat__lifecycle_8cpp"/>
       </node>
-      <node id="4">
-        <label>src/ecat_pkg/src/main.cpp</label>
-        <link refid="ecat__pkg_2src_2main_8cpp"/>
-      </node>
-      <node id="2">
-        <label>src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp</label>
-        <link refid="ecat__lifecycle_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="5">
         <label>src/ecat_pkg/src/ecat_node.cpp</label>
         <link refid="ecat__node_8cpp"/>
+      </node>
+      <node id="4">
+        <label>src/ecat_pkg/src/main.cpp</label>
+        <link refid="ecat__pkg_2src_2main_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classEthercatCommunication_1_1EthercatNode" prot="public">EthercatCommunication::EthercatNode</innerclass>
@@ -247,7 +247,7 @@
 <codeline lineno="57" refid="classEthercatCommunication_1_1EthercatNode_1adca54bebbcfe48cb57edca8de6c3d084" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classEthercatSlave" kindref="compound">EthercatSlave</ref><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1adca54bebbcfe48cb57edca8de6c3d084" kindref="member">slaves_</ref>[<ref refid="ecat__globals_8hpp_1a5d918ecbea3b854bbfe74765c9357be3" kindref="member">NUM_OF_SLAVES</ref>];</highlight></codeline>
 <codeline lineno="58" refid="classEthercatCommunication_1_1EthercatNode_1ac857915bce2d3fef8fdf7711f4d584f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;SdoRequest&gt;<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1ac857915bce2d3fef8fdf7711f4d584f4" kindref="member">request_sdos_</ref><sp/>;<sp/></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a44858407cdf70da448d663df9af054f1" kindref="member">ConfigureMaster</ref>();</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1addf743b2ca64c1692e8d12f0045cde1d" kindref="member">DefineDefaultSlaves</ref>();</highlight></codeline>
+<codeline lineno="71" refid="classEthercatCommunication_1_1EthercatNode_1addf743b2ca64c1692e8d12f0045cde1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1addf743b2ca64c1692e8d12f0045cde1d" kindref="member">DefineDefaultSlaves</ref>();</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1ad9c38c7d21f5c644634e647c7a9f42ab" kindref="member">SetCustomSlave</ref>(<ref refid="classEthercatSlave" kindref="compound">EthercatSlave</ref><sp/>c_slave,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>position);</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a473246ebddb4b4d9c4e72434a563f0e2" kindref="member">ConfigureSlaves</ref>();</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a7b60a300f70876769da887921932301f" kindref="member">SetProfilePositionParameters</ref>(<ref refid="structProfilePosParam" kindref="compound">ProfilePosParam</ref>&amp;<sp/>P<sp/>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>position);</highlight></codeline>
@@ -299,8 +299,8 @@
 <codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a105870eb7f04330b80711020c53878d6" kindref="member">WriteTargetPositionViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,int32_t<sp/>target_pos);</highlight></codeline>
 <codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1aa32def67e03f79421e2f80f5be11c2e9" kindref="member">ReadActualTorqueViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
 <codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a846a11fce10f7235bc509d6f40382d7a" kindref="member">WriteTargetTorqueViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,uint16_t<sp/>target_tor);</highlight></codeline>
-<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a63fca6e4c0f884ab2b81cff39f135d2e" kindref="member">EnableDrivesViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
-<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1abd7ce9efe22243192e35960f5f4f5d27" kindref="member">DisableDrivesViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
+<codeline lineno="390" refid="classEthercatCommunication_1_1EthercatNode_1a63fca6e4c0f884ab2b81cff39f135d2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a63fca6e4c0f884ab2b81cff39f135d2e" kindref="member">EnableDrivesViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
+<codeline lineno="397" refid="classEthercatCommunication_1_1EthercatNode_1abd7ce9efe22243192e35960f5f4f5d27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1abd7ce9efe22243192e35960f5f4f5d27" kindref="member">DisableDrivesViaSDO</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
 <codeline lineno="398"><highlight class="normal"></highlight></codeline>
 <codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="401" refid="classEthercatCommunication_1_1EthercatNode_1a3f8dd08c4b1cf9e455a60b8b5ae04cfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="classEthercatCommunication_1_1EthercatNode_1a3f8dd08c4b1cf9e455a60b8b5ae04cfb" kindref="member">fd</ref>;</highlight></codeline>

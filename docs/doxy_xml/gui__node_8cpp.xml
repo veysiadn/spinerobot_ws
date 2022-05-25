@@ -1,60 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="gui__node_8cpp" kind="file" language="C++">
     <compoundname>gui_node.cpp</compoundname>
     <includes refid="gui__node_8hpp" local="yes">../include/gui_pkg/gui_node.hpp</includes>
     <incdepgraph>
-      <node id="4">
-        <label>sensor_msgs/msg/joy.hpp</label>
-      </node>
-      <node id="11">
-        <label>functional</label>
-      </node>
-      <node id="13">
-        <label>cstdint</label>
-      </node>
       <node id="19">
         <label>gui_globals.hpp</label>
         <link refid="gui__globals_8hpp"/>
-      </node>
-      <node id="12">
-        <label>string</label>
-      </node>
-      <node id="1">
-        <label>src/gui_pkg/src/gui_node.cpp</label>
-        <link refid="gui__node_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>rclcpp/rclcpp.hpp</label>
-      </node>
-      <node id="16">
-        <label>fstream</label>
-      </node>
-      <node id="5">
-        <label>ecat_msgs/msg/data_received.hpp</label>
-      </node>
-      <node id="15">
-        <label>ratio</label>
-      </node>
-      <node id="14">
-        <label>ctime</label>
-      </node>
-      <node id="8">
-        <label>vector</label>
-      </node>
-      <node id="6">
-        <label>ecat_msgs/msg/data_sent.hpp</label>
-      </node>
-      <node id="18">
-        <label>iostream</label>
-      </node>
-      <node id="9">
-        <label>chrono</label>
-      </node>
-      <node id="7">
-        <label>ecat_msgs/msg/gui_button_data.hpp</label>
       </node>
       <node id="2">
         <label>../include/gui_pkg/gui_node.hpp</label>
@@ -116,8 +68,56 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
+      <node id="1">
+        <label>src/gui_pkg/src/gui_node.cpp</label>
+        <link refid="gui__node_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>chrono</label>
+      </node>
+      <node id="13">
+        <label>cstdint</label>
+      </node>
+      <node id="14">
+        <label>ctime</label>
+      </node>
+      <node id="5">
+        <label>ecat_msgs/msg/data_received.hpp</label>
+      </node>
+      <node id="6">
+        <label>ecat_msgs/msg/data_sent.hpp</label>
+      </node>
+      <node id="7">
+        <label>ecat_msgs/msg/gui_button_data.hpp</label>
+      </node>
+      <node id="16">
+        <label>fstream</label>
+      </node>
+      <node id="11">
+        <label>functional</label>
+      </node>
+      <node id="18">
+        <label>iostream</label>
+      </node>
       <node id="10">
         <label>memory</label>
+      </node>
+      <node id="15">
+        <label>ratio</label>
+      </node>
+      <node id="3">
+        <label>rclcpp/rclcpp.hpp</label>
+      </node>
+      <node id="4">
+        <label>sensor_msgs/msg/joy.hpp</label>
+      </node>
+      <node id="12">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
       </node>
     </incdepgraph>
     <briefdescription>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classMainWindow" kind="class" language="C++" prot="public">
     <compoundname>MainWindow</compoundname>
     <basecompoundref prot="public" virt="non-virtual">QMainWindow</basecompoundref>
@@ -610,23 +610,17 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>QMainWindow</label>
-      </node>
       <node id="1">
         <label>MainWindow</label>
         <link refid="classMainWindow"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="4">
-        <label>QThread</label>
-      </node>
       <node id="2">
         <label>QMainWindow</label>
       </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="1">
         <label>MainWindow</label>
         <link refid="classMainWindow"/>
@@ -636,6 +630,12 @@
           <edgelabel>opencv_video_cap</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+      <node id="4">
+        <label>QThread</label>
+      </node>
       <node id="3">
         <label>VideoCapture</label>
         <link refid="classVideoCapture"/>
@@ -643,7 +643,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/gui_pkg/include/gui_pkg/main_window.hpp" line="68" column="38" bodyfile="src/gui_pkg/include/gui_pkg/main_window.hpp" bodystart="68" bodyend="189"/>
+    <location file="src/gui_pkg/include/gui_pkg/main_window.hpp" line="68" column="3" bodyfile="src/gui_pkg/include/gui_pkg/main_window.hpp" bodystart="68" bodyend="189"/>
     <listofallmembers>
       <member refid="classMainWindow_1a641f8c24c72931a0e774025e33b71987" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>argc_</name></member>
       <member refid="classMainWindow_1aeaf74f00fe0680c71919c4904ac69bad" prot="private" virt="non-virtual"><scope>MainWindow</scope><name>argv_</name></member>

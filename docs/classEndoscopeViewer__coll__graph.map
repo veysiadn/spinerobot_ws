@@ -1,6 +1,6 @@
 <map id="EndoscopeViewer" name="EndoscopeViewer">
-<area shape="rect" id="node1" title=" " alt="" coords="40,171,177,197"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,81,121,108"/>
-<area shape="rect" id="node3" href="$classVideoCapture.html" title=" " alt="" coords="145,81,256,108"/>
-<area shape="rect" id="node4" title=" " alt="" coords="162,5,239,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="17,171,143,197"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,81,112,108"/>
+<area shape="rect" id="node3" href="$classVideoCapture.html" title=" " alt="" coords="137,81,237,108"/>
+<area shape="rect" id="node4" title=" " alt="" coords="151,5,223,32"/>
 </map>

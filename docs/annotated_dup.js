@@ -1,8 +1,14 @@
 var annotated_dup =
 [
-    [ "EthercatCommunication", "namespaceEthercatCommunication.html", "namespaceEthercatCommunication" ],
-    [ "EthercatLifeCycleNode", "namespaceEthercatLifeCycleNode.html", "namespaceEthercatLifeCycleNode" ],
-    [ "GUI", "namespaceGUI.html", "namespaceGUI" ],
+    [ "EthercatCommunication", "namespaceEthercatCommunication.html", [
+      [ "EthercatNode", "classEthercatCommunication_1_1EthercatNode.html", "classEthercatCommunication_1_1EthercatNode" ]
+    ] ],
+    [ "EthercatLifeCycleNode", "namespaceEthercatLifeCycleNode.html", [
+      [ "EthercatLifeCycle", "classEthercatLifeCycleNode_1_1EthercatLifeCycle.html", "classEthercatLifeCycleNode_1_1EthercatLifeCycle" ]
+    ] ],
+    [ "GUI", "namespaceGUI.html", [
+      [ "GuiNode", "classGUI_1_1GuiNode.html", "classGUI_1_1GuiNode" ]
+    ] ],
     [ "Controller", "classController.html", "classController" ],
     [ "ControlUI", "classControlUI.html", "classControlUI" ],
     [ "ControlUIButtonData", "structControlUIButtonData.html", "structControlUIButtonData" ],

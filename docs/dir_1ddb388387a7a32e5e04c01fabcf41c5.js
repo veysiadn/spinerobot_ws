@@ -4,7 +4,7 @@ var dir_1ddb388387a7a32e5e04c01fabcf41c5 =
     [ "ecat_globals.hpp", "ecat__globals_8hpp.html", "ecat__globals_8hpp" ],
     [ "ecat_lifecycle.hpp", "ecat__lifecycle_8hpp.html", "ecat__lifecycle_8hpp" ],
     [ "ecat_node.hpp", "ecat__node_8hpp.html", [
-      [ "EthercatNode", "classEthercatCommunication_1_1EthercatNode.html", "classEthercatCommunication_1_1EthercatNode" ]
+      [ "EthercatCommunication::EthercatNode", "classEthercatCommunication_1_1EthercatNode.html", "classEthercatCommunication_1_1EthercatNode" ]
     ] ],
     [ "ecat_slave.hpp", "ecat__slave_8hpp.html", [
       [ "EthercatSlave", "classEthercatSlave.html", "classEthercatSlave" ]

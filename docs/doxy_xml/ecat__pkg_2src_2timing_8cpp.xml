@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="ecat__pkg_2src_2timing_8cpp" kind="file" language="C++">
     <compoundname>timing.cpp</compoundname>
     <includes local="yes">timing.hpp</includes>
     <incdepgraph>
-      <node id="2">
-        <label>timing.hpp</label>
-      </node>
       <node id="1">
         <label>src/ecat_pkg/src/timing.cpp</label>
         <link refid="ecat__pkg_2src_2timing_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="2">
+        <label>timing.hpp</label>
       </node>
     </incdepgraph>
     <briefdescription>

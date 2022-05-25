@@ -1,42 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="safety__pkg_2CMakeLists_8txt" kind="file" language="C++">
     <compoundname>CMakeLists.txt</compoundname>
-      <sectiondef kind="func">
-      <memberdef kind="function" id="safety__pkg_2CMakeLists_8txt_1a82b5742e0c2b3e05bb8d7f3a995f9d1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>cmake_minimum_required</definition>
-        <argsstring>(VERSION 3.5) project(safety_pkg) if(NOT CMAKE_C_STANDARD) set(CMAKE_C_STANDARD 99) endif() if(NOT CMAKE_CXX_STANDARD) set(CMAKE_CXX_STANDARD 14) endif() if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES &quot;Clang&quot;) add_compile_options(-Wall -Wextra -Wpedantic) endif() find_package(ament_cmake REQUIRED) find_package(rclcpp_lifecycle REQUIRED) find_package(lifecycle_msgs REQUIRED) find_package(ecat_msgs REQUIRED) find_package(sensor_msgs REQUIRED) find_package(std_msgs REQUIRED) add_executable(safety_node src/safety_node.cpp) target_include_directories(safety_node PUBLIC $&lt; BUILD_INTERFACE</argsstring>
-        <name>cmake_minimum_required</name>
-        <param>
-          <type>VERSION 3.</type>
-          <declname>5</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/safety_pkg/CMakeLists.txt" line="1" column="1" bodyfile="src/safety_pkg/CMakeLists.txt" bodystart="1" bodyend="36"/>
-      </memberdef>
-      <memberdef kind="function" id="safety__pkg_2CMakeLists_8txt_1a029f81570ee568a99ed2552e52a38969" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref> safety_pkg&lt; INSTALL_INTERFACE:include &gt;</type>
-        <definition>include safety_pkg&lt;INSTALL_INTERFACE:include&gt; target_link_libraries</definition>
-        <argsstring>(safety_node ${rclcpp_lifecycle_LIBRARIES} ${std_msgs_LIBRARIES} ${sensor_msgs_LIBRARIES} ${ecat_msgs_LIBRARIES}) ament_target_dependencies(safety_node rclcpp rclcpp_lifecycle ecat_msgs sensor_msgs lifecycle_msgs std_msgs) install(TARGETS safety_node DESTINATION lib/$</argsstring>
-        <name>target_link_libraries</name>
-        <param>
-          <type>safety_node ${rclcpp_lifecycle_LIBRARIES} ${std_msgs_LIBRARIES} ${sensor_msgs_LIBRARIES} ${ecat_msgs_LIBRARIES}</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/safety_pkg/CMakeLists.txt" line="40" column="1" bodyfile="src/safety_pkg/CMakeLists.txt" bodystart="40" bodyend="50"/>
-      </memberdef>
-      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -78,10 +43,10 @@
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal">target_include_directories(safety_node<sp/>PUBLIC</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/>$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>/safety_pkg&gt;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>&gt;)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:include&gt;)</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><ref refid="safety__pkg_2CMakeLists_8txt_1a029f81570ee568a99ed2552e52a38969" kindref="member">target_link_libraries</ref>(safety_node</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">target_link_libraries(safety_node</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/>${rclcpp_lifecycle_LIBRARIES}</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/>${std_msgs_LIBRARIES}</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/>${sensor_msgs_LIBRARIES}</highlight></codeline>

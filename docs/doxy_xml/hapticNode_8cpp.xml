@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="hapticNode_8cpp" kind="file" language="C++">
     <compoundname>hapticNode.cpp</compoundname>
     <includes local="no">chrono</includes>
@@ -23,26 +23,23 @@
     <includes local="yes">ecat_msgs/msg/haptic_cmd.hpp</includes>
     <includes refid="hapticNode_8hpp" local="yes">hapticNode.hpp</includes>
     <incdepgraph>
-      <node id="19">
-        <label>sensor_msgs/msg/joy.hpp</label>
-      </node>
-      <node id="10">
-        <label>netinet/in.h</label>
-      </node>
-      <node id="7">
-        <label>arpa/inet.h</label>
-      </node>
-      <node id="3">
-        <label>functional</label>
-      </node>
-      <node id="13">
-        <label>stdlib.h</label>
-      </node>
-      <node id="11">
-        <label>fcntl.h</label>
-      </node>
-      <node id="5">
-        <label>string</label>
+      <node id="21">
+        <label>hapticNode.hpp</label>
+        <link refid="hapticNode_8hpp"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>src/input_pkg/src/hapticNode.cpp</label>
@@ -88,68 +85,71 @@
         <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>rclcpp/rclcpp.hpp</label>
-      </node>
-      <node id="16">
-        <label>fstream</label>
-      </node>
       <node id="22">
         <label>SDL2/SDL.h</label>
       </node>
-      <node id="9">
-        <label>sys/types.h</label>
-      </node>
-      <node id="23">
-        <label>future</label>
-      </node>
-      <node id="20">
-        <label>ecat_msgs/msg/haptic_cmd.hpp</label>
-      </node>
-      <node id="14">
-        <label>unistd.h</label>
-      </node>
-      <node id="21">
-        <label>hapticNode.hpp</label>
-        <link refid="hapticNode_8hpp"/>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>math.h</label>
-      </node>
-      <node id="15">
-        <label>iostream</label>
+      <node id="7">
+        <label>arpa/inet.h</label>
       </node>
       <node id="2">
         <label>chrono</label>
       </node>
-      <node id="8">
-        <label>sys/socket.h</label>
+      <node id="20">
+        <label>ecat_msgs/msg/haptic_cmd.hpp</label>
       </node>
-      <node id="24">
-        <label>thread</label>
+      <node id="11">
+        <label>fcntl.h</label>
       </node>
-      <node id="12">
-        <label>stdio.h</label>
+      <node id="16">
+        <label>fstream</label>
+      </node>
+      <node id="3">
+        <label>functional</label>
+      </node>
+      <node id="23">
+        <label>future</label>
+      </node>
+      <node id="15">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>math.h</label>
+      </node>
+      <node id="4">
+        <label>memory</label>
+      </node>
+      <node id="10">
+        <label>netinet/in.h</label>
+      </node>
+      <node id="17">
+        <label>rclcpp/rclcpp.hpp</label>
+      </node>
+      <node id="19">
+        <label>sensor_msgs/msg/joy.hpp</label>
       </node>
       <node id="18">
         <label>std_msgs/msg/string.hpp</label>
       </node>
-      <node id="4">
-        <label>memory</label>
+      <node id="12">
+        <label>stdio.h</label>
+      </node>
+      <node id="13">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="8">
+        <label>sys/socket.h</label>
+      </node>
+      <node id="9">
+        <label>sys/types.h</label>
+      </node>
+      <node id="24">
+        <label>thread</label>
+      </node>
+      <node id="14">
+        <label>unistd.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -218,7 +218,7 @@
 <codeline lineno="35"><highlight class="normal"><ref refid="classHapticNode_1a7c88a59333ed4ef72cc153bf956a35bc" kindref="member">HapticNode::HapticNode</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>argv[])<sp/>:<sp/>rclcpp::Node(</highlight><highlight class="stringliteral">&quot;HapticNode&quot;</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="36"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>CKim<sp/>-<sp/>Set<sp/>IP<sp/>and<sp/>Port</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="classHapticNode_1ab9c8435b606aa914cfee677624b46579" kindref="member">m_IP</ref><sp/>=<sp/>argv[1];<sp/><sp/><sp/><sp/><sp/><ref refid="classHapticNode_1a43ee95dc228f1d7bd021870b44249687" kindref="member">m_Port</ref><sp/>=<sp/>argv[2];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>m_IP<sp/>=<sp/>argv[1];<sp/><sp/><sp/><sp/><sp/>m_Port<sp/>=<sp/>argv[2];</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>qos<sp/>=<sp/>rclcpp::QoS(</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>&quot;KEEP_LAST&quot;<sp/>history<sp/>setting<sp/>tells<sp/>DDS<sp/>to<sp/>store<sp/>a<sp/>fixed-size<sp/>buffer<sp/>of<sp/>values<sp/>before<sp/>they</highlight><highlight class="normal"></highlight></codeline>
@@ -232,11 +232,11 @@
 <codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>trying<sp/>to<sp/>send.&quot;<sp/>Therefore<sp/>set<sp/>the<sp/>policy<sp/>to<sp/>best<sp/>effort<sp/>to<sp/>avoid<sp/>blocking<sp/>during<sp/>execution.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/>qos.best_effort();</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>CKim<sp/>-<sp/>Initialize<sp/>publisher</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="classHapticNode_1ac6e51c4350e57c6fa887c7d0feb07a11" kindref="member">haptic_publisher_</ref><sp/>=<sp/>this-&gt;create_publisher&lt;ecat_msgs::msg::HapticCmd&gt;(</highlight><highlight class="stringliteral">&quot;HapticInput&quot;</highlight><highlight class="normal">,qos);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>haptic_publisher_<sp/>=<sp/>this-&gt;create_publisher&lt;ecat_msgs::msg::HapticCmd&gt;(</highlight><highlight class="stringliteral">&quot;HapticInput&quot;</highlight><highlight class="normal">,qos);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>CKim<sp/>-<sp/>Launch<sp/>thread<sp/>that<sp/>will<sp/>constantly<sp/>read<sp/>socket<sp/>and<sp/>publish<sp/>data</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="classHapticNode_1aed4068cefac2b574be853e1cf9572a18" kindref="member">future_</ref><sp/>=<sp/><ref refid="classHapticNode_1a57e6292d41b4fbfa4160d328c91cea3a" kindref="member">exit_signal_</ref>.get_future();</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classHapticNode_1a684ca1834830027f30a05b9809af1551" kindref="member">comm_thread_</ref><sp/>=<sp/>std::thread(&amp;<ref refid="classHapticNode_1a468dc1c2e491c3f8a6013ae641e77832" kindref="member">HapticNode::commThread</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);<sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>future_<sp/>=<sp/>exit_signal_.get_future();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>comm_thread_<sp/>=<sp/>std::thread(&amp;<ref refid="classHapticNode_1a468dc1c2e491c3f8a6013ae641e77832" kindref="member">HapticNode::commThread</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);<sp/><sp/></highlight></codeline>
 <codeline lineno="57"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classHapticNode_1a468dc1c2e491c3f8a6013ae641e77832" kindref="member">HapticNode::commThread</ref>()</highlight></codeline>

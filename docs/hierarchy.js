@@ -8,7 +8,7 @@ var hierarchy =
     [ "EthercatCommunication::EthercatNode", "classEthercatCommunication_1_1EthercatNode.html", null ],
     [ "EthercatSlave", "classEthercatSlave.html", null ],
     [ "HomingParam", "structHomingParam.html", null ],
-    [ "Node", null, [
+    [ "rclcpp::Node", null, [
       [ "GUI::GuiNode", "classGUI_1_1GuiNode.html", null ],
       [ "HapticNode", "classHapticNode.html", null ],
       [ "SafetyNode", "classSafetyNode.html", null ]

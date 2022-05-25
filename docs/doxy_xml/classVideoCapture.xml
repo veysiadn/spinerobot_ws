@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classVideoCapture" kind="class" language="C++" prot="public">
     <compoundname>VideoCapture</compoundname>
     <basecompoundref prot="public" virt="non-virtual">QThread</basecompoundref>
@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="105" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="105" bodyend="-1"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="73" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVideoCapture_1ad7e4bd3b6701101854543da3ce395ac6" prot="private" static="no" mutable="no">
         <type>cv::Mat</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="106" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="106" bodyend="-1"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="74" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVideoCapture_1ae05ab150ec60856c798cad097621f244" prot="private" static="no" mutable="no">
         <type>cv::VideoCapture</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="107" column="22" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="107" bodyend="-1"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="75" column="22" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVideoCapture_1a9bd97daedba6d42b480faade04b3e06b" prot="private" static="no" mutable="no">
         <type>unsigned long</type>
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="109" column="19" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="109" bodyend="-1"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="77" column="19" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVideoCapture_1a112ef5073674467b47adc3f97704cb32" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="110" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="110" bodyend="-1"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="78" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="78" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="96" column="5" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="4" bodyend="9"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="64" column="5" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="4" bodyend="9"/>
       </memberdef>
       <memberdef kind="function" id="classVideoCapture_1a40d0a95efe6459b3e292e0e354d9b3c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>QPixmap</type>
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="97" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="97" bodyend="97"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="65" column="13" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="65" bodyend="65"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="signal">
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="100" column="10"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="68" column="10"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="102" column="10" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="11" bodyend="33"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="70" column="10" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="11" bodyend="33"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -152,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="112" column="12" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="35" bodyend="100"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="80" column="12" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="35" bodyend="100"/>
       </memberdef>
       <memberdef kind="function" id="classVideoCapture_1a3e439afbb57883262644b4853251f862" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>QPixmap</type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="113" column="13" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="102" bodyend="105"/>
+        <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="81" column="13" bodyfile="src/gui_pkg/src/video_capture.cpp" bodystart="102" bodyend="105"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -199,7 +199,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="61" column="1" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="60" bodyend="82"/>
+    <location file="src/gui_pkg/include/gui_pkg/video_capture.hpp" line="60" column="1" bodyfile="src/gui_pkg/include/gui_pkg/video_capture.hpp" bodystart="61" bodyend="82"/>
     <listofallmembers>
       <member refid="classVideoCapture_1a112ef5073674467b47adc3f97704cb32" prot="private" virt="non-virtual"><scope>VideoCapture</scope><name>cam_id</name></member>
       <member refid="classVideoCapture_1a97fc96e7b4aca0ee7cd2256ae4174d83" prot="private" virt="non-virtual"><scope>VideoCapture</scope><name>cvMatToQImage</name></member>
