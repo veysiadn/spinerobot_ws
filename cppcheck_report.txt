@@ -52,60 +52,6 @@ src/ecat_pkg/src/ecat_lifecycle.cpp:584:59: style: Variable 'publish_time_start'
 src/ecat_pkg/src/ecat_lifecycle.cpp:584:80: style: Variable 'publish_time_end' is assigned a value that is never used. [unreadVariable]
     struct timespec wake_up_time, time, publish_time_start={}, publish_time_end={};
                                                                                ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:831:32: style: Variable 'latency_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                latency_max_ns = 0;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:714:32: note: latency_max_ns is assigned
-                latency_max_ns = latency_ns;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:831:32: note: latency_max_ns is overwritten
-                latency_max_ns = 0;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:832:32: style: Variable 'latency_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                latency_min_ns = 0xffffffff;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:717:32: note: latency_min_ns is assigned
-                latency_min_ns = latency_ns;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:832:32: note: latency_min_ns is overwritten
-                latency_min_ns = 0xffffffff;
-                               ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:825:31: style: Variable 'period_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                period_max_ns = 0;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:720:31: note: period_max_ns is assigned
-                period_max_ns = period_ns;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:825:31: note: period_max_ns is overwritten
-                period_max_ns = 0;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:826:31: style: Variable 'period_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                period_min_ns = 0xffffffff;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:723:31: note: period_min_ns is assigned
-                period_min_ns = period_ns;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:826:31: note: period_min_ns is overwritten
-                period_min_ns = 0xffffffff;
-                              ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:828:29: style: Variable 'exec_max_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                exec_max_ns = 0;
-                            ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:726:29: note: exec_max_ns is assigned
-                exec_max_ns = exec_ns;
-                            ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:828:29: note: exec_max_ns is overwritten
-                exec_max_ns = 0;
-                            ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:829:29: style: Variable 'exec_min_ns' is reassigned a value before the old one has been used. [redundantAssignment]
-                exec_min_ns = 0xffffffff;
-                            ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:729:29: note: exec_min_ns is assigned
-                exec_min_ns = exec_ns;
-                            ^
-src/ecat_pkg/src/ecat_lifecycle.cpp:829:29: note: exec_min_ns is overwritten
-                exec_min_ns = 0xffffffff;
-                            ^
 src/ecat_pkg/src/ecat_lifecycle.cpp:587:28: style: Variable 'period_ns' is assigned a value that is never used. [unreadVariable]
         uint32_t period_ns = 0, exec_ns = 0, latency_ns = 0,
                            ^
@@ -136,58 +82,7 @@ src/ecat_pkg/src/ecat_node.cpp:94:34: style: Variable 'elmo_syncs' is assigned a
 src/ecat_pkg/src/ecat_node.cpp:162:37: style: Variable 'easycat_syncs' is assigned a value that is never used. [unreadVariable]
     ec_sync_info_t easycat_syncs[3] = {
                                     ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:32:11: style: struct member 'Controller::left_x_axis_' is never used. [unusedStructMember]
-    float left_x_axis_;
-          ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:33:11: style: struct member 'Controller::left_y_axis_' is never used. [unusedStructMember]
-    float left_y_axis_;
-          ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:34:11: style: struct member 'Controller::right_x_axis_' is never used. [unusedStructMember]
-    float right_x_axis_;
-          ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:35:11: style: struct member 'Controller::right_y_axis_' is never used. [unusedStructMember]
-    float right_y_axis_;
-          ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:36:13: style: struct member 'Controller::blue_button_' is never used. [unusedStructMember]
-    uint8_t blue_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:37:13: style: struct member 'Controller::green_button_' is never used. [unusedStructMember]
-    uint8_t green_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:38:13: style: struct member 'Controller::red_button_' is never used. [unusedStructMember]
-    uint8_t red_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:39:13: style: struct member 'Controller::yellow_button_' is never used. [unusedStructMember]
-    uint8_t yellow_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:40:13: style: struct member 'Controller::left_r_button_' is never used. [unusedStructMember]
-    uint8_t left_r_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:41:13: style: struct member 'Controller::left_l_button_' is never used. [unusedStructMember]
-    uint8_t left_l_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:42:13: style: struct member 'Controller::left_u_button_' is never used. [unusedStructMember]
-    uint8_t left_u_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:43:13: style: struct member 'Controller::left_d_button_' is never used. [unusedStructMember]
-    uint8_t left_d_button_ ;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:44:13: style: struct member 'Controller::left_rb_button_' is never used. [unusedStructMember]
-    uint8_t left_rb_button_ ;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:45:13: style: struct member 'Controller::right_rb_button_' is never used. [unusedStructMember]
-    uint8_t right_rb_button_ ;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:46:13: style: struct member 'Controller::left_start_button_' is never used. [unusedStructMember]
-    uint8_t left_start_button_ ;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:47:13: style: struct member 'Controller::right_start_button_' is never used. [unusedStructMember]
-    uint8_t right_start_button_ ;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:48:13: style: struct member 'Controller::xbox_button_' is never used. [unusedStructMember]
-    uint8_t xbox_button_;
-            ^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:308:24: style: Variable 'future_result' is assigned a value that is never used. [unreadVariable]
+src/ecat_pkg/src/lifecycle_node_manager.cpp:241:24: style: Variable 'future_result' is assigned a value that is never used. [unreadVariable]
     auto future_result = client_change_state_->async_send_request(request);
                        ^
 src/gui_pkg/src/main_window.cpp:332:27: warning: Logical conjunction always evaluates to false: state == 0x01 && state == 0. [incorrectLogicOperator]
@@ -220,15 +115,6 @@ src/tool_pkg/src/DxlMaster.cpp:294:30: style: Variable 'dxl_addparam_result' is 
 src/tool_pkg/src/surgicalToolNode.cpp:25:7: performance: Variable 'dxl' is assigned in constructor body. Consider performing initialization in initialization list. [useInitializationList]
       dxl = std::make_unique<DxlMaster>();
       ^
-src/controller/src/joy_node_linux.cpp:51:1: error: The one definition rule is violated, different classes/structs have the same name 'Controller' [ctuOneDefinitionRuleViolation]
-class Controller
-^
-src/ecat_pkg/src/lifecycle_node_manager.cpp:30:9: note: The one definition rule is violated, different classes/structs have the same name 'Controller'
-typedef struct
-        ^
-src/controller/src/joy_node_linux.cpp:51:1: note: The one definition rule is violated, different classes/structs have the same name 'Controller'
-class Controller
-^
 src/gui_pkg/src/timing.cpp:3:0: style: The function 'GetTime' is never used. [unusedFunction]
 
 ^
