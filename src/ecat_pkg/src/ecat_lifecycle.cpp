@@ -484,7 +484,8 @@ int EthercatLifeCycle::InitEthercatCommunication()
     }
 
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Configuring DC synchronization...\n");
-    ecat_node_->ConfigDcSyncDefault();
+    if(DISTRIBUTED_CLOCK)
+        ecat_node_->ConfigDcSyncDefault();
     return 0 ; 
 }
 

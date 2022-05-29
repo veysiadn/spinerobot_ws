@@ -15,14 +15,18 @@ public:
     /// Subscribtion for control node.
     /// Subscribtion for slave feedback values acquired from connected slaves.
     lifecycle_node_subscriber_ = this->create_subscription<ecat_msgs::msg::DataReceived>(
-      "Slave_Feedback",qos,std::bind(&SafetyNode::HandleLifecycleNodeCallbacks, this, std::placeholders::_1));
+    "Slave_Feedback",qos,std::bind(&SafetyNode::HandleLifecycleNodeCallbacks, this, std::placeholders::_1));
+     safety_state_publisher_ = this->create_publisher<std_msgs::msg::UInt16>("safety_info",qos);
   }
 
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr      joystick_subscriber_;
   rclcpp::Subscription<ecat_msgs::msg::GuiButtonData>::SharedPtr gui_button_subscriber_;
   rclcpp::Subscription<ecat_msgs::msg::DataReceived>::SharedPtr lifecycle_node_subscriber_;
+
+  rclcpp::Publisher<std_msgs::msg::UInt16>::SharedPtr  safety_state_publisher_;
   ecat_msgs::msg::DataReceived lifecycle_node_data_ ; 
   Controller controller_ ; 
+  std_msgs::msg::UInt16 safety_state_msg_ ;
   void 
   HandleGuiNodeCallbacks(const ecat_msgs::msg::GuiButtonData::SharedPtr msg)
   {
@@ -61,6 +65,7 @@ public:
         }
       }
     }
+      
       // msg->b_init_ecat = 0;
       // msg->b_reinit_ecat = 0;
       // msg->b_enable_drives = 0;
@@ -86,6 +91,7 @@ public:
         }
       }
     }
+  
   //   // Shutdown
   //   if(controller_.right_rb_button_ > 0){
   //     std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -100,13 +106,28 @@ public:
   //       return;
   //     }
   //   }
+  
+      if(msg->b_emergency_mode > 0){
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        if (!rclcpp::ok()) {
+          return;
+        }
+        safety_state_msg_.data = kEmergencyStop;
+      }
+      safety_state_publisher_->publish(safety_state_msg_);
   }
   
   void 
   HandleLifecycleNodeCallbacks(const ecat_msgs::msg::DataReceived::SharedPtr msg)
   {
     lifecycle_node_data_ = *msg ; 
+    for(int i=0; i < lifecycle_node_data_.slave_com_status.size(); i++){
+      if(lifecycle_node_data_.error_code[i] > 0 ){
+         safety_state_msg_.data = kErrorInDrive;
+      }
+    }
   }
+  
   void
   init()
   {

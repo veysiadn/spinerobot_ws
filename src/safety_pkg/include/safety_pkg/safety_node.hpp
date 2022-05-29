@@ -13,7 +13,7 @@
 #include "ecat_msgs/msg/data_received.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <std_srvs/srv/trigger.hpp>
-
+#include "std_msgs/msg/u_int16.hpp"
 #include "rcutils/logging_macros.h"
 
 using namespace std::chrono_literals;
@@ -66,3 +66,12 @@ typedef struct
     uint8_t right_start_button_ ; 
     uint8_t xbox_button_;
 } Controller;
+
+enum SafetyInfo{
+  kSafe=0,
+  kOverForce,
+  kOverSpeed,
+  kOverPositionLimit,
+  kErrorInDrive,
+  kEmergencyStop
+};
