@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('safety__node_8hpp.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">safety_node.hpp File Reference</div></div>
@@ -105,6 +106,7 @@ $(document).ready(function(){initNavTree('safety__node_8hpp.html',''); initResiz
 <code>#include &quot;ecat_msgs/msg/data_received.hpp&quot;</code><br />
 <code>#include &quot;rclcpp/rclcpp.hpp&quot;</code><br />
 <code>#include &lt;std_srvs/srv/trigger.hpp&gt;</code><br />
+<code>#include &quot;std_msgs/msg/u_int16.hpp&quot;</code><br />
 <code>#include &quot;rcutils/logging_macros.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for safety_node.hpp:</div>
@@ -115,8 +117,7 @@ Include dependency graph for safety_node.hpp:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="safety__node_8hpp__dep__incl.svg" width="198" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="safety__node_8hpp__dep__incl.svg" width="198" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="safety__node_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -126,6 +127,20 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html">Controller</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens, reads from and publishes joystick events.  <a href="classController.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab1746a86a11d31fce909f5766c726833"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833">SafetyInfo</a> { <br />
+&#160;&#160;<a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5">kSafe</a> =0
+, <a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556">kOverForce</a>
+, <a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232">kOverSpeed</a>
+, <a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285">kOverPositionLimit</a>
+, <br />
+&#160;&#160;<a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90">kErrorInDrive</a>
+, <a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac">kEmergencyStop</a>
+<br />
+ }</td></tr>
+<tr class="separator:ab1746a86a11d31fce909f5766c726833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -142,6 +157,29 @@ Variables</h2></td></tr>
 <tr class="memitem:a980ba3270c938a20bc0c2071de540eb4"><td class="memItemLeft" align="right" valign="top">static constexpr char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="safety__node_8hpp.html#a980ba3270c938a20bc0c2071de540eb4">node_change_state_topic</a> = &quot;ecat_node/change_state&quot;</td></tr>
 <tr class="separator:a980ba3270c938a20bc0c2071de540eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ab1746a86a11d31fce909f5766c726833" name="ab1746a86a11d31fce909f5766c726833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1746a86a11d31fce909f5766c726833">&#9670;&nbsp;</a></span>SafetyInfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="safety__node_8hpp.html#ab1746a86a11d31fce909f5766c726833">SafetyInfo</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5" name="ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5"></a>kSafe&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556" name="ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556"></a>kOverForce&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232" name="ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232"></a>kOverSpeed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285" name="ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285"></a>kOverPositionLimit&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90" name="ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90"></a>kErrorInDrive&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac" name="ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac"></a>kEmergencyStop&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a8e07ddf5b5b0e71f767a82424f50286b" name="a8e07ddf5b5b0e71f767a82424f50286b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e07ddf5b5b0e71f767a82424f50286b">&#9670;&nbsp;</a></span>wait_for_result()</h2>

@@ -28,7 +28,14 @@ var NAVTREE =
     [ "Welcome to Veysi ADIN & Chunwoo Kim's ROS2 EtherCAT package.", "index.html", [
       [ "Guides", "index.html#autotoc_md1", null ],
       [ "Prerequisites", "index.html#autotoc_md2", null ],
-      [ "Implementation", "index.html#autotoc_md3", null ]
+      [ "Implementation", "index.html#autotoc_md3", null ],
+      [ "Getting Started", "index.html#autotoc_md4", [
+        [ "STEP 1 :", "index.html#autotoc_md5", null ],
+        [ "STEP 2 :", "index.html#autotoc_md6", null ],
+        [ "STEP 3 :", "index.html#autotoc_md7", null ],
+        [ "NOTE", "index.html#autotoc_md8", null ]
+      ] ],
+      [ "Good Luck ⚡", "index.html#autotoc_md9", null ]
     ] ],
     [ "Examples", "examples.html", null ],
     [ "Useful Resources", "resources.html", null ],
@@ -57,7 +64,7 @@ var NAVTREE =
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ],
+        [ "Enumerator", "globals_eval.html", "globals_eval" ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -68,9 +75,10 @@ var NAVTREEINDEX =
 [
 "LaunchExample_2pub__sub__launch_8py.html",
 "classEthercatLifeCycleNode_1_1EthercatLifeCycle.html#ab14d7e2501fbf43848ecbfac39fc76b5",
-"ecat__definitions_8hpp.html#a5d175b4708e9a88ebbc35372ca1818b7a1aec86a3bb84af0dc09dfba27134d870",
-"globals_vars.html",
-"object__dictionary_8hpp.html#acc7a806043abb6b13b5f319be8f2fd1f"
+"ecat__definitions_8hpp.html#a56752d1aeb4bd4940e632396072d68afab7ddf4a5dec8aca3035989b429490bc4",
+"globals_eval_h.html",
+"object__dictionary_8hpp.html#a324bb914b4d5855ed0747e236c1a81ad",
+"structProfileVelocityParam.html#a0afdd1d807f97d6d8137519cbbffc4e2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

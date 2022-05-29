@@ -225,6 +225,19 @@
         </inbodydescription>
         <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="280" column="14" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="280" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="structReceivedData_1ad1caccbf23e15c9282079e6d0123965f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t ReceivedData::error_code</definition>
+        <argsstring></argsstring>
+        <name>error_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="51" column="15" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="structReceivedData_1a4f26602ace4259763df1030b19b6d64f" prot="public" static="no" mutable="no">
         <type>int32_t</type>
         <definition>int32_t ReceivedData::right_x_axis</definition>
@@ -318,6 +331,7 @@
       <member refid="structReceivedData_1a3afcc288ec8cf840cc34b4426c42a54f" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>com_status</name></member>
       <member refid="structReceivedData_1a1699392bb03d114ab5a0c7e9250c8d32" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>control_word</name></member>
       <member refid="structReceivedData_1acdb3787a6b0dc60745069f93d3b2c5ec" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>current_lifecycle_state</name></member>
+      <member refid="structReceivedData_1ad1caccbf23e15c9282079e6d0123965f" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>error_code</name></member>
       <member refid="structReceivedData_1a04019bdb0f44e77381bffe9adf25e1fe" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>left_limit_switch_val</name></member>
       <member refid="structReceivedData_1a2af989aebb271f62b967408aa869bc01" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>left_x_axis</name></member>
       <member refid="structReceivedData_1a4015807759d6e67ef30820d1c0f6d02f" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>max_tor</name></member>

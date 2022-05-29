@@ -15,6 +15,7 @@
     <includes local="yes">ecat_msgs/msg/data_received.hpp</includes>
     <includes local="yes">rclcpp/rclcpp.hpp</includes>
     <includes local="no">std_srvs/srv/trigger.hpp</includes>
+    <includes local="yes">std_msgs/msg/u_int16.hpp</includes>
     <includes local="yes">rcutils/logging_macros.h</includes>
     <includedby refid="safety__node_8cpp" local="no">src/safety_pkg/src/safety_node.cpp</includedby>
     <incdepgraph>
@@ -49,6 +50,8 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>chrono</label>
@@ -77,11 +80,14 @@
       <node id="13">
         <label>rclcpp/rclcpp.hpp</label>
       </node>
-      <node id="15">
+      <node id="16">
         <label>rcutils/logging_macros.h</label>
       </node>
       <node id="10">
         <label>sensor_msgs/msg/joy.hpp</label>
+      </node>
+      <node id="15">
+        <label>std_msgs/msg/u_int16.hpp</label>
       </node>
       <node id="14">
         <label>std_srvs/srv/trigger.hpp</label>
@@ -106,6 +112,62 @@
       </node>
     </invincdepgraph>
     <innerclass refid="classController" prot="public">Controller</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SafetyInfo</name>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5" prot="public">
+          <name>kSafe</name>
+          <initializer>=0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556" prot="public">
+          <name>kOverForce</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232" prot="public">
+          <name>kOverSpeed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285" prot="public">
+          <name>kOverPositionLimit</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90" prot="public">
+          <name>kErrorInDrive</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac" prot="public">
+          <name>kEmergencyStop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/safety_pkg/include/safety_pkg/safety_node.hpp" line="70" column="1" bodyfile="src/safety_pkg/include/safety_pkg/safety_node.hpp" bodystart="70" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="var">
       <memberdef kind="variable" id="safety__node_8hpp_1aced6f4a17af3b1dcfe352533f20fa4ee" prot="public" static="yes" constexpr="yes" mutable="no">
         <type>constexpr char const  *</type>
@@ -201,7 +263,7 @@
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ecat_msgs/msg/data_received.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rclcpp/rclcpp.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;std_srvs/srv/trigger.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;std_msgs/msg/u_int16.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rcutils/logging_macros.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std::chrono_literals;</highlight></codeline>
@@ -254,6 +316,15 @@
 <codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>right_start_button_<sp/>;<sp/></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>xbox_button_;</highlight></codeline>
 <codeline lineno="68"><highlight class="normal">}<sp/><ref refid="classController" kindref="compound">Controller</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833" kindref="member">SafetyInfo</ref>{</highlight></codeline>
+<codeline lineno="71" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a3df691a0fd74f5cff7a200944fcf95b5" kindref="member">kSafe</ref>=0,</highlight></codeline>
+<codeline lineno="72" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833af1d450f7efd78d1561d62c8b2d118556" kindref="member">kOverForce</ref>,</highlight></codeline>
+<codeline lineno="73" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ae4fcb02848cea9cdb7ac763cd6483232" kindref="member">kOverSpeed</ref>,</highlight></codeline>
+<codeline lineno="74" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad4d3efdc172cf449b7b9a255e576b285" kindref="member">kOverPositionLimit</ref>,</highlight></codeline>
+<codeline lineno="75" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833a5e729852e9eb01be06479c70df318f90" kindref="member">kErrorInDrive</ref>,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><ref refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac" kindref="member">kEmergencyStop</ref></highlight></codeline>
+<codeline lineno="77" refid="safety__node_8hpp_1ab1746a86a11d31fce909f5766c726833ad256d6d5920216ee3841f313bb2c23ac" refkind="member"><highlight class="normal">};</highlight></codeline>
     </programlisting>
     <location file="src/safety_pkg/include/safety_pkg/safety_node.hpp"/>
   </compounddef>

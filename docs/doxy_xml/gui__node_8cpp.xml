@@ -4,7 +4,7 @@
     <compoundname>gui_node.cpp</compoundname>
     <includes refid="gui__node_8hpp" local="yes">../include/gui_pkg/gui_node.hpp</includes>
     <incdepgraph>
-      <node id="19">
+      <node id="20">
         <label>gui_globals.hpp</label>
         <link refid="gui__globals_8hpp"/>
       </node>
@@ -41,14 +41,14 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="18">
         <label>timing.hpp</label>
         <link refid="gui__pkg_2include_2gui__pkg_2timing_8hpp"/>
-        <childnode refid="8" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
@@ -65,7 +65,9 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -74,13 +76,13 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>chrono</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>cstdint</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>ctime</label>
       </node>
       <node id="5">
@@ -92,19 +94,19 @@
       <node id="7">
         <label>ecat_msgs/msg/gui_button_data.hpp</label>
       </node>
-      <node id="16">
+      <node id="17">
         <label>fstream</label>
       </node>
-      <node id="11">
+      <node id="12">
         <label>functional</label>
       </node>
-      <node id="18">
+      <node id="19">
         <label>iostream</label>
       </node>
-      <node id="10">
+      <node id="11">
         <label>memory</label>
       </node>
-      <node id="15">
+      <node id="16">
         <label>ratio</label>
       </node>
       <node id="3">
@@ -113,10 +115,13 @@
       <node id="4">
         <label>sensor_msgs/msg/joy.hpp</label>
       </node>
-      <node id="12">
+      <node id="8">
+        <label>std_msgs/msg/u_int16.hpp</label>
+      </node>
+      <node id="13">
         <label>string</label>
       </node>
-      <node id="8">
+      <node id="9">
         <label>vector</label>
       </node>
     </incdepgraph>
@@ -200,28 +205,29 @@
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].com_status<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>msg-&gt;com_status;</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].op_mode_display<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>msg-&gt;op_mode_display[i];<sp/></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a6987206057a2586f5fa17ed6206b5703" kindref="member">current_lifecycle_state</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>msg-&gt;current_lifecycle_state;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].left_limit_switch_val<sp/><sp/><sp/>=<sp/><sp/>msg-&gt;left_limit_switch_val;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].right_limit_switch_val<sp/><sp/>=<sp/><sp/>msg-&gt;right_limit_switch_val;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].p_emergency_switch_val<sp/><sp/>=<sp/><sp/>msg-&gt;emergency_switch_val;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classGUI_1_1GuiNode_1aafb5c384ff383686a052111e49e8999b" kindref="member">GuiNode::ResetContolButtonValues</ref>()</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_init_ecat<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_reinit_ecat<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_drives<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_disable_drives<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_cyclic_pos<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_cyclic_vel<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_vel<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_pos<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enter_cyclic_pdo<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_emergency_mode<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_send<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_stop_cyclic_pdo<sp/>=<sp/>0<sp/>;</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/>}</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].error_code<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/>msg-&gt;error_code[i];</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].left_limit_switch_val<sp/><sp/><sp/>=<sp/><sp/>msg-&gt;left_limit_switch_val;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].right_limit_switch_val<sp/><sp/>=<sp/><sp/>msg-&gt;right_limit_switch_val;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1af84f0316ff4fdc967f73b133fb3ab75a" kindref="member">received_data_</ref>[i].p_emergency_switch_val<sp/><sp/>=<sp/><sp/>msg-&gt;emergency_switch_val;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classGUI_1_1GuiNode_1aafb5c384ff383686a052111e49e8999b" kindref="member">GuiNode::ResetContolButtonValues</ref>()</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_init_ecat<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_reinit_ecat<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_drives<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_disable_drives<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_cyclic_pos<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_cyclic_vel<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_vel<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enable_pos<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_enter_cyclic_pdo<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_emergency_mode<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_send<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGUI_1_1GuiNode_1a625aa899ac48e4549c7f5fd0399181d7" kindref="member">ui_control_buttons_</ref>.b_stop_cyclic_pdo<sp/>=<sp/>0<sp/>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/gui_pkg/src/gui_node.cpp"/>
   </compounddef>
