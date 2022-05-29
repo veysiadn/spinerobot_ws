@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="dir_a5a35f2c1dfc072a2a6c2f4e9f16cb0e" kind="dir">
     <compoundname>src/ecat_pkg/launch</compoundname>
     <innerdir refid="dir_afd3063867063183ef901a7a578d68e9">src/ecat_pkg/launch/LaunchExample</innerdir>

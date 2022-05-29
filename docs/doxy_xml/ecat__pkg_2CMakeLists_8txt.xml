@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="ecat__pkg_2CMakeLists_8txt" kind="file" language="C++">
     <compoundname>CMakeLists.txt</compoundname>
       <sectiondef kind="var">
@@ -51,22 +51,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="src/ecat_pkg/CMakeLists.txt" line="17" column="1" bodyfile="src/ecat_pkg/CMakeLists.txt" bodystart="17" bodyend="19"/>
-      </memberdef>
-      <memberdef kind="function" id="ecat__pkg_2CMakeLists_8txt_1ad0cac8a91bb3d84c4fc6177f119cf4ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref> ecat_pkg</type>
-        <definition>include ecat_pkg set</definition>
-        <argsstring>(node_name &quot;ecat_node&quot;) find_package(ament_cmake REQUIRED) find_package(rclcpp REQUIRED) find_package(rclcpp_lifecycle REQUIRED) find_package(lifecycle_msgs REQUIRED) find_package(rttest) find_package(tlsf_cpp) find_package(ecat_msgs REQUIRED) find_package(sensor_msgs REQUIRED) find_package(std_msgs REQUIRED) add_executable(ecat_node src/main.cpp src/ecat_node.cpp src/ecat_slave.cpp src/ecat_lifecycle.cpp src/timing.cpp) target_include_directories(ecat_node PUBLIC $&lt; BUILD_INTERFACE</argsstring>
-        <name>set</name>
-        <param>
-          <type>node_name &quot;ecat_node&quot;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/ecat_pkg/CMakeLists.txt" line="20" column="1" bodyfile="src/ecat_pkg/CMakeLists.txt" bodystart="20" bodyend="48"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -122,7 +106,7 @@
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>include_directories(x/y)<sp/>for<sp/>general<sp/>include<sp/>for<sp/>whole<sp/>project..</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal">target_include_directories(ecat_node<sp/>PUBLIC</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/>$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>/ecat_pkg&gt;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>&gt;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:include&gt;</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"><sp/><sp/>${etherlab_include})</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal">##<sp/>Specifying<sp/>libraries<sp/>by<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>definitions<sp/>above.</highlight></codeline>

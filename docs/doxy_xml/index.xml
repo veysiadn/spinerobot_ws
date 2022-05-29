@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.2" xml:lang="en-US">
   <compound refid="classController" kind="struct"><name>Controller</name>
     <member refid="classController_1ab7b6b0bc77a4663f831fb178a7809503" kind="variable"><name>open_</name></member>
     <member refid="classController_1acae097f8b09be11cf90e7d9c06197c86" kind="variable"><name>sticky_buttons_</name></member>
@@ -225,7 +225,7 @@
     <member refid="classEthercatCommunication_1_1EthercatNode_1abd7ce9efe22243192e35960f5f4f5d27" kind="function"><name>DisableDrivesViaSDO</name></member>
   </compound>
   <compound refid="classEthercatSlave" kind="class"><name>EthercatSlave</name>
-    <member refid="classEthercatSlave_1a6f2a027b6738cc31de9613305f1b8532" kind="variable"><name>kSync0_shift_</name></member>
+    <member refid="classEthercatSlave_1aacda7e069d00c22feed8c929f78a1a6c" kind="variable"><name>kSync0_shift_</name></member>
     <member refid="classEthercatSlave_1aa2480c6d91ce19bf6c5a58b3207fa498" kind="variable"><name>slave_config_</name></member>
     <member refid="classEthercatSlave_1aca431a49f052ab63631b6936e53f0457" kind="variable"><name>slave_config_state_</name></member>
     <member refid="classEthercatSlave_1ac5c55d28338a4ec4d3d5d35917b20cdd" kind="variable"><name>slave_pdo_info_</name></member>
@@ -272,9 +272,9 @@
     <member refid="classHapticNode_1abafd596ed63850ed26bd82f6fa7da3ba" kind="variable"><name>hapticMsg</name></member>
     <member refid="classHapticNode_1a7c88a59333ed4ef72cc153bf956a35bc" kind="function"><name>HapticNode</name></member>
     <member refid="classHapticNode_1aeda8b38814fa9c906bf680f502d9b848" kind="function"><name>HapticNode</name></member>
-    <member refid="classHapticNode_1a8363a7c4b7b21839d1778efaad67c82d" kind="function"><name>operator=</name></member>
+    <member refid="classHapticNode_1ae9af5f1fbd09ec9ccf0e0d7a16c1790f" kind="function"><name>operator=</name></member>
     <member refid="classHapticNode_1a9ca1281b7cec0b02220a0812235ed55c" kind="function"><name>HapticNode</name></member>
-    <member refid="classHapticNode_1ab84601809c2eded9e48cc15dc5b0df0b" kind="function"><name>operator=</name></member>
+    <member refid="classHapticNode_1a065d38b29f309a170a843d09dd4b491f" kind="function"><name>operator=</name></member>
     <member refid="classHapticNode_1a44380fb90f8c55f35d06f391acb410e3" kind="function"><name>~HapticNode</name></member>
     <member refid="classHapticNode_1a468dc1c2e491c3f8a6013ae641e77832" kind="function"><name>commThread</name></member>
   </compound>
@@ -494,6 +494,8 @@
   <compound refid="namespacepubsubexample" kind="namespace"><name>pubsubexample</name>
     <member refid="namespacepubsubexample_1a6e4acd06d9d359d871fe5dcffa10f3a6" kind="function"><name>main</name></member>
   </compound>
+  <compound refid="namespacerclcpp" kind="namespace"><name>rclcpp</name>
+  </compound>
   <compound refid="namespacerclcpp__lifecycle" kind="namespace"><name>rclcpp_lifecycle</name>
   </compound>
   <compound refid="namespacestd_1_1chrono__literals" kind="namespace"><name>std::chrono_literals</name>
@@ -503,6 +505,10 @@
   <compound refid="README_8md" kind="file"><name>README.md</name>
   </compound>
   <compound refid="src_2README_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="joy__node__linux_8cpp" kind="file"><name>joy_node_linux.cpp</name>
+    <member refid="joy__node__linux_8cpp_1ad8e9de5b070f6d2a84f39a36e0dcff9b" kind="typedef"><name>TLSFAllocator</name></member>
+    <member refid="joy__node__linux_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
   </compound>
   <compound refid="controller_2CMakeLists_8txt" kind="file"><name>CMakeLists.txt</name>
     <member refid="controller_2CMakeLists_8txt_1ad1bf69fd353850593e105f63289c8339" kind="function"><name>cmake_minimum_required</name></member>
@@ -516,7 +522,6 @@
     <member refid="ecat__pkg_2CMakeLists_8txt_1a6ea9f23d4cdce36abec9d19975ffc7bf" kind="variable"><name>Wl</name></member>
     <member refid="ecat__pkg_2CMakeLists_8txt_1a0d121d952cf7d7860ef1e3398431acd6" kind="function"><name>cmake_minimum_required</name></member>
     <member refid="ecat__pkg_2CMakeLists_8txt_1a2e9817741974886b30eed9cfea09cd06" kind="function"><name>set</name></member>
-    <member refid="ecat__pkg_2CMakeLists_8txt_1ad0cac8a91bb3d84c4fc6177f119cf4ec" kind="function"><name>set</name></member>
   </compound>
   <compound refid="gui__pkg_2CMakeLists_8txt" kind="file"><name>CMakeLists.txt</name>
     <member refid="gui__pkg_2CMakeLists_8txt_1ae63cc5854ecdd1c87eb8ce252bc11a46" kind="function"><name>cmake_minimum_required</name></member>
@@ -525,12 +530,6 @@
     <member refid="input__pkg_2CMakeLists_8txt_1a97600d4bbf09916b9863e6b35fc77241" kind="function"><name>cmake_minimum_required</name></member>
   </compound>
   <compound refid="safety__pkg_2CMakeLists_8txt" kind="file"><name>CMakeLists.txt</name>
-    <member refid="safety__pkg_2CMakeLists_8txt_1a82b5742e0c2b3e05bb8d7f3a995f9d1a" kind="function"><name>cmake_minimum_required</name></member>
-    <member refid="safety__pkg_2CMakeLists_8txt_1a029f81570ee568a99ed2552e52a38969" kind="function"><name>target_link_libraries</name></member>
-  </compound>
-  <compound refid="joy__node__linux_8cpp" kind="file"><name>joy_node_linux.cpp</name>
-    <member refid="joy__node__linux_8cpp_1ad8e9de5b070f6d2a84f39a36e0dcff9b" kind="typedef"><name>TLSFAllocator</name></member>
-    <member refid="joy__node__linux_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
   </compound>
   <compound refid="ecat__definitions_8hpp" kind="file"><name>ecat_definitions.hpp</name>
     <member refid="ecat__definitions_8hpp_1a3e343f521bdee99c94f22627c930d24d" kind="define"><name>TEST_BIT</name></member>
@@ -1032,9 +1031,9 @@
     <member refid="hapticNode_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
   </compound>
   <compound refid="safety__node_8hpp" kind="file"><name>safety_node.hpp</name>
-    <member refid="safety__node_8hpp_1abb094961491ab15f0f4e83c0062e15eb" kind="variable"><name>lifecycle_node</name></member>
-    <member refid="safety__node_8hpp_1a850d210cbc58d05d512e72d134d150d8" kind="variable"><name>node_get_state_topic</name></member>
-    <member refid="safety__node_8hpp_1a77708bfffe82dfcc2eeed16c9625075d" kind="variable"><name>node_change_state_topic</name></member>
+    <member refid="safety__node_8hpp_1aced6f4a17af3b1dcfe352533f20fa4ee" kind="variable"><name>lifecycle_node</name></member>
+    <member refid="safety__node_8hpp_1ad7ed2848afc80f097ec467515e548453" kind="variable"><name>node_get_state_topic</name></member>
+    <member refid="safety__node_8hpp_1a980ba3270c938a20bc0c2071de540eb4" kind="variable"><name>node_change_state_topic</name></member>
     <member refid="safety__node_8hpp_1a8e07ddf5b5b0e71f767a82424f50286b" kind="function"><name>wait_for_result</name></member>
   </compound>
   <compound refid="safety__node_8cpp" kind="file"><name>safety_node.cpp</name>
@@ -1044,25 +1043,25 @@
   </compound>
   <compound refid="dir_620320258e45fc0c4377bdb2534829a3" kind="dir"><name>src/ecat_msgs</name>
   </compound>
-  <compound refid="dir_6ed40f2d31a14c8f080c4f6acbbad9fa" kind="dir"><name>src/ecat_pkg</name>
-  </compound>
   <compound refid="dir_1ddb388387a7a32e5e04c01fabcf41c5" kind="dir"><name>src/ecat_pkg/include/ecat_pkg</name>
   </compound>
-  <compound refid="dir_a8d7c3dfc6a2d1ab1ed6aadf73452078" kind="dir"><name>src/gui_pkg</name>
+  <compound refid="dir_6ed40f2d31a14c8f080c4f6acbbad9fa" kind="dir"><name>src/ecat_pkg</name>
   </compound>
   <compound refid="dir_49c8a06a9201d6d04532d5a0bfb6e5e9" kind="dir"><name>src/gui_pkg/include/gui_pkg</name>
   </compound>
-  <compound refid="dir_e13597078cf4e6075ccc1389ec844104" kind="dir"><name>src/ecat_pkg/include</name>
-  </compound>
-  <compound refid="dir_5a4e756bb77571bd5b8d32b7a3f7541e" kind="dir"><name>src/input_pkg/include</name>
+  <compound refid="dir_a8d7c3dfc6a2d1ab1ed6aadf73452078" kind="dir"><name>src/gui_pkg</name>
   </compound>
   <compound refid="dir_95e41177299382f82581ff6a0fdbe1b7" kind="dir"><name>src/safety_pkg/include</name>
   </compound>
+  <compound refid="dir_e13597078cf4e6075ccc1389ec844104" kind="dir"><name>src/ecat_pkg/include</name>
+  </compound>
   <compound refid="dir_5f6a9ac372f08ad2f9f56fbda15f8efd" kind="dir"><name>src/gui_pkg/include</name>
   </compound>
-  <compound refid="dir_ae28881369d45bc0b6e8368dbee24965" kind="dir"><name>src/input_pkg/include/input_pkg</name>
+  <compound refid="dir_5a4e756bb77571bd5b8d32b7a3f7541e" kind="dir"><name>src/input_pkg/include</name>
   </compound>
   <compound refid="dir_86ae27c4297ac583bcdd036becb19fdf" kind="dir"><name>src/input_pkg</name>
+  </compound>
+  <compound refid="dir_ae28881369d45bc0b6e8368dbee24965" kind="dir"><name>src/input_pkg/include/input_pkg</name>
   </compound>
   <compound refid="dir_a5a35f2c1dfc072a2a6c2f4e9f16cb0e" kind="dir"><name>src/ecat_pkg/launch</name>
   </compound>
@@ -1072,17 +1071,17 @@
   </compound>
   <compound refid="dir_675f4537d6e4af31cfc867aad29c483f" kind="dir"><name>src/safety_pkg/include/safety_pkg</name>
   </compound>
+  <compound refid="dir_34a4b34f2cfbf09a1592a51ce47086eb" kind="dir"><name>src/ecat_pkg/src</name>
+  </compound>
   <compound refid="dir_578fcc4aa7bb58f0f856b2f7d84499c2" kind="dir"><name>src/gui_pkg/src</name>
-  </compound>
-  <compound refid="dir_b3c8cf0a1583fdca019efa4931c113bd" kind="dir"><name>src/safety_pkg/src</name>
-  </compound>
-  <compound refid="dir_01e3b00c0e79295f4d52db5e62983e30" kind="dir"><name>src/controller/src</name>
   </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
   </compound>
-  <compound refid="dir_34a4b34f2cfbf09a1592a51ce47086eb" kind="dir"><name>src/ecat_pkg/src</name>
+  <compound refid="dir_01e3b00c0e79295f4d52db5e62983e30" kind="dir"><name>src/controller/src</name>
   </compound>
   <compound refid="dir_43175be8285d9322b122867840b67d13" kind="dir"><name>src/input_pkg/src</name>
+  </compound>
+  <compound refid="dir_b3c8cf0a1583fdca019efa4931c113bd" kind="dir"><name>src/safety_pkg/src</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

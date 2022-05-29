@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classHapticNode" kind="class" language="C++" prot="public" final="yes">
     <compoundname>HapticNode</compoundname>
-    <basecompoundref prot="public" virt="non-virtual">Node</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">rclcpp::Node</basecompoundref>
     <includes refid="hapticNode_8hpp" local="no">hapticNode.hpp</includes>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classHapticNode_1a684ca1834830027f30a05b9809af1551" prot="private" static="no" mutable="no">
@@ -133,9 +133,9 @@
         </inbodydescription>
         <location file="src/input_pkg/include/input_pkg/hapticNode.hpp" line="35" column="3"/>
       </memberdef>
-      <memberdef kind="function" id="classHapticNode_1a8363a7c4b7b21839d1778efaad67c82d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classHapticNode_1ae9af5f1fbd09ec9ccf0e0d7a16c1790f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classHapticNode" kindref="compound">HapticNode</ref> &amp;</type>
-        <definition>HapticNode&amp; HapticNode::operator=</definition>
+        <definition>HapticNode &amp; HapticNode::operator=</definition>
         <argsstring>(HapticNode &amp;&amp;c)=delete</argsstring>
         <name>operator=</name>
         <param>
@@ -167,9 +167,9 @@
         </inbodydescription>
         <location file="src/input_pkg/include/input_pkg/hapticNode.hpp" line="37" column="3"/>
       </memberdef>
-      <memberdef kind="function" id="classHapticNode_1ab84601809c2eded9e48cc15dc5b0df0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classHapticNode_1a065d38b29f309a170a843d09dd4b491f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classHapticNode" kindref="compound">HapticNode</ref> &amp;</type>
-        <definition>HapticNode&amp; HapticNode::operator=</definition>
+        <definition>HapticNode &amp; HapticNode::operator=</definition>
         <argsstring>(const HapticNode &amp;c)=delete</argsstring>
         <name>operator=</name>
         <param>
@@ -218,28 +218,28 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>rclcpp::Node</label>
-      </node>
       <node id="1">
         <label>HapticNode</label>
         <link refid="classHapticNode"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="2">
+        <label>rclcpp::Node</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>rclcpp::Node</label>
-      </node>
       <node id="1">
         <label>HapticNode</label>
         <link refid="classHapticNode"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>rclcpp::Node</label>
+      </node>
     </collaborationgraph>
-    <location file="src/input_pkg/include/input_pkg/hapticNode.hpp" line="27" column="1" bodyfile="src/input_pkg/include/input_pkg/hapticNode.hpp" bodystart="26" bodyend="64"/>
+    <location file="src/input_pkg/include/input_pkg/hapticNode.hpp" line="26" column="1" bodyfile="src/input_pkg/include/input_pkg/hapticNode.hpp" bodystart="27" bodyend="64"/>
     <listofallmembers>
       <member refid="classHapticNode_1a684ca1834830027f30a05b9809af1551" prot="private" virt="non-virtual"><scope>HapticNode</scope><name>comm_thread_</name></member>
       <member refid="classHapticNode_1a468dc1c2e491c3f8a6013ae641e77832" prot="private" virt="non-virtual"><scope>HapticNode</scope><name>commThread</name></member>
@@ -252,8 +252,8 @@
       <member refid="classHapticNode_1a9ca1281b7cec0b02220a0812235ed55c" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>HapticNode</name></member>
       <member refid="classHapticNode_1ab9c8435b606aa914cfee677624b46579" prot="private" virt="non-virtual"><scope>HapticNode</scope><name>m_IP</name></member>
       <member refid="classHapticNode_1a43ee95dc228f1d7bd021870b44249687" prot="private" virt="non-virtual"><scope>HapticNode</scope><name>m_Port</name></member>
-      <member refid="classHapticNode_1a8363a7c4b7b21839d1778efaad67c82d" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>operator=</name></member>
-      <member refid="classHapticNode_1ab84601809c2eded9e48cc15dc5b0df0b" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>operator=</name></member>
+      <member refid="classHapticNode_1ae9af5f1fbd09ec9ccf0e0d7a16c1790f" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>operator=</name></member>
+      <member refid="classHapticNode_1a065d38b29f309a170a843d09dd4b491f" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>operator=</name></member>
       <member refid="classHapticNode_1a44380fb90f8c55f35d06f391acb410e3" prot="public" virt="non-virtual"><scope>HapticNode</scope><name>~HapticNode</name></member>
     </listofallmembers>
   </compounddef>

@@ -1,25 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="gui__globals_8hpp" kind="file" language="C++">
     <compoundname>gui_globals.hpp</compoundname>
-    <includedby refid="video__capture_8hpp" local="yes">src/gui_pkg/include/gui_pkg/video_capture.hpp</includedby>
     <includedby refid="gui__node_8hpp" local="yes">src/gui_pkg/include/gui_pkg/gui_node.hpp</includedby>
     <includedby refid="main__window_8hpp" local="yes">src/gui_pkg/include/gui_pkg/main_window.hpp</includedby>
+    <includedby refid="video__capture_8hpp" local="yes">src/gui_pkg/include/gui_pkg/video_capture.hpp</includedby>
     <invincdepgraph>
-      <node id="4">
-        <label>src/gui_pkg/src/endoscope_viewer.cpp</label>
-        <link refid="endoscope__viewer_8cpp"/>
-      </node>
-      <node id="5">
-        <label>src/gui_pkg/src/main.cpp</label>
-        <link refid="gui__pkg_2src_2main_8cpp"/>
-      </node>
-      <node id="6">
-        <label>src/gui_pkg/include/gui_pkg/main_window.hpp</label>
-        <link refid="main__window_8hpp"/>
-        <childnode refid="5" relation="include">
+      <node id="8">
+        <label>src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp</label>
+        <link refid="endoscope__viewer_8hpp"/>
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -27,48 +19,56 @@
         <link refid="gui__globals_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="10">
-        <label>src/gui_pkg/src/gui_node.cpp</label>
-        <link refid="gui__node_8cpp"/>
       </node>
       <node id="2">
-        <label>src/gui_pkg/include/gui_pkg/video_capture.hpp</label>
-        <link refid="video__capture_8hpp"/>
+        <label>src/gui_pkg/include/gui_pkg/gui_node.hpp</label>
+        <link refid="gui__node_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>src/gui_pkg/src/video_capture.cpp</label>
-        <link refid="video__capture_8cpp"/>
-      </node>
-      <node id="7">
-        <label>src/gui_pkg/src/main_window.cpp</label>
-        <link refid="main__window_8cpp"/>
       </node>
       <node id="3">
-        <label>src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp</label>
-        <link refid="endoscope__viewer_8hpp"/>
+        <label>src/gui_pkg/include/gui_pkg/main_window.hpp</label>
+        <link refid="main__window_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>src/gui_pkg/include/gui_pkg/gui_node.hpp</label>
-        <link refid="gui__node_8hpp"/>
-        <childnode refid="6" relation="include">
+      <node id="7">
+        <label>src/gui_pkg/include/gui_pkg/video_capture.hpp</label>
+        <link refid="video__capture_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
+      </node>
+      <node id="9">
+        <label>src/gui_pkg/src/endoscope_viewer.cpp</label>
+        <link refid="endoscope__viewer_8cpp"/>
+      </node>
+      <node id="6">
+        <label>src/gui_pkg/src/gui_node.cpp</label>
+        <link refid="gui__node_8cpp"/>
+      </node>
+      <node id="4">
+        <label>src/gui_pkg/src/main.cpp</label>
+        <link refid="gui__pkg_2src_2main_8cpp"/>
+      </node>
+      <node id="5">
+        <label>src/gui_pkg/src/main_window.cpp</label>
+        <link refid="main__window_8cpp"/>
+      </node>
+      <node id="10">
+        <label>src/gui_pkg/src/video_capture.cpp</label>
+        <link refid="video__capture_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structReceivedData" prot="public">ReceivedData</innerclass>
@@ -423,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="12" column="17" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="12" bodyend="24"/>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="12" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="12" bodyend="24"/>
       </memberdef>
       <memberdef kind="enum" id="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" prot="public" static="no" strong="no">
         <type></type>
@@ -512,7 +512,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="27" column="21" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="27" bodyend="39"/>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="27" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="27" bodyend="39"/>
       </memberdef>
       <memberdef kind="enum" id="gui__globals_8hpp_1a56752d1aeb4bd4940e632396072d68af" prot="public" static="no" strong="no">
         <type></type>
@@ -651,7 +651,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="69" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="68" bodyend="78"/>
+        <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="68" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="69" bodyend="78"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -665,9 +665,9 @@
 <codeline lineno="4" refid="gui__globals_8hpp_1a1014738a6cd53047136514ced82de7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ID_CAMERA<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7" refid="gui__globals_8hpp_1a3e343f521bdee99c94f22627c930d24d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BIT(NUM,N)<sp/><sp/><sp/><sp/>((NUM<sp/>&amp;<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))&gt;&gt;N)<sp/><sp/>//<sp/>Check<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.<sp/>0<sp/>or<sp/>1.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8" refid="gui__globals_8hpp_1a11c01176d68fc4cd05ed423d922eca26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_BIT(NUM,N)<sp/><sp/><sp/><sp/><sp/><sp/>(NUM<sp/>|<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/>//<sp/>Set(1)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9" refid="gui__globals_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_BIT(NUM,N)<sp/><sp/><sp/><sp/>(NUM<sp/>&amp;<sp/>~(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/>//<sp/>Reset(0)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="gui__globals_8hpp_1a3e343f521bdee99c94f22627c930d24d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BIT(NUM,N)<sp/><sp/><sp/><sp/>((NUM<sp/>&amp;<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))&gt;&gt;N)<sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.<sp/>0<sp/>or<sp/>1.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="gui__globals_8hpp_1a11c01176d68fc4cd05ed423d922eca26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_BIT(NUM,N)<sp/><sp/><sp/><sp/><sp/><sp/>(NUM<sp/>|<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight><highlight class="comment">//<sp/>Set(1)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="gui__globals_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_BIT(NUM,N)<sp/><sp/><sp/><sp/>(NUM<sp/>&amp;<sp/>~(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight><highlight class="comment">//<sp/>Reset(0)<sp/>specific<sp/>bit<sp/>in<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" kindref="member">MotorStates</ref>{</highlight></codeline>
@@ -681,8 +681,8 @@
 <codeline lineno="20" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" kindref="member">kWarning</ref>,</highlight></codeline>
 <codeline lineno="21" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" kindref="member">kRemote</ref>,</highlight></codeline>
 <codeline lineno="22" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" kindref="member">kTargetReached</ref>,</highlight></codeline>
-<codeline lineno="23" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" kindref="member">kInternalLimitActivate</ref></highlight></codeline>
-<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" kindref="member">kInternalLimitActivate</ref></highlight></codeline>
+<codeline lineno="24" refid="gui__globals_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34" kindref="member">LifeCycleStates</ref>{</highlight></codeline>
@@ -696,8 +696,8 @@
 <codeline lineno="35" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a6bd968912a244d1eaf5edaa3dfe372e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a6bd968912a244d1eaf5edaa3dfe372e0" kindref="member">kShuttingDown</ref>,</highlight></codeline>
 <codeline lineno="36" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a517eb424d6d407f6969d37b7a2493008" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a517eb424d6d407f6969d37b7a2493008" kindref="member">kActivating</ref>,</highlight></codeline>
 <codeline lineno="37" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34aceea6f4c5b66edd5029dc0078df5dbcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34aceea6f4c5b66edd5029dc0078df5dbcf" kindref="member">kDeactivating</ref>,</highlight></codeline>
-<codeline lineno="38" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" kindref="member">kErrorProcessing</ref></highlight></codeline>
-<codeline lineno="39"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" kindref="member">kErrorProcessing</ref></highlight></codeline>
+<codeline lineno="39" refid="gui__globals_8hpp_1ae244c86447fc8505a577e48f17fb9b34a1e8ac11ccb19182d987625d9beeacbcc" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structReceivedData" kindref="compound">ReceivedData</ref></highlight></codeline>
@@ -762,7 +762,7 @@
 <codeline lineno="101" refid="gui__globals_8hpp_1a106be1a156a40681180306c587d2f6f2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X0F</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="102" refid="gui__globals_8hpp_1a67a844adb1df22f93037703a7aae4af6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_GO_SWITCH_ON_DISABLE<sp/><sp/><sp/><sp/><sp/>0x00</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="103" refid="gui__globals_8hpp_1a9250a46e089de909358597e6075e4580" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_RUN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1F</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="104" refid="gui__globals_8hpp_1a789a1d3357f273990a249fcb757c41b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_EXPEDITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F<sp/><sp/><sp/><sp/><sp/><sp/><sp/>//like<sp/>run,<sp/>but<sp/>dont<sp/>finish<sp/>actual<sp/>position<sp/>profile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="gui__globals_8hpp_1a789a1d3357f273990a249fcb757c41b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_EXPEDITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//like<sp/>run,<sp/>but<sp/>dont<sp/>finish<sp/>actual<sp/>position<sp/>profile</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="105" refid="gui__globals_8hpp_1ab7adcfce5cab981c20d9074db1a40dfe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_QUICKSTOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="106" refid="gui__globals_8hpp_1aa5373bcec0b512425ecff493e17fb2a9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SM_RELATIVE_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X7F</highlight></codeline>
     </programlisting>

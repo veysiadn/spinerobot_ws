@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classController" kind="struct" language="C++" prot="public">
     <compoundname>Controller</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -450,7 +450,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/controller/src/joy_node_linux.cpp" line="52" column="1" bodyfile="src/controller/src/joy_node_linux.cpp" bodystart="51" bodyend="450"/>
+    <location file="src/controller/src/joy_node_linux.cpp" line="51" column="1" bodyfile="src/controller/src/joy_node_linux.cpp" bodystart="52" bodyend="450"/>
     <listofallmembers>
       <member refid="classController_1a358e2ef57f61decb162889510e34f2ed" prot="private" virt="non-virtual"><scope>Controller</scope><name>autorepeat_rate_</name></member>
       <member refid="classController_1a21b2cc61fc8759e3612edf6cb7659844" prot="public" virt="non-virtual"><scope>Controller</scope><name>blue_button_</name></member>

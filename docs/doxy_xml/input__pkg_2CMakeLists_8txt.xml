@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="input__pkg_2CMakeLists_8txt" kind="file" language="C++">
     <compoundname>CMakeLists.txt</compoundname>
       <sectiondef kind="func">
@@ -66,7 +66,7 @@
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>CKim<sp/>-<sp/>Dependency<sp/>for<sp/>node<sp/>generated<sp/>file</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#find_package(input_pkg<sp/>REQUIRED)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal">include_directories(</highlight><highlight class="stringliteral">&quot;include/input_pkg/&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>link_directories(&quot;${CMAKE_BINARY_DIR}/my_lib/install/usr/local/lib&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>link_directories(&quot;${CMAKE_BINARY_DIR}/my_lib/install/usr/local/lib&quot;</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>**********************************************</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>**********************************************</highlight><highlight class="normal"></highlight></codeline>
@@ -94,7 +94,7 @@
 <codeline lineno="66"><highlight class="normal">#<sp/>**********************************************</highlight></codeline>
 <codeline lineno="67"><highlight class="normal">target_include_directories(hapticNode<sp/>PUBLIC</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/>$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>&gt;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:<ref refid="controller_2CMakeLists_8txt_1ad9a9e945c10fdf0c9b1dadd2f594291f" kindref="member">include</ref>&gt;)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>$&lt;INSTALL_INTERFACE:include&gt;)</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(BUILD_TESTING)</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/>find_package(ament_lint_auto<sp/>REQUIRED)</highlight></codeline>

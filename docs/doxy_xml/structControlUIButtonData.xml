@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structControlUIButtonData" kind="struct" language="C++" prot="public">
     <compoundname>ControlUIButtonData</compoundname>
     <includes refid="gui__globals_8hpp" local="no">gui_globals.hpp</includes>
@@ -178,7 +178,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="80" column="26" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="80" bodyend="94"/>
+    <location file="src/gui_pkg/include/gui_pkg/gui_globals.hpp" line="80" column="1" bodyfile="src/gui_pkg/include/gui_pkg/gui_globals.hpp" bodystart="80" bodyend="94"/>
     <listofallmembers>
       <member refid="structControlUIButtonData_1a1f6ee7050766572eeea63b77b59d5ae1" prot="public" virt="non-virtual"><scope>ControlUIButtonData</scope><name>b_disable_drives</name></member>
       <member refid="structControlUIButtonData_1a9a37a98efc39c42870246421a83b7f95" prot="public" virt="non-virtual"><scope>ControlUIButtonData</scope><name>b_emergency_mode</name></member>

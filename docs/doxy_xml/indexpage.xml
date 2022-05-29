@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="indexpage" kind="page">
     <compoundname>index</compoundname>
     <title>Welcome to Veysi ADIN &amp; Chunwoo Kim&apos;s ROS2 EtherCAT package.</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>This repository contains ROS2 and EtherCAT based control framework for our spine surgery robot project, but this implementation can be used with any robotic system with small modifications.Contains EtherCAT real-time thread with priority of 98. Software consists of four components (ROS2 nodes) :</para>
+<para><anchor id="index_1md_README"/> This repository contains ROS2 and EtherCAT based control framework for our spine surgery robot project, but this implementation can be used with any robotic system with small modifications.Contains EtherCAT real-time thread with priority of 98. Software consists of four components (ROS2 nodes) :</para>
 <para>• EtherCAT node : Responsible for EtherCAT communication between master and slaves and publishes acquired feedback from slaves under /slavefeedback topicname in 1 kHz frequency. Additionally, subscribes to/mastercommands topic published from control node and sends control commands to slaves via EtherCATcommunication.</para>
 <para>• Control node : Kinematic calculations will be done in this node. This node subscribes /slavefeedback topic published from EtherCAT node and publishes control commands under /mastercommands topic.Currently this node retrieves button and joystick data from Xbox <ref refid="classController" kindref="compound">Controller</ref> via USB communication.</para>
 <para>• <ref refid="namespaceGUI" kindref="compound">GUI</ref> node : Consist of camera viewer and slave feedback visualizers such as motor state, communication state, emergency button state. Publishes under /guidata consists of soft emergency button events, subscribes to /mastercommands and /slavefeedback topics to give visual feedback to user</para>
@@ -51,5 +51,6 @@
 </programlisting> </para>
 </sect1>
     </detaileddescription>
+    <location file="README.md"/>
   </compounddef>
 </doxygen>

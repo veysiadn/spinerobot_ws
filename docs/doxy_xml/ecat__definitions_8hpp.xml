@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="ecat__definitions_8hpp" kind="file" language="C++">
     <compoundname>ecat_definitions.hpp</compoundname>
     <includes local="no">iostream</includes>
@@ -25,18 +25,6 @@
     <includes refid="object__dictionary_8hpp" local="yes">object_dictionary.hpp</includes>
     <includedby refid="ecat__globals_8hpp" local="yes">src/ecat_pkg/include/ecat_pkg/ecat_globals.hpp</includedby>
     <incdepgraph>
-      <node id="16">
-        <label>sys/mman.h</label>
-      </node>
-      <node id="5">
-        <label>stdlib.h</label>
-      </node>
-      <node id="7">
-        <label>errno.h</label>
-      </node>
-      <node id="17">
-        <label>malloc.h</label>
-      </node>
       <node id="1">
         <label>src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp</label>
         <link refid="ecat__definitions_8hpp"/>
@@ -83,68 +71,76 @@
         <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>limits.h</label>
-      </node>
-      <node id="11">
-        <label>sys/resource.h</label>
-      </node>
-      <node id="6">
-        <label>pthread.h</label>
-      </node>
-      <node id="13">
-        <label>sys/types.h</label>
-      </node>
-      <node id="10">
-        <label>string.h</label>
-      </node>
-      <node id="14">
-        <label>unistd.h</label>
-      </node>
-      <node id="8">
-        <label>signal.h</label>
-      </node>
       <node id="22">
         <label>object_dictionary.hpp</label>
         <link refid="object__dictionary_8hpp"/>
       </node>
-      <node id="15">
-        <label>time.h</label>
-      </node>
-      <node id="12">
-        <label>sys/time.h</label>
-      </node>
-      <node id="2">
-        <label>iostream</label>
-      </node>
-      <node id="21">
-        <label>ecrt.h</label>
-      </node>
       <node id="19">
         <label>chrono</label>
-      </node>
-      <node id="18">
-        <label>sched.h</label>
-      </node>
-      <node id="9">
-        <label>stdio.h</label>
       </node>
       <node id="3">
         <label>cstring</label>
       </node>
+      <node id="21">
+        <label>ecrt.h</label>
+      </node>
+      <node id="7">
+        <label>errno.h</label>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>limits.h</label>
+      </node>
+      <node id="17">
+        <label>malloc.h</label>
+      </node>
       <node id="20">
         <label>memory</label>
       </node>
+      <node id="6">
+        <label>pthread.h</label>
+      </node>
+      <node id="18">
+        <label>sched.h</label>
+      </node>
+      <node id="8">
+        <label>signal.h</label>
+      </node>
+      <node id="9">
+        <label>stdio.h</label>
+      </node>
+      <node id="5">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10">
+        <label>string.h</label>
+      </node>
+      <node id="16">
+        <label>sys/mman.h</label>
+      </node>
+      <node id="11">
+        <label>sys/resource.h</label>
+      </node>
+      <node id="12">
+        <label>sys/time.h</label>
+      </node>
+      <node id="13">
+        <label>sys/types.h</label>
+      </node>
+      <node id="15">
+        <label>time.h</label>
+      </node>
+      <node id="14">
+        <label>unistd.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>src/ecat_pkg/include/ecat_pkg/ecat_node.hpp</label>
-        <link refid="ecat__node_8hpp"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
+      <node id="1">
+        <label>src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp</label>
+        <link refid="ecat__definitions_8hpp"/>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -155,24 +151,6 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>src/ecat_pkg/src/ecat_lifecycle.cpp</label>
-        <link refid="ecat__lifecycle_8cpp"/>
-      </node>
-      <node id="6">
-        <label>src/ecat_pkg/src/main.cpp</label>
-        <link refid="ecat__pkg_2src_2main_8cpp"/>
-      </node>
-      <node id="1">
-        <label>src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp</label>
-        <link refid="ecat__definitions_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>src/ecat_pkg/src/ecat_slave.cpp</label>
-        <link refid="ecat__slave_8cpp"/>
-      </node>
       <node id="4">
         <label>src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp</label>
         <link refid="ecat__lifecycle_8hpp"/>
@@ -181,9 +159,15 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>src/ecat_pkg/src/ecat_node.cpp</label>
-        <link refid="ecat__node_8cpp"/>
+      <node id="3">
+        <label>src/ecat_pkg/include/ecat_pkg/ecat_node.hpp</label>
+        <link refid="ecat__node_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
       <node id="8">
         <label>src/ecat_pkg/include/ecat_pkg/ecat_slave.hpp</label>
@@ -192,6 +176,22 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+      </node>
+      <node id="5">
+        <label>src/ecat_pkg/src/ecat_lifecycle.cpp</label>
+        <link refid="ecat__lifecycle_8cpp"/>
+      </node>
+      <node id="7">
+        <label>src/ecat_pkg/src/ecat_node.cpp</label>
+        <link refid="ecat__node_8cpp"/>
+      </node>
+      <node id="9">
+        <label>src/ecat_pkg/src/ecat_slave.cpp</label>
+        <link refid="ecat__slave_8cpp"/>
+      </node>
+      <node id="6">
+        <label>src/ecat_pkg/src/main.cpp</label>
+        <link refid="ecat__pkg_2src_2main_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classController" prot="public">Controller</innerclass>
@@ -424,7 +424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="143" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="142" bodyend="152"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="142" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="143" bodyend="152"/>
       </memberdef>
       <memberdef kind="enum" id="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" prot="public" static="no" strong="no">
         <type></type>
@@ -592,7 +592,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="178" column="17" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="178" bodyend="190"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="178" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="178" bodyend="190"/>
       </memberdef>
       <memberdef kind="enum" id="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9" prot="public" static="no" strong="no">
         <type></type>
@@ -660,7 +660,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="192" column="23" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="192" bodyend="201"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="192" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="192" bodyend="201"/>
       </memberdef>
       <memberdef kind="enum" id="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2d" prot="public" static="no" strong="no">
         <type></type>
@@ -739,7 +739,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="203" column="18" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="203" bodyend="213"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="203" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="203" bodyend="213"/>
       </memberdef>
       <memberdef kind="enum" id="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcae" prot="public" static="no" strong="no">
         <type></type>
@@ -838,7 +838,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="215" column="26" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="215" bodyend="227"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="215" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="215" bodyend="227"/>
       </memberdef>
       <memberdef kind="enum" id="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45a" prot="public" static="no" strong="no">
         <type></type>
@@ -1417,7 +1417,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="425" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="424" bodyend="497"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="424" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="425" bodyend="497"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1438,7 +1438,7 @@
         <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="71" column="26" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="ecat__definitions_8hpp_1a6a68d8a40c73f3377978388da56fa9ad" prot="public" static="yes" mutable="no">
-        <type>sig_atomic_t</type>
+        <type>volatile sig_atomic_t</type>
         <definition>volatile sig_atomic_t sig</definition>
         <argsstring></argsstring>
         <name>sig</name>
@@ -1515,7 +1515,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="79" column="28" bodyfile="src/ecat_pkg/src/ecat_node.cpp" bodystart="11" bodyend="-1" declfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" declline="79" declcolumn="28"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="81" column="22" bodyfile="src/ecat_pkg/src/ecat_node.cpp" bodystart="11" bodyend="-1" declfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" declline="81" declcolumn="22"/>
       </memberdef>
       <memberdef kind="variable" id="ecat__definitions_8hpp_1a28bf20de2fed0ae3b068bd7f0c74119d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -1737,7 +1737,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="82" column="29" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="101" bodyend="117"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="101" column="22" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="101" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="ecat__definitions_8hpp_1a90b8972e0ee7a6f0335ca06017554883" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1864,14 +1864,14 @@
 <codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timespec<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ac7aec8f91749616a8015dd38184e427c" kindref="member">g_sync_timer</ref><sp/>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>timer<sp/>for<sp/>DC<sp/>sync<sp/>.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a28bf20de2fed0ae3b068bd7f0c74119d" kindref="member">g_sync_ref_counter</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>To<sp/>sync<sp/>every<sp/>cycle.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84" refid="ecat__definitions_8hpp_1a3e343f521bdee99c94f22627c930d24d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BIT(NUM,N)<sp/><sp/><sp/><sp/>((NUM<sp/>&amp;<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))&gt;&gt;N)<sp/><sp/></highlight></codeline>
-<codeline lineno="85" refid="ecat__definitions_8hpp_1a11c01176d68fc4cd05ed423d922eca26" refkind="member"><highlight class="preprocessor">#define<sp/>SET_BIT(NUM,N)<sp/><sp/><sp/><sp/><sp/><sp/>(NUM<sp/>|<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight></codeline>
-<codeline lineno="86" refid="ecat__definitions_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" refkind="member"><highlight class="preprocessor">#define<sp/>RESET_BIT(NUM,N)<sp/><sp/><sp/><sp/>(NUM<sp/>&amp;<sp/>~(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight></codeline>
-<codeline lineno="87"><highlight class="preprocessor">#define<sp/>TIMESPEC2NS(T)<sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)<sp/>(T).tv_sec<sp/>*<sp/>g_kNsPerSec<sp/>+<sp/>(T).tv_nsec)<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89" refid="ecat__definitions_8hpp_1aff98fed4398150e17dbcd151445065ee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIFF_NS(A,<sp/>B)<sp/>(((B).tv_sec<sp/>-<sp/>(A).tv_sec)<sp/>*<sp/>g_kNsPerSec<sp/>+<sp/>(B).tv_nsec<sp/>-<sp/>(A).tv_nsec)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLOCK_TO_USE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLOCK_MONOTONIC<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="ecat__definitions_8hpp_1a3e343f521bdee99c94f22627c930d24d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BIT(NUM,N)<sp/><sp/><sp/><sp/>((NUM<sp/>&amp;<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))&gt;&gt;N)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="ecat__definitions_8hpp_1a11c01176d68fc4cd05ed423d922eca26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_BIT(NUM,N)<sp/><sp/><sp/><sp/><sp/><sp/>(NUM<sp/>|<sp/><sp/>(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="ecat__definitions_8hpp_1a4f447e47949e3f87b24ffd1039e07be1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_BIT(NUM,N)<sp/><sp/><sp/><sp/>(NUM<sp/>&amp;<sp/>~(1<sp/>&lt;&lt;<sp/>N))<sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="ecat__definitions_8hpp_1a0ca04ace3fdf9024f99a7e1c50bea258" refkind="member"><highlight class="preprocessor">#define<sp/>TIMESPEC2NS(T)<sp/><sp/><sp/><sp/><sp/><sp/>((uint64_t)<sp/>(T).tv_sec<sp/>*<sp/>g_kNsPerSec<sp/>+<sp/>(T).tv_nsec)<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="ecat__definitions_8hpp_1aff98fed4398150e17dbcd151445065ee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIFF_NS(A,<sp/>B)<sp/>(((B).tv_sec<sp/>-<sp/>(A).tv_sec)<sp/>*<sp/>g_kNsPerSec<sp/>+<sp/>(B).tv_nsec<sp/>-<sp/>(A).tv_nsec)</highlight></codeline>
+<codeline lineno="91" refid="ecat__definitions_8hpp_1a5a01bd1cd59441f2db054ad38728de54" refkind="member"><highlight class="preprocessor">#define<sp/>CLOCK_TO_USE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLOCK_MONOTONIC<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101" refid="ecat__definitions_8hpp_1af38165367cb15a861318697b9cae5b53" refkind="member"><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timespec<sp/><ref refid="ecat__definitions_8hpp_1af38165367cb15a861318697b9cae5b53" kindref="member">timespec_add</ref>(struct<sp/>timespec<sp/>time1,<sp/>struct<sp/>timespec<sp/>time2)</highlight></codeline>
+<codeline lineno="101" refid="ecat__definitions_8hpp_1af38165367cb15a861318697b9cae5b53" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timespec<sp/><ref refid="ecat__definitions_8hpp_1af38165367cb15a861318697b9cae5b53" kindref="member">timespec_add</ref>(struct<sp/>timespec<sp/>time1,<sp/>struct<sp/>timespec<sp/>time2)</highlight></codeline>
 <codeline lineno="102"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timespec<sp/>result;</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"></highlight></codeline>
@@ -1924,27 +1924,27 @@
 <codeline lineno="152"><highlight class="normal">}<sp/><ref refid="ecat__definitions_8hpp_1a56752d1aeb4bd4940e632396072d68af" kindref="member">OpMode</ref><sp/>;</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"></highlight></codeline>
 <codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>constant<sp/>declarations</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="155" refid="ecat__definitions_8hpp_1a8e3cb09186b84a2cbdc1e95e33bb2dce" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a8e3cb09186b84a2cbdc1e95e33bb2dce" kindref="member">PRIMARY_STATE_UNKNOWN</ref><sp/>=</highlight></codeline>
+<codeline lineno="155" refid="ecat__definitions_8hpp_1a8e3cb09186b84a2cbdc1e95e33bb2dce" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a8e3cb09186b84a2cbdc1e95e33bb2dce" kindref="member">PRIMARY_STATE_UNKNOWN</ref><sp/>=</highlight></codeline>
 <codeline lineno="156"><highlight class="normal">0u;</highlight></codeline>
-<codeline lineno="157" refid="ecat__definitions_8hpp_1abb05398109ae82c9013c88d2856c4fd2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1abb05398109ae82c9013c88d2856c4fd2" kindref="member">PRIMARY_STATE_UNCONFIGURED</ref><sp/>=</highlight></codeline>
+<codeline lineno="157" refid="ecat__definitions_8hpp_1abb05398109ae82c9013c88d2856c4fd2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1abb05398109ae82c9013c88d2856c4fd2" kindref="member">PRIMARY_STATE_UNCONFIGURED</ref><sp/>=</highlight></codeline>
 <codeline lineno="158"><highlight class="normal">1u;</highlight></codeline>
-<codeline lineno="159" refid="ecat__definitions_8hpp_1a5d696cb69a7e8c83cb8cfc94b5d8de4e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a5d696cb69a7e8c83cb8cfc94b5d8de4e" kindref="member">PRIMARY_STATE_INACTIVE</ref><sp/>=</highlight></codeline>
+<codeline lineno="159" refid="ecat__definitions_8hpp_1a5d696cb69a7e8c83cb8cfc94b5d8de4e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a5d696cb69a7e8c83cb8cfc94b5d8de4e" kindref="member">PRIMARY_STATE_INACTIVE</ref><sp/>=</highlight></codeline>
 <codeline lineno="160"><highlight class="normal">2u;</highlight></codeline>
-<codeline lineno="161" refid="ecat__definitions_8hpp_1ad7b7b3d8c1d5d527d985f88f2c67cc12" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1ad7b7b3d8c1d5d527d985f88f2c67cc12" kindref="member">PRIMARY_STATE_ACTIVE</ref><sp/>=</highlight></codeline>
+<codeline lineno="161" refid="ecat__definitions_8hpp_1ad7b7b3d8c1d5d527d985f88f2c67cc12" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1ad7b7b3d8c1d5d527d985f88f2c67cc12" kindref="member">PRIMARY_STATE_ACTIVE</ref><sp/>=</highlight></codeline>
 <codeline lineno="162"><highlight class="normal">3u;</highlight></codeline>
-<codeline lineno="163" refid="ecat__definitions_8hpp_1a275a9ab3c2a3ae0bccab9adc474c5b2c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a275a9ab3c2a3ae0bccab9adc474c5b2c" kindref="member">PRIMARY_STATE_FINALIZED</ref><sp/>=</highlight></codeline>
+<codeline lineno="163" refid="ecat__definitions_8hpp_1a275a9ab3c2a3ae0bccab9adc474c5b2c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a275a9ab3c2a3ae0bccab9adc474c5b2c" kindref="member">PRIMARY_STATE_FINALIZED</ref><sp/>=</highlight></codeline>
 <codeline lineno="164"><highlight class="normal">4u;</highlight></codeline>
-<codeline lineno="165" refid="ecat__definitions_8hpp_1a224e7cc4afa162c1e6faadd30083ad02" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a224e7cc4afa162c1e6faadd30083ad02" kindref="member">TRANSITION_STATE_CONFIGURING</ref><sp/>=</highlight></codeline>
+<codeline lineno="165" refid="ecat__definitions_8hpp_1a224e7cc4afa162c1e6faadd30083ad02" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a224e7cc4afa162c1e6faadd30083ad02" kindref="member">TRANSITION_STATE_CONFIGURING</ref><sp/>=</highlight></codeline>
 <codeline lineno="166"><highlight class="normal">10u;</highlight></codeline>
-<codeline lineno="167" refid="ecat__definitions_8hpp_1afc4e646bcf30c664d68154c893a84d2b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1afc4e646bcf30c664d68154c893a84d2b" kindref="member">TRANSITION_STATE_CLEANINGUP</ref><sp/>=</highlight></codeline>
+<codeline lineno="167" refid="ecat__definitions_8hpp_1afc4e646bcf30c664d68154c893a84d2b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1afc4e646bcf30c664d68154c893a84d2b" kindref="member">TRANSITION_STATE_CLEANINGUP</ref><sp/>=</highlight></codeline>
 <codeline lineno="168"><highlight class="normal">11u;</highlight></codeline>
-<codeline lineno="169" refid="ecat__definitions_8hpp_1a4af714f8363d6bd6ac4ac6fa39d0490b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a4af714f8363d6bd6ac4ac6fa39d0490b" kindref="member">TRANSITION_STATE_SHUTTINGDOWN</ref><sp/>=</highlight></codeline>
+<codeline lineno="169" refid="ecat__definitions_8hpp_1a4af714f8363d6bd6ac4ac6fa39d0490b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a4af714f8363d6bd6ac4ac6fa39d0490b" kindref="member">TRANSITION_STATE_SHUTTINGDOWN</ref><sp/>=</highlight></codeline>
 <codeline lineno="170"><highlight class="normal">12u;</highlight></codeline>
-<codeline lineno="171" refid="ecat__definitions_8hpp_1a2b61f09fa744886f82e100570d271d9e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a2b61f09fa744886f82e100570d271d9e" kindref="member">TRANSITION_STATE_ACTIVATING</ref><sp/>=</highlight></codeline>
+<codeline lineno="171" refid="ecat__definitions_8hpp_1a2b61f09fa744886f82e100570d271d9e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a2b61f09fa744886f82e100570d271d9e" kindref="member">TRANSITION_STATE_ACTIVATING</ref><sp/>=</highlight></codeline>
 <codeline lineno="172"><highlight class="normal">13u;</highlight></codeline>
-<codeline lineno="173" refid="ecat__definitions_8hpp_1aeb039f61f1029619fc71ed87515a3268" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1aeb039f61f1029619fc71ed87515a3268" kindref="member">TRANSITION_STATE_DEACTIVATING</ref><sp/>=</highlight></codeline>
+<codeline lineno="173" refid="ecat__definitions_8hpp_1aeb039f61f1029619fc71ed87515a3268" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1aeb039f61f1029619fc71ed87515a3268" kindref="member">TRANSITION_STATE_DEACTIVATING</ref><sp/>=</highlight></codeline>
 <codeline lineno="174"><highlight class="normal">14u;</highlight></codeline>
-<codeline lineno="175" refid="ecat__definitions_8hpp_1a5d45adfe37ff89eb3de283f7483f882f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a5d45adfe37ff89eb3de283f7483f882f" kindref="member">TRANSITION_STATE_ERRORPROCESSING</ref><sp/>=</highlight></codeline>
+<codeline lineno="175" refid="ecat__definitions_8hpp_1a5d45adfe37ff89eb3de283f7483f882f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="ecat__definitions_8hpp_1a5d45adfe37ff89eb3de283f7483f882f" kindref="member">TRANSITION_STATE_ERRORPROCESSING</ref><sp/>=</highlight></codeline>
 <codeline lineno="176"><highlight class="normal">15u;</highlight></codeline>
 <codeline lineno="178" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" refkind="member"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7" kindref="member">MotorStates</ref>{</highlight></codeline>
 <codeline lineno="179" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7aefe8b16564c493d6aba4e1761d28fb6e" kindref="member">kReadyToSwitchOn</ref><sp/>=<sp/>1,</highlight></codeline>
@@ -1957,8 +1957,8 @@
 <codeline lineno="186" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a017887ee6e6d711cdb453f275fd971dc" kindref="member">kWarning</ref>,</highlight></codeline>
 <codeline lineno="187" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af34e262497cefee9f006225d255f0b02" kindref="member">kRemote</ref>,</highlight></codeline>
 <codeline lineno="188" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7a2f6d5acfbeb8936f56c1a86dd1827dfb" kindref="member">kTargetReached</ref>,</highlight></codeline>
-<codeline lineno="189" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" kindref="member">kInternalLimitActivate</ref></highlight></codeline>
-<codeline lineno="190"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" kindref="member">kInternalLimitActivate</ref></highlight></codeline>
+<codeline lineno="190" refid="ecat__definitions_8hpp_1a5d175b4708e9a88ebbc35372ca1818b7af6a3169aef150c63a68dc2206278bb11" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
 <codeline lineno="192" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9" kindref="member">ErrorRegisterBits</ref>{</highlight></codeline>
 <codeline lineno="193" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9af711e7b7752014c8ec706ea554dfce92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9af711e7b7752014c8ec706ea554dfce92" kindref="member">kGenericError</ref><sp/>=<sp/>0,</highlight></codeline>
@@ -1968,8 +1968,8 @@
 <codeline lineno="197" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9af97f356c1721064526054b6f066b496f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9af97f356c1721064526054b6f066b496f" kindref="member">kCommunicationError</ref>,</highlight></codeline>
 <codeline lineno="198" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a8af07a22c3ad75def4d66343ce660209" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a8af07a22c3ad75def4d66343ce660209" kindref="member">kDeviceProfileSpecificError</ref>,</highlight></codeline>
 <codeline lineno="199" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9aea8b005869aaf5c494db89c503b06800" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9aea8b005869aaf5c494db89c503b06800" kindref="member">kReserved</ref>,</highlight></codeline>
-<codeline lineno="200" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a5c26704f40c60ff29dba053bed06a202" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a5c26704f40c60ff29dba053bed06a202" kindref="member">kMotionError</ref></highlight></codeline>
-<codeline lineno="201"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a5c26704f40c60ff29dba053bed06a202" kindref="member">kMotionError</ref></highlight></codeline>
+<codeline lineno="201" refid="ecat__definitions_8hpp_1aad8633114c3b7bfa7443f128aad93aa9a5c26704f40c60ff29dba053bed06a202" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="203" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2d" refkind="member"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2d" kindref="member">SensorConfig</ref>{</highlight></codeline>
 <codeline lineno="204" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2dab5f681ac79a8660aba4a9d7dc6eb31f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2dab5f681ac79a8660aba4a9d7dc6eb31f2" kindref="member">kSensor1TypeNone</ref>=0,</highlight></codeline>
 <codeline lineno="205" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2daf61a7493356a7aece1a7375167832ed9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2daf61a7493356a7aece1a7375167832ed9" kindref="member">kSensor1TypeDigitalIncrementalEncoder1</ref>=1,</highlight></codeline>
@@ -1978,9 +1978,9 @@
 <codeline lineno="208" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da67d7a228bc250e460d37d76a9c438f4e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da67d7a228bc250e460d37d76a9c438f4e" kindref="member">kSensor2TypeAnalogIncrementalEncoderSinCos</ref>=512,</highlight></codeline>
 <codeline lineno="209" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2dacaa71830ad73062664079bb34fba171d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2dacaa71830ad73062664079bb34fba171d" kindref="member">kSensor2TypeSSIAbsoluteEncoder</ref>=768,</highlight></codeline>
 <codeline lineno="210" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da33fa0423efc03ec99e691fec3382f55a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da33fa0423efc03ec99e691fec3382f55a" kindref="member">kSensor3TypeNone</ref>=0,</highlight></codeline>
-<codeline lineno="211" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da510ca492e95b28ddb224d91f2e748369" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da510ca492e95b28ddb224d91f2e748369" kindref="member">kSensor3TypeDigitalHallSensor</ref>=131072<sp/><sp/></highlight><highlight class="comment">//EC<sp/>motors<sp/>only<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da510ca492e95b28ddb224d91f2e748369" kindref="member">kSensor3TypeDigitalHallSensor</ref>=131072<sp/><sp/></highlight><highlight class="comment">//EC<sp/>motors<sp/>only<sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="213" refid="ecat__definitions_8hpp_1a4a8f52fe7f00c0838866e018dfd0fb2da510ca492e95b28ddb224d91f2e748369" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="215" refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcae" refkind="member"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcae" kindref="member">ControlStructureBits</ref>{</highlight></codeline>
 <codeline lineno="217" refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcaea1bc147fff50f73162083476ccf9259db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcaea1bc147fff50f73162083476ccf9259db" kindref="member">kCurrentControlStructure</ref><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>0-3<sp/>,<sp/>4<sp/>bits.<sp/>Val<sp/>:<sp/>1<sp/>-<sp/>PI<sp/>current<sp/>controller</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="218" refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcaea329e9cc9ead9ffb097e376d8b7c30077" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ae56d58acf7f23ca7ce23ed016a45dcaea329e9cc9ead9ffb097e376d8b7c30077" kindref="member">kVelocityControlStructure</ref><sp/>=<sp/>4,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>4-7,<sp/><sp/><sp/>4bits.<sp/><sp/>Val<sp/>:<sp/>0<sp/>-<sp/>None<sp/>|<sp/>1<sp/>-<sp/>PI<sp/>Vecolity<sp/>controller<sp/>(low<sp/>pass<sp/>filter)<sp/>|<sp/>2<sp/>-<sp/>PI<sp/>velocity<sp/>controller<sp/>(observer)<sp/></highlight><highlight class="normal"></highlight></codeline>
@@ -2092,7 +2092,7 @@
 <codeline lineno="329" refid="structProfilePosParam_1abcb976befa531082677af4adf9e7a89d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structProfilePosParam_1abcb976befa531082677af4adf9e7a89d" kindref="member">i_gain</ref>;</highlight></codeline>
 <codeline lineno="330" refid="structProfilePosParam_1a8971c667340a81426f3f961565a65ee5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structProfilePosParam_1a8971c667340a81426f3f961565a65ee5" kindref="member">d_gain</ref>;</highlight></codeline>
 <codeline lineno="331"><highlight class="normal">}<sp/><ref refid="structProfilePosParam" kindref="compound">ProfilePosParam</ref><sp/>;</highlight></codeline>
-<codeline lineno="336" refid="structCSPositionModeParam" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336" refid="structCSPositionModeParam" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="337"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="338" refid="structCSPositionModeParam_1a4cab3ece9f13d718af0e3861fcc0878e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structCSPositionModeParam_1a4cab3ece9f13d718af0e3861fcc0878e" kindref="member">nominal_current</ref><sp/>;</highlight></codeline>
 <codeline lineno="339" refid="structCSPositionModeParam_1acc1611d030de3fb10c9e7fc10ff0427e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structCSPositionModeParam_1acc1611d030de3fb10c9e7fc10ff0427e" kindref="member">torque_constant</ref><sp/>;</highlight></codeline>
@@ -2116,7 +2116,7 @@
 <codeline lineno="362" refid="structVelControlParam_1ac63cf67ec8e498f1b7c2e73ef2b629a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>FFVelgain<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="363" refid="structVelControlParam_1ad7848266bd2871549ea2a291d939c7ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>FFAccgain<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="364"><highlight class="normal"><sp/>}<sp/><ref refid="structVelControlParam" kindref="compound">VelControlParam</ref>;</highlight></codeline>
-<codeline lineno="369" refid="structCSVelocityModeParam" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369" refid="structCSVelocityModeParam" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="370"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="371" refid="structCSVelocityModeParam_1ad0394a462256fede3e57111c4b1af73f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelControlParam" kindref="compound">VelControlParam</ref><sp/><ref refid="structCSVelocityModeParam_1ad0394a462256fede3e57111c4b1af73f" kindref="member">velocity_controller_gain</ref><sp/>;</highlight></codeline>
 <codeline lineno="372" refid="structCSVelocityModeParam_1a0439f6be9b0240a3841ff23ebf90e165" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structCSVelocityModeParam_1a0439f6be9b0240a3841ff23ebf90e165" kindref="member">quick_stop_dec</ref><sp/>;</highlight></codeline>
@@ -2124,7 +2124,7 @@
 <codeline lineno="374" refid="structCSVelocityModeParam_1a1924ebf9d9fa3a78df637fa45e585c14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structCSVelocityModeParam_1a1924ebf9d9fa3a78df637fa45e585c14" kindref="member">software_position_limit</ref><sp/>;<sp/></highlight></codeline>
 <codeline lineno="375" refid="structCSVelocityModeParam_1a6bcc685fb6d06ae1c972fa5c255770b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structCSVelocityModeParam_1a6bcc685fb6d06ae1c972fa5c255770b5" kindref="member">interpolation_time_period</ref><sp/>;</highlight></codeline>
 <codeline lineno="376"><highlight class="normal">}<sp/><ref refid="structCSVelocityModeParam" kindref="compound">CSVelocityModeParam</ref><sp/>;</highlight></codeline>
-<codeline lineno="381" refid="structCSTorqueModeParam" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="381" refid="structCSTorqueModeParam" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="382"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="383" refid="structCSTorqueModeParam_1a761a81f7e2d27a4cdab0ac823d494021" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structCSTorqueModeParam_1a761a81f7e2d27a4cdab0ac823d494021" kindref="member">nominal_current</ref><sp/>;</highlight></codeline>
 <codeline lineno="384" refid="structCSTorqueModeParam_1a700effe2fe0fa6b22a20a47fd2d544b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structCSTorqueModeParam_1a700effe2fe0fa6b22a20a47fd2d544b5" kindref="member">torque_constant</ref><sp/>;</highlight></codeline>
@@ -2237,8 +2237,8 @@
 <codeline lineno="493" refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aa2648c7eac32fc72400a8bc81aae25735" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aa2648c7eac32fc72400a8bc81aae25735" kindref="member">AUTO_TUNING_TORQUE_INVALID_ERROR</ref><sp/>=<sp/>0xFF21,</highlight></codeline>
 <codeline lineno="494" refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aa9e6807a6a9f42998e9297651bd7b1b58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aa9e6807a6a9f42998e9297651bd7b1b58" kindref="member">AUTO_TUNING_MAX_SYSTEM_SPEED_ERROR</ref><sp/>=<sp/>0XFF22,</highlight></codeline>
 <codeline lineno="495" refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad51a1fdf30d1d4585ac7aaeababe6cff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad51a1fdf30d1d4585ac7aaeababe6cff" kindref="member">AUTO_TUNING_MOTOR_CONNECTION_ERROR</ref><sp/>=<sp/>0xFF23,</highlight></codeline>
-<codeline lineno="496" refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad23483ebf23a1a36fb77843475a6bcc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad23483ebf23a1a36fb77843475a6bcc7" kindref="member">AUTO_TUNING_SENSOR_SIGNAL_ERROR</ref><sp/>=<sp/>0XFF24</highlight></codeline>
-<codeline lineno="497"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad23483ebf23a1a36fb77843475a6bcc7" kindref="member">AUTO_TUNING_SENSOR_SIGNAL_ERROR</ref><sp/>=<sp/>0XFF24</highlight></codeline>
+<codeline lineno="497" refid="ecat__definitions_8hpp_1ab0df38968e4f03a3f1f6d6df0f31f45aad23483ebf23a1a36fb77843475a6bcc7" refkind="member"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="498"><highlight class="normal"></highlight></codeline>
 <codeline lineno="499" refid="ecat__definitions_8hpp_1a90b8972e0ee7a6f0335ca06017554883" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="ecat__definitions_8hpp_1a90b8972e0ee7a6f0335ca06017554883" kindref="member">GetErrorMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>err_code)</highlight></codeline>
 <codeline lineno="500"><highlight class="normal">{</highlight></codeline>

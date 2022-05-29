@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classEthercatCommunication_1_1EthercatNode" kind="class" language="C++" prot="public">
     <compoundname>EthercatCommunication::EthercatNode</compoundname>
     <includes refid="ecat__node_8hpp" local="no">ecat_node.hpp</includes>
@@ -1405,15 +1405,18 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>ProfilePosParam</label>
-        <link refid="structProfilePosParam"/>
+      <node id="1">
+        <label>EthercatCommunication::EthercatNode</label>
+        <link refid="classEthercatCommunication_1_1EthercatNode"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>slaves_</edgelabel>
+        </childnode>
       </node>
       <node id="2">
         <label>EthercatSlave</label>
         <link refid="classEthercatSlave"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>position_param_</edgelabel>
+          <edgelabel>offset_</edgelabel>
         </childnode>
         <childnode refid="4" relation="usage">
           <edgelabel>data_</edgelabel>
@@ -1422,26 +1425,23 @@
           <edgelabel>velocity_param_</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>homing_param_</edgelabel>
+          <edgelabel>position_param_</edgelabel>
         </childnode>
         <childnode refid="7" relation="usage">
-          <edgelabel>offset_</edgelabel>
+          <edgelabel>homing_param_</edgelabel>
         </childnode>
       </node>
-      <node id="1">
-        <label>EthercatCommunication::EthercatNode</label>
-        <link refid="classEthercatCommunication_1_1EthercatNode"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>slaves_</edgelabel>
-        </childnode>
-      </node>
-      <node id="6">
+      <node id="7">
         <label>HomingParam</label>
         <link refid="structHomingParam"/>
       </node>
-      <node id="7">
+      <node id="3">
         <label>OffsetPDO</label>
         <link refid="structOffsetPDO"/>
+      </node>
+      <node id="6">
+        <label>ProfilePosParam</label>
+        <link refid="structProfilePosParam"/>
       </node>
       <node id="5">
         <label>ProfileVelocityParam</label>
@@ -1452,7 +1452,7 @@
         <link refid="structReceivedData"/>
       </node>
     </collaborationgraph>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_node.hpp" line="53" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_node.hpp" bodystart="52" bodyend="403"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_node.hpp" line="52" column="5" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_node.hpp" bodystart="53" bodyend="403"/>
     <listofallmembers>
       <member refid="classEthercatCommunication_1_1EthercatNode_1aa0d2eae2b57c39c827a882699c705325" prot="public" virt="non-virtual"><scope>EthercatCommunication::EthercatNode</scope><name>ActivateMaster</name></member>
       <member refid="classEthercatCommunication_1_1EthercatNode_1af76be6b843886442b2d4d7b94be9374f" prot="public" virt="non-virtual"><scope>EthercatCommunication::EthercatNode</scope><name>CheckMasterDomainState</name></member>

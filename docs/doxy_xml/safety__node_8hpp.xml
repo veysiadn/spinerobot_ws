@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="safety__node_8hpp" kind="file" language="C++">
     <compoundname>safety_node.hpp</compoundname>
     <includes local="no">chrono</includes>
@@ -18,18 +18,6 @@
     <includes local="yes">rcutils/logging_macros.h</includes>
     <includedby refid="safety__node_8cpp" local="no">src/safety_pkg/src/safety_node.cpp</includedby>
     <incdepgraph>
-      <node id="10">
-        <label>sensor_msgs/msg/joy.hpp</label>
-      </node>
-      <node id="7">
-        <label>lifecycle_msgs/msg/transition.hpp</label>
-      </node>
-      <node id="9">
-        <label>lifecycle_msgs/srv/get_state.hpp</label>
-      </node>
-      <node id="6">
-        <label>lifecycle_msgs/msg/state.hpp</label>
-      </node>
       <node id="1">
         <label>src/safety_pkg/include/safety_pkg/safety_node.hpp</label>
         <link refid="safety__node_8hpp"/>
@@ -62,35 +50,47 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>string</label>
-      </node>
-      <node id="13">
-        <label>rclcpp/rclcpp.hpp</label>
+      <node id="2">
+        <label>chrono</label>
       </node>
       <node id="12">
         <label>ecat_msgs/msg/data_received.hpp</label>
       </node>
-      <node id="14">
-        <label>std_srvs/srv/trigger.hpp</label>
+      <node id="11">
+        <label>ecat_msgs/msg/gui_button_data.hpp</label>
+      </node>
+      <node id="6">
+        <label>lifecycle_msgs/msg/state.hpp</label>
+      </node>
+      <node id="7">
+        <label>lifecycle_msgs/msg/transition.hpp</label>
       </node>
       <node id="8">
         <label>lifecycle_msgs/srv/change_state.hpp</label>
       </node>
-      <node id="15">
-        <label>rcutils/logging_macros.h</label>
-      </node>
-      <node id="2">
-        <label>chrono</label>
-      </node>
-      <node id="11">
-        <label>ecat_msgs/msg/gui_button_data.hpp</label>
-      </node>
-      <node id="5">
-        <label>thread</label>
+      <node id="9">
+        <label>lifecycle_msgs/srv/get_state.hpp</label>
       </node>
       <node id="3">
         <label>memory</label>
+      </node>
+      <node id="13">
+        <label>rclcpp/rclcpp.hpp</label>
+      </node>
+      <node id="15">
+        <label>rcutils/logging_macros.h</label>
+      </node>
+      <node id="10">
+        <label>sensor_msgs/msg/joy.hpp</label>
+      </node>
+      <node id="14">
+        <label>std_srvs/srv/trigger.hpp</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>thread</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -107,9 +107,9 @@
     </invincdepgraph>
     <innerclass refid="classController" prot="public">Controller</innerclass>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="safety__node_8hpp_1abb094961491ab15f0f4e83c0062e15eb" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr const char *</type>
-        <definition>constexpr const char* lifecycle_node</definition>
+      <memberdef kind="variable" id="safety__node_8hpp_1aced6f4a17af3b1dcfe352533f20fa4ee" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* lifecycle_node</definition>
         <argsstring></argsstring>
         <name>lifecycle_node</name>
         <initializer>= &quot;ecat_node&quot;</initializer>
@@ -121,9 +121,9 @@
         </inbodydescription>
         <location file="src/safety_pkg/include/safety_pkg/safety_node.hpp" line="39" column="30" bodyfile="src/safety_pkg/include/safety_pkg/safety_node.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="safety__node_8hpp_1a850d210cbc58d05d512e72d134d150d8" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr const char *</type>
-        <definition>constexpr const char* node_get_state_topic</definition>
+      <memberdef kind="variable" id="safety__node_8hpp_1ad7ed2848afc80f097ec467515e548453" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* node_get_state_topic</definition>
         <argsstring></argsstring>
         <name>node_get_state_topic</name>
         <initializer>= &quot;ecat_node/get_state&quot;</initializer>
@@ -135,9 +135,9 @@
         </inbodydescription>
         <location file="src/safety_pkg/include/safety_pkg/safety_node.hpp" line="46" column="30" bodyfile="src/safety_pkg/include/safety_pkg/safety_node.hpp" bodystart="46" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="safety__node_8hpp_1a77708bfffe82dfcc2eeed16c9625075d" prot="public" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr const char *</type>
-        <definition>constexpr const char* node_change_state_topic</definition>
+      <memberdef kind="variable" id="safety__node_8hpp_1a980ba3270c938a20bc0c2071de540eb4" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* node_change_state_topic</definition>
         <argsstring></argsstring>
         <name>node_change_state_topic</name>
         <initializer>= &quot;ecat_node/change_state&quot;</initializer>
@@ -224,15 +224,15 @@
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
 <codeline lineno="37"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>which<sp/>node<sp/>to<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39" refid="safety__node_8hpp_1abb094961491ab15f0f4e83c0062e15eb" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1abb094961491ab15f0f4e83c0062e15eb" kindref="member">lifecycle_node</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39" refid="safety__node_8hpp_1aced6f4a17af3b1dcfe352533f20fa4ee" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1aced6f4a17af3b1dcfe352533f20fa4ee" kindref="member">lifecycle_node</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Every<sp/>lifecycle<sp/>node<sp/>has<sp/>various<sp/>services</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>attached<sp/>to<sp/>it.<sp/>By<sp/>convention,<sp/>we<sp/>use<sp/>the<sp/>format<sp/>of</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/>&lt;node<sp/>name&gt;/&lt;service<sp/>name&gt;.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ecat_node/get_state</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ecat_node/change_state</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="safety__node_8hpp_1a850d210cbc58d05d512e72d134d150d8" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1a850d210cbc58d05d512e72d134d150d8" kindref="member">node_get_state_topic</ref><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node/get_state&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="47" refid="safety__node_8hpp_1a77708bfffe82dfcc2eeed16c9625075d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1a77708bfffe82dfcc2eeed16c9625075d" kindref="member">node_change_state_topic</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node/change_state&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46" refid="safety__node_8hpp_1ad7ed2848afc80f097ec467515e548453" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1ad7ed2848afc80f097ec467515e548453" kindref="member">node_get_state_topic</ref><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node/get_state&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47" refid="safety__node_8hpp_1a980ba3270c938a20bc0c2071de540eb4" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*<sp/><ref refid="safety__node_8hpp_1a980ba3270c938a20bc0c2071de540eb4" kindref="member">node_change_state_topic</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;ecat_node/change_state&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal">{</highlight></codeline>

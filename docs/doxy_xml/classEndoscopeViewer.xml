@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classEndoscopeViewer" kind="class" language="C++" prot="public">
     <compoundname>EndoscopeViewer</compoundname>
     <basecompoundref prot="public" virt="non-virtual">QMainWindow</basecompoundref>
@@ -111,29 +111,17 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>QMainWindow</label>
-      </node>
       <node id="1">
         <label>EndoscopeViewer</label>
         <link refid="classEndoscopeViewer"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="4">
-        <label>QThread</label>
-      </node>
       <node id="2">
         <label>QMainWindow</label>
       </node>
-      <node id="3">
-        <label>VideoCapture</label>
-        <link refid="classVideoCapture"/>
-        <childnode refid="4" relation="public-inheritance">
-        </childnode>
-      </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="1">
         <label>EndoscopeViewer</label>
         <link refid="classEndoscopeViewer"/>
@@ -143,8 +131,20 @@
           <edgelabel>opencv_video_cap_</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>QMainWindow</label>
+      </node>
+      <node id="4">
+        <label>QThread</label>
+      </node>
+      <node id="3">
+        <label>VideoCapture</label>
+        <link refid="classVideoCapture"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp" line="16" column="1" bodyfile="src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp" bodystart="15" bodyend="34"/>
+    <location file="src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp" line="15" column="1" bodyfile="src/gui_pkg/include/gui_pkg/endoscope_viewer.hpp" bodystart="16" bodyend="34"/>
     <listofallmembers>
       <member refid="classEndoscopeViewer_1a65ab72004400cd0da30bf63bb48a8599" prot="public" virt="non-virtual"><scope>EndoscopeViewer</scope><name>EndoscopeViewer</name></member>
       <member refid="classEndoscopeViewer_1a47cd1463ed68ac87c47421a8071e4f29" prot="private" virt="non-virtual"><scope>EndoscopeViewer</scope><name>on_b_exit_clicked</name></member>

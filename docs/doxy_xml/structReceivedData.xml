@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structReceivedData" kind="struct" language="C++" prot="public">
     <compoundname>ReceivedData</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -309,7 +309,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="262" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="261" bodyend="281"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="261" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="262" bodyend="281"/>
     <listofallmembers>
       <member refid="structReceivedData_1a9cc287786c97420c997b43ec051e0749" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>actual_cur</name></member>
       <member refid="structReceivedData_1a256a4ccad5573ed0d9a4c8add634b86e" prot="public" virt="non-virtual"><scope>ReceivedData</scope><name>actual_pos</name></member>

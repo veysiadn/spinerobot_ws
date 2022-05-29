@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structProfileVelocityParam" kind="struct" language="C++" prot="public">
     <compoundname>ProfileVelocityParam</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -75,7 +75,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="415" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="414" bodyend="421"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="414" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="415" bodyend="421"/>
     <listofallmembers>
       <member refid="structProfileVelocityParam_1a8bf3ab4ee7ccdb626a1ceff8b0ce7fba" prot="public" virt="non-virtual"><scope>ProfileVelocityParam</scope><name>max_profile_vel</name></member>
       <member refid="structProfileVelocityParam_1a2a981f1b49bd7c3dbaa080d857897947" prot="public" virt="non-virtual"><scope>ProfileVelocityParam</scope><name>motion_profile_type</name></member>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structCSPositionModeParam" kind="struct" language="C++" prot="public">
     <compoundname>CSPositionModeParam</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -192,7 +192,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="337" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="336" bodyend="352"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="336" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="337" bodyend="352"/>
     <listofallmembers>
       <member refid="structCSPositionModeParam_1a7ce4438d79c906eff81308e7d6a54e82" prot="public" virt="non-virtual"><scope>CSPositionModeParam</scope><name>current_controller_gain</name></member>
       <member refid="structCSPositionModeParam_1a7fa1d18cfe7454f638d90f98df14c857" prot="public" virt="non-virtual"><scope>CSPositionModeParam</scope><name>interpolation_time_period</name></member>

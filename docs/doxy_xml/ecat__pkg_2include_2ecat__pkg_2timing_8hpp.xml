@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="ecat__pkg_2include_2ecat__pkg_2timing_8hpp" kind="file" language="C++">
     <compoundname>timing.hpp</compoundname>
     <includes local="no">vector</includes>
@@ -14,30 +14,6 @@
     <includes local="no">iostream</includes>
     <includedby refid="ecat__lifecycle_8hpp" local="yes">src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp</includedby>
     <incdepgraph>
-      <node id="5">
-        <label>functional</label>
-      </node>
-      <node id="7">
-        <label>cstdint</label>
-      </node>
-      <node id="6">
-        <label>string</label>
-      </node>
-      <node id="10">
-        <label>fstream</label>
-      </node>
-      <node id="9">
-        <label>ratio</label>
-      </node>
-      <node id="8">
-        <label>ctime</label>
-      </node>
-      <node id="2">
-        <label>vector</label>
-      </node>
-      <node id="11">
-        <label>iostream</label>
-      </node>
       <node id="1">
         <label>src/ecat_pkg/include/ecat_pkg/timing.hpp</label>
         <link refid="ecat__pkg_2include_2ecat__pkg_2timing_8hpp"/>
@@ -65,19 +41,35 @@
       <node id="3">
         <label>chrono</label>
       </node>
+      <node id="7">
+        <label>cstdint</label>
+      </node>
+      <node id="8">
+        <label>ctime</label>
+      </node>
+      <node id="10">
+        <label>fstream</label>
+      </node>
+      <node id="5">
+        <label>functional</label>
+      </node>
+      <node id="11">
+        <label>iostream</label>
+      </node>
       <node id="4">
         <label>memory</label>
       </node>
+      <node id="9">
+        <label>ratio</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="2">
+        <label>vector</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>src/ecat_pkg/src/ecat_lifecycle.cpp</label>
-        <link refid="ecat__lifecycle_8cpp"/>
-      </node>
-      <node id="4">
-        <label>src/ecat_pkg/src/main.cpp</label>
-        <link refid="ecat__pkg_2src_2main_8cpp"/>
-      </node>
       <node id="2">
         <label>src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp</label>
         <link refid="ecat__lifecycle_8hpp"/>
@@ -91,6 +83,14 @@
         <link refid="ecat__pkg_2include_2ecat__pkg_2timing_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="3">
+        <label>src/ecat_pkg/src/ecat_lifecycle.cpp</label>
+        <link refid="ecat__lifecycle_8cpp"/>
+      </node>
+      <node id="4">
+        <label>src/ecat_pkg/src/main.cpp</label>
+        <link refid="ecat__pkg_2src_2main_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classTiming" prot="public">Timing</innerclass>

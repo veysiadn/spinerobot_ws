@@ -8,7 +8,7 @@ var dir_49c8a06a9201d6d04532d5a0bfb6e5e9 =
     ] ],
     [ "gui_globals.hpp", "gui__globals_8hpp.html", "gui__globals_8hpp" ],
     [ "gui_node.hpp", "gui__node_8hpp.html", [
-      [ "GuiNode", "classGUI_1_1GuiNode.html", "classGUI_1_1GuiNode" ]
+      [ "GUI::GuiNode", "classGUI_1_1GuiNode.html", "classGUI_1_1GuiNode" ]
     ] ],
     [ "main_window.hpp", "main__window_8hpp.html", [
       [ "MainWindow", "classMainWindow.html", "classMainWindow" ]

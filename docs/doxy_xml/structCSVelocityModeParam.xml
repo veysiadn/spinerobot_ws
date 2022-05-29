@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="structCSVelocityModeParam" kind="struct" language="C++" prot="public">
     <compoundname>CSVelocityModeParam</compoundname>
     <includes refid="ecat__definitions_8hpp" local="no">ecat_definitions.hpp</includes>
@@ -76,10 +76,6 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="2">
-        <label>VelControlParam</label>
-        <link refid="structVelControlParam"/>
-      </node>
       <node id="1">
         <label>CSVelocityModeParam</label>
         <link refid="structCSVelocityModeParam"/>
@@ -87,8 +83,12 @@
           <edgelabel>velocity_controller_gain</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>VelControlParam</label>
+        <link refid="structVelControlParam"/>
+      </node>
     </collaborationgraph>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="370" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="369" bodyend="376"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" line="369" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_definitions.hpp" bodystart="370" bodyend="376"/>
     <listofallmembers>
       <member refid="structCSVelocityModeParam_1a6bcc685fb6d06ae1c972fa5c255770b5" prot="public" virt="non-virtual"><scope>CSVelocityModeParam</scope><name>interpolation_time_period</name></member>
       <member refid="structCSVelocityModeParam_1aeaccf4ae308c275cdf7d4165f8d9a8d2" prot="public" virt="non-virtual"><scope>CSVelocityModeParam</scope><name>profile_dec</name></member>

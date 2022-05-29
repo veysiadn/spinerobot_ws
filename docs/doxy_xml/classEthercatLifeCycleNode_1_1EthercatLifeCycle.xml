@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="classEthercatLifeCycleNode_1_1EthercatLifeCycle" kind="class" language="C++" prot="public">
     <compoundname>EthercatLifeCycleNode::EthercatLifeCycle</compoundname>
     <basecompoundref prot="public" virt="non-virtual">LifecycleNode</basecompoundref>
@@ -138,7 +138,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" line="331" column="19" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" bodystart="332" bodyend="-1"/>
+        <location file="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" line="332" column="26" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" bodystart="332" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEthercatLifeCycleNode_1_1EthercatLifeCycle_1a78acbaf6dc792b96f2df3fbef7395dfc" prot="private" static="no" mutable="no">
         <type>pthread_attr_t</type>
@@ -952,19 +952,20 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>LifecycleNode</label>
-      </node>
       <node id="1">
         <label>EthercatLifeCycleNode::EthercatLifeCycle</label>
         <link refid="classEthercatLifeCycleNode_1_1EthercatLifeCycle"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
       <node id="2">
         <label>LifecycleNode</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>Controller</label>
+        <link refid="classController"/>
       </node>
       <node id="1">
         <label>EthercatLifeCycleNode::EthercatLifeCycle</label>
@@ -982,12 +983,11 @@
         <label>Timing</label>
         <link refid="classTiming"/>
       </node>
-      <node id="3">
-        <label>Controller</label>
-        <link refid="classController"/>
+      <node id="2">
+        <label>LifecycleNode</label>
       </node>
     </collaborationgraph>
-    <location file="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" line="75" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" bodystart="74" bodyend="347"/>
+    <location file="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" line="74" column="1" bodyfile="src/ecat_pkg/include/ecat_pkg/ecat_lifecycle.hpp" bodystart="75" bodyend="347"/>
     <listofallmembers>
       <member refid="classEthercatLifeCycleNode_1_1EthercatLifeCycle_1a799a0bdf01f5a0da57c29900f3d8180d" prot="private" virt="non-virtual"><scope>EthercatLifeCycleNode::EthercatLifeCycle</scope><name>al_state_</name></member>
       <member refid="classEthercatLifeCycleNode_1_1EthercatLifeCycle_1a8852f433f1e6d0927892fab6f88e01d1" prot="private" virt="non-virtual"><scope>EthercatLifeCycleNode::EthercatLifeCycle</scope><name>command_</name></member>

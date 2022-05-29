@@ -1,30 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.2" xml:lang="en-US">
   <compounddef id="controlui_8hpp" kind="file" language="C++">
     <compoundname>controlui.hpp</compoundname>
     <includes local="no">QMainWindow</includes>
     <includedby refid="controlui_8cpp" local="yes">src/gui_pkg/src/controlui.cpp</includedby>
     <incdepgraph>
+      <node id="1">
+        <label>src/gui_pkg/include/gui_pkg/controlui.hpp</label>
+        <link refid="controlui_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="2">
         <label>QMainWindow</label>
       </node>
+    </incdepgraph>
+    <invincdepgraph>
       <node id="1">
         <label>src/gui_pkg/include/gui_pkg/controlui.hpp</label>
         <link refid="controlui_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-    </incdepgraph>
-    <invincdepgraph>
       <node id="2">
         <label>src/gui_pkg/src/controlui.cpp</label>
         <link refid="controlui_8cpp"/>
-      </node>
-      <node id="1">
-        <label>src/gui_pkg/include/gui_pkg/controlui.hpp</label>
-        <link refid="controlui_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classControlUI" prot="public">ControlUI</innerclass>
@@ -79,7 +79,7 @@
 <codeline lineno="43" refid="classControlUI_1ad236121ee522c3acd7c0184bb5b5d98f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Ui::ControlUI<sp/>*<ref refid="classControlUI_1ad236121ee522c3acd7c0184bb5b5d98f" kindref="member">ui</ref>;</highlight></codeline>
 <codeline lineno="44"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>CONTROLUI_HPP</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>CONTROLUI_HPP</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/gui_pkg/include/gui_pkg/controlui.hpp"/>
   </compounddef>
