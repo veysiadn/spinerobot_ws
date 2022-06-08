@@ -55,8 +55,8 @@ static int8_t   g_kOperationMode = kProfileVelocity ;
 #define MEASURE_TIMING   1    /// If you want to measure timings leave it as one, otherwise make it 0.
 #define DISTRIBUTED_CLOCK 0   /// If you want to use distributed clock make it one, otherwise leave it zero.
 /*****************************************************************************/
-#define GEAR_RATIO          103
-#define ENCODER_RESOLUTION  1024
+#define GEAR_RATIO          49
+#define ENCODER_RESOLUTION  1000
 #define INC_PER_ROTATION      GEAR_RATIO*ENCODER_RESOLUTION*4
 #define FIVE_DEGREE_CCW      int(INC_PER_ROTATION/72)
 #define THIRTY_DEGREE_CCW    int(INC_PER_ROTATION/12)

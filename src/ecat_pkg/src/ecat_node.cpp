@@ -584,6 +584,11 @@ int EthercatNode::SetCyclicSyncVelocityModeParametersAll(CSVelocityModeParam &P)
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set velocity Igain failed ! ");
             return -1;
         }
+        // Max profile velocity.
+        if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_MAX_PROFILE_VELOCITY,P.max_profile_vel) < 0) {
+            RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set max profile velocity failed ! ");
+            return -1;
+        }
         //profile deceleration
         if(ecrt_slave_config_sdo32(slaves_[i].slave_config_,OD_PROFILE_DECELERATION,P.profile_dec) < 0) {
             RCLCPP_ERROR(rclcpp::get_logger(__PRETTY_FUNCTION__), "Set profile deceleration failed ! ");

@@ -616,6 +616,7 @@ void MainWindow::ShowOperationMode()
                 ui->lb_op_mode_m3->setText(qstr);
                 break;
         }
+        qstr.clear();
     }
     
 }

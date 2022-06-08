@@ -122,6 +122,8 @@ typedef struct
     float left_y_axis_;
     float right_x_axis_;
     float right_y_axis_;
+    float left_t_axis_ ;
+    float right_t_axis_ ; 
     uint8_t blue_button_;
     uint8_t green_button_;
     uint8_t red_button_;
@@ -369,6 +371,7 @@ typedef struct
 typedef struct 
 {
     VelControlParam velocity_controller_gain ;
+    uint32_t max_profile_vel ;
     uint32_t quick_stop_dec ;
     uint32_t profile_dec ;
     uint32_t software_position_limit ; 
