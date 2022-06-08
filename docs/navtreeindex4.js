@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"object__dictionary_8hpp.html#a31d0ed64eb662ab9189ad53d0684efad":[5,0,0,2,0,0,5,138],
+"object__dictionary_8hpp.html#a31f30b528a4f1d95960ffbaf5c9185c1":[5,0,0,2,0,0,5,86],
 "object__dictionary_8hpp.html#a324bb914b4d5855ed0747e236c1a81ad":[5,0,0,2,0,0,5,37],
 "object__dictionary_8hpp.html#a3585e3467bb0526643572c71ba4e01f0":[5,0,0,2,0,0,5,66],
 "object__dictionary_8hpp.html#a3907175c44aeb61d5acec28f276eb3c9":[5,0,0,2,0,0,5,80],
@@ -28,8 +30,8 @@ var NAVTREEINDEX4 =
 "object__dictionary_8hpp.html#a61332bb7a4781315b18beeb8ad1a0b23":[5,0,0,2,0,0,5,13],
 "object__dictionary_8hpp.html#a639dddf2f1c114308ac8d851070eea0a":[5,0,0,2,0,0,5,107],
 "object__dictionary_8hpp.html#a67a844adb1df22f93037703a7aae4af6":[5,0,0,2,0,0,5,139],
-"object__dictionary_8hpp.html#a6822df369ac50db39f927af6962454ce":[5,0,0,2,0,0,5,83],
 "object__dictionary_8hpp.html#a6822df369ac50db39f927af6962454ce":[5,0,0,2,0,0,5,84],
+"object__dictionary_8hpp.html#a6822df369ac50db39f927af6962454ce":[5,0,0,2,0,0,5,83],
 "object__dictionary_8hpp.html#a6983efd4a3ccddad85466188e7d5aeae":[5,0,0,2,0,0,5,67],
 "object__dictionary_8hpp.html#a6e5dd26b943d8bd2d731f9718838e905":[5,0,0,2,0,0,5,49],
 "object__dictionary_8hpp.html#a6ffa5cae6c7d8bb0e74344f0573c43ef":[5,0,0,2,0,0,5,159],
@@ -184,11 +186,12 @@ var NAVTREEINDEX4 =
 "structCSTorqueModeParam.html#ad6dfc9b4b185c50981ebe09d8aa6b961":[4,0,7,3],
 "structCSTorqueModeParam.html#af38648d320e4ff0f5971ad1d9de39455":[4,0,7,1],
 "structCSVelocityModeParam.html":[4,0,8],
-"structCSVelocityModeParam.html#a0439f6be9b0240a3841ff23ebf90e165":[4,0,8,2],
-"structCSVelocityModeParam.html#a1924ebf9d9fa3a78df637fa45e585c14":[4,0,8,3],
+"structCSVelocityModeParam.html#a0439f6be9b0240a3841ff23ebf90e165":[4,0,8,3],
+"structCSVelocityModeParam.html#a1924ebf9d9fa3a78df637fa45e585c14":[4,0,8,4],
 "structCSVelocityModeParam.html#a6bcc685fb6d06ae1c972fa5c255770b5":[4,0,8,0],
-"structCSVelocityModeParam.html#ad0394a462256fede3e57111c4b1af73f":[4,0,8,4],
-"structCSVelocityModeParam.html#aeaccf4ae308c275cdf7d4165f8d9a8d2":[4,0,8,1],
+"structCSVelocityModeParam.html#ab388e3da9f58f577f4c729a7bfa6238a":[4,0,8,1],
+"structCSVelocityModeParam.html#ad0394a462256fede3e57111c4b1af73f":[4,0,8,5],
+"structCSVelocityModeParam.html#aeaccf4ae308c275cdf7d4165f8d9a8d2":[4,0,8,2],
 "structControlUIButtonData.html":[4,0,5],
 "structControlUIButtonData.html#a159f79d8922c840e127589b55bdd49e8":[4,0,5,8],
 "structControlUIButtonData.html#a16f408c268b53db43e393dd8cc27c22f":[4,0,5,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "structProfilePosParam.html#a821b805b7ef6f4e8c5fbc842d7987db6":[4,0,15,4],
 "structProfilePosParam.html#a8588f65715da0e04b65f7a87e04b5aea":[4,0,15,6],
 "structProfilePosParam.html#a8971c667340a81426f3f961565a65ee5":[4,0,15,0],
-"structProfilePosParam.html#abcb976befa531082677af4adf9e7a89d":[4,0,15,1],
-"structProfilePosParam.html#ad2d624335c5628bc6f4160bed9e6c4a6":[4,0,15,5],
-"structProfilePosParam.html#aeda779c60c429db32325ac466533b498":[4,0,15,8],
-"structProfileVelocityParam.html":[4,0,16]
+"structProfilePosParam.html#abcb976befa531082677af4adf9e7a89d":[4,0,15,1]
 };
