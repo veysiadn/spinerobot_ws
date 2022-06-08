@@ -21,7 +21,7 @@
     <includedby refid="gui__pkg_2src_2main_8cpp" local="yes">src/gui_pkg/src/main.cpp</includedby>
     <includedby refid="main__window_8cpp" local="yes">src/gui_pkg/src/main_window.cpp</includedby>
     <incdepgraph>
-      <node id="19">
+      <node id="20">
         <label>gui_globals.hpp</label>
         <link refid="gui__globals_8hpp"/>
       </node>
@@ -40,11 +40,11 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
@@ -60,6 +60,8 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>src/gui_pkg/include/gui_pkg/main_window.hpp</label>
@@ -74,11 +76,9 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
@@ -96,17 +96,17 @@
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>timing.hpp</label>
         <link refid="gui__pkg_2include_2gui__pkg_2timing_8hpp"/>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
@@ -118,14 +118,14 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>video_capture.hpp</label>
         <link refid="video__capture_8hpp"/>
-        <childnode refid="21" relation="include">
-        </childnode>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
@@ -138,49 +138,51 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>QApplication</label>
       </node>
-      <node id="33">
+      <node id="34">
         <label>QHeaderView</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>QImage</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>QMainWindow</label>
       </node>
-      <node id="21">
+      <node id="22">
         <label>QPixmap</label>
       </node>
-      <node id="31">
+      <node id="32">
         <label>QStandardItemModel</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>QString</label>
       </node>
-      <node id="32">
+      <node id="33">
         <label>QTableView</label>
       </node>
-      <node id="35">
+      <node id="36">
         <label>QTextStream</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>QThread</label>
       </node>
-      <node id="36">
+      <node id="37">
         <label>QTimer</label>
       </node>
       <node id="2">
         <label>chrono</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>cstdint</label>
       </node>
-      <node id="15">
+      <node id="16">
         <label>ctime</label>
       </node>
       <node id="8">
@@ -192,10 +194,10 @@
       <node id="10">
         <label>ecat_msgs/msg/gui_button_data.hpp</label>
       </node>
-      <node id="17">
+      <node id="18">
         <label>fstream</label>
       </node>
-      <node id="12">
+      <node id="13">
         <label>functional</label>
       </node>
       <node id="4">
@@ -204,19 +206,19 @@
       <node id="3">
         <label>memory</label>
       </node>
-      <node id="27">
+      <node id="28">
         <label>opencv2/core/core.hpp</label>
       </node>
-      <node id="25">
+      <node id="26">
         <label>opencv2/highgui/highgui.hpp</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>opencv2/imgproc.hpp</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>opencv2/opencv.hpp</label>
       </node>
-      <node id="16">
+      <node id="17">
         <label>ratio</label>
       </node>
       <node id="5">
@@ -225,13 +227,16 @@
       <node id="7">
         <label>sensor_msgs/msg/joy.hpp</label>
       </node>
-      <node id="13">
+      <node id="11">
+        <label>std_msgs/msg/u_int16.hpp</label>
+      </node>
+      <node id="14">
         <label>string</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>ui_mainwindow.h</label>
       </node>
-      <node id="11">
+      <node id="12">
         <label>vector</label>
       </node>
     </incdepgraph>
@@ -381,32 +386,34 @@
 <codeline lineno="157"><highlight class="normal"></highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classMainWindow_1ad089c525f40b13a176246174744e4266" kindref="member">ShowOperationMode</ref>();</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160" refid="classMainWindow_1a35466a70ed47252a0191168126a352a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Ui::MainWindow<sp/>*<ref refid="classMainWindow_1a35466a70ed47252a0191168126a352a5" kindref="member">ui</ref>;</highlight></codeline>
-<codeline lineno="161" refid="classMainWindow_1a641f8c24c72931a0e774025e33b71987" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classMainWindow_1a641f8c24c72931a0e774025e33b71987" kindref="member">argc_</ref>;</highlight></codeline>
-<codeline lineno="162" refid="classMainWindow_1aeaf74f00fe0680c71919c4904ac69bad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/><ref refid="classMainWindow_1aeaf74f00fe0680c71919c4904ac69bad" kindref="member">argv_</ref>;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classMainWindow_1a5d84e290c6ccc6d95c36d85ddad8ffce" kindref="member">GetDriveStates</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;<sp/>statusWord);</highlight></codeline>
-<codeline lineno="168" refid="classMainWindow_1ad8b6b03bd0dde96193232f0cbf7ed580" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1ad8b6b03bd0dde96193232f0cbf7ed580" kindref="member">blue_style_sheet_</ref><sp/>=</highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(5,<sp/>153,<sp/>44);}&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;selection-background-color:<sp/>rgb(238,<sp/>238,<sp/>236);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;selection-color:<sp/>rgb(238,<sp/>238,<sp/>236);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(19,<sp/>61,<sp/>128);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;alternate-background-color:<sp/>rgb(0,<sp/>0,<sp/>0);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>16pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="175" refid="classMainWindow_1a5c6b36e9507e175ec2a0dfa081c5c7b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1a5c6b36e9507e175ec2a0dfa081c5c7b7" kindref="member">sdo_style_sheet_</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(5,<sp/>153,<sp/>44);}&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(252,<sp/>119,<sp/>3);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>15pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="179" refid="classMainWindow_1a30bd56293e6556868d0c4aa1ebcbb37f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1a30bd56293e6556868d0c4aa1ebcbb37f" kindref="member">red_style_sheet</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(252,<sp/>186,<sp/>3);}&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(252,<sp/>0,<sp/>0);&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>15pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="183" refid="classMainWindow_1abd16d3dc5ac42f7ee311732452568d01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>QTimer<sp/><ref refid="classMainWindow_1abd16d3dc5ac42f7ee311732452568d01" kindref="member">my_timer</ref>;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>To<sp/>get<sp/>data<sp/>from<sp/>gui_node_<sp/>.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="185" refid="classMainWindow_1a4d0be713b3887132ae20938817a6116f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;GuiNode&gt;<sp/><ref refid="classMainWindow_1a4d0be713b3887132ae20938817a6116f" kindref="member">gui_node_</ref>;</highlight></codeline>
-<codeline lineno="186" refid="classMainWindow_1a70848fd0e676cb8bfa6f2a70d2ef75a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classVideoCapture" kindref="compound">VideoCapture</ref>*<sp/><ref refid="classMainWindow_1a70848fd0e676cb8bfa6f2a70d2ef75a5" kindref="member">opencv_video_cap</ref>;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>for<sp/>ROS2<sp/>spinning.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="188" refid="classMainWindow_1a3db7bc81842485486803124fdf8c3d06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::thread<sp/><ref refid="classMainWindow_1a3db7bc81842485486803124fdf8c3d06" kindref="member">ros_spin_thread_</ref>;</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>QString<sp/><ref refid="classMainWindow_1a82066d3dda0ac56577f54a7818c45b23" kindref="member">GetDriveErrorMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>err_code);</highlight></codeline>
+<codeline lineno="161" refid="classMainWindow_1a35466a70ed47252a0191168126a352a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Ui::MainWindow<sp/>*<ref refid="classMainWindow_1a35466a70ed47252a0191168126a352a5" kindref="member">ui</ref>;</highlight></codeline>
+<codeline lineno="162" refid="classMainWindow_1a641f8c24c72931a0e774025e33b71987" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classMainWindow_1a641f8c24c72931a0e774025e33b71987" kindref="member">argc_</ref>;</highlight></codeline>
+<codeline lineno="163" refid="classMainWindow_1aeaf74f00fe0680c71919c4904ac69bad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/><ref refid="classMainWindow_1aeaf74f00fe0680c71919c4904ac69bad" kindref="member">argv_</ref>;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classMainWindow_1a5d84e290c6ccc6d95c36d85ddad8ffce" kindref="member">GetDriveStates</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>&amp;<sp/>statusWord);</highlight></codeline>
+<codeline lineno="169" refid="classMainWindow_1ad8b6b03bd0dde96193232f0cbf7ed580" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1ad8b6b03bd0dde96193232f0cbf7ed580" kindref="member">blue_style_sheet_</ref><sp/>=</highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(5,<sp/>153,<sp/>44);}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;selection-background-color:<sp/>rgb(238,<sp/>238,<sp/>236);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;selection-color:<sp/>rgb(238,<sp/>238,<sp/>236);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(19,<sp/>61,<sp/>128);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;alternate-background-color:<sp/>rgb(0,<sp/>0,<sp/>0);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>16pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="176" refid="classMainWindow_1a5c6b36e9507e175ec2a0dfa081c5c7b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1a5c6b36e9507e175ec2a0dfa081c5c7b7" kindref="member">sdo_style_sheet_</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(5,<sp/>153,<sp/>44);}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(252,<sp/>119,<sp/>3);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>15pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="180" refid="classMainWindow_1a30bd56293e6556868d0c4aa1ebcbb37f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>QString<sp/><ref refid="classMainWindow_1a30bd56293e6556868d0c4aa1ebcbb37f" kindref="member">red_style_sheet</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;QPushButton:pressed<sp/>{background-color:<sp/>rgb(252,<sp/>186,<sp/>3);}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;QPushButton<sp/>{color:<sp/>rgb(255,<sp/>255,<sp/>255);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;background-color:<sp/>rgb(252,<sp/>0,<sp/>0);&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;font:<sp/>bold<sp/>75<sp/>15pt<sp/>\&quot;Noto<sp/>Sans\&quot;;}&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184" refid="classMainWindow_1abd16d3dc5ac42f7ee311732452568d01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>QTimer<sp/><ref refid="classMainWindow_1abd16d3dc5ac42f7ee311732452568d01" kindref="member">my_timer</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>To<sp/>get<sp/>data<sp/>from<sp/>gui_node_<sp/>.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186" refid="classMainWindow_1a4d0be713b3887132ae20938817a6116f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;GuiNode&gt;<sp/><ref refid="classMainWindow_1a4d0be713b3887132ae20938817a6116f" kindref="member">gui_node_</ref>;</highlight></codeline>
+<codeline lineno="187" refid="classMainWindow_1a70848fd0e676cb8bfa6f2a70d2ef75a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classVideoCapture" kindref="compound">VideoCapture</ref>*<sp/><ref refid="classMainWindow_1a70848fd0e676cb8bfa6f2a70d2ef75a5" kindref="member">opencv_video_cap</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>for<sp/>ROS2<sp/>spinning.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189" refid="classMainWindow_1a3db7bc81842485486803124fdf8c3d06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::thread<sp/><ref refid="classMainWindow_1a3db7bc81842485486803124fdf8c3d06" kindref="member">ros_spin_thread_</ref>;</highlight></codeline>
+<codeline lineno="190" refid="classMainWindow_1a012418c2fea515e723f683d01febfadd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="classMainWindow_1a012418c2fea515e723f683d01febfadd" kindref="member">em_state_</ref>=0;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
     </programlisting>
     <location file="src/gui_pkg/include/gui_pkg/main_window.hpp"/>
   </compounddef>

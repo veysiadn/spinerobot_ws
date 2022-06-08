@@ -20,5 +20,5 @@ var searchData=
   ['lifecycle_5fpub_5fsub_5flaunch_17',['lifecycle_pub_sub_launch',['../namespacelifecycle__pub__sub__launch.html',1,'']]],
   ['lifecycle_5fpub_5fsub_5flaunch_2epy_18',['lifecycle_pub_sub_launch.py',['../lifecycle__pub__sub__launch_8py.html',1,'']]],
   ['lifecyclestates_19',['LifeCycleStates',['../gui__globals_8hpp.html#ae244c86447fc8505a577e48f17fb9b34',1,'gui_globals.hpp']]],
-  ['logic_5fsupply_5ftoo_5flow_5ferror_20',['LOGIC_SUPPLY_TOO_LOW_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aaf222afd036ad548f510f85ecb6b115d1',1,'ecat_definitions.hpp']]]
+  ['logic_5fsupply_5ftoo_5flow_5ferror_20',['LOGIC_SUPPLY_TOO_LOW_ERROR',['../ecat__definitions_8hpp.html#ab0df38968e4f03a3f1f6d6df0f31f45aaf222afd036ad548f510f85ecb6b115d1',1,'LOGIC_SUPPLY_TOO_LOW_ERROR():&#160;ecat_definitions.hpp'],['../gui__globals_8hpp.html#afeaa6acaf321700c18979784e52e5352af222afd036ad548f510f85ecb6b115d1',1,'LOGIC_SUPPLY_TOO_LOW_ERROR():&#160;gui_globals.hpp']]]
 ];

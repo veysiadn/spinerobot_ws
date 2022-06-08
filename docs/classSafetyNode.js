@@ -12,5 +12,7 @@ var classSafetyNode =
     [ "gui_button_subscriber_", "classSafetyNode.html#add79790a628392c99133a596df4eb458", null ],
     [ "joystick_subscriber_", "classSafetyNode.html#a5532f3816bd196ced9de231b3df4a17b", null ],
     [ "lifecycle_node_data_", "classSafetyNode.html#ac7d3f21660608df7643b058c4e76e5ed", null ],
-    [ "lifecycle_node_subscriber_", "classSafetyNode.html#a1d5900bde952a9babd670c2f384278df", null ]
+    [ "lifecycle_node_subscriber_", "classSafetyNode.html#a1d5900bde952a9babd670c2f384278df", null ],
+    [ "safety_state_msg_", "classSafetyNode.html#abd46448512fd6bc54b6f28ae02fdeb94", null ],
+    [ "safety_state_publisher_", "classSafetyNode.html#a81f33bbc3cf476f67bf8b68f54b9d3a7", null ]
 ];
