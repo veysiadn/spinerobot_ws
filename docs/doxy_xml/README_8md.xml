@@ -43,6 +43,7 @@
 <codeline><highlight class="normal">-<sp/>[Dynamixel-SDK](https://github.com/ROBOTIS-GIT/DynamixelSDK)</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Implementation</highlight></codeline>
+<codeline><highlight class="normal">#####<sp/>Don&apos;t<sp/>forget<sp/>to<sp/>change<sp/>the<sp/>launch<sp/>file,<sp/>based<sp/>on<sp/>your<sp/>system,<sp/>custom<sp/>node,<sp/>CPU<sp/>isolation<sp/>etc.</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
 <codeline><highlight class="normal">```sh</highlight></codeline>
 <codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/veysiadn/spinerobot_ws<sp/></highlight></codeline>
@@ -52,7 +53,7 @@
 <codeline><highlight class="normal">source<sp/>/opt/ros/foxy/setup.bash</highlight></codeline>
 <codeline><highlight class="normal">colcon<sp/>build<sp/>--symlink<sp/>install</highlight></codeline>
 <codeline><highlight class="normal">.<sp/>install/setup.bash</highlight></codeline>
-<codeline><highlight class="normal">ros2<sp/>launch<sp/>./src/ethercat_nodes_launch.py</highlight></codeline>
+<codeline><highlight class="normal">ros2<sp/>launch<sp/>launch_all_nodes.py</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Getting<sp/>Started</highlight></codeline>

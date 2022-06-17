@@ -29,13 +29,13 @@ var NAVTREE =
       [ "Guides", "index.html#autotoc_md1", null ],
       [ "Prerequisites", "index.html#autotoc_md2", null ],
       [ "Implementation", "index.html#autotoc_md3", null ],
-      [ "Getting Started", "index.html#autotoc_md4", [
-        [ "STEP 1 :", "index.html#autotoc_md5", null ],
-        [ "STEP 2 :", "index.html#autotoc_md6", null ],
-        [ "STEP 3 :", "index.html#autotoc_md7", null ],
-        [ "NOTE", "index.html#autotoc_md8", null ]
+      [ "Getting Started", "index.html#autotoc_md5", [
+        [ "STEP 1 :", "index.html#autotoc_md6", null ],
+        [ "STEP 2 :", "index.html#autotoc_md7", null ],
+        [ "STEP 3 :", "index.html#autotoc_md8", null ],
+        [ "NOTE", "index.html#autotoc_md9", null ]
       ] ],
-      [ "Good Luck ⚡", "index.html#autotoc_md9", null ]
+      [ "Good Luck ⚡", "index.html#autotoc_md10", null ]
     ] ],
     [ "Examples", "examples.html", null ],
     [ "Useful Resources", "resources.html", null ],

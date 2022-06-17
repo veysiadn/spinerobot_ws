@@ -40,6 +40,8 @@
 </sect1>
 <sect1 id="index_1autotoc_md3">
 <title>Implementation</title>
+<sect4 id="index_1autotoc_md4">
+<title>Don&apos;t forget to change the launch file, based on your system, custom node, CPU isolation etc.</title>
 <para><programlisting filename=".sh"><codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/veysiadn/spinerobot_ws<sp/></highlight></codeline>
 <codeline><highlight class="normal">cd<sp/>spinerobot_ws<sp/></highlight></codeline>
 <codeline><highlight class="normal">git<sp/>checkout<sp/>development</highlight></codeline>
@@ -47,12 +49,13 @@
 <codeline><highlight class="normal">source<sp/>/opt/ros/foxy/setup.bash</highlight></codeline>
 <codeline><highlight class="normal">colcon<sp/>build<sp/>--symlink<sp/>install</highlight></codeline>
 <codeline><highlight class="normal">.<sp/>install/setup.bash</highlight></codeline>
-<codeline><highlight class="normal">ros2<sp/>launch<sp/>./src/ethercat_nodes_launch.py</highlight></codeline>
+<codeline><highlight class="normal">ros2<sp/>launch<sp/>launch_all_nodes.py</highlight></codeline>
 </programlisting></para>
+</sect4>
 </sect1>
-<sect1 id="index_1autotoc_md4">
+<sect1 id="index_1autotoc_md5">
 <title>Getting Started</title>
-<sect2 id="index_1autotoc_md5">
+<sect2 id="index_1autotoc_md6">
 <title>STEP 1 :</title>
 <para>You should start your customization from <ref refid="ecat__globals_8hpp" kindref="compound">ecat_globals.hpp</ref> file. In that file you can specify :<itemizedlist>
 <listitem><para>Number of connected slaves and servo drives,</para>
@@ -67,7 +70,7 @@
 </listitem><listitem></listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="index_1autotoc_md6">
+<sect2 id="index_1autotoc_md7">
 <title>STEP 2 :</title>
 <para>Once you did your initial configuration in the <ref refid="ecat__globals_8hpp" kindref="compound">ecat_globals.hpp</ref> file. You can modify user input method in main.cpp file.<itemizedlist>
 <listitem><para>Currently this software uses XboxController buttons and joystick data to send control commands to the connected motors, if you want to use different input you can remove Xbox related control parameters and add your own.</para>
@@ -75,7 +78,7 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="index_1autotoc_md7">
+<sect2 id="index_1autotoc_md8">
 <title>STEP 3 :</title>
 <para><itemizedlist>
 <listitem><para>Change configuration parameters for your motor in <ulink url="https://veysiadn.github.io/ecat_userspace/classEthercatLifeCycleNode_1_1EthercatLifeCycle.html#a620253b4fe34f13f06a60f1fb12a81cc">SetConfigurationParameters()</ulink> function in <ref refid="ecat__lifecycle_8cpp" kindref="compound">ecat_lifecycle.cpp</ref> file, based on your operation mode. You can check example page for detailed instructions on custom modifications, in Examples tab.</para>
@@ -84,7 +87,7 @@
 </para>
 <para>Once you did those changes you will need recompile the software using make and you can test the executable.</para>
 </sect2>
-<sect2 id="index_1autotoc_md8">
+<sect2 id="index_1autotoc_md9">
 <title>NOTE</title>
 <para><itemizedlist>
 <listitem><para>This software heavily tested on Maxon EPOS drivers, therefore if you want to use different servo driver you will need to check PDO mapping of your slave, or you can do custom PDO mapping by using MapCustomPdo function defined in <ref refid="ecat__node_8cpp" kindref="compound">ecat_node.cpp</ref> file.</para>
@@ -92,7 +95,7 @@
 </para>
 </sect2>
 </sect1>
-<sect1 id="index_1autotoc_md9">
+<sect1 id="index_1autotoc_md10">
 <title>Good Luck ⚡</title>
 </sect1>
     </detaileddescription>

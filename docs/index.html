@@ -118,6 +118,8 @@ Prerequisites</h1>
 </ul>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Implementation</h1>
+<h4><a class="anchor" id="autotoc_md4"></a>
+Don't forget to change the launch file, based on your system, custom node, CPU isolation etc.</h4>
 <div class="fragment"><div class="line">git clone https://github.com/veysiadn/spinerobot_ws </div>
 <div class="line">cd spinerobot_ws </div>
 <div class="line">git checkout development</div>
@@ -125,10 +127,10 @@ Implementation</h1>
 <div class="line">source /opt/ros/foxy/setup.bash</div>
 <div class="line">colcon build --symlink install</div>
 <div class="line">. install/setup.bash</div>
-<div class="line">ros2 launch ./src/ethercat_nodes_launch.py</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+<div class="line">ros2 launch launch_all_nodes.py</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Getting Started</h1>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 STEP 1 :</h2>
 <p >You should start your customization from <a class="el" href="ecat__globals_8hpp.html">ecat_globals.hpp</a> file. In that file you can specify :</p><ul>
 <li>Number of connected slaves and servo drives,</li>
@@ -142,25 +144,25 @@ STEP 1 :</h2>
 <li>If you have a custom slave, it must be in the end of slave chain.</li>
 <li></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 STEP 2 :</h2>
 <p >Once you did your initial configuration in the <a class="el" href="ecat__globals_8hpp.html">ecat_globals.hpp</a> file. You can modify user input method in main.cpp file.</p><ul>
 <li>Currently this software uses XboxController buttons and joystick data to send control commands to the connected motors, if you want to use different input you can remove Xbox related control parameters and add your own.</li>
 <li>If you want to use Xbox <a class="el" href="classController.html" title="Opens, reads from and publishes joystick events.">Controller</a> for testing, keep in mind that each axis in the controller generates analog data in the range of -32768 ~ 32768.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 STEP 3 :</h2>
 <ul>
 <li>Change configuration parameters for your motor in <a href="https://veysiadn.github.io/ecat_userspace/classEthercatLifeCycleNode_1_1EthercatLifeCycle.html#a620253b4fe34f13f06a60f1fb12a81cc">SetConfigurationParameters()</a> function in <a class="el" href="ecat__lifecycle_8cpp.html">ecat_lifecycle.cpp</a> file, based on your operation mode. You can check example page for detailed instructions on custom modifications, in Examples tab.</li>
 <li>Change control parameters based on your selected operation mode in <a class="el" href="ecat__lifecycle_8cpp.html">ecat_lifecycle.cpp</a> file in the Update functions. For example if you want to use velocity mode in your control loop, you can change function content of UpdateVelocityModeParameters();</li>
 </ul>
 <p >Once you did those changes you will need recompile the software using make and you can test the executable.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 NOTE</h2>
 <ul>
 <li>This software heavily tested on Maxon EPOS drivers, therefore if you want to use different servo driver you will need to check PDO mapping of your slave, or you can do custom PDO mapping by using MapCustomPdo function defined in <a class="el" href="ecat__node_8cpp.html">ecat_node.cpp</a> file.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Good Luck ⚡</h1>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
