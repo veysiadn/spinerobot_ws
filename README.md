@@ -34,6 +34,7 @@ Published and subscribed topics for each node are shown in Table 3, and the deta
 - [Dynamixel-SDK](https://github.com/ROBOTIS-GIT/DynamixelSDK)
 
 ## Implementation
+##### Don't forget to change the launch file, based on your system, custom node, CPU isolation etc.
   
 ```sh
 git clone https://github.com/veysiadn/spinerobot_ws 
@@ -43,7 +44,7 @@ sudo -s
 source /opt/ros/foxy/setup.bash
 colcon build --symlink install
 . install/setup.bash
-ros2 launch ./src/ethercat_nodes_launch.py
+ros2 launch launch_all_nodes.py
 ```
 
 ## Getting Started
